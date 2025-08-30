@@ -54,6 +54,16 @@ jobs:
             return 1
           fi
 
+      - name: Upload Build Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: pokemon-yellow-build
+          path: |
+            *.gbc
+          if-no-files-found: error
+          retention-days: 3
+          overwrite: true
+
       - name: Discord webhook
         if: ${{ github.event_name == 'push' && github.repository_owner == 'pret' }}
         env:
