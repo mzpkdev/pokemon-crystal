@@ -36,44 +36,9 @@ InitGender:
 	ld a, [wMenuCursorY]
 	dec a
 	ld [wPlayerGender], a
-.loop
-	ld hl, ThisGameHasTwoGameModesText
-	call PrintText
-	hlcoord 0, 0
-	ld b, 4
-	ld c, 18
-	call TextboxBorder
-	hlcoord 0, 6
-	ld b, 1
-	ld c, 14
-	call TextboxBorder
-	ld hl, MenuHeader_GameModes
-	call LoadMenuHeader
-	call WaitBGMap2
-	call ScrollingMenu
-	call CloseWindow
-	ld a, [wMenuCursorY]
+	; Set Challenge Mode as default
 	ld hl, wChallengeMode
-	dec a
-	res GAME_CHALLENGE_MODE_F, [hl]
-	jr z, .no_challenge
 	set GAME_CHALLENGE_MODE_F, [hl]
-.no_challenge
-	call ClearGenderScreen
-	call LoadGenderScreenPal
-	call LoadGenderScreenLightBlueTile
-	call WaitBGMap2
-	call SetDefaultBGPAndOBP
-	ld hl, TextJump_ThisCannotBeChanged
-	call PrintText
-	ld hl, MenuHeader_GameModeAreYouSure
-	call LoadMenuHeader
-	call WaitBGMap2
-	call VerticalMenu
-	call CloseWindow
-	ld a, [wMenuCursorY]
-	dec a
-	jr nz, .loop
 	ld c, 10
 	call DelayFrames
 	ret
