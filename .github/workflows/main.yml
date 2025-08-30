@@ -24,19 +24,19 @@ jobs:
         run: |
           sudo apt-get install -yq libpng-dev
           sudo make install
-      
+
       - name: Checkout superfamiconv
         uses: actions/checkout@master
         with:
           path: superfamiconv
           ref: v0.11.0
           repository: Optiroc/SuperFamiconv
-      
+
       - name: Build superfamiconv
         working-directory: superfamiconv
         run: |
           make
-      
+
       - name: Move superfamiconv to tools/
         run: |
           mv superfamiconv/build/release/superfamiconv tools/superfamiconv
@@ -57,12 +57,22 @@ jobs:
       - name: Upload Build Artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: pokemon-yellow-build
+          name: pokecrystal-build
           path: |
             *.gbc
           if-no-files-found: error
           retention-days: 3
           overwrite: true
+
+      - name: Create Release
+        if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
+        uses: softprops/action-gh-release@v1
+        with:
+          name: PokeCrystal Build ${{ github.run_number }}
+          tag_name: build-${{ github.run_number }}
+          files: |
+            *.gbc
+          generate_release_notes: true
 
       - name: Discord webhook
         if: ${{ github.event_name == 'push' && github.repository_owner == 'pret' }}
