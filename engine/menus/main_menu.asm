@@ -278,7 +278,6 @@ MainMenu_PrintCurrentVersion:
 	jp PlaceString
 
 .VersionString
-	db "v5.5a"
 	db "@"
 
 MainMenu_PrintCurrentTimeAndDay:
