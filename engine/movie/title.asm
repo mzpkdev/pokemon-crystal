@@ -66,9 +66,9 @@ _TitleScreen:
 	ld bc, BG_MAP_WIDTH
 	ld a, 5
 	call ByteFill
-; lines 8-9
+; line 8 only (removed line 9 to eliminate the frame)
 	hlbgcoord 0, 8
-	ld bc, 2 * BG_MAP_WIDTH
+	ld bc, BG_MAP_WIDTH
 	ld a, 6
 	call ByteFill
 
