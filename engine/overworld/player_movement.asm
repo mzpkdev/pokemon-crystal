@@ -318,7 +318,21 @@ endc
 	ret
 
 .walk
+	; Check if B button is pressed for running shoes
+	ld a, [wPlayerState]
+	cp PLAYER_NORMAL
+	jr nz, .no_running_shoes
+	ld a, [wCurInput]
+	bit B_BUTTON_F, a
+	jr nz, .run
+.no_running_shoes
 	ld a, STEP_WALK
+	call .DoStep
+	scf
+	ret
+
+.run
+	ld a, STEP_BIKE
 	call .DoStep
 	scf
 	ret
@@ -573,7 +587,7 @@ endc
 
 .CheckForced:
 ; When sliding on ice or spinning, input is forced to remain in the same direction.
- 
+
 	call CheckSpinning
 	jr z, .not_spinning
 	dec a
