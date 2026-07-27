@@ -25,9 +25,12 @@ HueyPhoneScript2:
 	setval REMATCH_CONTACT_HUEY
 	special Special_CheckRematchScheduleUsed
 	iftruefwd .Flavor
-	farscall PhoneScript_Random3
-	ifequalfwd $0, HueyWantsBattle
-	ifequalfwd $1, HueyWantsBattle
+	setval PHONE_EVENT_CAP_REMATCH | PHONE_EVENT_CAP_FLAVOR
+	special Special_StageRematchPhoneEventCandidates
+	setval REMATCH_CONTACT_HUEY
+	special Special_SelectRematchContactPhoneEvent
+	ifequalfwd PHONE_EVENT_REMATCH, HueyWantsBattle
+	ifequalfwd PHONE_EVENT_FLAVOR, .Flavor
 
 .Flavor:
 	farsjump PhoneScript_MonFlavorText
