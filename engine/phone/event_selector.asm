@@ -132,11 +132,13 @@ SelectRematchContactPhoneEvent::
 ;
 ; Input:
 ;   a = REMATCH_CONTACT_* ID
-;   c = PHONE_EVENT_CAP_* candidate mask
+;   c = PHONE_EVENT_CAP_* candidate mask, optionally ORed with
+;       PHONE_EVENT_USE_REPEAT_POLICY
 ;
 ; The caller's dynamic candidates are intersected with the contact's static
 ; capabilities before selection. Contacts without a modeled policy table fail
-; safely instead of borrowing another contact's odds.
+; safely instead of borrowing another contact's odds. Repeat-policy requests
+; likewise fail safely when the contact has no alternate table.
 ;
 ; Output:
 ;   carry clear, a = selected PHONE_EVENT_RESULT_*
@@ -146,6 +148,12 @@ SelectRematchContactPhoneEvent::
 	cp NUM_REMATCH_CONTACTS
 	jr nc, .failed
 	ld e, a
+	ld a, c
+	and PHONE_EVENT_USE_REPEAT_POLICY
+	ld b, a
+	ld a, c
+	and PHONE_EVENT_CAP_MASK
+	ld c, a
 	push de
 	push bc
 	call GetRematchPhoneEventCapabilities
@@ -158,6 +166,10 @@ SelectRematchContactPhoneEvent::
 	; Three-byte far pointer indexed in canonical REMATCH_CONTACT_* order.
 	ld d, 0
 	ld hl, RematchPhoneEventSelectionTables
+	bit 7, b
+	jr z, .got_pointer_table
+	ld hl, RematchPhoneEventRepeatSelectionTables
+.got_pointer_table
 	add hl, de
 	add hl, de
 	add hl, de

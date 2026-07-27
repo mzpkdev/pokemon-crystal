@@ -345,7 +345,8 @@ Special_GetRematchPhoneEventCapabilities:
 	ret
 
 Special_StageRematchPhoneEventCandidates:
-; Input: hScriptVar = PHONE_EVENT_CAP_* candidate mask.
+; Input: hScriptVar = PHONE_EVENT_CAP_* candidate mask, optionally ORed with
+; PHONE_EVENT_USE_REPEAT_POLICY to select the contact's alternate policy.
 ; Stages the mask in the second byte of the script result word. Call
 ; Special_SelectRematchContactPhoneEvent immediately after setting hScriptVar
 ; to a REMATCH_CONTACT_* ID; selection eagerly consumes and clears the mask.
@@ -354,7 +355,8 @@ Special_StageRematchPhoneEventCandidates:
 	ret
 
 Special_SelectRematchContactPhoneEvent:
-; Input: hScriptVar = REMATCH_CONTACT_* ID; hScriptVar + 1 = staged candidates.
+; Input: hScriptVar = REMATCH_CONTACT_* ID; hScriptVar + 1 = staged candidates
+; (and optional PHONE_EVENT_USE_REPEAT_POLICY).
 ; Output: hScriptVar = PHONE_EVENT_RESULT_* (including distinct variants); the
 ; staged candidate mask is always cleared before selection so it cannot be
 ; reused accidentally.

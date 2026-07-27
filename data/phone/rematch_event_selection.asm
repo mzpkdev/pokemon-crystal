@@ -37,9 +37,19 @@ RematchPhoneEventSelectionTables:
 	rematch_phone_event_table ErinPhoneEventSelection    ; ERIN
 	assert_table_length NUM_REMATCH_CONTACTS
 
+RematchPhoneEventRepeatSelectionTables:
+; Optional alternate policies selected by PHONE_EVENT_USE_REPEAT_POLICY.
+; These remain null until a contact's repeat-gift odds are modeled.
+	table_width 3
+	rept NUM_REMATCH_CONTACTS
+		no_rematch_phone_event_table
+	endr
+	assert_table_length NUM_REMATCH_CONTACTS
+
 	assert REMATCH_CONTACT_HUEY == 1
 	assert REMATCH_CONTACT_ANTHONY == 10
 	assert BANK(RematchPhoneEventSelectionTables) == BANK(SelectRematchContactPhoneEvent)
+	assert BANK(RematchPhoneEventRepeatSelectionTables) == BANK(SelectRematchContactPhoneEvent)
 	assert BANK(RematchPhoneEventCapabilities) == BANK(SelectRematchContactPhoneEvent)
 
 JackPhoneEventSelection:
