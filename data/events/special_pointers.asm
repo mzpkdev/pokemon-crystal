@@ -68,6 +68,8 @@ SpecialsPointers::
 	add_special Special_DayCareMon1
 	add_special Special_DayCareMon2
 	add_special Special_SelectRandomBugContestContestants
+	add_special Special_CheckActiveSwarm
+	add_special Special_TryActivateSwarm
 	add_special Special_ActivateFishingSwarm
 	add_special ToggleMaptileDecorations
 	add_special ToggleDecorationsVisibility

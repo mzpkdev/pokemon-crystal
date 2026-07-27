@@ -35,7 +35,8 @@ TrainerHikerAnthony:
 	opentext
 	checkflag ENGINE_ANTHONY_READY_FOR_REMATCH
 	iftruefwd .Rematch
-	checkflag ENGINE_DUNSPARCE_SWARM
+	setval SWARM_DUNSPARCE_ID
+	special Special_CheckActiveSwarm
 	iftrue_jumpopenedtext HikerAnthonyDunsparceText
 	checkcellnum PHONE_HIKER_ANTHONY
 	iftruefwd .NumberAccepted

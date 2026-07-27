@@ -478,7 +478,8 @@ TrainerFisherRalph1:
 	opentext
 	checkflag ENGINE_RALPH_READY_FOR_REMATCH
 	iftruefwd .Rematch
-	checkflag ENGINE_FISH_SWARM
+	setval SWARM_QWILFISH_ID
+	special Special_CheckActiveSwarm
 	iftruefwd .Swarm
 	checkcellnum PHONE_FISHER_RALPH
 	iftruefwd .NumberAccepted

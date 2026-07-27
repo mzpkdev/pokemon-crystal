@@ -9,6 +9,12 @@ DEF NUM_SWARMS EQU const_value - 1
 static_assert SWARM_NONE == 0
 static_assert NUM_SWARMS < $100
 
+; Script-facing activation results
+	const_def
+	const SWARM_ACTIVATE_BLOCKED
+	const SWARM_ACTIVATE_NEW
+	const SWARM_ACTIVATE_CURRENT
+
 ; Swarm encounter methods
 	const_def
 	const SWARM_METHOD_LAND

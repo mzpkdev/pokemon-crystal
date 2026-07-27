@@ -135,7 +135,8 @@ TrainerBug_catcherArnie1:
 	opentext
 	checkflag ENGINE_ARNIE_READY_FOR_REMATCH
 	iftruefwd .WantsBattle
-	checkflag ENGINE_YANMA_SWARM
+	setval SWARM_YANMA_ID
+	special Special_CheckActiveSwarm
 	iftruefwd .YanmaSwarming
 	checkcellnum PHONE_BUG_CATCHER_ARNIE
 	iftrue Route35NumberAcceptedM

@@ -11,7 +11,8 @@ ArniePhoneScript1:
 	iftruefwd ArnieTuesdayMorning
 
 .NotTuesday:
-	checkflag ENGINE_YANMA_SWARM
+	setval SWARM_YANMA_ID
+	special Special_CheckActiveSwarm
 	iftruefwd .AlreadySwarming
 	farsjump ArnieHangUpScript
 
@@ -49,11 +50,11 @@ ArnieWantsBattle:
 	farsjump PhoneScript_WantsToBattle_Male
 
 ArnieYanmaSwarm: ; start swarm
-	checkflag ENGINE_YANMA_SWARM
-	iftruefwd ArnieYanmaAlreadySwarming
-	setflag ENGINE_YANMA_SWARM
+	setval SWARM_YANMA_ID
+	special Special_TryActivateSwarm
+	ifequalfwd SWARM_ACTIVATE_CURRENT, ArnieYanmaAlreadySwarming
+	ifequalfwd SWARM_ACTIVATE_BLOCKED, ArnieSwarmGeneric
 	getmonname YANMA, STRING_BUFFER_4
-	swarm SWARM_YANMA, ROUTE_35
 	getlandmarkname ROUTE_35, STRING_BUFFER_5
 	farsjump ArnieSwarmScript
 
@@ -61,4 +62,8 @@ ArnieFoundRare:
 	farsjump Phone_CheckIfUnseenRare_Male
 
 ArnieYanmaAlreadySwarming:
+	getlandmarkname ROUTE_35, STRING_BUFFER_5
+	farsjump ArnieHurryScript
+
+ArnieSwarmGeneric:
 	farsjump Phone_GenericCall_Male

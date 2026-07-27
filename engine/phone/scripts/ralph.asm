@@ -10,7 +10,8 @@ RalphPhoneScript1:
 	checktime 1 << MORN
 	iftruefwd Ralph_WednesdayMorning
 Ralph_CheckSwarm:
-	checkflag ENGINE_FISH_SWARM
+	setval SWARM_QWILFISH_ID
+	special Special_CheckActiveSwarm
 	iftruefwd Ralph_ReportSwarm
 	farsjump RalphNoItemScript
 
@@ -46,14 +47,17 @@ Ralph_FightMe:
 	farsjump PhoneScript_WantsToBattle_Male
 
 Ralph_SetUpSwarm:
-	checkflag ENGINE_FISH_SWARM
-	iftruefwd .Generic
-	setflag ENGINE_FISH_SWARM
+	setval SWARM_QWILFISH_ID
+	special Special_TryActivateSwarm
+	ifequalfwd SWARM_ACTIVATE_CURRENT, .AlreadySwarming
+	ifequalfwd SWARM_ACTIVATE_BLOCKED, .Generic
 	getmonname QWILFISH, STRING_BUFFER_4
 	getlandmarkname ROUTE_32, STRING_BUFFER_5
-	setval FISHSWARM_QWILFISH
-	special Special_ActivateFishingSwarm
 	farsjump RalphItemScript
+
+.AlreadySwarming:
+	getlandmarkname ROUTE_32, STRING_BUFFER_5
+	farsjump RalphHurryScript
 
 .Generic:
 	farsjump Phone_GenericCall_Male

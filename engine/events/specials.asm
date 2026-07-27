@@ -244,6 +244,53 @@ Special_ActivateFishingSwarm:
 	ld [wFishingSwarmFlag], a
 	ret
 
+Special_CheckActiveSwarm:
+; Input: hScriptVar = swarm ID.
+; Output: TRUE if that specific swarm is active.
+	ldh a, [hScriptVar]
+	push af
+	farcall GetActiveSwarm
+	jr c, .no_active
+	ld b, a
+	pop af
+	cp b
+	jr nz, .no
+	ld a, TRUE
+	jr .done
+
+.no_active
+	pop af
+.no
+	xor a
+.done
+	ldh [hScriptVar], a
+	ret
+
+Special_TryActivateSwarm:
+; Input: hScriptVar = swarm ID.
+; Output: SWARM_ACTIVATE_* result.
+	ldh a, [hScriptVar]
+	push af
+	farcall GetActiveSwarm
+	jr c, .activate
+	ld b, a
+	pop af
+	cp b
+	ld a, SWARM_ACTIVATE_CURRENT
+	jr z, .done
+	ld a, SWARM_ACTIVATE_BLOCKED
+	jr .done
+
+.activate
+	pop af
+	farcall TryActivateSwarm
+	ld a, SWARM_ACTIVATE_NEW
+	jr nc, .done
+	ld a, SWARM_ACTIVATE_BLOCKED
+.done
+	ldh [hScriptVar], a
+	ret
+
 StoreSwarmMapIndices::
 	ld a, c
 	and a
