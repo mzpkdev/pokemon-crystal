@@ -1433,7 +1433,9 @@ wBugContestOfficerPrize:: db
 wInPokegear:: db
 wWalkingOnBridge:: db
 
-wDailyRematchFlags:: ds 4
+wDailyRematchFlags:: ds REMATCH_FLAG_BYTES
+wDailyRematchFlagsEnd::
+	assert wDailyRematchFlagsEnd - wDailyRematchFlags == REMATCH_FLAG_BYTES
 wDailyPhoneItemFlags:: ds 4
 wDailyPhoneTimeOfDayFlags:: ds 4
 wKenjiBreakTimer:: dw ; Kenji

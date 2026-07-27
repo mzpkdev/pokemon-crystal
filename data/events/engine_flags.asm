@@ -168,30 +168,33 @@ EngineFlags:
 	engine_flag wCelebiEvent, CELEBIEVENT_FOREST_IS_RESTLESS_F
 
 	; rematches
-	engine_flag wDailyRematchFlags, 0  ; jack
-	engine_flag wDailyRematchFlags, 1  ; huey
-	engine_flag wDailyRematchFlags, 2  ; gaven
-	engine_flag wDailyRematchFlags, 3  ; beth
-	engine_flag wDailyRematchFlags, 4  ; jose
-	engine_flag wDailyRematchFlags, 5  ; reena
-	engine_flag wDailyRematchFlags, 6  ; joey
-	engine_flag wDailyRematchFlags, 7  ; wade
-	engine_flag wDailyRematchFlags, 8  ; ralph
-	engine_flag wDailyRematchFlags, 9  ; liz
-	engine_flag wDailyRematchFlags, 10 ; anthony
-	engine_flag wDailyRematchFlags, 11 ; todd
-	engine_flag wDailyRematchFlags, 12 ; gina
-	engine_flag wDailyRematchFlags, 13 ; arnie
-	engine_flag wDailyRematchFlags, 14 ; alan
-	engine_flag wDailyRematchFlags, 15 ; dana
-	engine_flag wDailyRematchFlags, 16 ; chad
-	engine_flag wDailyRematchFlags, 17 ; tully
-	engine_flag wDailyRematchFlags, 18 ; brent
-	engine_flag wDailyRematchFlags, 19 ; tiffany
-	engine_flag wDailyRematchFlags, 20 ; vance
-	engine_flag wDailyRematchFlags, 21 ; wilton
-	engine_flag wDailyRematchFlags, 22 ; parry
-	engine_flag wDailyRematchFlags, 23 ; erin
+RematchEngineFlags:
+	engine_flag wDailyRematchFlags, REMATCH_CONTACT_JACK
+	engine_flag wDailyRematchFlags, REMATCH_CONTACT_HUEY
+	engine_flag wDailyRematchFlags, REMATCH_CONTACT_GAVEN
+	engine_flag wDailyRematchFlags, REMATCH_CONTACT_BETH
+	engine_flag wDailyRematchFlags, REMATCH_CONTACT_JOSE
+	engine_flag wDailyRematchFlags, REMATCH_CONTACT_REENA
+	engine_flag wDailyRematchFlags, REMATCH_CONTACT_JOEY
+	engine_flag wDailyRematchFlags, REMATCH_CONTACT_WADE
+	engine_flag wDailyRematchFlags, REMATCH_CONTACT_RALPH
+	engine_flag wDailyRematchFlags, REMATCH_CONTACT_LIZ
+	engine_flag wDailyRematchFlags, REMATCH_CONTACT_ANTHONY
+	engine_flag wDailyRematchFlags, REMATCH_CONTACT_TODD
+	engine_flag wDailyRematchFlags, REMATCH_CONTACT_GINA
+	engine_flag wDailyRematchFlags, REMATCH_CONTACT_ARNIE
+	engine_flag wDailyRematchFlags, REMATCH_CONTACT_ALAN
+	engine_flag wDailyRematchFlags, REMATCH_CONTACT_DANA
+	engine_flag wDailyRematchFlags, REMATCH_CONTACT_CHAD
+	engine_flag wDailyRematchFlags, REMATCH_CONTACT_TULLY
+	engine_flag wDailyRematchFlags, REMATCH_CONTACT_BRENT
+	engine_flag wDailyRematchFlags, REMATCH_CONTACT_TIFFANY
+	engine_flag wDailyRematchFlags, REMATCH_CONTACT_VANCE
+	engine_flag wDailyRematchFlags, REMATCH_CONTACT_WILTON
+	engine_flag wDailyRematchFlags, REMATCH_CONTACT_PARRY
+	engine_flag wDailyRematchFlags, REMATCH_CONTACT_ERIN
+RematchEngineFlagsEnd:
+	assert RematchEngineFlagsEnd - RematchEngineFlags == NUM_REMATCH_CONTACTS * 3
 
 	engine_flag wDailyPhoneItemFlags, 0 ; beverly has nugget
 	engine_flag wDailyPhoneItemFlags, 1 ; jose has star piece
