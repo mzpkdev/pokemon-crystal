@@ -4,12 +4,9 @@ LizPhoneScript1:
 	special Special_CheckRematchPending
 	iftruefwd .WantsBattle
 	farscall PhoneScript_AnswerPhone_Female
-	checkflag ENGINE_LIZ_THURSDAY_AFTERNOON
-	iftruefwd .NotThursday
-	readvar VAR_WEEKDAY
-	ifnotequal THURSDAY, .NotThursday
-	checktime 1 << DAY
-	iftruefwd LizThursdayAfternoon
+	setval REMATCH_CONTACT_LIZ
+	special Special_TryClaimRematchScheduleWindow
+	iftruefwd LizScheduledRematch
 
 .NotThursday:
 	special RandomPhoneMon
@@ -27,7 +24,8 @@ LizPhoneScript2:
 	setval REMATCH_CONTACT_LIZ
 	special Special_CheckRematchPending
 	iftruefwd .next
-	checkflag ENGINE_LIZ_THURSDAY_AFTERNOON
+	setval REMATCH_CONTACT_LIZ
+	special Special_CheckRematchScheduleUsed
 	iftruefwd .next
 
 .next:
@@ -41,10 +39,11 @@ LizPhoneScript2:
 .Generic:
 	farsjump Phone_GenericCall_Female
 
-LizThursdayAfternoon:
-	setflag ENGINE_LIZ_THURSDAY_AFTERNOON
-
 LizWantsBattle:
+	setval REMATCH_CONTACT_LIZ
+	special Special_MarkRematchScheduleUsed
+
+LizScheduledRematch:
 	getlandmarkname ROUTE_32, STRING_BUFFER_5
 	setval REMATCH_CONTACT_LIZ
 	special Special_OfferRematch

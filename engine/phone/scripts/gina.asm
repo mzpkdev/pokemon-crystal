@@ -4,14 +4,14 @@ GinaPhoneScript1:
 	special Special_CheckRematchPending
 	iftruefwd .WantsBattle
 	farscall PhoneScript_AnswerPhone_Female
-	checkflag ENGINE_GINA_SUNDAY_AFTERNOON
+	setval REMATCH_CONTACT_GINA
+	special Special_CheckRematchScheduleUsed
 	iftruefwd .NotSunday
 	checkflag ENGINE_GINA_HAS_LEAF_STONE
 	iftruefwd .HasLeafStone
-	readvar VAR_WEEKDAY
-	ifnotequal SUNDAY, .NotSunday
-	checktime 1 << DAY
-	iftruefwd GinaSundayDay
+	setval REMATCH_CONTACT_GINA
+	special Special_TryClaimRematchScheduleWindow
+	iftruefwd GinaScheduledRematch
 
 .NotSunday:
 	checkflag ENGINE_ROCKETS_IN_RADIO_TOWER
@@ -37,7 +37,8 @@ GinaPhoneScript2:
 	setval REMATCH_CONTACT_GINA
 	special Special_CheckRematchPending
 	iftruefwd .Generic
-	checkflag ENGINE_GINA_SUNDAY_AFTERNOON
+	setval REMATCH_CONTACT_GINA
+	special Special_CheckRematchScheduleUsed
 	iftruefwd .Generic
 	checkflag ENGINE_GINA_HAS_LEAF_STONE
 	iftruefwd .Generic
@@ -57,10 +58,11 @@ GinaPhoneScript2:
 .Generic:
 	farsjump Phone_GenericCall_Female
 
-GinaSundayDay:
-	setflag ENGINE_GINA_SUNDAY_AFTERNOON
-
 GinaWantsBattle:
+	setval REMATCH_CONTACT_GINA
+	special Special_MarkRematchScheduleUsed
+
+GinaScheduledRematch:
 	getlandmarkname ROUTE_34, STRING_BUFFER_5
 	setval REMATCH_CONTACT_GINA
 	special Special_OfferRematch

@@ -4,14 +4,14 @@ TiffanyPhoneScript1:
 	special Special_CheckRematchPending
 	iftruefwd .WantsBattle
 	farscall PhoneScript_AnswerPhone_Female
-	checkflag ENGINE_TIFFANY_TUESDAY_AFTERNOON
+	setval REMATCH_CONTACT_TIFFANY
+	special Special_CheckRematchScheduleUsed
 	iftruefwd .NotTuesday
 	checkflag ENGINE_TIFFANY_HAS_FAIRYFEATHER
 	iftruefwd .HasItem
-	readvar VAR_WEEKDAY
-	ifnotequal TUESDAY, .NotTuesday
-	checktime 1 << DAY
-	iftruefwd TiffanyTuesdayAfternoon
+	setval REMATCH_CONTACT_TIFFANY
+	special Special_TryClaimRematchScheduleWindow
+	iftruefwd TiffanyScheduledRematch
 
 .NotTuesday:
 	farsjump TiffanyNoItemScript
@@ -32,7 +32,8 @@ TiffanyPhoneScript2:
 	setval REMATCH_CONTACT_TIFFANY
 	special Special_CheckRematchPending
 	iftruefwd .Generic
-	checkflag ENGINE_TIFFANY_TUESDAY_AFTERNOON
+	setval REMATCH_CONTACT_TIFFANY
+	special Special_CheckRematchScheduleUsed
 	iftruefwd .Generic
 	checkflag ENGINE_TIFFANY_HAS_FAIRYFEATHER
 	iftruefwd .Generic
@@ -50,10 +51,11 @@ TiffanyPhoneScript2:
 .Generic:
 	farsjump Phone_GenericCall_Female
 
-TiffanyTuesdayAfternoon:
-	setflag ENGINE_TIFFANY_TUESDAY_AFTERNOON
-
 TiffanyWantsBattle:
+	setval REMATCH_CONTACT_TIFFANY
+	special Special_MarkRematchScheduleUsed
+
+TiffanyScheduledRematch:
 	getlandmarkname ROUTE_43, STRING_BUFFER_5
 	setval REMATCH_CONTACT_TIFFANY
 	special Special_OfferRematch

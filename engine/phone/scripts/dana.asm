@@ -4,14 +4,14 @@ DanaPhoneScript1:
 	special Special_CheckRematchPending
 	iftruefwd .WantsBattle
 	farscall PhoneScript_AnswerPhone_Female
-	checkflag ENGINE_DANA_THURSDAY_NIGHT
+	setval REMATCH_CONTACT_DANA
+	special Special_CheckRematchScheduleUsed
 	iftruefwd .NotThursday
 	checkflag ENGINE_DANA_HAS_THUNDERSTONE
 	iftruefwd .HasThunderstone
-	readvar VAR_WEEKDAY
-	ifnotequal THURSDAY, .NotThursday
-	checktime (1 << EVE) | (1 << NITE)
-	iftruefwd DanaThursdayNight
+	setval REMATCH_CONTACT_DANA
+	special Special_TryClaimRematchScheduleWindow
+	iftruefwd DanaScheduledRematch
 
 .NotThursday:
 	farsjump DanaHangUpScript
@@ -30,7 +30,8 @@ DanaPhoneScript2:
 	setval REMATCH_CONTACT_DANA
 	special Special_CheckRematchPending
 	iftruefwd .Generic
-	checkflag ENGINE_DANA_THURSDAY_NIGHT
+	setval REMATCH_CONTACT_DANA
+	special Special_CheckRematchScheduleUsed
 	iftruefwd .Generic
 	checkflag ENGINE_DANA_HAS_THUNDERSTONE
 	iftruefwd .Generic
@@ -50,10 +51,11 @@ DanaPhoneScript2:
 	ifequalfwd $0, DanaFoundRare
 	farsjump Phone_GenericCall_Female
 
-DanaThursdayNight:
-	setflag ENGINE_DANA_THURSDAY_NIGHT
-
 DanaWantsBattle:
+	setval REMATCH_CONTACT_DANA
+	special Special_MarkRematchScheduleUsed
+
+DanaScheduledRematch:
 	getlandmarkname ROUTE_38, STRING_BUFFER_5
 	setval REMATCH_CONTACT_DANA
 	special Special_OfferRematch
