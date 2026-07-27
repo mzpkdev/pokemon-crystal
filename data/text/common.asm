@@ -485,6 +485,30 @@ _OPT_OakText3::
 	text "."
 	done
 
+SECTION "_OPT_SwarmText1", ROMX
+_OPT_SwarmText1::
+	line "Mary: News flash!"
+	done
+
+SECTION "_OPT_SwarmText2", ROMX
+_OPT_SwarmText2::
+	line ""
+	text_ram wMonOrItemNameBuffer
+	text " swarm"
+	done
+
+SECTION "_OPT_SwarmText3", ROMX
+_OPT_SwarmText3::
+	line "spotted near"
+	done
+
+SECTION "_OPT_SwarmText4", ROMX
+_OPT_SwarmText4::
+	line ""
+	text_ram wStringBuffer1
+	text "!"
+	done
+
 SECTION "_OPT_MaryText1", ROMX
 _OPT_MaryText1::
 	line "Mary: "

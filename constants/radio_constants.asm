@@ -86,6 +86,10 @@ DEF NUM_RADIO_CHANNELS EQU const_value
 	const BUENAS_PASSWORD_20     ; 4d
 	const BUENAS_PASSWORD_21     ; 4e
 	const RADIO_SCROLL           ; 4f
+	const OAKS_POKEMON_TALK_SWARM_1 ; 50
+	const OAKS_POKEMON_TALK_SWARM_2 ; 51
+	const OAKS_POKEMON_TALK_SWARM_3 ; 52
+	const OAKS_POKEMON_TALK_SWARM_4 ; 53
 DEF NUM_RADIO_SEGMENTS EQU const_value
 
 ; PlayRadioStationPointers indexes (see engine/pokegear/pokegear.asm)
