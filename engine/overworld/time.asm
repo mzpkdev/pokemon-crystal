@@ -157,7 +157,7 @@ rept 4 - 1
 endr
 	ld [hl], a
 	ld hl, wDailyPhoneTimeOfDayFlags
-rept 4 - 1
+rept REMATCH_SCHEDULE_FLAG_BYTES - 1
 	ld [hli], a
 endr
 	ld [hl], a

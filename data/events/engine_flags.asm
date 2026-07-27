@@ -178,30 +178,34 @@ EngineFlags:
 	engine_flag wDailyPhoneItemFlags, 8 ; tiffany has fairy feather
 	engine_flag wDailyPhoneItemFlags, 9 ; wilton has item (see EVENT_WILTON_HAS_*** in constants/event_flags.asm)
 
-	engine_flag wDailyPhoneTimeOfDayFlags, 0  ; jack monday morning
-	engine_flag wDailyPhoneTimeOfDayFlags, 1  ; huey wednesday night
-	engine_flag wDailyPhoneTimeOfDayFlags, 2  ; gaven thursday morning
-	engine_flag wDailyPhoneTimeOfDayFlags, 3  ; beth friday afternoon
-	engine_flag wDailyPhoneTimeOfDayFlags, 4  ; jose saturday night
-	engine_flag wDailyPhoneTimeOfDayFlags, 5  ; reena sunday morning
-	engine_flag wDailyPhoneTimeOfDayFlags, 6  ; joey monday afternoon
-	engine_flag wDailyPhoneTimeOfDayFlags, 7  ; wade tuesday night
-	engine_flag wDailyPhoneTimeOfDayFlags, 8  ; ralph wednesday morning
-	engine_flag wDailyPhoneTimeOfDayFlags, 9  ; liz thursday afternoon
-	engine_flag wDailyPhoneTimeOfDayFlags, 10 ; anthony fiday night
-	engine_flag wDailyPhoneTimeOfDayFlags, 11 ; todd saturday morning
-	engine_flag wDailyPhoneTimeOfDayFlags, 12 ; gina sunday afternoon
-	engine_flag wDailyPhoneTimeOfDayFlags, 13 ; arnie tuesday morning
-	engine_flag wDailyPhoneTimeOfDayFlags, 14 ; alan wednesday afternoon
-	engine_flag wDailyPhoneTimeOfDayFlags, 15 ; dana thursday night
-	engine_flag wDailyPhoneTimeOfDayFlags, 16 ; chad friday morning
-	engine_flag wDailyPhoneTimeOfDayFlags, 17 ; tully sunday night
-	engine_flag wDailyPhoneTimeOfDayFlags, 18 ; brent monday morning
-	engine_flag wDailyPhoneTimeOfDayFlags, 19 ; tiffany tuesday afternoon
-	engine_flag wDailyPhoneTimeOfDayFlags, 20 ; vance wednesday night
-	engine_flag wDailyPhoneTimeOfDayFlags, 21 ; wilton thursday morning
-	engine_flag wDailyPhoneTimeOfDayFlags, 22 ; parry friday afternoon
-	engine_flag wDailyPhoneTimeOfDayFlags, 23 ; erin saturday night
+EngineRematchScheduleFlags:
+	engine_flag wDailyPhoneTimeOfDayFlags, REMATCH_SCHEDULE_JACK
+	engine_flag wDailyPhoneTimeOfDayFlags, REMATCH_SCHEDULE_HUEY
+	engine_flag wDailyPhoneTimeOfDayFlags, REMATCH_SCHEDULE_GAVEN
+	engine_flag wDailyPhoneTimeOfDayFlags, REMATCH_SCHEDULE_BETH
+	engine_flag wDailyPhoneTimeOfDayFlags, REMATCH_SCHEDULE_JOSE
+	engine_flag wDailyPhoneTimeOfDayFlags, REMATCH_SCHEDULE_REENA
+	engine_flag wDailyPhoneTimeOfDayFlags, REMATCH_SCHEDULE_JOEY
+	engine_flag wDailyPhoneTimeOfDayFlags, REMATCH_SCHEDULE_WADE
+	engine_flag wDailyPhoneTimeOfDayFlags, REMATCH_SCHEDULE_RALPH
+	engine_flag wDailyPhoneTimeOfDayFlags, REMATCH_SCHEDULE_LIZ
+	engine_flag wDailyPhoneTimeOfDayFlags, REMATCH_SCHEDULE_ANTHONY
+	engine_flag wDailyPhoneTimeOfDayFlags, REMATCH_SCHEDULE_TODD
+	engine_flag wDailyPhoneTimeOfDayFlags, REMATCH_SCHEDULE_GINA
+	engine_flag wDailyPhoneTimeOfDayFlags, REMATCH_SCHEDULE_ARNIE
+	engine_flag wDailyPhoneTimeOfDayFlags, REMATCH_SCHEDULE_ALAN
+	engine_flag wDailyPhoneTimeOfDayFlags, REMATCH_SCHEDULE_DANA
+	engine_flag wDailyPhoneTimeOfDayFlags, REMATCH_SCHEDULE_CHAD
+	engine_flag wDailyPhoneTimeOfDayFlags, REMATCH_SCHEDULE_TULLY
+	engine_flag wDailyPhoneTimeOfDayFlags, REMATCH_SCHEDULE_BRENT
+	engine_flag wDailyPhoneTimeOfDayFlags, REMATCH_SCHEDULE_TIFFANY
+	engine_flag wDailyPhoneTimeOfDayFlags, REMATCH_SCHEDULE_VANCE
+	engine_flag wDailyPhoneTimeOfDayFlags, REMATCH_SCHEDULE_WILTON
+	engine_flag wDailyPhoneTimeOfDayFlags, REMATCH_SCHEDULE_PARRY
+	engine_flag wDailyPhoneTimeOfDayFlags, REMATCH_SCHEDULE_ERIN
+.end
+	assert (.end - EngineRematchScheduleFlags) / 3 == NUM_ENGINE_REMATCH_SCHEDULES
+	assert .end - EngineRematchScheduleFlags == NUM_REMATCH_SCHEDULES * 3
 
 	engine_flag wSwarmFlags, 2 ; unused; preserves subsequent engine flag IDs
 	engine_flag wSwarmFlags, 3 ; unused; preserves subsequent engine flag IDs
