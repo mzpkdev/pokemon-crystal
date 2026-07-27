@@ -163,7 +163,8 @@ TrainerFisherTully1:
 FisherTully1Script:
 	loadvar VAR_CALLERID, PHONE_FISHER_TULLY
 	opentext
-	checkflag ENGINE_TULLY_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_TULLY
+	special Special_CheckRematchPending
 	iftruefwd .WantsBattle
 	checkflag ENGINE_TULLY_HAS_WATER_STONE
 	iftruefwd .HasWaterStone
@@ -209,7 +210,8 @@ FisherTully1Script:
 	startbattle
 	reloadmapafterbattle
 	loadmem wTullyFightCount, 1
-	clearflag ENGINE_TULLY_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_TULLY
+	special Special_ConsumeRematch
 	end
 
 .LoadFight1:
@@ -217,7 +219,8 @@ FisherTully1Script:
 	startbattle
 	reloadmapafterbattle
 	loadmem wTullyFightCount, 2
-	clearflag ENGINE_TULLY_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_TULLY
+	special Special_ConsumeRematch
 	end
 
 .LoadFight2:
@@ -225,14 +228,16 @@ FisherTully1Script:
 	startbattle
 	reloadmapafterbattle
 	loadmem wTullyFightCount, 3
-	clearflag ENGINE_TULLY_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_TULLY
+	special Special_ConsumeRematch
 	end
 
 .LoadFight3:
 	loadtrainer FISHER, TULLY4
 	startbattle
 	reloadmapafterbattle
-	clearflag ENGINE_TULLY_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_TULLY
+	special Special_ConsumeRematch
 	end
 
 .HasWaterStone:

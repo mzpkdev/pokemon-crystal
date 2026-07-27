@@ -232,7 +232,8 @@ TrainerSchoolboyAlan1:
 .Script:
 	loadvar VAR_CALLERID, PHONE_SCHOOLBOY_ALAN
 	opentext
-	checkflag ENGINE_ALAN_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_ALAN
+	special Special_CheckRematchPending
 	iftruefwd .ChooseRematch
 	checkflag ENGINE_ALAN_HAS_FIRE_STONE
 	iftruefwd .GiveFireStone
@@ -282,7 +283,8 @@ TrainerSchoolboyAlan1:
 	startbattle
 	reloadmapafterbattle
 	loadmem wAlanFightCount, 1
-	clearflag ENGINE_ALAN_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_ALAN
+	special Special_ConsumeRematch
 	end
 
 .LoadFight1:
@@ -290,7 +292,8 @@ TrainerSchoolboyAlan1:
 	startbattle
 	reloadmapafterbattle
 	loadmem wAlanFightCount, 2
-	clearflag ENGINE_ALAN_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_ALAN
+	special Special_ConsumeRematch
 	end
 
 .LoadFight2:
@@ -298,7 +301,8 @@ TrainerSchoolboyAlan1:
 	startbattle
 	reloadmapafterbattle
 	loadmem wAlanFightCount, 3
-	clearflag ENGINE_ALAN_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_ALAN
+	special Special_ConsumeRematch
 	end
 
 .LoadFight3:
@@ -306,14 +310,16 @@ TrainerSchoolboyAlan1:
 	startbattle
 	reloadmapafterbattle
 	loadmem wAlanFightCount, 4
-	clearflag ENGINE_ALAN_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_ALAN
+	special Special_ConsumeRematch
 	end
 
 .LoadFight4:
 	loadtrainer SCHOOLBOY, ALAN5
 	startbattle
 	reloadmapafterbattle
-	clearflag ENGINE_ALAN_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_ALAN
+	special Special_ConsumeRematch
 	end
 
 .GiveFireStone:

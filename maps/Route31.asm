@@ -165,7 +165,8 @@ TrainerBug_catcherWade1:
 .Script:
 	loadvar VAR_CALLERID, PHONE_BUG_CATCHER_WADE
 	opentext
-	checkflag ENGINE_WADE_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_WADE
+	special Special_CheckRematchPending
 	iftruefwd .WadeRematch
 	checkflag ENGINE_WADE_HAS_ITEM
 	iftruefwd .WadeItem
@@ -215,7 +216,8 @@ TrainerBug_catcherWade1:
 	startbattle
 	reloadmapafterbattle
 	loadmem wWadeFightCount, 1
-	clearflag ENGINE_WADE_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_WADE
+	special Special_ConsumeRematch
 	end
 
 .LoadFight1:
@@ -223,7 +225,8 @@ TrainerBug_catcherWade1:
 	startbattle
 	reloadmapafterbattle
 	loadmem wWadeFightCount, 2
-	clearflag ENGINE_WADE_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_WADE
+	special Special_ConsumeRematch
 	end
 
 .LoadFight2:
@@ -231,7 +234,8 @@ TrainerBug_catcherWade1:
 	startbattle
 	reloadmapafterbattle
 	loadmem wWadeFightCount, 3
-	clearflag ENGINE_WADE_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_WADE
+	special Special_ConsumeRematch
 	end
 
 .LoadFight3:
@@ -239,14 +243,16 @@ TrainerBug_catcherWade1:
 	startbattle
 	reloadmapafterbattle
 	loadmem wWadeFightCount, 4
-	clearflag ENGINE_WADE_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_WADE
+	special Special_ConsumeRematch
 	end
 
 .LoadFight4:
 	loadtrainer BUG_CATCHER, WADE5
 	startbattle
 	reloadmapafterbattle
-	clearflag ENGINE_WADE_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_WADE
+	special Special_ConsumeRematch
 	end
 
 .WadeItem:

@@ -49,7 +49,8 @@ TrainerCooltrainermGaven1:
 .Script:
 	loadvar VAR_CALLERID, PHONE_COOLTRAINERM_GAVEN
 	opentext
-	checkflag ENGINE_GAVEN_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_GAVEN
+	special Special_CheckRematchPending
 	iftruefwd .WantsBattle
 	checkcellnum PHONE_COOLTRAINERM_GAVEN
 	iftruefwd .NumberAccepted
@@ -89,7 +90,8 @@ TrainerCooltrainermGaven1:
 	startbattle
 	reloadmapafterbattle
 	loadmem wGavenFightCount, 1
-	clearflag ENGINE_GAVEN_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_GAVEN
+	special Special_ConsumeRematch
 	end
 
 .LoadFight1:
@@ -97,14 +99,16 @@ TrainerCooltrainermGaven1:
 	startbattle
 	reloadmapafterbattle
 	loadmem wGavenFightCount, 2
-	clearflag ENGINE_GAVEN_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_GAVEN
+	special Special_ConsumeRematch
 	end
 
 .LoadFight2:
 	loadtrainer COOLTRAINERM, GAVEN3
 	startbattle
 	reloadmapafterbattle
-	clearflag ENGINE_GAVEN_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_GAVEN
+	special Special_ConsumeRematch
 	end
 
 .AskNumber1:

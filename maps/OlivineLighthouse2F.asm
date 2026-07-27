@@ -45,7 +45,8 @@ TrainerSailorHuey1:
 SailorHuey1Script:
 	loadvar VAR_CALLERID, PHONE_SAILOR_HUEY
 	opentext
-	checkflag ENGINE_HUEY_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_HUEY
+	special Special_CheckRematchPending
 	iftruefwd .WantsBattle
 	checkcellnum PHONE_SAILOR_HUEY
 	iftruefwd .NumberAccepted
@@ -87,7 +88,8 @@ SailorHuey1Script:
 	startbattle
 	reloadmapafterbattle
 	loadmem wHueyFightCount, 1
-	clearflag ENGINE_HUEY_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_HUEY
+	special Special_ConsumeRematch
 	end
 
 .LoadFight1:
@@ -95,7 +97,8 @@ SailorHuey1Script:
 	startbattle
 	reloadmapafterbattle
 	loadmem wHueyFightCount, 2
-	clearflag ENGINE_HUEY_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_HUEY
+	special Special_ConsumeRematch
 	end
 
 .LoadFight2:
@@ -103,14 +106,16 @@ SailorHuey1Script:
 	startbattle
 	reloadmapafterbattle
 	loadmem wHueyFightCount, 3
-	clearflag ENGINE_HUEY_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_HUEY
+	special Special_ConsumeRematch
 	end
 
 .LoadFight3:
 	loadtrainer SAILOR, HUEY4
 	startbattle
 	reloadmapafterbattle
-	clearflag ENGINE_HUEY_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_HUEY
+	special Special_ConsumeRematch
 	checkevent EVENT_HUEY_PROTEIN
 	iftruefwd .HasProtein
 	checkevent EVENT_GOT_PROTEIN_FROM_HUEY
