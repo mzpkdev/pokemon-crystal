@@ -304,7 +304,8 @@ TrainerPicnickerGina1:
 .Script:
 	loadvar VAR_CALLERID, PHONE_PICNICKER_GINA
 	opentext
-	checkflag ENGINE_GINA_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_GINA
+	special Special_CheckRematchPending
 	iftruefwd .Rematch
 	checkflag ENGINE_GINA_HAS_LEAF_STONE
 	iftruefwd .LeafStone
@@ -354,7 +355,8 @@ TrainerPicnickerGina1:
 	startbattle
 	reloadmapafterbattle
 	loadmem wGinaFightCount, 1
-	clearflag ENGINE_GINA_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_GINA
+	special Special_ConsumeRematch
 	end
 
 .LoadFight1:
@@ -362,7 +364,8 @@ TrainerPicnickerGina1:
 	startbattle
 	reloadmapafterbattle
 	loadmem wGinaFightCount, 2
-	clearflag ENGINE_GINA_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_GINA
+	special Special_ConsumeRematch
 	end
 
 .LoadFight2:
@@ -370,7 +373,8 @@ TrainerPicnickerGina1:
 	startbattle
 	reloadmapafterbattle
 	loadmem wGinaFightCount, 3
-	clearflag ENGINE_GINA_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_GINA
+	special Special_ConsumeRematch
 	end
 
 .LoadFight3:
@@ -378,14 +382,16 @@ TrainerPicnickerGina1:
 	startbattle
 	reloadmapafterbattle
 	loadmem wGinaFightCount, 4
-	clearflag ENGINE_GINA_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_GINA
+	special Special_ConsumeRematch
 	end
 
 .LoadFight4:
 	loadtrainer PICNICKER, GINA5
 	startbattle
 	reloadmapafterbattle
-	clearflag ENGINE_GINA_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_GINA
+	special Special_ConsumeRematch
 	end
 
 .LeafStone:

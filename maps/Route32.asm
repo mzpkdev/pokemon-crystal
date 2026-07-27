@@ -605,7 +605,8 @@ TrainerPicnickerLiz1:
 .Script:
 	loadvar VAR_CALLERID, PHONE_PICNICKER_LIZ
 	opentext
-	checkflag ENGINE_LIZ_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_LIZ
+	special Special_CheckRematchPending
 	iftruefwd .Rematch
 	checkcellnum PHONE_PICNICKER_LIZ
 	iftruefwd .NumberAccepted
@@ -653,7 +654,8 @@ TrainerPicnickerLiz1:
 	startbattle
 	reloadmapafterbattle
 	loadmem wLizFightCount, 1
-	clearflag ENGINE_LIZ_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_LIZ
+	special Special_ConsumeRematch
 	end
 
 .LoadFight1:
@@ -661,7 +663,8 @@ TrainerPicnickerLiz1:
 	startbattle
 	reloadmapafterbattle
 	loadmem wLizFightCount, 2
-	clearflag ENGINE_LIZ_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_LIZ
+	special Special_ConsumeRematch
 	end
 
 .LoadFight2:
@@ -669,7 +672,8 @@ TrainerPicnickerLiz1:
 	startbattle
 	reloadmapafterbattle
 	loadmem wLizFightCount, 3
-	clearflag ENGINE_LIZ_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_LIZ
+	special Special_ConsumeRematch
 	end
 
 .LoadFight3:
@@ -677,14 +681,16 @@ TrainerPicnickerLiz1:
 	startbattle
 	reloadmapafterbattle
 	loadmem wLizFightCount, 4
-	clearflag ENGINE_LIZ_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_LIZ
+	special Special_ConsumeRematch
 	end
 
 .LoadFight4:
 	loadtrainer PICNICKER, LIZ5
 	startbattle
 	reloadmapafterbattle
-	clearflag ENGINE_LIZ_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_LIZ
+	special Special_ConsumeRematch
 	end
 
 .NumberAccepted:

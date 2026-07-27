@@ -365,7 +365,8 @@ TrainerPicnickerTiffany1:
 PicnickerTiffany1Script:
 	loadvar VAR_CALLERID, PHONE_PICNICKER_TIFFANY
 	opentext
-	checkflag ENGINE_TIFFANY_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_TIFFANY
+	special Special_CheckRematchPending
 	iftruefwd .WantsBattle
 	checkflag ENGINE_TIFFANY_HAS_FAIRYFEATHER
 	iftruefwd .HasFairyFeather
@@ -413,7 +414,8 @@ PicnickerTiffany1Script:
 	startbattle
 	reloadmapafterbattle
 	loadmem wTiffanyFightCount, 1
-	clearflag ENGINE_TIFFANY_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_TIFFANY
+	special Special_ConsumeRematch
 	end
 
 .LoadFight1:
@@ -421,7 +423,8 @@ PicnickerTiffany1Script:
 	startbattle
 	reloadmapafterbattle
 	loadmem wTiffanyFightCount, 2
-	clearflag ENGINE_TIFFANY_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_TIFFANY
+	special Special_ConsumeRematch
 	end
 
 .LoadFight2:
@@ -429,14 +432,16 @@ PicnickerTiffany1Script:
 	startbattle
 	reloadmapafterbattle
 	loadmem wTiffanyFightCount, 3
-	clearflag ENGINE_TIFFANY_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_TIFFANY
+	special Special_ConsumeRematch
 	end
 
 .LoadFight3:
 	loadtrainer PICNICKER, TIFFANY4
 	startbattle
 	reloadmapafterbattle
-	clearflag ENGINE_TIFFANY_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_TIFFANY
+	special Special_ConsumeRematch
 	end
 
 .HasFairyFeather:

@@ -151,7 +151,8 @@ TrainerCooltrainerfBeth1:
 .Script:
 	loadvar VAR_CALLERID, PHONE_COOLTRAINERF_BETH
 	opentext
-	checkflag ENGINE_BETH_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_BETH
+	special Special_CheckRematchPending
 	iftruefwd .WantsBattle
 	checkcellnum PHONE_COOLTRAINERF_BETH
 	iftruefwd .NumberAccepted
@@ -191,7 +192,8 @@ TrainerCooltrainerfBeth1:
 	startbattle
 	reloadmapafterbattle
 	loadmem wBethFightCount, 1
-	clearflag ENGINE_BETH_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_BETH
+	special Special_ConsumeRematch
 	end
 
 .LoadFight1:
@@ -199,14 +201,16 @@ TrainerCooltrainerfBeth1:
 	startbattle
 	reloadmapafterbattle
 	loadmem wBethFightCount, 2
-	clearflag ENGINE_BETH_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_BETH
+	special Special_ConsumeRematch
 	end
 
 .LoadFight2:
 	loadtrainer COOLTRAINERF, BETH3
 	startbattle
 	reloadmapafterbattle
-	clearflag ENGINE_BETH_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_BETH
+	special Special_ConsumeRematch
 	end
 
 .AskNumber1:
