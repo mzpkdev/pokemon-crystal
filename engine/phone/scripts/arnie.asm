@@ -26,18 +26,24 @@ ArniePhoneScript2:
 	farscall PhoneScript_GreetPhone_Male
 	setval REMATCH_CONTACT_ARNIE
 	special Special_CheckRematchPending
-	iftruefwd .Swarm
+	iftruefwd .SwarmCandidates
 	setval REMATCH_CONTACT_ARNIE
 	special Special_CheckRematchScheduleUsed
-	iftruefwd .Swarm
-	farscall PhoneScript_Random2
-	ifequalfwd $0, ArnieWantsBattle
+	iftruefwd .SwarmCandidates
+	setval PHONE_EVENT_CAP_REMATCH | PHONE_EVENT_CAP_SWARM | PHONE_EVENT_CAP_RARE_REPORT | PHONE_EVENT_CAP_FLAVOR
+	special Special_StageRematchPhoneEventCandidates
+	sjumpfwd .SelectEvent
 
-.Swarm:
-	farscall PhoneScript_Random5
-	ifequalfwd $0, ArnieYanmaSwarm
-	farscall PhoneScript_Random3
-	ifequalfwd $0, ArnieFoundRare
+.SwarmCandidates:
+	setval PHONE_EVENT_CAP_SWARM | PHONE_EVENT_CAP_RARE_REPORT | PHONE_EVENT_CAP_FLAVOR
+	special Special_StageRematchPhoneEventCandidates
+
+.SelectEvent:
+	setval REMATCH_CONTACT_ARNIE
+	special Special_SelectRematchContactPhoneEvent
+	ifequalfwd PHONE_EVENT_REMATCH, ArnieWantsBattle
+	ifequalfwd PHONE_EVENT_SWARM, ArnieYanmaSwarm
+	ifequalfwd PHONE_EVENT_RARE_REPORT, ArnieFoundRare
 	farsjump Phone_GenericCall_Male
 
 ArnieWantsBattle:

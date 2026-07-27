@@ -26,18 +26,26 @@ RalphPhoneScript2:
 	gettrainername FISHER, RALPH1, STRING_BUFFER_3
 	farscall PhoneScript_GreetPhone_Male
 	checkflag ENGINE_FLYPOINT_GOLDENROD
-	iffalsefwd Ralph_CheckSwarm2
+	iffalsefwd .SwarmCandidates
 	setval REMATCH_CONTACT_RALPH
 	special Special_CheckRematchPending
-	iftruefwd Ralph_CheckSwarm2
+	iftruefwd .SwarmCandidates
 	setval REMATCH_CONTACT_RALPH
 	special Special_CheckRematchScheduleUsed
-	iftruefwd Ralph_CheckSwarm2
-	farscall PhoneScript_Random2
-	ifequalfwd $0, Ralph_FightMe
-Ralph_CheckSwarm2:
-	farscall PhoneScript_Random5
-	ifequalfwd $0, Ralph_SetUpSwarm
+	iftruefwd .SwarmCandidates
+	setval PHONE_EVENT_CAP_REMATCH | PHONE_EVENT_CAP_SWARM | PHONE_EVENT_CAP_FLAVOR
+	special Special_StageRematchPhoneEventCandidates
+	sjumpfwd .SelectEvent
+
+.SwarmCandidates:
+	setval PHONE_EVENT_CAP_SWARM | PHONE_EVENT_CAP_FLAVOR
+	special Special_StageRematchPhoneEventCandidates
+
+.SelectEvent:
+	setval REMATCH_CONTACT_RALPH
+	special Special_SelectRematchContactPhoneEvent
+	ifequalfwd PHONE_EVENT_REMATCH, Ralph_FightMe
+	ifequalfwd PHONE_EVENT_SWARM, Ralph_SetUpSwarm
 	farsjump Phone_GenericCall_Male
 
 Ralph_FightMe:
