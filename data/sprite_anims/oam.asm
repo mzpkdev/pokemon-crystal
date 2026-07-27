@@ -853,10 +853,10 @@ SpriteAnimOAMData:
 
 .OAMData_TownMapFly:
 	db 4
-	dsprite  0,  0,  0,  0, $00, NUM_PLAYER_GENDERS
-	dsprite  0,  0,  1,  0, $01, NUM_PLAYER_GENDERS
-	dsprite  0,  0,  2,  0, $02, NUM_PLAYER_GENDERS
-	dsprite  0,  0,  3,  0, $03, NUM_PLAYER_GENDERS
+	dsprite  0,  0,  0,  0, $00, POKEGEAR_FLY_ICON_PALETTE
+	dsprite  0,  0,  1,  0, $01, POKEGEAR_FLY_ICON_PALETTE
+	dsprite  0,  0,  2,  0, $02, POKEGEAR_FLY_ICON_PALETTE
+	dsprite  0,  0,  3,  0, $03, POKEGEAR_FLY_ICON_PALETTE
 
 .OAMData_GreenWalk:
 	db 4
