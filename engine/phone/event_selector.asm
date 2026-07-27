@@ -6,10 +6,11 @@ SelectPhoneEvent::
 ;   b  = selection table ROM bank
 ;   hl = selection table address
 ;
-; Each two-byte table entry is a PHONE_EVENT_* value followed by a denominator.
-; Nonzero denominators perform the same RandomRange(n) == 0 test as the
-; PhoneScript_RandomN helpers. Disabled candidates are skipped without calling
-; RandomRange. A zero denominator is the deterministic terminal fallback.
+; Each three-byte table entry is a PHONE_EVENT_* value followed by a numerator
+; and denominator. Nonzero denominators select when RandomRange(denominator)
+; returns less than numerator. Disabled candidates are skipped without calling
+; RandomRange. A zero numerator and denominator are the deterministic terminal
+; fallback.
 ;
 ; Output:
 ;   carry clear, a = selected PHONE_EVENT_*
@@ -32,6 +33,11 @@ SelectPhoneEvent::
 	ld a, d
 	call GetFarByte
 	inc hl
+	ld e, a
+
+	ld a, d
+	call GetFarByte
+	inc hl
 	ld d, a
 
 	ld a, b
@@ -39,8 +45,26 @@ SelectPhoneEvent::
 	jr z, .invalid
 	cp NUM_PHONE_EVENTS
 	jr nc, .invalid
+	ld a, d
+	and a
+	jr z, .validate_fallback
+	ld a, e
+	and a
+	jr z, .invalid
+	cp d
+	jr z, .valid_entry
+	jr nc, .invalid
+	jr .valid_entry
+
+.validate_fallback
+	ld a, e
+	and a
+	jr nz, .invalid
+
+.valid_entry
 
 	; Convert PHONE_EVENT_* to its corresponding PHONE_EVENT_CAP_* bit.
+	ld a, b
 	dec a
 	push bc
 	ld b, a
@@ -62,8 +86,8 @@ SelectPhoneEvent::
 	push hl
 	call RandomRange
 	pop hl
-	and a
-	jr z, .selected
+	cp e
+	jr c, .selected
 
 .continue
 	pop de

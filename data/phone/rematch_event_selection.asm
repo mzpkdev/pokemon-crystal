@@ -43,12 +43,12 @@ RematchPhoneEventSelectionTables:
 	assert BANK(RematchPhoneEventCapabilities) == BANK(SelectRematchContactPhoneEvent)
 
 HueyPhoneEventSelection:
-	phone_event_chance PHONE_EVENT_REMATCH, 2
+	phone_event_chance PHONE_EVENT_REMATCH, 2, 3
 	phone_event_fallback PHONE_EVENT_FLAVOR
 
 AnthonyPhoneEventSelection:
-	phone_event_chance PHONE_EVENT_REMATCH, 2
-	phone_event_chance PHONE_EVENT_SWARM, 5
+	phone_event_chance PHONE_EVENT_REMATCH, 1, 2
+	phone_event_chance PHONE_EVENT_SWARM, 1, 5
 	phone_event_fallback PHONE_EVENT_FLAVOR
 
 	assert BANK(HueyPhoneEventSelection) == BANK(AnthonyPhoneEventSelection)
