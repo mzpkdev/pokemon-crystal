@@ -20,6 +20,6 @@ def test_new_game_reaches_cherrygrove_city(emulator: Emulator) -> None:
     emulator.assert_screen_matches(
         SNAPSHOTS / "cherrygrove-city-entry.png",
         name="cherrygrove-city-entry",
-        # Ignore the sliver of an animated off-screen sprite at the left edge.
-        crop=(9, 0, 160, 144),
+        # Ignore animated edge sprites and the treetop animation strip.
+        crop=(9, 11, 160, 144),
     )
