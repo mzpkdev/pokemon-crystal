@@ -10,6 +10,21 @@ MACRO? dwb
 	db \2
 ENDM
 
+MACRO phone_event_chance
+; event, denominator: select the event when RandomRange(denominator) returns 0.
+	assert _NARG == 2
+	assert \1 > PHONE_EVENT_NONE && \1 < NUM_PHONE_EVENTS
+	assert \2 > 0 && \2 <= $ff
+	db \1, \2
+ENDM
+
+MACRO phone_event_fallback
+; A zero denominator marks the required deterministic terminal entry.
+	assert _NARG == 1
+	assert \1 > PHONE_EVENT_NONE && \1 < NUM_PHONE_EVENTS
+	db \1, 0
+ENDM
+
 MACRO? dbw
 	db \1
 	dw \2

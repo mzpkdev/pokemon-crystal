@@ -369,6 +369,7 @@ INCLUDE "data/pokemon/mini_icon_pointers.asm"
 
 SECTION "bank24", ROMX
 
+INCLUDE "engine/phone/event_selector.asm"
 INCLUDE "engine/phone/phone.asm"
 INCLUDE "engine/rtc/timeset.asm"
 INCLUDE "engine/pokegear/phone.asm"
