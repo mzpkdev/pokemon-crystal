@@ -23,14 +23,14 @@ RematchPhoneEventSelectionTables:
 	rematch_phone_event_table LizPhoneEventSelection     ; LIZ
 	rematch_phone_event_table AnthonyPhoneEventSelection ; ANTHONY
 	rematch_phone_event_table ToddPhoneEventSelection    ; TODD
-	no_rematch_phone_event_table                         ; GINA: gift odds depend on prior-gift state
+	rematch_phone_event_table GinaPhoneEventSelection    ; GINA
 	rematch_phone_event_table ArniePhoneEventSelection   ; ARNIE
-	no_rematch_phone_event_table                         ; ALAN: gift odds depend on prior-gift state
-	no_rematch_phone_event_table                         ; DANA: gift odds depend on prior-gift state
+	rematch_phone_event_table AlanPhoneEventSelection    ; ALAN
+	rematch_phone_event_table DanaPhoneEventSelection    ; DANA
 	rematch_phone_event_table ChadPhoneEventSelection    ; CHAD
-	no_rematch_phone_event_table                         ; TULLY: gift odds depend on prior-gift state
+	rematch_phone_event_table TullyPhoneEventSelection   ; TULLY
 	rematch_phone_event_table BrentPhoneEventSelection   ; BRENT
-	no_rematch_phone_event_table                         ; TIFFANY: family and generic are distinct flavor results
+	rematch_phone_event_table TiffanyPhoneEventSelection ; TIFFANY
 	rematch_phone_event_table VancePhoneEventSelection   ; VANCE
 	rematch_phone_event_table WiltonPhoneEventSelection  ; WILTON
 	rematch_phone_event_table ParryPhoneEventSelection   ; PARRY
@@ -39,15 +39,41 @@ RematchPhoneEventSelectionTables:
 
 RematchPhoneEventRepeatSelectionTables:
 ; Optional alternate policies selected by PHONE_EVENT_USE_REPEAT_POLICY.
-; These remain null until a contact's repeat-gift odds are modeled.
+; Only contacts whose gift odds change after the first gift have entries.
 	table_width 3
-	rept NUM_REMATCH_CONTACTS
-		no_rematch_phone_event_table
-	endr
+	no_rematch_phone_event_table                               ; JACK
+	no_rematch_phone_event_table                               ; HUEY
+	no_rematch_phone_event_table                               ; GAVEN
+	no_rematch_phone_event_table                               ; BETH
+	no_rematch_phone_event_table                               ; JOSE
+	no_rematch_phone_event_table                               ; REENA
+	no_rematch_phone_event_table                               ; JOEY
+	no_rematch_phone_event_table                               ; WADE
+	no_rematch_phone_event_table                               ; RALPH
+	no_rematch_phone_event_table                               ; LIZ
+	no_rematch_phone_event_table                               ; ANTHONY
+	no_rematch_phone_event_table                               ; TODD
+	rematch_phone_event_table GinaPhoneEventRepeatSelection    ; GINA
+	no_rematch_phone_event_table                               ; ARNIE
+	rematch_phone_event_table AlanPhoneEventRepeatSelection    ; ALAN
+	rematch_phone_event_table DanaPhoneEventRepeatSelection    ; DANA
+	no_rematch_phone_event_table                               ; CHAD
+	rematch_phone_event_table TullyPhoneEventRepeatSelection   ; TULLY
+	no_rematch_phone_event_table                               ; BRENT
+	rematch_phone_event_table TiffanyPhoneEventRepeatSelection ; TIFFANY
+	no_rematch_phone_event_table                               ; VANCE
+	no_rematch_phone_event_table                               ; WILTON
+	no_rematch_phone_event_table                               ; PARRY
+	no_rematch_phone_event_table                               ; ERIN
 	assert_table_length NUM_REMATCH_CONTACTS
 
 	assert REMATCH_CONTACT_HUEY == 1
 	assert REMATCH_CONTACT_ANTHONY == 10
+	assert REMATCH_CONTACT_GINA == 12
+	assert REMATCH_CONTACT_ALAN == 14
+	assert REMATCH_CONTACT_DANA == 15
+	assert REMATCH_CONTACT_TULLY == 17
+	assert REMATCH_CONTACT_TIFFANY == 19
 	assert BANK(RematchPhoneEventSelectionTables) == BANK(SelectRematchContactPhoneEvent)
 	assert BANK(RematchPhoneEventRepeatSelectionTables) == BANK(SelectRematchContactPhoneEvent)
 	assert BANK(RematchPhoneEventCapabilities) == BANK(SelectRematchContactPhoneEvent)
@@ -113,15 +139,70 @@ ArniePhoneEventSelection:
 	phone_event_chance PHONE_EVENT_RARE_REPORT, 1, 3
 	phone_event_fallback PHONE_EVENT_FLAVOR
 
+GinaPhoneEventSelection:
+	phone_event_chance PHONE_EVENT_GIFT, 1, 2
+GinaPhoneEventRepeatSelection:
+	phone_event_chance PHONE_EVENT_GIFT, 1, 11
+	phone_event_chance PHONE_EVENT_REMATCH, 1, 3
+	phone_event_fallback PHONE_EVENT_FLAVOR
+
+AlanPhoneEventSelection:
+	phone_event_chance PHONE_EVENT_REMATCH, 1, 3
+	phone_event_chance PHONE_EVENT_GIFT, 1, 2
+	phone_event_chance PHONE_EVENT_GIFT, 1, 11
+	phone_event_fallback PHONE_EVENT_FLAVOR
+
+AlanPhoneEventRepeatSelection:
+	phone_event_chance PHONE_EVENT_REMATCH, 1, 3
+	phone_event_chance PHONE_EVENT_GIFT, 1, 11
+	phone_event_fallback PHONE_EVENT_FLAVOR
+
+DanaPhoneEventSelection:
+	phone_event_chance PHONE_EVENT_REMATCH, 1, 3
+	phone_event_chance PHONE_EVENT_GIFT, 1, 2
+	phone_event_chance PHONE_EVENT_GIFT, 1, 11
+	phone_event_chance PHONE_EVENT_RARE_REPORT, 1, 3
+	phone_event_fallback PHONE_EVENT_FLAVOR
+
+DanaPhoneEventRepeatSelection:
+	phone_event_chance PHONE_EVENT_REMATCH, 1, 3
+	phone_event_chance PHONE_EVENT_GIFT, 1, 11
+	phone_event_chance PHONE_EVENT_RARE_REPORT, 1, 3
+	phone_event_fallback PHONE_EVENT_FLAVOR
+
 ChadPhoneEventSelection:
 	phone_event_variant_chance PHONE_EVENT_RESULT_GOSSIP, PHONE_EVENT_FLAVOR, 1, 2
 	phone_event_chance PHONE_EVENT_REMATCH, 1, 2
 	phone_event_chance PHONE_EVENT_RARE_REPORT, 1, 3
 	phone_event_fallback PHONE_EVENT_FLAVOR
 
+TullyPhoneEventSelection:
+	phone_event_chance PHONE_EVENT_REMATCH, 1, 3
+	phone_event_chance PHONE_EVENT_GIFT, 1, 2
+	phone_event_chance PHONE_EVENT_GIFT, 1, 11
+	phone_event_fallback PHONE_EVENT_FLAVOR
+
+TullyPhoneEventRepeatSelection:
+	phone_event_chance PHONE_EVENT_REMATCH, 1, 3
+	phone_event_chance PHONE_EVENT_GIFT, 1, 11
+	phone_event_fallback PHONE_EVENT_FLAVOR
+
 BrentPhoneEventSelection:
 	phone_event_variant_chance PHONE_EVENT_RESULT_TRIVIA, PHONE_EVENT_FLAVOR, 1, 2
 	phone_event_chance PHONE_EVENT_REMATCH, 1, 2
+	phone_event_fallback PHONE_EVENT_FLAVOR
+
+TiffanyPhoneEventSelection:
+	phone_event_variant_chance PHONE_EVENT_RESULT_FAMILY, PHONE_EVENT_FLAVOR, 1, 4
+	phone_event_chance PHONE_EVENT_REMATCH, 1, 3
+	phone_event_chance PHONE_EVENT_GIFT, 1, 2
+	phone_event_chance PHONE_EVENT_GIFT, 1, 11
+	phone_event_fallback PHONE_EVENT_FLAVOR
+
+TiffanyPhoneEventRepeatSelection:
+	phone_event_variant_chance PHONE_EVENT_RESULT_FAMILY, PHONE_EVENT_FLAVOR, 1, 4
+	phone_event_chance PHONE_EVENT_REMATCH, 1, 3
+	phone_event_chance PHONE_EVENT_GIFT, 1, 11
 	phone_event_fallback PHONE_EVENT_FLAVOR
 
 VancePhoneEventSelection:
