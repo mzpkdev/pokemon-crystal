@@ -520,5 +520,6 @@ GetCallerLocation:
 INCLUDE "data/phone/non_trainer_names.asm"
 
 INCLUDE "data/phone/phone_contacts.asm"
+INCLUDE "data/phone/rematch_event_capabilities.asm"
 
 INCLUDE "data/phone/special_calls.asm"

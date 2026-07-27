@@ -142,6 +142,35 @@ DEF REMATCH_SCHEDULE_NIGHT     EQU (1 << EVE) | (1 << NITE)
 	assert ENGINE_REMATCH_SCHEDULE_JACK + REMATCH_SCHEDULE_PARRY == ENGINE_REMATCH_SCHEDULE_PARRY
 	assert ENGINE_REMATCH_SCHEDULE_JACK + REMATCH_SCHEDULE_ERIN == ENGINE_REMATCH_SCHEDULE_ERIN
 
+; Canonical outcomes for rematch-contact phone event arbitration.
+; PHONE_EVENT_NONE is reserved for "no selectable event"; the remaining values
+; are stable selector results. Persistent outcomes create or announce state
+; the player can act on (rematch, swarm, gift). Rare reports and specials are
+; informational/world-event outcomes, while flavor is the generic fallback.
+	const_def
+	const PHONE_EVENT_NONE
+	const PHONE_EVENT_REMATCH
+	const PHONE_EVENT_SWARM
+	const PHONE_EVENT_GIFT
+	const PHONE_EVENT_RARE_REPORT
+	const PHONE_EVENT_SPECIAL
+	const PHONE_EVENT_FLAVOR
+DEF NUM_PHONE_EVENTS EQU const_value
+
+; Capabilities describe reachable outcomes only. They do not encode selection
+; order, odds, or priority.
+DEF PHONE_EVENT_CAP_REMATCH     EQU 1 << (PHONE_EVENT_REMATCH - 1)
+DEF PHONE_EVENT_CAP_SWARM       EQU 1 << (PHONE_EVENT_SWARM - 1)
+DEF PHONE_EVENT_CAP_GIFT        EQU 1 << (PHONE_EVENT_GIFT - 1)
+DEF PHONE_EVENT_CAP_RARE_REPORT EQU 1 << (PHONE_EVENT_RARE_REPORT - 1)
+DEF PHONE_EVENT_CAP_SPECIAL     EQU 1 << (PHONE_EVENT_SPECIAL - 1)
+DEF PHONE_EVENT_CAP_FLAVOR      EQU 1 << (PHONE_EVENT_FLAVOR - 1)
+DEF NUM_PHONE_EVENT_CAPABILITIES EQU NUM_PHONE_EVENTS - 1
+
+	assert PHONE_EVENT_REMATCH == 1
+	assert PHONE_EVENT_FLAVOR == NUM_PHONE_EVENTS - 1
+	assert NUM_PHONE_EVENT_CAPABILITIES <= 8
+
 ; SpecialPhoneCallList indexes (see data/phone/special_calls.asm)
 	const_def
 	const SPECIALCALL_NONE
