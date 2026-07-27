@@ -24,9 +24,12 @@ ErinPhoneScript2:
 	setval REMATCH_CONTACT_ERIN
 	special Special_CheckRematchScheduleUsed
 	iftruefwd .GenericCall
-	farscall PhoneScript_Random3
-	ifequalfwd $0, ErinWantsBattle
-	ifequalfwd $1, ErinWantsBattle
+	setval PHONE_EVENT_CAP_REMATCH | PHONE_EVENT_CAP_FLAVOR
+	special Special_StageRematchPhoneEventCandidates
+	setval REMATCH_CONTACT_ERIN
+	special Special_SelectRematchContactPhoneEvent
+	ifequalfwd PHONE_EVENT_REMATCH, ErinWantsBattle
+	ifequalfwd PHONE_EVENT_FLAVOR, .GenericCall
 
 .GenericCall:
 	farsjump Phone_GenericCall_Female

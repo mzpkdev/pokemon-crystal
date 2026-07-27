@@ -24,9 +24,12 @@ VancePhoneScript2:
 	setval REMATCH_CONTACT_VANCE
 	special Special_CheckRematchScheduleUsed
 	iftruefwd .WantsBattle
-	farscall PhoneScript_Random3
-	ifequalfwd $0, VanceWantsRematch
-	ifequalfwd $1, VanceWantsRematch
+	setval PHONE_EVENT_CAP_REMATCH | PHONE_EVENT_CAP_FLAVOR
+	special Special_StageRematchPhoneEventCandidates
+	setval REMATCH_CONTACT_VANCE
+	special Special_SelectRematchContactPhoneEvent
+	ifequalfwd PHONE_EVENT_REMATCH, VanceWantsRematch
+	ifequalfwd PHONE_EVENT_FLAVOR, .WantsBattle
 
 .WantsBattle:
 	farsjump Phone_GenericCall_Male

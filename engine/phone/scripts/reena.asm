@@ -24,8 +24,12 @@ ReenaPhoneScript2:
 	setval REMATCH_CONTACT_REENA
 	special Special_CheckRematchScheduleUsed
 	iftruefwd .Generic
-	farscall PhoneScript_Random2
-	ifequalfwd $0, ReenaWantsBattle
+	setval PHONE_EVENT_CAP_REMATCH | PHONE_EVENT_CAP_FLAVOR
+	special Special_StageRematchPhoneEventCandidates
+	setval REMATCH_CONTACT_REENA
+	special Special_SelectRematchContactPhoneEvent
+	ifequalfwd PHONE_EVENT_REMATCH, ReenaWantsBattle
+	ifequalfwd PHONE_EVENT_FLAVOR, .Generic
 
 .Generic:
 	farsjump Phone_GenericCall_Female

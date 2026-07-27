@@ -27,9 +27,12 @@ JoeyPhoneScript2:
 	setval REMATCH_CONTACT_JOEY
 	special Special_CheckRematchScheduleUsed
 	iftruefwd .Generic
-	farscall PhoneScript_Random3
-	ifequalfwd $0, JoeyWantsBattle
-	ifequalfwd $1, JoeyWantsBattle
+	setval PHONE_EVENT_CAP_REMATCH | PHONE_EVENT_CAP_FLAVOR
+	special Special_StageRematchPhoneEventCandidates
+	setval REMATCH_CONTACT_JOEY
+	special Special_SelectRematchContactPhoneEvent
+	ifequalfwd PHONE_EVENT_REMATCH, JoeyWantsBattle
+	ifequalfwd PHONE_EVENT_FLAVOR, .Generic
 
 .Generic:
 	farsjump Phone_GenericCall_Male

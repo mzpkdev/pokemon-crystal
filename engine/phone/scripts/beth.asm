@@ -24,8 +24,12 @@ BethPhoneScript2:
 	setval REMATCH_CONTACT_BETH
 	special Special_CheckRematchScheduleUsed
 	iftruefwd .Generic
-	farscall PhoneScript_Random2
-	ifequalfwd $0, BethWantsBattle
+	setval PHONE_EVENT_CAP_REMATCH | PHONE_EVENT_CAP_FLAVOR
+	special Special_StageRematchPhoneEventCandidates
+	setval REMATCH_CONTACT_BETH
+	special Special_SelectRematchContactPhoneEvent
+	ifequalfwd PHONE_EVENT_REMATCH, BethWantsBattle
+	ifequalfwd PHONE_EVENT_FLAVOR, .Generic
 
 .Generic:
 	farsjump Phone_GenericCall_Female
