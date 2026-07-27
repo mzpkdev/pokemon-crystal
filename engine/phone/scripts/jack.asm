@@ -1,6 +1,7 @@
 JackPhoneScript1:
 	gettrainername SCHOOLBOY, JACK1, STRING_BUFFER_3
-	checkflag ENGINE_JACK_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_JACK
+	special Special_CheckRematchPending
 	iftruefwd .WantsBattle
 	farscall PhoneScript_AnswerPhone_Male
 	checkflag ENGINE_JACK_MONDAY_MORNING
@@ -22,7 +23,8 @@ JackPhoneScript2:
 	farscall PhoneScript_GreetPhone_Male
 	farscall PhoneScript_Random2
 	ifequalfwd $0, JackBattleTrivia
-	checkflag ENGINE_JACK_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_JACK
+	special Special_CheckRematchPending
 	iftruefwd .WaitingForBattle
 	checkflag ENGINE_JACK_MONDAY_MORNING
 	iftruefwd .WaitingForBattle
@@ -39,7 +41,8 @@ JackMondayMorning:
 
 JackWantsToBattle:
 	getlandmarkname NATIONAL_PARK, STRING_BUFFER_5
-	setflag ENGINE_JACK_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_JACK
+	special Special_OfferRematch
 	farsjump PhoneScript_WantsToBattle_Male
 
 JackFindsRare:
