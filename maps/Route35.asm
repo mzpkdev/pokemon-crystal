@@ -133,7 +133,8 @@ TrainerBug_catcherArnie1:
 	loadvar VAR_CALLERID, PHONE_BUG_CATCHER_ARNIE
 	endifjustbattled
 	opentext
-	checkflag ENGINE_ARNIE_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_ARNIE
+	special Special_CheckRematchPending
 	iftruefwd .WantsBattle
 	setval SWARM_YANMA_ID
 	special Special_CheckActiveSwarm
@@ -184,7 +185,8 @@ TrainerBug_catcherArnie1:
 	startbattle
 	reloadmapafterbattle
 	loadmem wArnieFightCount, 1
-	clearflag ENGINE_ARNIE_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_ARNIE
+	special Special_ConsumeRematch
 	end
 
 .LoadFight1:
@@ -192,7 +194,8 @@ TrainerBug_catcherArnie1:
 	startbattle
 	reloadmapafterbattle
 	loadmem wArnieFightCount, 2
-	clearflag ENGINE_ARNIE_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_ARNIE
+	special Special_ConsumeRematch
 	end
 
 .LoadFight2:
@@ -200,7 +203,8 @@ TrainerBug_catcherArnie1:
 	startbattle
 	reloadmapafterbattle
 	loadmem wArnieFightCount, 3
-	clearflag ENGINE_ARNIE_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_ARNIE
+	special Special_ConsumeRematch
 	end
 
 .LoadFight3:
@@ -208,14 +212,16 @@ TrainerBug_catcherArnie1:
 	startbattle
 	reloadmapafterbattle
 	loadmem wArnieFightCount, 4
-	clearflag ENGINE_ARNIE_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_ARNIE
+	special Special_ConsumeRematch
 	end
 
 .LoadFight4:
 	loadtrainer BUG_CATCHER, ARNIE5
 	startbattle
 	reloadmapafterbattle
-	clearflag ENGINE_ARNIE_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_ARNIE
+	special Special_ConsumeRematch
 	end
 
 .YanmaSwarming:

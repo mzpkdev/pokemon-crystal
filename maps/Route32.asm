@@ -476,7 +476,8 @@ TrainerFisherRalph1:
 .Script:
 	loadvar VAR_CALLERID, PHONE_FISHER_RALPH
 	opentext
-	checkflag ENGINE_RALPH_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_RALPH
+	special Special_CheckRematchPending
 	iftruefwd .Rematch
 	setval SWARM_QWILFISH_ID
 	special Special_CheckActiveSwarm
@@ -527,7 +528,8 @@ TrainerFisherRalph1:
 	startbattle
 	reloadmapafterbattle
 	loadmem wRalphFightCount, 1
-	clearflag ENGINE_RALPH_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_RALPH
+	special Special_ConsumeRematch
 	end
 
 .LoadFight1:
@@ -535,7 +537,8 @@ TrainerFisherRalph1:
 	startbattle
 	reloadmapafterbattle
 	loadmem wRalphFightCount, 2
-	clearflag ENGINE_RALPH_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_RALPH
+	special Special_ConsumeRematch
 	end
 
 .LoadFight2:
@@ -543,7 +546,8 @@ TrainerFisherRalph1:
 	startbattle
 	reloadmapafterbattle
 	loadmem wRalphFightCount, 3
-	clearflag ENGINE_RALPH_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_RALPH
+	special Special_ConsumeRematch
 	end
 
 .LoadFight3:
@@ -551,14 +555,16 @@ TrainerFisherRalph1:
 	startbattle
 	reloadmapafterbattle
 	loadmem wRalphFightCount, 4
-	clearflag ENGINE_RALPH_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_RALPH
+	special Special_ConsumeRematch
 	end
 
 .LoadFight4:
 	loadtrainer FISHER, RALPH5
 	startbattle
 	reloadmapafterbattle
-	clearflag ENGINE_RALPH_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_RALPH
+	special Special_ConsumeRematch
 	end
 
 .Swarm:
