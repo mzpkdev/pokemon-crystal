@@ -90,3 +90,56 @@ SelectPhoneEvent::
 	xor a
 	scf
 	ret
+
+SelectRematchContactPhoneEvent::
+; Select an event using one rematch contact's policy table.
+;
+; Input:
+;   a = REMATCH_CONTACT_* ID
+;   c = PHONE_EVENT_CAP_* candidate mask
+;
+; The caller's dynamic candidates are intersected with the contact's static
+; capabilities before selection. Contacts without a modeled policy table fail
+; safely instead of borrowing another contact's odds.
+;
+; Output:
+;   carry clear, a = selected PHONE_EVENT_*
+;   carry set,   a = PHONE_EVENT_NONE
+;
+; Clobbers: bc, de, hl
+	cp NUM_REMATCH_CONTACTS
+	jr nc, .failed
+	ld e, a
+	push de
+	push bc
+	call GetRematchPhoneEventCapabilities
+	pop bc
+	and c
+	ld c, a
+	pop de
+	jr z, .failed
+
+	; Three-byte far pointer indexed in canonical REMATCH_CONTACT_* order.
+	ld d, 0
+	ld hl, RematchPhoneEventSelectionTables
+	add hl, de
+	add hl, de
+	add hl, de
+	ld a, [hli]
+	ld b, a
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	ld a, b
+	or h
+	or l
+	jr z, .failed
+
+	ld a, c
+	call SelectPhoneEvent
+	ret
+
+.failed
+	xor a
+	scf
+	ret

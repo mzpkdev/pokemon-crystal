@@ -344,6 +344,30 @@ Special_GetRematchPhoneEventCapabilities:
 	ldh [hScriptVar], a
 	ret
 
+Special_StageRematchPhoneEventCandidates:
+; Input: hScriptVar = PHONE_EVENT_CAP_* candidate mask.
+; Stages the mask in the second byte of the script result word. Call
+; Special_SelectRematchContactPhoneEvent immediately after setting hScriptVar
+; to a REMATCH_CONTACT_* ID; selection eagerly consumes and clears the mask.
+	ldh a, [hScriptVar]
+	ldh [hScriptVar + 1], a
+	ret
+
+Special_SelectRematchContactPhoneEvent:
+; Input: hScriptVar = REMATCH_CONTACT_* ID; hScriptVar + 1 = staged candidates.
+; Output: hScriptVar = PHONE_EVENT_*; the staged candidate mask is always
+; cleared before selection so it cannot be reused accidentally.
+	ldh a, [hScriptVar]
+	ld b, a
+	ldh a, [hScriptVar + 1]
+	ld c, a
+	xor a
+	ldh [hScriptVar + 1], a
+	ld a, b
+	farcall SelectRematchContactPhoneEvent
+	ldh [hScriptVar], a
+	ret
+
 Special_ResetLuckyNumberShowFlag:
 	farjp LoadOrRegenerateLuckyIDNumber
 
