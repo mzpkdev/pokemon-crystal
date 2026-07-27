@@ -51,6 +51,20 @@ class Emulator:
             raise ValueError(f"Byte value out of range: {value}")
         self.pyboy.memory[self.symbols[symbol]] = value
 
+    def bag_contains(self, item: int) -> bool:
+        bag_items = self.symbols["wItems"]
+        return any(
+            self.pyboy.memory[bag_items + index * 2] == item
+            for index in range(self.read("wNumItems"))
+        )
+
+    def key_items_contain(self, item: int) -> bool:
+        key_items = self.symbols["wKeyItems"]
+        return any(self.pyboy.memory[key_items + index] == item for index in range(64))
+
+    def is_in_battle(self) -> bool:
+        return self.read("wBattleMode") != 0
+
     def tick(self, frames: int = 1) -> None:
         for frame in range(frames):
             if not self.pyboy.tick():
