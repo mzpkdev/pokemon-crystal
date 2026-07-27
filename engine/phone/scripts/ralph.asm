@@ -1,6 +1,7 @@
 RalphPhoneScript1:
 	gettrainername FISHER, RALPH1, STRING_BUFFER_3
-	checkflag ENGINE_RALPH_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_RALPH
+	special Special_CheckRematchPending
 	iftruefwd Ralph_Rematch
 	farscall PhoneScript_AnswerPhone_Male
 	checkflag ENGINE_RALPH_WEDNESDAY_MORNING
@@ -28,7 +29,8 @@ RalphPhoneScript2:
 	farscall PhoneScript_GreetPhone_Male
 	checkflag ENGINE_FLYPOINT_GOLDENROD
 	iffalsefwd Ralph_CheckSwarm2
-	checkflag ENGINE_RALPH_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_RALPH
+	special Special_CheckRematchPending
 	iftruefwd Ralph_CheckSwarm2
 	checkflag ENGINE_RALPH_WEDNESDAY_MORNING
 	iftruefwd Ralph_CheckSwarm2
@@ -43,7 +45,8 @@ Ralph_WednesdayMorning:
 	setflag ENGINE_RALPH_WEDNESDAY_MORNING
 Ralph_FightMe:
 	getlandmarkname ROUTE_32, STRING_BUFFER_5
-	setflag ENGINE_RALPH_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_RALPH
+	special Special_OfferRematch
 	farsjump PhoneScript_WantsToBattle_Male
 
 Ralph_SetUpSwarm:

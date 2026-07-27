@@ -1,6 +1,7 @@
 ArniePhoneScript1:
 	gettrainername BUG_CATCHER, ARNIE1, STRING_BUFFER_3
-	checkflag ENGINE_ARNIE_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_ARNIE
+	special Special_CheckRematchPending
 	iftruefwd .WantsBattle
 	farscall PhoneScript_AnswerPhone_Male
 	checkflag ENGINE_ARNIE_TUESDAY_MORNING
@@ -27,7 +28,8 @@ ArniePhoneScript1:
 ArniePhoneScript2:
 	gettrainername BUG_CATCHER, ARNIE1, STRING_BUFFER_3
 	farscall PhoneScript_GreetPhone_Male
-	checkflag ENGINE_ARNIE_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_ARNIE
+	special Special_CheckRematchPending
 	iftruefwd .Swarm
 	checkflag ENGINE_ARNIE_TUESDAY_MORNING
 	iftruefwd .Swarm
@@ -46,7 +48,8 @@ ArnieTuesdayMorning:
 
 ArnieWantsBattle:
 	getlandmarkname ROUTE_35, STRING_BUFFER_5
-	setflag ENGINE_ARNIE_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_ARNIE
+	special Special_OfferRematch
 	farsjump PhoneScript_WantsToBattle_Male
 
 ArnieYanmaSwarm: ; start swarm
