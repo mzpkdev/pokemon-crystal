@@ -439,7 +439,7 @@ DEF LUCKYNUMBERSHOW_GAME_OVER_F EQU 0
 	const_def
 	const DAILYFLAGS_KURT_MAKING_BALLS_F                     ; 0
 	const DAILYFLAGS_DAILY_BUG_CONTEST_F                     ; 1
-	const DAILYFLAGS_FISH_SWARM_F                            ; 2
+	const_skip ; previously used by fishing swarms
 	const DAILYFLAGS_VALERIE_MORNING_WALK_F                  ; 3
 	const_skip ; unused
 	const DAILYFLAGS_GOT_SHUCKIE_TODAY_F                     ; 5
@@ -492,8 +492,7 @@ DEF LUCKYNUMBERSHOW_GAME_OVER_F EQU 0
 	const_def
 	const SWARMFLAGS_BUENAS_PASSWORD_2_F         ; 0
 	const SWARMFLAGS_GOLDENROD_DEPT_STORE_SALE_F ; 1
-	const SWARMFLAGS_DUNSPARCE_SWARM_F           ; 2
-	const SWARMFLAGS_YANMA_SWARM_F               ; 3
+	const_skip 2 ; previously used by Dunsparce and Yanma swarms
 
 ; wCelebiEvent::
 DEF CELEBIEVENT_FOREST_IS_RESTLESS_F EQU 2

@@ -213,7 +213,7 @@ RunScriptCommand:
 	dw Script_checkphonecall             ; 9a
 	dw Script_verbosegiveitem            ; 9b
 	dw Script_verbosegiveitemvar         ; 9c
-	dw Script_swarm                      ; 9d
+	dw Script_reserved_swarm             ; 9d
 	dw Script_halloffame                 ; 9e
 	dw Script_credits                    ; 9f
 	dw Script_warpfacing                 ; a0
@@ -765,14 +765,12 @@ Script_fruittree:
 	ld hl, FruitTreeScript
 	jmp ScriptJump
 
-Script_swarm:
+Script_reserved_swarm:
+; Preserve the retired command's width so subsequent script command IDs stay stable.
 	call GetScriptByte
-	ld c, a
 	call GetScriptByte
-	ld d, a
 	call GetScriptByte
-	ld e, a
-	farjp StoreSwarmMapIndices
+	ret
 
 Script_trainertext:
 	call GetScriptByte

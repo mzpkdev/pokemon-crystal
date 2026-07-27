@@ -239,11 +239,6 @@ SpecialCheckPokerus:
 	ldh [hScriptVar], a
 	ret
 
-Special_ActivateFishingSwarm:
-	ldh a, [hScriptVar]
-	ld [wFishingSwarmFlag], a
-	ret
-
 Special_CheckActiveSwarm:
 ; Input: hScriptVar = swarm ID.
 ; Output: TRUE if that specific swarm is active.
@@ -289,24 +284,6 @@ Special_TryActivateSwarm:
 	ld a, SWARM_ACTIVATE_BLOCKED
 .done
 	ldh [hScriptVar], a
-	ret
-
-StoreSwarmMapIndices::
-	ld a, c
-	and a
-	jr nz, .yanma
-; swarm dark cave violet entrance
-	ld a, d
-	ld [wDunsparceMapGroup], a
-	ld a, e
-	ld [wDunsparceMapNumber], a
-	ret
-
-.yanma
-	ld a, d
-	ld [wYanmaMapGroup], a
-	ld a, e
-	ld [wYanmaMapNumber], a
 	ret
 
 Special_ResetLuckyNumberShowFlag:

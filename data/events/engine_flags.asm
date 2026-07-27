@@ -119,7 +119,7 @@ EngineFlags:
 
 	engine_flag wDailyFlags, DAILYFLAGS_KURT_MAKING_BALLS_F
 	engine_flag wDailyFlags, DAILYFLAGS_DAILY_BUG_CONTEST_F
-	engine_flag wDailyFlags, DAILYFLAGS_FISH_SWARM_F
+	engine_flag wDailyFlags, 2 ; unused; preserves subsequent engine flag IDs
 	engine_flag wDailyFlags, DAILYFLAGS_VALERIE_MORNING_WALK_F
 	engine_flag wDailyFlags, 4 ; unused
 	engine_flag wDailyFlags, DAILYFLAGS_GOT_SHUCKIE_TODAY_F
@@ -229,8 +229,8 @@ EngineFlags:
 	engine_flag wDailyPhoneTimeOfDayFlags, 22 ; parry friday afternoon
 	engine_flag wDailyPhoneTimeOfDayFlags, 23 ; erin saturday night
 
-	engine_flag wSwarmFlags, SWARMFLAGS_DUNSPARCE_SWARM_F
-	engine_flag wSwarmFlags, SWARMFLAGS_YANMA_SWARM_F
+	engine_flag wSwarmFlags, 2 ; unused; preserves subsequent engine flag IDs
+	engine_flag wSwarmFlags, 3 ; unused; preserves subsequent engine flag IDs
 
 	engine_flag wPokemonJournals, FALKNER_JOURNAL
 	engine_flag wPokemonJournals, BUGSY_JOURNAL

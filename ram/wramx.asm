@@ -1437,8 +1437,7 @@ wDailyRematchFlags:: ds 4
 wDailyPhoneItemFlags:: ds 4
 wDailyPhoneTimeOfDayFlags:: ds 4
 wKenjiBreakTimer:: dw ; Kenji
-wYanmaMapGroup:: db
-wYanmaMapNumber:: db
+	ds 2 ; unused
 
 wVermilionGymTrashCan1:: db
 wVermilionGymTrashCan2:: db
@@ -1576,9 +1575,7 @@ wLevelUpMon:: breed_struct wLevelUpMon
 wBugContestBackupPartyCount:: db
 wContestMon:: party_struct wContestMon
 
-wDunsparceMapGroup:: db
-wDunsparceMapNumber:: db
-wFishingSwarmFlag:: db
+	ds 3 ; unused
 
 wRoamMon1:: roam_struct wRoamMon1
 wRoamMon2:: roam_struct wRoamMon2

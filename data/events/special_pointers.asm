@@ -70,7 +70,7 @@ SpecialsPointers::
 	add_special Special_SelectRandomBugContestContestants
 	add_special Special_CheckActiveSwarm
 	add_special Special_TryActivateSwarm
-	add_special Special_ActivateFishingSwarm
+	add_special DoNothing ; reserved; previously Special_ActivateFishingSwarm
 	add_special ToggleMaptileDecorations
 	add_special ToggleDecorationsVisibility
 	add_special ReturnShuckie

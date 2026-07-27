@@ -1021,11 +1021,7 @@ MACRO verbosegiveitemvar
 ENDM
 
 	const swarm_command
-MACRO swarm
-	db swarm_command
-	db \1 ; flag
-	map_id \2 ; map
-ENDM
+; Reserved: the former swarm command consumed three argument bytes.
 
 	const halloffame_command
 MACRO halloffame

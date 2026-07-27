@@ -105,7 +105,7 @@ DEF ENGINE_BADGES EQU const_value
 ; wDailyFlags1
 	const ENGINE_KURT_MAKING_BALLS
 	const ENGINE_DAILY_BUG_CONTEST
-	const ENGINE_FISH_SWARM
+	const_skip ; previously used by fishing swarms
 	const ENGINE_VALERIE_MORNING_WALK
 	const_skip ; unused
 	const ENGINE_GOT_SHUCKIE_TODAY
@@ -212,9 +212,8 @@ DEF ENGINE_BADGES EQU const_value
 	const ENGINE_WILTON_THRUSDAY_MORNING
 	const ENGINE_PARRY_FRIDAY_AFTERNOON
 	const ENGINE_ERIN_SATURDAY_NIGHT
-; wSwarmFlags
-	const ENGINE_DUNSPARCE_SWARM
-	const ENGINE_YANMA_SWARM
+; two slots previously used by Dunsparce and Yanma swarms
+	const_skip 2
 ; wPokemonJournals
 	const ENGINE_READ_FALKNER_JOURNAL
 	const ENGINE_READ_BUGSY_JOURNAL
