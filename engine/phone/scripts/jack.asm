@@ -4,14 +4,10 @@ JackPhoneScript1:
 	special Special_CheckRematchPending
 	iftruefwd .WantsBattle
 	farscall PhoneScript_AnswerPhone_Male
-	checkflag ENGINE_JACK_MONDAY_MORNING
-	iftruefwd .NotMonday
-	readvar VAR_WEEKDAY
-	ifnotequal MONDAY, .NotMonday
-	checktime 1 << MORN
-	iftruefwd JackMondayMorning
+	setval REMATCH_CONTACT_JACK
+	special Special_TryClaimRematchScheduleWindow
+	iftruefwd JackScheduledRematch
 
-.NotMonday:
 	farsjump JackPhoneTipsScript
 
 .WantsBattle:
@@ -26,7 +22,8 @@ JackPhoneScript2:
 	setval REMATCH_CONTACT_JACK
 	special Special_CheckRematchPending
 	iftruefwd .WaitingForBattle
-	checkflag ENGINE_JACK_MONDAY_MORNING
+	setval REMATCH_CONTACT_JACK
+	special Special_CheckRematchScheduleUsed
 	iftruefwd .WaitingForBattle
 	farscall PhoneScript_Random2
 	ifequalfwd $0, JackWantsToBattle
@@ -36,10 +33,11 @@ JackPhoneScript2:
 	ifequalfwd $0, JackFindsRare
 	farsjump Phone_GenericCall_Male
 
-JackMondayMorning:
-	setflag ENGINE_JACK_MONDAY_MORNING
-
 JackWantsToBattle:
+	setval REMATCH_CONTACT_JACK
+	special Special_MarkRematchScheduleUsed
+
+JackScheduledRematch:
 	getlandmarkname NATIONAL_PARK, STRING_BUFFER_5
 	setval REMATCH_CONTACT_JACK
 	special Special_OfferRematch

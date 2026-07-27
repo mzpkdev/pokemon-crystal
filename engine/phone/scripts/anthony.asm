@@ -4,14 +4,10 @@ AnthonyPhoneScript1:
 	special Special_CheckRematchPending
 	iftruefwd .WantsBattle
 	farscall PhoneScript_AnswerPhone_Male
-	checkflag ENGINE_ANTHONY_FRIDAY_NIGHT
-	iftruefwd .NotFriday
-	readvar VAR_WEEKDAY
-	ifnotequal FRIDAY, .NotFriday
-	checktime (1 << EVE) | (1 << NITE)
-	iftruefwd AnthonyFridayNight
+	setval REMATCH_CONTACT_ANTHONY
+	special Special_TryClaimRematchScheduleWindow
+	iftruefwd AnthonyScheduledRematch
 
-.NotFriday:
 	setval SWARM_DUNSPARCE_ID
 	special Special_CheckActiveSwarm
 	iftruefwd .AlreadySwarming
@@ -33,7 +29,8 @@ AnthonyPhoneScript2:
 	setval REMATCH_CONTACT_ANTHONY
 	special Special_CheckRematchPending
 	iftruefwd .TriesSwarm
-	checkflag ENGINE_ANTHONY_FRIDAY_NIGHT
+	setval REMATCH_CONTACT_ANTHONY
+	special Special_CheckRematchScheduleUsed
 	iftruefwd .TriesSwarm
 	farscall PhoneScript_Random2
 	ifequalfwd $0, AnthonyWantsBattle
@@ -43,10 +40,11 @@ AnthonyPhoneScript2:
 	ifequalfwd $0, AnthonyTriesDunsparceSwarm
 	farsjump Phone_GenericCall_Male
 
-AnthonyFridayNight:
-	setflag ENGINE_ANTHONY_FRIDAY_NIGHT
-
 AnthonyWantsBattle:
+	setval REMATCH_CONTACT_ANTHONY
+	special Special_MarkRematchScheduleUsed
+
+AnthonyScheduledRematch:
 	getlandmarkname ROUTE_33, STRING_BUFFER_5
 	setval REMATCH_CONTACT_ANTHONY
 	special Special_OfferRematch
