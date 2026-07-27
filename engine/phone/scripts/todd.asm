@@ -1,6 +1,7 @@
 ToddPhoneScript1:
 	gettrainername CAMPER, TODD1, STRING_BUFFER_3
-	checkflag ENGINE_TODD_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_TODD
+	special Special_CheckRematchPending
 	iftruefwd .WantsBattle
 	farscall PhoneScript_AnswerPhone_Male
 	checkflag ENGINE_TODD_SATURDAY_MORNING
@@ -25,7 +26,8 @@ ToddPhoneScript1:
 ToddPhoneScript2:
 	gettrainername CAMPER, TODD1, STRING_BUFFER_3
 	farscall PhoneScript_GreetPhone_Male
-	checkflag ENGINE_TODD_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_TODD
+	special Special_CheckRematchPending
 	iftruefwd .TryForSale
 	checkflag ENGINE_TODD_SATURDAY_MORNING
 	iftruefwd .TryForSale
@@ -48,7 +50,8 @@ ToddSaturdayMorning:
 
 ToddWantsBattle:
 	getlandmarkname ROUTE_34, STRING_BUFFER_5
-	setflag ENGINE_TODD_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_TODD
+	special Special_OfferRematch
 	farsjump PhoneScript_WantsToBattle_Male
 
 ToddFoundRare:

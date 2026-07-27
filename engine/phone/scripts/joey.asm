@@ -1,6 +1,7 @@
 JoeyPhoneScript1:
 	gettrainername YOUNGSTER, JOEY1, STRING_BUFFER_3
-	checkflag ENGINE_JOEY_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_JOEY
+	special Special_CheckRematchPending
 	iftruefwd .WantsBattle
 	farscall PhoneScript_AnswerPhone_Male
 	checkflag ENGINE_JOEY_MONDAY_AFTERNOON
@@ -23,7 +24,8 @@ JoeyPhoneScript1:
 JoeyPhoneScript2:
 	gettrainername YOUNGSTER, JOEY1, STRING_BUFFER_3
 	farscall PhoneScript_GreetPhone_Male
-	checkflag ENGINE_JOEY_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_JOEY
+	special Special_CheckRematchPending
 	iftruefwd .Generic
 	checkflag ENGINE_JOEY_MONDAY_AFTERNOON
 	iftruefwd .Generic
@@ -39,5 +41,6 @@ JoeyMondayAfternoon:
 
 JoeyWantsBattle:
 	getlandmarkname ROUTE_30, STRING_BUFFER_5
-	setflag ENGINE_JOEY_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_JOEY
+	special Special_OfferRematch
 	farsjump PhoneScript_WantsToBattle_Male

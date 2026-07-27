@@ -1,6 +1,7 @@
 ParryPhoneScript1:
 	gettrainername HIKER, PARRY1, STRING_BUFFER_3
-	checkflag ENGINE_PARRY_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_PARRY
+	special Special_CheckRematchPending
 	iftruefwd .WantsBattle
 	farscall PhoneScript_AnswerPhone_Male
 	checkflag ENGINE_PARRY_FRIDAY_AFTERNOON
@@ -20,7 +21,8 @@ ParryPhoneScript1:
 ParryPhoneScript2:
 	gettrainername HIKER, PARRY1, STRING_BUFFER_3
 	farscall PhoneScript_GreetPhone_Male
-	checkflag ENGINE_PARRY_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_PARRY
+	special Special_CheckRematchPending
 	iftruefwd .GenericCall
 	checkflag ENGINE_PARRY_FRIDAY_AFTERNOON
 	iftruefwd .GenericCall
@@ -36,5 +38,6 @@ ParryFridayDay:
 
 ParryWantsBattle:
 	getlandmarkname ROUTE_45, STRING_BUFFER_5
-	setflag ENGINE_PARRY_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_PARRY
+	special Special_OfferRematch
 	farsjump PhoneScript_WantsToBattle_Male

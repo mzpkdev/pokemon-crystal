@@ -1,6 +1,7 @@
 AlanPhoneScript1:
 	gettrainername SCHOOLBOY, ALAN1, STRING_BUFFER_3
-	checkflag ENGINE_ALAN_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_ALAN
+	special Special_CheckRematchPending
 	iftruefwd .WantsBattle
 	farscall PhoneScript_AnswerPhone_Male
 	checkflag ENGINE_ALAN_WEDNESDAY_AFTERNOON
@@ -26,7 +27,8 @@ AlanPhoneScript1:
 AlanPhoneScript2:
 	gettrainername SCHOOLBOY, ALAN1, STRING_BUFFER_3
 	farscall PhoneScript_GreetPhone_Male
-	checkflag ENGINE_ALAN_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_ALAN
+	special Special_CheckRematchPending
 	iftruefwd .Generic
 	checkflag ENGINE_ALAN_WEDNESDAY_AFTERNOON
 	iftruefwd .Generic
@@ -51,7 +53,8 @@ AlanWednesdayDay:
 
 AlanWantsBattle:
 	getlandmarkname ROUTE_36, STRING_BUFFER_5
-	setflag ENGINE_ALAN_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_ALAN
+	special Special_OfferRematch
 	farsjump PhoneScript_WantsToBattle_Male
 
 AlanHasFireStone:

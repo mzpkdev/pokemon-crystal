@@ -1,6 +1,7 @@
 HueyPhoneScript1:
 	gettrainername SAILOR, HUEY1, STRING_BUFFER_3
-	checkflag ENGINE_HUEY_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_HUEY
+	special Special_CheckRematchPending
 	iftruefwd .WantsBattle
 	farscall PhoneScript_AnswerPhone_Male
 	checkflag ENGINE_HUEY_WEDNESDAY_NIGHT
@@ -21,7 +22,8 @@ HueyPhoneScript1:
 HueyPhoneScript2:
 	gettrainername SAILOR, HUEY1, STRING_BUFFER_3
 	farscall PhoneScript_GreetPhone_Male
-	checkflag ENGINE_HUEY_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_HUEY
+	special Special_CheckRematchPending
 	iftruefwd .Flavor
 	checkflag ENGINE_HUEY_WEDNESDAY_NIGHT
 	iftruefwd .Flavor
@@ -37,5 +39,6 @@ HueyWednesdayNight:
 
 HueyWantsBattle:
 	getlandmarkname LIGHTHOUSE, STRING_BUFFER_5
-	setflag ENGINE_HUEY_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_HUEY
+	special Special_OfferRematch
 	farsjump PhoneScript_WantsToBattle_Male

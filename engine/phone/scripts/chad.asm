@@ -1,6 +1,7 @@
 ChadPhoneScript1:
 	gettrainername SCHOOLBOY, CHAD1, STRING_BUFFER_3
-	checkflag ENGINE_CHAD_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_CHAD
+	special Special_CheckRematchPending
 	iftruefwd .WantsBattle
 	farscall PhoneScript_AnswerPhone_Male
 	checkflag ENGINE_CHAD_FRIDAY_MORNING
@@ -22,7 +23,8 @@ ChadPhoneScript2:
 	farscall PhoneScript_GreetPhone_Male
 	farscall PhoneScript_Random2
 	ifequalfwd $0, ChadOakGossip
-	checkflag ENGINE_CHAD_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_CHAD
+	special Special_CheckRematchPending
 	iftruefwd .Generic
 	checkflag ENGINE_CHAD_FRIDAY_MORNING
 	iftruefwd .Generic
@@ -39,7 +41,8 @@ ChadFridayMorning:
 
 ChadWantsBattle:
 	getlandmarkname ROUTE_38, STRING_BUFFER_5
-	setflag ENGINE_CHAD_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_CHAD
+	special Special_OfferRematch
 	farsjump PhoneScript_WantsToBattle_Male
 
 ChadFoundRare:
