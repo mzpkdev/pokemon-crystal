@@ -18,26 +18,41 @@ LizPhoneScript1:
 
 LizPhoneScript2:
 	gettrainername PICNICKER, LIZ1, STRING_BUFFER_3
-	farscall PhoneScript_Random4
-	ifequalfwd $0, LizWrongNumber
-	farscall PhoneScript_GreetPhone_Female
 	setval REMATCH_CONTACT_LIZ
 	special Special_CheckRematchPending
-	iftruefwd .next
+	iftruefwd .CheckGoldenrod
 	setval REMATCH_CONTACT_LIZ
 	special Special_CheckRematchScheduleUsed
-	iftruefwd .next
 
-.next:
-	farscall PhoneScript_Random2
-	ifequalfwd $0, LizGossip
+.CheckGoldenrod:
 	checkflag ENGINE_FLYPOINT_GOLDENROD
-	iffalsefwd .Generic
-	farscall PhoneScript_Random2
-	ifequalfwd $0, LizWantsBattle
+	iffalsefwd .NoRematch
+	setval PHONE_EVENT_CAP_REMATCH | PHONE_EVENT_CAP_FLAVOR
+	special Special_StageRematchPhoneEventCandidates
+	sjumpfwd .SelectEvent
+
+.NoRematch:
+	setval PHONE_EVENT_CAP_FLAVOR
+	special Special_StageRematchPhoneEventCandidates
+
+.SelectEvent:
+	setval REMATCH_CONTACT_LIZ
+	special Special_SelectRematchContactPhoneEvent
+	ifequalfwd PHONE_EVENT_RESULT_WRONG_NUMBER, LizWrongNumber
+	ifequalfwd PHONE_EVENT_RESULT_GOSSIP, .Gossip
+	ifequalfwd PHONE_EVENT_REMATCH, .Rematch
+	farscall PhoneScript_GreetPhone_Female
 
 .Generic:
 	farsjump Phone_GenericCall_Female
+
+.Gossip:
+	farscall PhoneScript_GreetPhone_Female
+	sjumpfwd LizGossip
+
+.Rematch:
+	farscall PhoneScript_GreetPhone_Female
+	sjumpfwd LizWantsBattle
 
 LizWantsBattle:
 	setval REMATCH_CONTACT_LIZ
