@@ -6,14 +6,14 @@ SelectPhoneEvent::
 ;   b  = selection table ROM bank
 ;   hl = selection table address
 ;
-; Each three-byte table entry is a PHONE_EVENT_* value followed by a numerator
-; and denominator. Nonzero denominators select when RandomRange(denominator)
-; returns less than numerator. Disabled candidates are skipped without calling
-; RandomRange. A zero numerator and denominator are the deterministic terminal
-; fallback.
+; Each four-byte table entry is a PHONE_EVENT_RESULT_* value, the broad
+; PHONE_EVENT_* capability that gates it, then a numerator and denominator.
+; Nonzero denominators select when RandomRange(denominator) returns less than
+; numerator. Disabled capabilities are skipped without calling RandomRange.
+; A zero numerator and denominator are the deterministic terminal fallback.
 ;
 ; Output:
-;   carry clear, a = selected PHONE_EVENT_*
+;   carry clear, a = selected PHONE_EVENT_RESULT_*
 ;   carry set,   a = PHONE_EVENT_NONE if the terminal fallback is disabled,
 ;                or if the table is malformed
 ;
@@ -33,6 +33,11 @@ SelectPhoneEvent::
 	ld a, d
 	call GetFarByte
 	inc hl
+	push af
+
+	ld a, d
+	call GetFarByte
+	inc hl
 	ld e, a
 
 	ld a, d
@@ -42,29 +47,34 @@ SelectPhoneEvent::
 
 	ld a, b
 	and a
-	jr z, .invalid
-	cp NUM_PHONE_EVENTS
-	jr nc, .invalid
+	jr z, .invalid_cap_on_stack
+	cp NUM_PHONE_EVENT_RESULTS
+	jr nc, .invalid_cap_on_stack
+
 	ld a, d
 	and a
 	jr z, .validate_fallback
 	ld a, e
 	and a
-	jr z, .invalid
+	jr z, .invalid_cap_on_stack
 	cp d
 	jr z, .valid_entry
-	jr nc, .invalid
+	jr nc, .invalid_cap_on_stack
 	jr .valid_entry
 
 .validate_fallback
 	ld a, e
 	and a
-	jr nz, .invalid
+	jr nz, .invalid_cap_on_stack
 
 .valid_entry
+	pop af
+	and a
+	jr z, .invalid
+	cp NUM_PHONE_EVENTS
+	jr nc, .invalid
 
-	; Convert PHONE_EVENT_* to its corresponding PHONE_EVENT_CAP_* bit.
-	ld a, b
+	; Convert the broad PHONE_EVENT_* capability to its corresponding bit.
 	dec a
 	push bc
 	ld b, a
@@ -108,6 +118,8 @@ SelectPhoneEvent::
 	and a
 	ret
 
+.invalid_cap_on_stack
+	pop af
 .invalid
 	pop de
 .failed
