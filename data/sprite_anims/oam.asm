@@ -111,6 +111,7 @@ SpriteAnimOAMData:
 	spriteanimoam $04, .OAMData_FlyMon2                ; SPRITE_ANIM_OAMSET_FLY_MON_3
 	spriteanimoam $00, .OAMData_PurpleWalk             ; SPRITE_ANIM_OAMSET_PURPLE_WALK_1
 	spriteanimoam $04, .OAMData_PurpleWalk             ; SPRITE_ANIM_OAMSET_PURPLE_WALK_2
+	spriteanimoam $00, .OAMData_TownMapSwarm           ; SPRITE_ANIM_OAMSET_TOWN_MAP_SWARM
 	assert_table_length NUM_SPRITE_ANIM_OAMSETS
 
 .OAMData_1x1_Palette0:
@@ -198,6 +199,13 @@ SpriteAnimOAMData:
 	dsprite -1,  0,  0,  0, $01, SPRITEOAM_SKIP_PAL_APPLY
 	dsprite  0,  0, -1,  0, $02, SPRITEOAM_SKIP_PAL_APPLY
 	dsprite  0,  0,  0,  0, $03, SPRITEOAM_SKIP_PAL_APPLY
+
+.OAMData_TownMapSwarm:
+	db 4
+	dsprite -1, 0, -1, 0, $00, POKEGEAR_SWARM_ICON_PALETTE
+	dsprite -1, 0,  0, 0, $01, POKEGEAR_SWARM_ICON_PALETTE
+	dsprite  0, 0, -1, 0, $02, POKEGEAR_SWARM_ICON_PALETTE
+	dsprite  0, 0,  0, 0, $03, POKEGEAR_SWARM_ICON_PALETTE
 
 .OAMData_MagnetTrain:
 	db 4

@@ -553,6 +553,8 @@ PokegearMap_Init:
 	ld [wPokegearMapCursorObjectPointer], a
 	ld a, b
 	ld [wPokegearMapCursorObjectPointer + 1], a
+	ld a, [wPokegearMapRegion]
+	call PokegearMap_InitSwarmIcon
 	ld a, [wTownMapCanShowFly]
 	and a
 	jr z, .no_fly
@@ -748,6 +750,42 @@ PokegearMap_InitCursor:
 	push bc
 	call PokegearMap_UpdateCursorPosition
 	pop bc
+	ret
+
+PokegearMap_InitSwarmIcon:
+; Initialize one static 2x2 mini icon when the active swarm belongs to
+; the displayed region. The cursor is initialized first so it keeps
+; higher OAM priority where the two markers overlap.
+	push af
+	farcall GetTownMapSwarm
+	jr c, .not_displayable
+	pop af
+	cp e
+	ret nz
+
+	ld a, d
+	farcall GetLandmarkCoords
+	push de
+	depixel 0, 0
+	ld a, SPRITE_ANIM_INDEX_TOWN_MAP_SWARM
+	call InitSpriteAnimStruct
+	pop de
+	ld hl, SPRITEANIMSTRUCT_TILE_ID
+	add hl, bc
+	ld [hl], POKEGEAR_SWARM_ICON_TILE
+	ld hl, SPRITEANIMSTRUCT_ANIM_SEQ_ID
+	add hl, bc
+	ld [hl], SPRITE_ANIM_SEQ_NULL
+	ld hl, SPRITEANIMSTRUCT_XCOORD
+	add hl, bc
+	ld [hl], e
+	ld hl, SPRITEANIMSTRUCT_YCOORD
+	add hl, bc
+	ld [hl], d
+	ret
+
+.not_displayable
+	pop af
 	ret
 
 TownMap_UpdateLandmarkName:
@@ -1237,7 +1275,6 @@ _TownMap:
 	call DisableLCD
 	farcall InitPokegearPalettes
 	call Pokegear_LoadGFX
-	call Pokegear_LoadSwarmIconPalette
 	call ClearSpriteAnims
 	ld a, 8
 	call SkipMusic
@@ -1258,8 +1295,20 @@ _TownMap:
 	ld [wTownMapCursorObjectPointer], a
 	ld a, b
 	ld [wTownMapCursorObjectPointer + 1], a
+	ld a, [wTownMapPlayerIconLandmark]
+	cp SHAMOUTI_LANDMARK
+	ld a, ORANGE_REGION
+	jr nc, .got_swarm_region
+	ld a, [wTownMapPlayerIconLandmark]
+	cp KANTO_LANDMARK
+	ld a, KANTO_REGION
+	jr nc, .got_swarm_region
+	ld a, JOHTO_REGION
+.got_swarm_region
+	call PokegearMap_InitSwarmIcon
 	ld a, CGB_POKEGEAR_PALS
 	call GetCGBLayout
+	call Pokegear_LoadSwarmIconPalette
 	call SetDefaultBGPAndOBP
 	ld a, %11100100
 	call DmgToCgbObjPal0
