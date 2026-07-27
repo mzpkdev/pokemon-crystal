@@ -4,12 +4,10 @@ RalphPhoneScript1:
 	special Special_CheckRematchPending
 	iftruefwd Ralph_Rematch
 	farscall PhoneScript_AnswerPhone_Male
-	checkflag ENGINE_RALPH_WEDNESDAY_MORNING
-	iftruefwd Ralph_CheckSwarm
-	readvar VAR_WEEKDAY
-	ifnotequal WEDNESDAY, Ralph_CheckSwarm
-	checktime 1 << MORN
-	iftruefwd Ralph_WednesdayMorning
+	setval REMATCH_CONTACT_RALPH
+	special Special_TryClaimRematchScheduleWindow
+	iftruefwd Ralph_ScheduledRematch
+
 Ralph_CheckSwarm:
 	setval SWARM_QWILFISH_ID
 	special Special_CheckActiveSwarm
@@ -32,7 +30,8 @@ RalphPhoneScript2:
 	setval REMATCH_CONTACT_RALPH
 	special Special_CheckRematchPending
 	iftruefwd Ralph_CheckSwarm2
-	checkflag ENGINE_RALPH_WEDNESDAY_MORNING
+	setval REMATCH_CONTACT_RALPH
+	special Special_CheckRematchScheduleUsed
 	iftruefwd Ralph_CheckSwarm2
 	farscall PhoneScript_Random2
 	ifequalfwd $0, Ralph_FightMe
@@ -41,9 +40,11 @@ Ralph_CheckSwarm2:
 	ifequalfwd $0, Ralph_SetUpSwarm
 	farsjump Phone_GenericCall_Male
 
-Ralph_WednesdayMorning:
-	setflag ENGINE_RALPH_WEDNESDAY_MORNING
 Ralph_FightMe:
+	setval REMATCH_CONTACT_RALPH
+	special Special_MarkRematchScheduleUsed
+
+Ralph_ScheduledRematch:
 	getlandmarkname ROUTE_32, STRING_BUFFER_5
 	setval REMATCH_CONTACT_RALPH
 	special Special_OfferRematch

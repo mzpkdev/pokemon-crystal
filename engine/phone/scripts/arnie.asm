@@ -4,14 +4,10 @@ ArniePhoneScript1:
 	special Special_CheckRematchPending
 	iftruefwd .WantsBattle
 	farscall PhoneScript_AnswerPhone_Male
-	checkflag ENGINE_ARNIE_TUESDAY_MORNING
-	iftruefwd .NotTuesday
-	readvar VAR_WEEKDAY
-	ifnotequal TUESDAY, .NotTuesday
-	checktime 1 << MORN
-	iftruefwd ArnieTuesdayMorning
+	setval REMATCH_CONTACT_ARNIE
+	special Special_TryClaimRematchScheduleWindow
+	iftruefwd ArnieScheduledRematch
 
-.NotTuesday:
 	setval SWARM_YANMA_ID
 	special Special_CheckActiveSwarm
 	iftruefwd .AlreadySwarming
@@ -31,7 +27,8 @@ ArniePhoneScript2:
 	setval REMATCH_CONTACT_ARNIE
 	special Special_CheckRematchPending
 	iftruefwd .Swarm
-	checkflag ENGINE_ARNIE_TUESDAY_MORNING
+	setval REMATCH_CONTACT_ARNIE
+	special Special_CheckRematchScheduleUsed
 	iftruefwd .Swarm
 	farscall PhoneScript_Random2
 	ifequalfwd $0, ArnieWantsBattle
@@ -43,10 +40,11 @@ ArniePhoneScript2:
 	ifequalfwd $0, ArnieFoundRare
 	farsjump Phone_GenericCall_Male
 
-ArnieTuesdayMorning:
-	setflag ENGINE_ARNIE_TUESDAY_MORNING
-
 ArnieWantsBattle:
+	setval REMATCH_CONTACT_ARNIE
+	special Special_MarkRematchScheduleUsed
+
+ArnieScheduledRematch:
 	getlandmarkname ROUTE_35, STRING_BUFFER_5
 	setval REMATCH_CONTACT_ARNIE
 	special Special_OfferRematch
