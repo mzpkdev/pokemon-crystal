@@ -32,12 +32,19 @@ AnthonyPhoneScript2:
 	setval REMATCH_CONTACT_ANTHONY
 	special Special_CheckRematchScheduleUsed
 	iftruefwd .TriesSwarm
-	farscall PhoneScript_Random2
-	ifequalfwd $0, AnthonyWantsBattle
+	setval PHONE_EVENT_CAP_REMATCH | PHONE_EVENT_CAP_SWARM | PHONE_EVENT_CAP_FLAVOR
+	special Special_StageRematchPhoneEventCandidates
+	sjumpfwd .SelectEvent
 
 .TriesSwarm:
-	farscall PhoneScript_Random5
-	ifequalfwd $0, AnthonyTriesDunsparceSwarm
+	setval PHONE_EVENT_CAP_SWARM | PHONE_EVENT_CAP_FLAVOR
+	special Special_StageRematchPhoneEventCandidates
+
+.SelectEvent:
+	setval REMATCH_CONTACT_ANTHONY
+	special Special_SelectRematchContactPhoneEvent
+	ifequalfwd PHONE_EVENT_REMATCH, AnthonyWantsBattle
+	ifequalfwd PHONE_EVENT_SWARM, AnthonyTriesDunsparceSwarm
 	farsjump Phone_GenericCall_Male
 
 AnthonyWantsBattle:
