@@ -1437,7 +1437,9 @@ wDailyRematchFlags:: ds REMATCH_FLAG_BYTES
 wDailyRematchFlagsEnd::
 	assert wDailyRematchFlagsEnd - wDailyRematchFlags == REMATCH_FLAG_BYTES
 wDailyPhoneItemFlags:: ds 4
-wDailyPhoneTimeOfDayFlags:: ds 4
+wDailyPhoneTimeOfDayFlags:: ds REMATCH_SCHEDULE_FLAG_BYTES
+wDailyPhoneTimeOfDayFlagsEnd::
+	assert wDailyPhoneTimeOfDayFlagsEnd - wDailyPhoneTimeOfDayFlags == REMATCH_SCHEDULE_FLAG_BYTES
 wKenjiBreakTimer:: dw ; Kenji
 	ds 2 ; unused
 
