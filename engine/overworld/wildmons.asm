@@ -568,8 +568,7 @@ LoadWildMonDataPointer:
 	jr z, _WaterWildmonLookup
 
 _GrassWildmonLookup:
-	ld hl, SwarmGrassWildMons
-	ld bc, GRASS_WILDDATA_LENGTH
+	ld a, SWARM_METHOD_LAND
 	call _SwarmWildmonCheck
 	ret c
 	call _GetGrassWildmonPointer
@@ -577,8 +576,7 @@ _GrassWildmonLookup:
 	jr _NormalWildmonOK
 
 _WaterWildmonLookup:
-	ld hl, SwarmWaterWildMons
-	ld bc, WATER_WILDDATA_LENGTH
+	ld a, SWARM_METHOD_SURF
 	call _SwarmWildmonCheck
 	ret c
 	call _GetWaterWildmonPointer
@@ -610,37 +608,32 @@ _GetWaterWildmonPointer:
 	ret
 
 _SwarmWildmonCheck:
-	call CopyCurrMapDE
-	push hl
-	ld hl, wSwarmFlags
-	bit 2, [hl]
-	pop hl
-	jr z, .CheckYanma
-	ld a, [wDunsparceMapGroup]
+; Input: a = encounter method.
+; Return the active swarm's full encounter profile in hl, with carry set.
+	ld d, a
+	call IsCurrentMapActiveSwarm
+	jr c, _NoSwarmWildmon
+	ld bc, SWARMENTRY_METHOD
+	add hl, bc
+	ld a, [hl]
 	cp d
-	jr nz, .CheckYanma
-	ld a, [wDunsparceMapNumber]
-	cp e
-	jr nz, .CheckYanma
-	call LookUpWildmonsForMapDE
-	jr nc, _NoSwarmWildmon
+	jr nz, _NoSwarmWildmon
+	ld bc, SWARMENTRY_PROFILE - SWARMENTRY_METHOD
+	add hl, bc
+	ld a, [hl]
+	cp SWARM_PROFILE_DUNSPARCE
+	jr z, .Dunsparce
+	cp SWARM_PROFILE_YANMA
+	jr z, .Yanma
+	jr _NoSwarmWildmon
+
+.Dunsparce:
+	ld hl, DunsparceSwarmWildMons
 	scf
 	ret
 
-.CheckYanma:
-	push hl
-	ld hl, wSwarmFlags
-	bit 3, [hl]
-	pop hl
-	jr z, _NoSwarmWildmon
-	ld a, [wYanmaMapGroup]
-	cp d
-	jr nz, _NoSwarmWildmon
-	ld a, [wYanmaMapNumber]
-	cp e
-	jr nz, _NoSwarmWildmon
-	call LookUpWildmonsForMapDE
-	jr nc, _NoSwarmWildmon
+.Yanma:
+	ld hl, YanmaSwarmWildMons
 	scf
 	ret
 
