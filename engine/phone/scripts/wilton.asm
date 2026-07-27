@@ -29,18 +29,25 @@ WiltonPhoneScript2:
 	farscall PhoneScript_GreetPhone_Male
 	setval REMATCH_CONTACT_WILTON
 	special Special_CheckRematchPending
-	iftruefwd .GenericCall
+	iftruefwd .GenericCandidates
 	setval REMATCH_CONTACT_WILTON
 	special Special_CheckRematchScheduleUsed
-	iftruefwd .GenericCall
+	iftruefwd .GenericCandidates
 	checkflag ENGINE_WILTON_HAS_ITEM
-	iftruefwd .GenericCall
-	farscall PhoneScript_Random2
-	ifequalfwd $0, WiltonWantsBattle
-	farscall PhoneScript_Random2
-	ifequalfwd $0, WiltonHasItem
+	iftruefwd .GenericCandidates
+	setval PHONE_EVENT_CAP_REMATCH | PHONE_EVENT_CAP_GIFT | PHONE_EVENT_CAP_FLAVOR
+	special Special_StageRematchPhoneEventCandidates
+	sjumpfwd .SelectEvent
 
-.GenericCall:
+.GenericCandidates:
+	setval PHONE_EVENT_CAP_FLAVOR
+	special Special_StageRematchPhoneEventCandidates
+
+.SelectEvent:
+	setval REMATCH_CONTACT_WILTON
+	special Special_SelectRematchContactPhoneEvent
+	ifequalfwd PHONE_EVENT_REMATCH, WiltonWantsBattle
+	ifequalfwd PHONE_EVENT_GIFT, WiltonHasItem
 	farsjump Phone_GenericCall_Male
 
 WiltonWantsBattle:

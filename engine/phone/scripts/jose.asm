@@ -29,20 +29,26 @@ JosePhoneScript2:
 	farscall PhoneScript_GreetPhone_Male
 	setval REMATCH_CONTACT_JOSE
 	special Special_CheckRematchPending
-	iftruefwd .Generic
+	iftruefwd .GenericCandidates
 	setval REMATCH_CONTACT_JOSE
 	special Special_CheckRematchScheduleUsed
-	iftruefwd .Generic
+	iftruefwd .GenericCandidates
 	checkflag ENGINE_JOSE_HAS_STAR_PIECE
-	iftruefwd .Generic
-	farscall PhoneScript_Random3
-	ifequalfwd $0, JoseWantsBattle
-	farscall PhoneScript_Random3
-	ifequalfwd $0, JoseHasStarPiece
+	iftruefwd .GenericCandidates
+	setval PHONE_EVENT_CAP_REMATCH | PHONE_EVENT_CAP_GIFT | PHONE_EVENT_CAP_RARE_REPORT | PHONE_EVENT_CAP_FLAVOR
+	special Special_StageRematchPhoneEventCandidates
+	sjumpfwd .SelectEvent
 
-.Generic:
-	farscall PhoneScript_Random3
-	ifequalfwd $0, JoseFoundRare
+.GenericCandidates:
+	setval PHONE_EVENT_CAP_RARE_REPORT | PHONE_EVENT_CAP_FLAVOR
+	special Special_StageRematchPhoneEventCandidates
+
+.SelectEvent:
+	setval REMATCH_CONTACT_JOSE
+	special Special_SelectRematchContactPhoneEvent
+	ifequalfwd PHONE_EVENT_REMATCH, JoseWantsBattle
+	ifequalfwd PHONE_EVENT_GIFT, JoseHasStarPiece
+	ifequalfwd PHONE_EVENT_RARE_REPORT, JoseFoundRare
 	farsjump Phone_GenericCall_Male
 
 JoseWantsBattle:

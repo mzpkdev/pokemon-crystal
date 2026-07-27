@@ -25,22 +25,31 @@ ToddPhoneScript2:
 	farscall PhoneScript_GreetPhone_Male
 	setval REMATCH_CONTACT_TODD
 	special Special_CheckRematchPending
-	iftruefwd .TryForSale
+	iftruefwd .SaleCandidates
 	setval REMATCH_CONTACT_TODD
 	special Special_CheckRematchScheduleUsed
-	iftruefwd .TryForSale
+	iftruefwd .SaleCandidates
 	checkflag ENGINE_FLYPOINT_GOLDENROD
-	iffalsefwd .NoGoldenrod
-	farscall PhoneScript_Random2
-	ifequalfwd $0, ToddWantsBattle
+	iffalsefwd .GenericCandidates
+	setval PHONE_EVENT_CAP_REMATCH | PHONE_EVENT_CAP_SPECIAL | PHONE_EVENT_CAP_RARE_REPORT | PHONE_EVENT_CAP_FLAVOR
+	special Special_StageRematchPhoneEventCandidates
+	sjumpfwd .SelectEvent
 
-.TryForSale:
-	farscall PhoneScript_Random2
-	ifequalfwd $0, ToddDeptStoreSale
+.SaleCandidates:
+	setval PHONE_EVENT_CAP_SPECIAL | PHONE_EVENT_CAP_RARE_REPORT | PHONE_EVENT_CAP_FLAVOR
+	special Special_StageRematchPhoneEventCandidates
+	sjumpfwd .SelectEvent
 
-.NoGoldenrod:
-	farscall PhoneScript_Random3
-	ifequalfwd $0, ToddFoundRare
+.GenericCandidates:
+	setval PHONE_EVENT_CAP_RARE_REPORT | PHONE_EVENT_CAP_FLAVOR
+	special Special_StageRematchPhoneEventCandidates
+
+.SelectEvent:
+	setval REMATCH_CONTACT_TODD
+	special Special_SelectRematchContactPhoneEvent
+	ifequalfwd PHONE_EVENT_REMATCH, ToddWantsBattle
+	ifequalfwd PHONE_EVENT_SPECIAL, ToddDeptStoreSale
+	ifequalfwd PHONE_EVENT_RARE_REPORT, ToddFoundRare
 	farsjump Phone_GenericCall_Male
 
 ToddWantsBattle:
