@@ -611,7 +611,7 @@ _SwarmWildmonCheck:
 ; Input: a = encounter method.
 ; Return the active swarm's full encounter profile in hl, with carry set.
 	ld d, a
-	call IsCurrentMapActiveSwarm
+	farcall IsCurrentMapActiveSwarm
 	jr c, _NoSwarmWildmon
 	ld bc, SWARMENTRY_METHOD
 	add hl, bc

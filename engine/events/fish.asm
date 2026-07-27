@@ -215,7 +215,7 @@ GetFishGroupIndex:
 
 	push bc
 	push de
-	call IsCurrentMapActiveSwarm
+	farcall IsCurrentMapActiveSwarm
 	jr c, .no_swarm
 	ld bc, SWARMENTRY_METHOD
 	add hl, bc

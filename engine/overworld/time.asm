@@ -139,7 +139,7 @@ CheckDailyResetTimer::
 	ld [hli], a ; wWeeklyFlags
 	ld [hli], a ; wWeeklyFlags2
 	ld [hl], a ; wSwarmFlags
-	call ClearActiveSwarm
+	farcall ClearActiveSwarm
 	ld [wLuckyNumberShowFlag], a
 	ld hl, wFruitTreeFlags
 rept (NUM_FRUIT_TREES + 7) / 8 - 1
