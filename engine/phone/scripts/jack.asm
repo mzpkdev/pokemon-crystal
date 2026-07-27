@@ -17,20 +17,26 @@ JackPhoneScript1:
 JackPhoneScript2:
 	gettrainername SCHOOLBOY, JACK1, STRING_BUFFER_3
 	farscall PhoneScript_GreetPhone_Male
-	farscall PhoneScript_Random2
-	ifequalfwd $0, JackBattleTrivia
 	setval REMATCH_CONTACT_JACK
 	special Special_CheckRematchPending
-	iftruefwd .WaitingForBattle
+	iftruefwd .NoRematch
 	setval REMATCH_CONTACT_JACK
 	special Special_CheckRematchScheduleUsed
-	iftruefwd .WaitingForBattle
-	farscall PhoneScript_Random2
-	ifequalfwd $0, JackWantsToBattle
+	iftruefwd .NoRematch
+	setval PHONE_EVENT_CAP_REMATCH | PHONE_EVENT_CAP_RARE_REPORT | PHONE_EVENT_CAP_FLAVOR
+	special Special_StageRematchPhoneEventCandidates
+	sjumpfwd .SelectEvent
 
-.WaitingForBattle:
-	farscall PhoneScript_Random3
-	ifequalfwd $0, JackFindsRare
+.NoRematch:
+	setval PHONE_EVENT_CAP_RARE_REPORT | PHONE_EVENT_CAP_FLAVOR
+	special Special_StageRematchPhoneEventCandidates
+
+.SelectEvent:
+	setval REMATCH_CONTACT_JACK
+	special Special_SelectRematchContactPhoneEvent
+	ifequalfwd PHONE_EVENT_RESULT_TRIVIA, JackBattleTrivia
+	ifequalfwd PHONE_EVENT_REMATCH, JackWantsToBattle
+	ifequalfwd PHONE_EVENT_RARE_REPORT, JackFindsRare
 	farsjump Phone_GenericCall_Male
 
 JackWantsToBattle:

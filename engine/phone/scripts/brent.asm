@@ -18,18 +18,25 @@ BrentPhoneScript1:
 BrentPhoneScript2:
 	gettrainername POKEMANIAC, BRENT1, STRING_BUFFER_3
 	farscall PhoneScript_GreetPhone_Male
-	farscall PhoneScript_Random2
-	ifequalfwd $0, BrentBillTrivia
 	setval REMATCH_CONTACT_BRENT
 	special Special_CheckRematchPending
-	iftruefwd .Generic
+	iftruefwd .NoRematch
 	setval REMATCH_CONTACT_BRENT
 	special Special_CheckRematchScheduleUsed
-	iftruefwd .Generic
-	farscall PhoneScript_Random2
-	ifequalfwd $0, BrentWantsBattle
+	iftruefwd .NoRematch
+	setval PHONE_EVENT_CAP_REMATCH | PHONE_EVENT_CAP_FLAVOR
+	special Special_StageRematchPhoneEventCandidates
+	sjumpfwd .SelectEvent
 
-.Generic:
+.NoRematch:
+	setval PHONE_EVENT_CAP_FLAVOR
+	special Special_StageRematchPhoneEventCandidates
+
+.SelectEvent:
+	setval REMATCH_CONTACT_BRENT
+	special Special_SelectRematchContactPhoneEvent
+	ifequalfwd PHONE_EVENT_RESULT_TRIVIA, BrentBillTrivia
+	ifequalfwd PHONE_EVENT_REMATCH, BrentWantsBattle
 	farsjump Phone_GenericCall_Male
 
 BrentWantsBattle:
