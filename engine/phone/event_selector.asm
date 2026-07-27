@@ -139,7 +139,7 @@ SelectRematchContactPhoneEvent::
 ; safely instead of borrowing another contact's odds.
 ;
 ; Output:
-;   carry clear, a = selected PHONE_EVENT_*
+;   carry clear, a = selected PHONE_EVENT_RESULT_*
 ;   carry set,   a = PHONE_EVENT_NONE
 ;
 ; Clobbers: bc, de, hl

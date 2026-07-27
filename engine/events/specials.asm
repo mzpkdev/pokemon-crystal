@@ -355,8 +355,9 @@ Special_StageRematchPhoneEventCandidates:
 
 Special_SelectRematchContactPhoneEvent:
 ; Input: hScriptVar = REMATCH_CONTACT_* ID; hScriptVar + 1 = staged candidates.
-; Output: hScriptVar = PHONE_EVENT_*; the staged candidate mask is always
-; cleared before selection so it cannot be reused accidentally.
+; Output: hScriptVar = PHONE_EVENT_RESULT_* (including distinct variants); the
+; staged candidate mask is always cleared before selection so it cannot be
+; reused accidentally.
 	ldh a, [hScriptVar]
 	ld b, a
 	ldh a, [hScriptVar + 1]
