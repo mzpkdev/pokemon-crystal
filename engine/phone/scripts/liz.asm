@@ -1,6 +1,7 @@
 LizPhoneScript1:
 	gettrainername PICNICKER, LIZ1, STRING_BUFFER_3
-	checkflag ENGINE_LIZ_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_LIZ
+	special Special_CheckRematchPending
 	iftruefwd .WantsBattle
 	farscall PhoneScript_AnswerPhone_Female
 	checkflag ENGINE_LIZ_THURSDAY_AFTERNOON
@@ -23,7 +24,8 @@ LizPhoneScript2:
 	farscall PhoneScript_Random4
 	ifequalfwd $0, LizWrongNumber
 	farscall PhoneScript_GreetPhone_Female
-	checkflag ENGINE_LIZ_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_LIZ
+	special Special_CheckRematchPending
 	iftruefwd .next
 	checkflag ENGINE_LIZ_THURSDAY_AFTERNOON
 	iftruefwd .next
@@ -44,7 +46,8 @@ LizThursdayAfternoon:
 
 LizWantsBattle:
 	getlandmarkname ROUTE_32, STRING_BUFFER_5
-	setflag ENGINE_LIZ_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_LIZ
+	special Special_OfferRematch
 	farsjump PhoneScript_WantsToBattle_Female
 
 LizWrongNumber:

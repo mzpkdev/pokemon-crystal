@@ -1,6 +1,7 @@
 ReenaPhoneScript1:
 	gettrainername COOLTRAINERF, REENA1, STRING_BUFFER_3
-	checkflag ENGINE_REENA_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_REENA
+	special Special_CheckRematchPending
 	iftruefwd .WantsBattle
 	farscall PhoneScript_AnswerPhone_Female
 	checkflag ENGINE_REENA_SUNDAY_MORNING
@@ -20,7 +21,8 @@ ReenaPhoneScript1:
 ReenaPhoneScript2:
 	gettrainername COOLTRAINERF, REENA1, STRING_BUFFER_3
 	farscall PhoneScript_GreetPhone_Female
-	checkflag ENGINE_REENA_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_REENA
+	special Special_CheckRematchPending
 	iftruefwd .Generic
 	checkflag ENGINE_REENA_SUNDAY_MORNING
 	iftruefwd .Generic
@@ -35,5 +37,6 @@ ReenaSundayMorning:
 
 ReenaWantsBattle:
 	getlandmarkname ROUTE_27, STRING_BUFFER_5
-	setflag ENGINE_REENA_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_REENA
+	special Special_OfferRematch
 	farsjump PhoneScript_WantsToBattle_Female

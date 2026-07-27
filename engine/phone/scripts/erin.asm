@@ -1,6 +1,7 @@
 ErinPhoneScript1:
 	gettrainername PICNICKER, ERIN1, STRING_BUFFER_3
-	checkflag ENGINE_ERIN_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_ERIN
+	special Special_CheckRematchPending
 	iftruefwd .WantsBattle
 	farscall PhoneScript_AnswerPhone_Female
 	checkflag ENGINE_ERIN_SATURDAY_NIGHT
@@ -20,7 +21,8 @@ ErinPhoneScript1:
 ErinPhoneScript2:
 	gettrainername PICNICKER, ERIN1, STRING_BUFFER_3
 	farscall PhoneScript_GreetPhone_Female
-	checkflag ENGINE_ERIN_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_ERIN
+	special Special_CheckRematchPending
 	iftruefwd .GenericCall
 	checkflag ENGINE_ERIN_SATURDAY_NIGHT
 	iftruefwd .GenericCall
@@ -36,5 +38,6 @@ ErinSaturdayNight:
 
 ErinWantsBattle:
 	getlandmarkname ROUTE_46, STRING_BUFFER_5
-	setflag ENGINE_ERIN_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_ERIN
+	special Special_OfferRematch
 	farsjump PhoneScript_WantsToBattle_Female

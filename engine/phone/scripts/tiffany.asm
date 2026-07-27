@@ -1,6 +1,7 @@
 TiffanyPhoneScript1:
 	gettrainername PICNICKER, TIFFANY1, STRING_BUFFER_3
-	checkflag ENGINE_TIFFANY_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_TIFFANY
+	special Special_CheckRematchPending
 	iftruefwd .WantsBattle
 	farscall PhoneScript_AnswerPhone_Female
 	checkflag ENGINE_TIFFANY_TUESDAY_AFTERNOON
@@ -28,7 +29,8 @@ TiffanyPhoneScript2:
 	farscall PhoneScript_Random4
 	ifequalfwd $0, TiffanysFamilyMembers
 	farscall PhoneScript_GreetPhone_Female
-	checkflag ENGINE_TIFFANY_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_TIFFANY
+	special Special_CheckRematchPending
 	iftruefwd .Generic
 	checkflag ENGINE_TIFFANY_TUESDAY_AFTERNOON
 	iftruefwd .Generic
@@ -53,7 +55,8 @@ TiffanyTuesdayAfternoon:
 
 TiffanyWantsBattle:
 	getlandmarkname ROUTE_43, STRING_BUFFER_5
-	setflag ENGINE_TIFFANY_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_TIFFANY
+	special Special_OfferRematch
 	farsjump PhoneScript_WantsToBattle_Female
 
 TiffanysFamilyMembers:
