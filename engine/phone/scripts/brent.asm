@@ -4,12 +4,9 @@ BrentPhoneScript1:
 	special Special_CheckRematchPending
 	iftruefwd .WantsBattle
 	farscall PhoneScript_AnswerPhone_Male
-	checkflag ENGINE_BRENT_MONDAY_MORNING
-	iftruefwd .NotMonday
-	readvar VAR_WEEKDAY
-	ifnotequal MONDAY, .NotMonday
-	checktime 1 << MORN
-	iftruefwd BrentMondayMorning
+	setval REMATCH_CONTACT_BRENT
+	special Special_TryClaimRematchScheduleWindow
+	iftruefwd BrentScheduledRematch
 
 .NotMonday:
 	farsjump BrentHangUpScript
@@ -26,7 +23,8 @@ BrentPhoneScript2:
 	setval REMATCH_CONTACT_BRENT
 	special Special_CheckRematchPending
 	iftruefwd .Generic
-	checkflag ENGINE_BRENT_MONDAY_MORNING
+	setval REMATCH_CONTACT_BRENT
+	special Special_CheckRematchScheduleUsed
 	iftruefwd .Generic
 	farscall PhoneScript_Random2
 	ifequalfwd $0, BrentWantsBattle
@@ -34,10 +32,11 @@ BrentPhoneScript2:
 .Generic:
 	farsjump Phone_GenericCall_Male
 
-BrentMondayMorning:
-	setflag ENGINE_BRENT_MONDAY_MORNING
-
 BrentWantsBattle:
+	setval REMATCH_CONTACT_BRENT
+	special Special_MarkRematchScheduleUsed
+
+BrentScheduledRematch:
 	getlandmarkname ROUTE_43, STRING_BUFFER_5
 	setval REMATCH_CONTACT_BRENT
 	special Special_OfferRematch

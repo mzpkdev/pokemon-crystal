@@ -4,14 +4,14 @@ TullyPhoneScript1:
 	special Special_CheckRematchPending
 	iftruefwd .WantsBattle
 	farscall PhoneScript_AnswerPhone_Male
-	checkflag ENGINE_TULLY_SUNDAY_NIGHT
+	setval REMATCH_CONTACT_TULLY
+	special Special_CheckRematchScheduleUsed
 	iftruefwd .NotSunday
 	checkflag ENGINE_TULLY_HAS_WATER_STONE
 	iftruefwd .WaterStone
-	readvar VAR_WEEKDAY
-	ifnotequal SUNDAY, .NotSunday
-	checktime (1 << EVE) | (1 << NITE)
-	iftruefwd TullySundayNight
+	setval REMATCH_CONTACT_TULLY
+	special Special_TryClaimRematchScheduleWindow
+	iftruefwd TullyScheduledRematch
 
 .NotSunday:
 	farsjump TullyNoItemScript
@@ -30,7 +30,8 @@ TullyPhoneScript2:
 	setval REMATCH_CONTACT_TULLY
 	special Special_CheckRematchPending
 	iftruefwd .Generic
-	checkflag ENGINE_TULLY_SUNDAY_NIGHT
+	setval REMATCH_CONTACT_TULLY
+	special Special_CheckRematchScheduleUsed
 	iftruefwd .Generic
 	checkflag ENGINE_TULLY_HAS_WATER_STONE
 	iftruefwd .Generic
@@ -48,10 +49,11 @@ TullyPhoneScript2:
 .Generic:
 	farsjump Phone_GenericCall_Male
 
-TullySundayNight:
-	setflag ENGINE_TULLY_SUNDAY_NIGHT
-
 TullyWantsBattle:
+	setval REMATCH_CONTACT_TULLY
+	special Special_MarkRematchScheduleUsed
+
+TullyScheduledRematch:
 	getlandmarkname ROUTE_42, STRING_BUFFER_5
 	setval REMATCH_CONTACT_TULLY
 	special Special_OfferRematch

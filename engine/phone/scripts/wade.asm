@@ -4,14 +4,14 @@ WadePhoneScript1:
 	special Special_CheckRematchPending
 	iftruefwd .WantsBattle
 	farscall PhoneScript_AnswerPhone_Male
-	checkflag ENGINE_WADE_TUESDAY_NIGHT
+	setval REMATCH_CONTACT_WADE
+	special Special_CheckRematchScheduleUsed
 	iftruefwd .NotTuesday
 	checkflag ENGINE_WADE_HAS_ITEM
 	iftruefwd .HasItem
-	readvar VAR_WEEKDAY
-	ifnotequal TUESDAY, .NotTuesday
-	checktime (1 << EVE) | (1 << NITE)
-	iftruefwd WadeTuesdayNight
+	setval REMATCH_CONTACT_WADE
+	special Special_TryClaimRematchScheduleWindow
+	iftruefwd WadeScheduledRematch
 
 .NotTuesday:
 	farscall PhoneScript_Random2
@@ -53,7 +53,8 @@ WadePhoneScript2:
 	setval REMATCH_CONTACT_WADE
 	special Special_CheckRematchPending
 	iftruefwd .next
-	checkflag ENGINE_WADE_TUESDAY_NIGHT
+	setval REMATCH_CONTACT_WADE
+	special Special_CheckRematchScheduleUsed
 	iftruefwd .next
 	checkflag ENGINE_WADE_HAS_ITEM
 	iftruefwd .next
@@ -72,10 +73,11 @@ WadePhoneScript2:
 .ContestToday:
 	farsjump PhoneScript_BugCatchingContest
 
-WadeTuesdayNight:
-	setflag ENGINE_WADE_TUESDAY_NIGHT
-
 WadeWantsBattle2:
+	setval REMATCH_CONTACT_WADE
+	special Special_MarkRematchScheduleUsed
+
+WadeScheduledRematch:
 	getlandmarkname ROUTE_31, STRING_BUFFER_5
 	setval REMATCH_CONTACT_WADE
 	special Special_OfferRematch

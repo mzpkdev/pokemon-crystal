@@ -4,12 +4,9 @@ ParryPhoneScript1:
 	special Special_CheckRematchPending
 	iftruefwd .WantsBattle
 	farscall PhoneScript_AnswerPhone_Male
-	checkflag ENGINE_PARRY_FRIDAY_AFTERNOON
-	iftruefwd .WantsRematch
-	readvar VAR_WEEKDAY
-	ifnotequal FRIDAY, .WantsRematch
-	checktime 1 << DAY
-	iftruefwd ParryFridayDay
+	setval REMATCH_CONTACT_PARRY
+	special Special_TryClaimRematchScheduleWindow
+	iftruefwd ParryScheduledRematch
 
 .WantsRematch:
 	farsjump ParryBattleWithMeScript
@@ -24,7 +21,8 @@ ParryPhoneScript2:
 	setval REMATCH_CONTACT_PARRY
 	special Special_CheckRematchPending
 	iftruefwd .GenericCall
-	checkflag ENGINE_PARRY_FRIDAY_AFTERNOON
+	setval REMATCH_CONTACT_PARRY
+	special Special_CheckRematchScheduleUsed
 	iftruefwd .GenericCall
 	farscall PhoneScript_Random2
 	ifequalfwd $0, ParryWantsBattle
@@ -33,10 +31,11 @@ ParryPhoneScript2:
 .GenericCall:
 	farsjump Phone_GenericCall_Male
 
-ParryFridayDay:
-	setflag ENGINE_PARRY_FRIDAY_AFTERNOON
-
 ParryWantsBattle:
+	setval REMATCH_CONTACT_PARRY
+	special Special_MarkRematchScheduleUsed
+
+ParryScheduledRematch:
 	getlandmarkname ROUTE_45, STRING_BUFFER_5
 	setval REMATCH_CONTACT_PARRY
 	special Special_OfferRematch

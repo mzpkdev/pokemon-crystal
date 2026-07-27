@@ -4,14 +4,14 @@ AlanPhoneScript1:
 	special Special_CheckRematchPending
 	iftruefwd .WantsBattle
 	farscall PhoneScript_AnswerPhone_Male
-	checkflag ENGINE_ALAN_WEDNESDAY_AFTERNOON
+	setval REMATCH_CONTACT_ALAN
+	special Special_CheckRematchScheduleUsed
 	iftruefwd .NotWednesday
 	checkflag ENGINE_ALAN_HAS_FIRE_STONE
 	iftruefwd .FireStone
-	readvar VAR_WEEKDAY
-	ifnotequal WEDNESDAY, .NotWednesday
-	checktime 1 << DAY
-	iftruefwd AlanWednesdayDay
+	setval REMATCH_CONTACT_ALAN
+	special Special_TryClaimRematchScheduleWindow
+	iftruefwd AlanScheduledRematch
 
 .NotWednesday:
 	farsjump AlanHangUpScript
@@ -30,7 +30,8 @@ AlanPhoneScript2:
 	setval REMATCH_CONTACT_ALAN
 	special Special_CheckRematchPending
 	iftruefwd .Generic
-	checkflag ENGINE_ALAN_WEDNESDAY_AFTERNOON
+	setval REMATCH_CONTACT_ALAN
+	special Special_CheckRematchScheduleUsed
 	iftruefwd .Generic
 	checkflag ENGINE_ALAN_HAS_FIRE_STONE
 	iftruefwd .Generic
@@ -48,10 +49,11 @@ AlanPhoneScript2:
 .Generic:
 	farsjump Phone_GenericCall_Male
 
-AlanWednesdayDay:
-	setflag ENGINE_ALAN_WEDNESDAY_AFTERNOON
-
 AlanWantsBattle:
+	setval REMATCH_CONTACT_ALAN
+	special Special_MarkRematchScheduleUsed
+
+AlanScheduledRematch:
 	getlandmarkname ROUTE_36, STRING_BUFFER_5
 	setval REMATCH_CONTACT_ALAN
 	special Special_OfferRematch

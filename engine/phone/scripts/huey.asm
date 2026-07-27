@@ -4,12 +4,9 @@ HueyPhoneScript1:
 	special Special_CheckRematchPending
 	iftruefwd .WantsBattle
 	farscall PhoneScript_AnswerPhone_Male
-	checkflag ENGINE_HUEY_WEDNESDAY_NIGHT
-	iftruefwd .NotWednesday
-	readvar VAR_WEEKDAY
-	ifnotequal WEDNESDAY, .NotWednesday
-	checktime (1 << EVE) | (1 << NITE)
-	iftruefwd HueyWednesdayNight
+	setval REMATCH_CONTACT_HUEY
+	special Special_TryClaimRematchScheduleWindow
+	iftruefwd HueyScheduledRematch
 
 .NotWednesday:
 	special RandomPhoneMon
@@ -25,7 +22,8 @@ HueyPhoneScript2:
 	setval REMATCH_CONTACT_HUEY
 	special Special_CheckRematchPending
 	iftruefwd .Flavor
-	checkflag ENGINE_HUEY_WEDNESDAY_NIGHT
+	setval REMATCH_CONTACT_HUEY
+	special Special_CheckRematchScheduleUsed
 	iftruefwd .Flavor
 	farscall PhoneScript_Random3
 	ifequalfwd $0, HueyWantsBattle
@@ -34,10 +32,11 @@ HueyPhoneScript2:
 .Flavor:
 	farsjump PhoneScript_MonFlavorText
 
-HueyWednesdayNight:
-	setflag ENGINE_HUEY_WEDNESDAY_NIGHT
-
 HueyWantsBattle:
+	setval REMATCH_CONTACT_HUEY
+	special Special_MarkRematchScheduleUsed
+
+HueyScheduledRematch:
 	getlandmarkname LIGHTHOUSE, STRING_BUFFER_5
 	setval REMATCH_CONTACT_HUEY
 	special Special_OfferRematch

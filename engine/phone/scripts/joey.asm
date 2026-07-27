@@ -4,12 +4,9 @@ JoeyPhoneScript1:
 	special Special_CheckRematchPending
 	iftruefwd .WantsBattle
 	farscall PhoneScript_AnswerPhone_Male
-	checkflag ENGINE_JOEY_MONDAY_AFTERNOON
-	iftruefwd .NotMonday
-	readvar VAR_WEEKDAY
-	ifnotequal MONDAY, .NotMonday
-	checktime 1 << DAY
-	iftruefwd JoeyMondayAfternoon
+	setval REMATCH_CONTACT_JOEY
+	special Special_TryClaimRematchScheduleWindow
+	iftruefwd JoeyScheduledRematch
 
 .NotMonday:
 	special RandomPhoneMon
@@ -27,7 +24,8 @@ JoeyPhoneScript2:
 	setval REMATCH_CONTACT_JOEY
 	special Special_CheckRematchPending
 	iftruefwd .Generic
-	checkflag ENGINE_JOEY_MONDAY_AFTERNOON
+	setval REMATCH_CONTACT_JOEY
+	special Special_CheckRematchScheduleUsed
 	iftruefwd .Generic
 	farscall PhoneScript_Random3
 	ifequalfwd $0, JoeyWantsBattle
@@ -36,10 +34,11 @@ JoeyPhoneScript2:
 .Generic:
 	farsjump Phone_GenericCall_Male
 
-JoeyMondayAfternoon:
-	setflag ENGINE_JOEY_MONDAY_AFTERNOON
-
 JoeyWantsBattle:
+	setval REMATCH_CONTACT_JOEY
+	special Special_MarkRematchScheduleUsed
+
+JoeyScheduledRematch:
 	getlandmarkname ROUTE_30, STRING_BUFFER_5
 	setval REMATCH_CONTACT_JOEY
 	special Special_OfferRematch

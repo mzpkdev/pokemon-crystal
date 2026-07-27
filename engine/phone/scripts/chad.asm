@@ -4,12 +4,9 @@ ChadPhoneScript1:
 	special Special_CheckRematchPending
 	iftruefwd .WantsBattle
 	farscall PhoneScript_AnswerPhone_Male
-	checkflag ENGINE_CHAD_FRIDAY_MORNING
-	iftruefwd .NotFriday
-	readvar VAR_WEEKDAY
-	ifnotequal FRIDAY, .NotFriday
-	checktime 1 << MORN
-	iftruefwd ChadFridayMorning
+	setval REMATCH_CONTACT_CHAD
+	special Special_TryClaimRematchScheduleWindow
+	iftruefwd ChadScheduledRematch
 
 .NotFriday:
 	farsjump ChadHangUpScript
@@ -26,7 +23,8 @@ ChadPhoneScript2:
 	setval REMATCH_CONTACT_CHAD
 	special Special_CheckRematchPending
 	iftruefwd .Generic
-	checkflag ENGINE_CHAD_FRIDAY_MORNING
+	setval REMATCH_CONTACT_CHAD
+	special Special_CheckRematchScheduleUsed
 	iftruefwd .Generic
 	farscall PhoneScript_Random2
 	ifequalfwd $0, ChadWantsBattle
@@ -36,10 +34,11 @@ ChadPhoneScript2:
 	ifequalfwd $0, ChadFoundRare
 	farsjump Phone_GenericCall_Male
 
-ChadFridayMorning:
-	setflag ENGINE_CHAD_FRIDAY_MORNING
-
 ChadWantsBattle:
+	setval REMATCH_CONTACT_CHAD
+	special Special_MarkRematchScheduleUsed
+
+ChadScheduledRematch:
 	getlandmarkname ROUTE_38, STRING_BUFFER_5
 	setval REMATCH_CONTACT_CHAD
 	special Special_OfferRematch

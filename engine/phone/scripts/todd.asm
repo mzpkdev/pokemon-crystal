@@ -4,12 +4,9 @@ ToddPhoneScript1:
 	special Special_CheckRematchPending
 	iftruefwd .WantsBattle
 	farscall PhoneScript_AnswerPhone_Male
-	checkflag ENGINE_TODD_SATURDAY_MORNING
-	iftruefwd .NotSaturday
-	readvar VAR_WEEKDAY
-	ifnotequal SATURDAY, .NotSaturday
-	checktime 1 << MORN
-	iftruefwd ToddSaturdayMorning
+	setval REMATCH_CONTACT_TODD
+	special Special_TryClaimRematchScheduleWindow
+	iftruefwd ToddScheduledRematch
 
 .NotSaturday:
 	checkflag ENGINE_GOLDENROD_DEPT_STORE_SALE_IS_ON
@@ -29,7 +26,8 @@ ToddPhoneScript2:
 	setval REMATCH_CONTACT_TODD
 	special Special_CheckRematchPending
 	iftruefwd .TryForSale
-	checkflag ENGINE_TODD_SATURDAY_MORNING
+	setval REMATCH_CONTACT_TODD
+	special Special_CheckRematchScheduleUsed
 	iftruefwd .TryForSale
 	checkflag ENGINE_FLYPOINT_GOLDENROD
 	iffalsefwd .NoGoldenrod
@@ -45,10 +43,11 @@ ToddPhoneScript2:
 	ifequalfwd $0, ToddFoundRare
 	farsjump Phone_GenericCall_Male
 
-ToddSaturdayMorning:
-	setflag ENGINE_TODD_SATURDAY_MORNING
-
 ToddWantsBattle:
+	setval REMATCH_CONTACT_TODD
+	special Special_MarkRematchScheduleUsed
+
+ToddScheduledRematch:
 	getlandmarkname ROUTE_34, STRING_BUFFER_5
 	setval REMATCH_CONTACT_TODD
 	special Special_OfferRematch

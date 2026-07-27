@@ -4,14 +4,14 @@ JosePhoneScript1:
 	special Special_CheckRematchPending
 	iftruefwd .WantsBattle
 	farscall PhoneScript_AnswerPhone_Male
-	checkflag ENGINE_JOSE_SATURDAY_NIGHT
+	setval REMATCH_CONTACT_JOSE
+	special Special_CheckRematchScheduleUsed
 	iftruefwd .NotSaturday
 	checkflag ENGINE_JOSE_HAS_STAR_PIECE
 	iftruefwd .HasItem
-	readvar VAR_WEEKDAY
-	ifnotequal SATURDAY, .NotSaturday
-	checktime (1 << EVE) | (1 << NITE)
-	iftruefwd JoseSaturdayNight
+	setval REMATCH_CONTACT_JOSE
+	special Special_TryClaimRematchScheduleWindow
+	iftruefwd JoseScheduledRematch
 
 .NotSaturday:
 	farsjump JoseHangUpScript
@@ -30,7 +30,8 @@ JosePhoneScript2:
 	setval REMATCH_CONTACT_JOSE
 	special Special_CheckRematchPending
 	iftruefwd .Generic
-	checkflag ENGINE_JOSE_SATURDAY_NIGHT
+	setval REMATCH_CONTACT_JOSE
+	special Special_CheckRematchScheduleUsed
 	iftruefwd .Generic
 	checkflag ENGINE_JOSE_HAS_STAR_PIECE
 	iftruefwd .Generic
@@ -44,10 +45,11 @@ JosePhoneScript2:
 	ifequalfwd $0, JoseFoundRare
 	farsjump Phone_GenericCall_Male
 
-JoseSaturdayNight:
-	setflag ENGINE_JOSE_SATURDAY_NIGHT
-
 JoseWantsBattle:
+	setval REMATCH_CONTACT_JOSE
+	special Special_MarkRematchScheduleUsed
+
+JoseScheduledRematch:
 	getlandmarkname ROUTE_27, STRING_BUFFER_5
 	setval REMATCH_CONTACT_JOSE
 	special Special_OfferRematch

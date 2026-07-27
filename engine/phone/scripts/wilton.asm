@@ -4,14 +4,14 @@ WiltonPhoneScript1:
 	special Special_CheckRematchPending
 	iftruefwd .WantsBattle
 	farscall PhoneScript_AnswerPhone_Male
-	checkflag ENGINE_WILTON_THRUSDAY_MORNING
+	setval REMATCH_CONTACT_WILTON
+	special Special_CheckRematchScheduleUsed
 	iftruefwd .NotThursday
 	checkflag ENGINE_WILTON_HAS_ITEM
 	iftruefwd .HasItem
-	readvar VAR_WEEKDAY
-	ifnotequal THURSDAY, .NotThursday
-	checktime 1 << MORN
-	iftruefwd WiltonThursdayMorning
+	setval REMATCH_CONTACT_WILTON
+	special Special_TryClaimRematchScheduleWindow
+	iftruefwd WiltonScheduledRematch
 
 .NotThursday:
 	farsjump WiltonHaventFoundAnythingScript
@@ -30,7 +30,8 @@ WiltonPhoneScript2:
 	setval REMATCH_CONTACT_WILTON
 	special Special_CheckRematchPending
 	iftruefwd .GenericCall
-	checkflag ENGINE_WILTON_THRUSDAY_MORNING
+	setval REMATCH_CONTACT_WILTON
+	special Special_CheckRematchScheduleUsed
 	iftruefwd .GenericCall
 	checkflag ENGINE_WILTON_HAS_ITEM
 	iftruefwd .GenericCall
@@ -42,10 +43,11 @@ WiltonPhoneScript2:
 .GenericCall:
 	farsjump Phone_GenericCall_Male
 
-WiltonThursdayMorning:
-	setflag ENGINE_WILTON_THRUSDAY_MORNING
-
 WiltonWantsBattle:
+	setval REMATCH_CONTACT_WILTON
+	special Special_MarkRematchScheduleUsed
+
+WiltonScheduledRematch:
 	getlandmarkname ROUTE_44, STRING_BUFFER_5
 	setval REMATCH_CONTACT_WILTON
 	special Special_OfferRematch

@@ -4,12 +4,9 @@ GavenPhoneScript1:
 	special Special_CheckRematchPending
 	iftruefwd .WantsBattle
 	farscall PhoneScript_AnswerPhone_Male
-	checkflag ENGINE_GAVEN_THURSDAY_MORNING
-	iftruefwd .NotThursday
-	readvar VAR_WEEKDAY
-	ifnotequal THURSDAY, .NotThursday
-	checktime 1 << MORN
-	iftruefwd GavenThursdayMorningScript
+	setval REMATCH_CONTACT_GAVEN
+	special Special_TryClaimRematchScheduleWindow
+	iftruefwd GavenScheduledRematch
 
 .NotThursday:
 	farsjump GavenHangUpNotThursdayScript
@@ -24,7 +21,8 @@ GavenPhoneScript2:
 	setval REMATCH_CONTACT_GAVEN
 	special Special_CheckRematchPending
 	iftruefwd .WaitingForBattle
-	checkflag ENGINE_GAVEN_THURSDAY_MORNING
+	setval REMATCH_CONTACT_GAVEN
+	special Special_CheckRematchScheduleUsed
 	iftruefwd .WaitingForBattle
 	farscall PhoneScript_Random2
 	ifequalfwd $0, GavenWantsRematch
@@ -34,10 +32,11 @@ GavenPhoneScript2:
 	ifequalfwd $0, GavenFoundRare
 	farsjump Phone_GenericCall_Male
 
-GavenThursdayMorningScript:
-	setflag ENGINE_GAVEN_THURSDAY_MORNING
-
 GavenWantsRematch:
+	setval REMATCH_CONTACT_GAVEN
+	special Special_MarkRematchScheduleUsed
+
+GavenScheduledRematch:
 	getlandmarkname ROUTE_26, STRING_BUFFER_5
 	setval REMATCH_CONTACT_GAVEN
 	special Special_OfferRematch
