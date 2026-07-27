@@ -71,6 +71,9 @@ SpecialsPointers::
 	add_special Special_CheckActiveSwarm
 	add_special Special_TryActivateSwarm
 	add_special DoNothing ; reserved; previously Special_ActivateFishingSwarm
+	add_special Special_CheckRematchPending
+	add_special Special_OfferRematch
+	add_special Special_ConsumeRematch
 	add_special ToggleMaptileDecorations
 	add_special ToggleDecorationsVisibility
 	add_special ReturnShuckie

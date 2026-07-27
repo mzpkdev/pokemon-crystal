@@ -286,6 +286,31 @@ Special_TryActivateSwarm:
 	ldh [hScriptVar], a
 	ret
 
+Special_CheckRematchPending:
+; Input: hScriptVar = REMATCH_CONTACT_* ID.
+; Output: TRUE if a rematch is pending; FALSE if not or if the ID is invalid.
+	ldh a, [hScriptVar]
+	farcall CheckRematchPending
+	ldh [hScriptVar], a
+	ret
+
+Special_OfferRematch:
+; Input: hScriptVar = REMATCH_CONTACT_* ID.
+; Output: TRUE if the rematch is pending; FALSE if the ID is invalid.
+	ldh a, [hScriptVar]
+	farcall OfferRematch
+	ldh [hScriptVar], a
+	ret
+
+Special_ConsumeRematch:
+; Input: hScriptVar = REMATCH_CONTACT_* ID.
+; Output: TRUE if a pending rematch was consumed; FALSE if none was pending
+; or if the ID is invalid.
+	ldh a, [hScriptVar]
+	farcall ConsumeRematch
+	ldh [hScriptVar], a
+	ret
+
 Special_ResetLuckyNumberShowFlag:
 	farjp LoadOrRegenerateLuckyIDNumber
 
