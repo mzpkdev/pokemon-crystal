@@ -1,6 +1,7 @@
 AnthonyPhoneScript1:
 	gettrainername HIKER, ANTHONY1, STRING_BUFFER_3
-	checkflag ENGINE_ANTHONY_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_ANTHONY
+	special Special_CheckRematchPending
 	iftruefwd .WantsBattle
 	farscall PhoneScript_AnswerPhone_Male
 	checkflag ENGINE_ANTHONY_FRIDAY_NIGHT
@@ -29,7 +30,8 @@ AnthonyPhoneScript2:
 	farscall PhoneScript_GreetPhone_Male
 	checkflag ENGINE_FLYPOINT_GOLDENROD
 	iffalsefwd .TriesSwarm
-	checkflag ENGINE_ANTHONY_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_ANTHONY
+	special Special_CheckRematchPending
 	iftruefwd .TriesSwarm
 	checkflag ENGINE_ANTHONY_FRIDAY_NIGHT
 	iftruefwd .TriesSwarm
@@ -46,7 +48,8 @@ AnthonyFridayNight:
 
 AnthonyWantsBattle:
 	getlandmarkname ROUTE_33, STRING_BUFFER_5
-	setflag ENGINE_ANTHONY_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_ANTHONY
+	special Special_OfferRematch
 	farsjump PhoneScript_WantsToBattle_Male
 
 AnthonyTriesDunsparceSwarm:
