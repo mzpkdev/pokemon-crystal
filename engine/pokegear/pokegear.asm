@@ -8,6 +8,15 @@ DEF NUM_POKEGEAR_CARDS EQU const_value
 
 DEF PHONE_DISPLAY_HEIGHT EQU 4
 
+; vTiles0 $00-$0d are PokegearSpritesGFX, and $10-$17 are the player icon.
+; Keep the swarm mini in its own fixed range for the Town Map marker.
+DEF POKEGEAR_SWARM_ICON_TILE EQU $20
+DEF POKEGEAR_SWARM_ICON_TILES EQU 8
+DEF POKEGEAR_SWARM_ICON_PALETTE EQU 4
+assert POKEGEAR_SWARM_ICON_TILE >= $18
+assert POKEGEAR_SWARM_ICON_TILE + POKEGEAR_SWARM_ICON_TILES <= $100
+assert POKEGEAR_SWARM_ICON_PALETTE < 8
+
 ; PokegearJumptable.Jumptable indexes
 	const_def
 	const POKEGEARSTATE_CLOCKINIT       ; 0
@@ -105,6 +114,7 @@ PokeGear:
 	call InitPokegearTilemap
 	ld a, CGB_POKEGEAR_PALS
 	call GetCGBLayout
+	call Pokegear_LoadSwarmIconPalette
 	call SetDefaultBGPAndOBP
 	ld a, %11100100
 	jmp DmgToCgbObjPal0
@@ -160,12 +170,48 @@ Pokegear_LoadGFX:
 	call FarCopyBytes
 	pop af
 	ldh [rWBK], a
-	ret
+	jr .load_swarm_icon
 
 .load_alt_sprite
 	ld de, vTiles0 tile $10
 	ld a, BANK(FastShipGFX) ; aka BANK(SinjohRuinsArrowGFX)
-	jmp Decompress
+	call Decompress
+
+.load_swarm_icon
+	farcall GetTownMapSwarm
+	ret c
+
+	; GetTownMapSwarm returns the canonical packed species/form pair in bc.
+	; LoadMiniForSpeciesAndForm handles both the extended-species bit and form.
+	push bc
+	farcall LoadMiniForSpeciesAndForm
+	ld h, d
+	ld l, e
+	ld de, vTiles0 tile POKEGEAR_SWARM_ICON_TILE
+	ld c, POKEGEAR_SWARM_ICON_TILES
+	call DecompressRequest2bpp
+	pop bc
+	ret
+
+Pokegear_LoadSwarmIconPalette:
+	farcall GetTownMapSwarm
+	ret c
+
+	; Use the normal overworld icon colors in a dedicated OBJ palette.
+	ld a, c
+	ld [wCurPartySpecies], a
+	xor a
+	ld [wCurIconShiny], a
+	ld a, b
+	ld [wCurIconForm], a
+	ld hl, wCurIconShiny
+	farcall GetMonIconPalette
+	farcall DecodeMonIconPal
+	ld de, wOBPals1 palette POKEGEAR_SWARM_ICON_PALETTE
+	farcall CopySpritePalHandler
+	ld a, TRUE
+	ldh [hCGBPalUpdate], a
+	ret
 
 FastShipGFX:
 INCBIN "gfx/town_map/fast_ship.2bpp.lzp"
@@ -1191,6 +1237,7 @@ _TownMap:
 	call DisableLCD
 	farcall InitPokegearPalettes
 	call Pokegear_LoadGFX
+	call Pokegear_LoadSwarmIconPalette
 	call ClearSpriteAnims
 	ld a, 8
 	call SkipMusic
