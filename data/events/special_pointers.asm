@@ -74,6 +74,9 @@ SpecialsPointers::
 	add_special Special_CheckRematchPending
 	add_special Special_OfferRematch
 	add_special Special_ConsumeRematch
+	add_special Special_CheckRematchScheduleUsed
+	add_special Special_MarkRematchScheduleUsed
+	add_special Special_TryClaimRematchScheduleWindow
 	add_special ToggleMaptileDecorations
 	add_special ToggleDecorationsVisibility
 	add_special ReturnShuckie

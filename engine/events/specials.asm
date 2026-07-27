@@ -311,6 +311,31 @@ Special_ConsumeRematch:
 	ldh [hScriptVar], a
 	ret
 
+Special_CheckRematchScheduleUsed:
+; Input: hScriptVar = REMATCH_CONTACT_* ID.
+; Output: TRUE if today's schedule was used; FALSE if unused or invalid.
+	ldh a, [hScriptVar]
+	farcall CheckRematchScheduleUsed
+	ldh [hScriptVar], a
+	ret
+
+Special_MarkRematchScheduleUsed:
+; Input: hScriptVar = REMATCH_CONTACT_* ID.
+; Output: TRUE if marked; FALSE if the ID is invalid.
+	ldh a, [hScriptVar]
+	farcall MarkRematchScheduleUsed
+	ldh [hScriptVar], a
+	ret
+
+Special_TryClaimRematchScheduleWindow:
+; Input: hScriptVar = REMATCH_CONTACT_* ID.
+; Output: TRUE only when today's configured window was unused and is now
+; claimed; FALSE when used, outside the window, or invalid.
+	ldh a, [hScriptVar]
+	farcall TryClaimRematchScheduleWindow
+	ldh [hScriptVar], a
+	ret
+
 Special_ResetLuckyNumberShowFlag:
 	farjp LoadOrRegenerateLuckyIDNumber
 
