@@ -167,35 +167,6 @@ EngineFlags:
 
 	engine_flag wCelebiEvent, CELEBIEVENT_FOREST_IS_RESTLESS_F
 
-	; rematches
-RematchEngineFlags:
-	engine_flag wDailyRematchFlags, REMATCH_CONTACT_JACK
-	engine_flag wDailyRematchFlags, REMATCH_CONTACT_HUEY
-	engine_flag wDailyRematchFlags, REMATCH_CONTACT_GAVEN
-	engine_flag wDailyRematchFlags, REMATCH_CONTACT_BETH
-	engine_flag wDailyRematchFlags, REMATCH_CONTACT_JOSE
-	engine_flag wDailyRematchFlags, REMATCH_CONTACT_REENA
-	engine_flag wDailyRematchFlags, REMATCH_CONTACT_JOEY
-	engine_flag wDailyRematchFlags, REMATCH_CONTACT_WADE
-	engine_flag wDailyRematchFlags, REMATCH_CONTACT_RALPH
-	engine_flag wDailyRematchFlags, REMATCH_CONTACT_LIZ
-	engine_flag wDailyRematchFlags, REMATCH_CONTACT_ANTHONY
-	engine_flag wDailyRematchFlags, REMATCH_CONTACT_TODD
-	engine_flag wDailyRematchFlags, REMATCH_CONTACT_GINA
-	engine_flag wDailyRematchFlags, REMATCH_CONTACT_ARNIE
-	engine_flag wDailyRematchFlags, REMATCH_CONTACT_ALAN
-	engine_flag wDailyRematchFlags, REMATCH_CONTACT_DANA
-	engine_flag wDailyRematchFlags, REMATCH_CONTACT_CHAD
-	engine_flag wDailyRematchFlags, REMATCH_CONTACT_TULLY
-	engine_flag wDailyRematchFlags, REMATCH_CONTACT_BRENT
-	engine_flag wDailyRematchFlags, REMATCH_CONTACT_TIFFANY
-	engine_flag wDailyRematchFlags, REMATCH_CONTACT_VANCE
-	engine_flag wDailyRematchFlags, REMATCH_CONTACT_WILTON
-	engine_flag wDailyRematchFlags, REMATCH_CONTACT_PARRY
-	engine_flag wDailyRematchFlags, REMATCH_CONTACT_ERIN
-RematchEngineFlagsEnd:
-	assert RematchEngineFlagsEnd - RematchEngineFlags == NUM_REMATCH_CONTACTS * 3
-
 	engine_flag wDailyPhoneItemFlags, 0 ; beverly has nugget
 	engine_flag wDailyPhoneItemFlags, 1 ; jose has star piece
 	engine_flag wDailyPhoneItemFlags, 2 ; wade has item (see EVENT_WADE_HAS_*** in constants/event_flags.asm)

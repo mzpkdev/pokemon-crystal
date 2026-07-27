@@ -147,7 +147,7 @@ rept (NUM_FRUIT_TREES + 7) / 8 - 1
 endr
 	ld [hl], a
 	ld hl, wDailyRematchFlags
-rept 4 - 1
+rept REMATCH_FLAG_BYTES - 1
 	ld [hli], a
 endr
 	ld [hl], a
