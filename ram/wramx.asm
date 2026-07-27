@@ -1403,11 +1403,12 @@ wDailyFlags4:: db
 wWeeklyFlags:: db
 wWeeklyFlags2:: db
 wSwarmFlags:: db
+wActiveSwarm:: db
 wTimerEventStartDay:: db
 
 wFruitTreeFlags:: flag_array NUM_FRUIT_TREES
 
-	ds 19 ; unused
+	ds 18 ; unused
 
 wHiddenGrottoContents::
 ; dbw content type, content id

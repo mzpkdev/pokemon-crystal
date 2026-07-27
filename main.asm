@@ -31,6 +31,7 @@ SECTION "bank3", ROMX
 
 INCLUDE "engine/events/checktime.asm"
 INCLUDE "engine/events/specials.asm"
+INCLUDE "engine/events/swarms.asm"
 INCLUDE "engine/pokemon/health.asm"
 INCLUDE "engine/events/overworld.asm"
 INCLUDE "engine/events/overcast.asm"
