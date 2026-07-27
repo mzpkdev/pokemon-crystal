@@ -1,0 +1,24 @@
+name: Set up build dependencies
+description: Install the pinned RGBDS toolchain used to build Pokemon Crystal.
+
+runs:
+  using: composite
+  steps:
+    - name: Checkout RGBDS
+      uses: actions/checkout@v7
+      with:
+        path: rgbds
+        ref: v1.0.2+hotfix
+        repository: gbdev/rgbds
+
+    - name: Install RGBDS
+      shell: bash
+      working-directory: rgbds
+      run: |
+        sudo apt-get update
+        sudo apt-get install -yq bison libpng-dev
+        sudo make install
+
+    - name: Remove RGBDS sources
+      shell: bash
+      run: rm -rf rgbds

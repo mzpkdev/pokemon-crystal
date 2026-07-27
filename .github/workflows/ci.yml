@@ -1,0 +1,86 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Set up build dependencies
+        uses: ./.github/actions/setup-build
+
+      - name: Build
+        shell: bash
+        run: |
+          set -euxo pipefail
+          version="$(sed -nE 's/^VERSION := (.+)$/\1/p' Makefile)"
+          test -n "$version"
+          mkdir release
+
+          make -j"$(nproc)" crystal vc
+          cp "polishedcrystal-${version}.gbc"    release/polishedcrystal.gbc
+          cp "polishedcrystal-${version}.map"    release/polishedcrystal.map
+          cp "polishedcrystal-${version}.sym"    release/polishedcrystal.sym
+          cp "polishedcrystal-${version}_vc.gbc" release/polishedcrystal-vc.gbc
+          cp "polishedcrystal-${version}_vc.map" release/polishedcrystal-vc.map
+          cp "polishedcrystal-${version}_vc.sym" release/polishedcrystal-vc.sym
+          cp "polishedcrystal-${version}.patch"  release/polishedcrystal-vc.patch
+          make tidy
+
+          make -j"$(nproc)" faithful vc
+          cp "polishedcrystal-faithful-${version}.gbc"    release/polishedcrystal-faithful.gbc
+          cp "polishedcrystal-faithful-${version}.map"    release/polishedcrystal-faithful.map
+          cp "polishedcrystal-faithful-${version}.sym"    release/polishedcrystal-faithful.sym
+          cp "polishedcrystal-faithful-${version}_vc.gbc" release/polishedcrystal-faithful-vc.gbc
+          cp "polishedcrystal-faithful-${version}_vc.map" release/polishedcrystal-faithful-vc.map
+          cp "polishedcrystal-faithful-${version}_vc.sym" release/polishedcrystal-faithful-vc.sym
+          cp "polishedcrystal-faithful-${version}.patch"  release/polishedcrystal-faithful-vc.patch
+          make tidy
+
+          make -j"$(nproc)" debug vc
+          cp "polishedcrystal-debug-${version}.gbc"    release/polishedcrystal-debug.gbc
+          cp "polishedcrystal-debug-${version}.map"    release/polishedcrystal-debug.map
+          cp "polishedcrystal-debug-${version}.sym"    release/polishedcrystal-debug.sym
+          cp "polishedcrystal-debug-${version}_vc.gbc" release/polishedcrystal-debug-vc.gbc
+          cp "polishedcrystal-debug-${version}_vc.map" release/polishedcrystal-debug-vc.map
+          cp "polishedcrystal-debug-${version}_vc.sym" release/polishedcrystal-debug-vc.sym
+          cp "polishedcrystal-debug-${version}.patch"  release/polishedcrystal-debug-vc.patch
+          make tidy
+
+          make -j"$(nproc)" faithful debug vc
+          cp "polishedcrystal-faithful-debug-${version}.gbc"    release/polishedcrystal-faithful-debug.gbc
+          cp "polishedcrystal-faithful-debug-${version}.map"    release/polishedcrystal-faithful-debug.map
+          cp "polishedcrystal-faithful-debug-${version}.sym"    release/polishedcrystal-faithful-debug.sym
+          cp "polishedcrystal-faithful-debug-${version}_vc.gbc" release/polishedcrystal-faithful-debug-vc.gbc
+          cp "polishedcrystal-faithful-debug-${version}_vc.map" release/polishedcrystal-faithful-debug-vc.map
+          cp "polishedcrystal-faithful-debug-${version}_vc.sym" release/polishedcrystal-faithful-debug-vc.sym
+          cp "polishedcrystal-faithful-debug-${version}.patch"  release/polishedcrystal-faithful-debug-vc.patch
+          make tidy
+
+      - name: Check for modified tracked files
+        run: |
+          if ! git diff-index --quiet HEAD --; then
+            echo 'Uncommitted changes detected:'
+            git diff-index HEAD --
+            exit 1
+          fi
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v7
+        with:
+          name: pokemon-crystal-build
+          path: release/
+          if-no-files-found: error
+          retention-days: 3
