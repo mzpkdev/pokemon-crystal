@@ -34,3 +34,24 @@ RematchPhoneEventCapabilities:
 
 	assert REMATCH_CONTACT_JACK == 0
 	assert REMATCH_CONTACT_ERIN == NUM_REMATCH_CONTACTS - 1
+
+GetRematchPhoneEventCapabilities::
+; Return every phone event type a rematch contact can produce.
+; Input:  a = REMATCH_CONTACT_* ID
+; Output: carry clear and a = PHONE_EVENT_CAP_* mask if valid
+;         carry set and a = 0 if invalid
+; Clobbers: de, hl
+	cp NUM_REMATCH_CONTACTS
+	jr nc, .invalid
+	ld e, a
+	ld d, 0
+	ld hl, RematchPhoneEventCapabilities
+	add hl, de
+	ld a, [hl]
+	and a
+	ret
+
+.invalid
+	xor a
+	scf
+	ret

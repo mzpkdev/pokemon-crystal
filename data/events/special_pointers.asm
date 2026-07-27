@@ -77,6 +77,7 @@ SpecialsPointers::
 	add_special Special_CheckRematchScheduleUsed
 	add_special Special_MarkRematchScheduleUsed
 	add_special Special_TryClaimRematchScheduleWindow
+	add_special Special_GetRematchPhoneEventCapabilities
 	add_special ToggleMaptileDecorations
 	add_special ToggleDecorationsVisibility
 	add_special ReturnShuckie

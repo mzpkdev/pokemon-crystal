@@ -336,6 +336,14 @@ Special_TryClaimRematchScheduleWindow:
 	ldh [hScriptVar], a
 	ret
 
+Special_GetRematchPhoneEventCapabilities:
+; Input: hScriptVar = REMATCH_CONTACT_* ID.
+; Output: PHONE_EVENT_CAP_* mask, or 0 if the ID is invalid.
+	ldh a, [hScriptVar]
+	farcall GetRematchPhoneEventCapabilities
+	ldh [hScriptVar], a
+	ret
+
 Special_ResetLuckyNumberShowFlag:
 	farjp LoadOrRegenerateLuckyIDNumber
 
