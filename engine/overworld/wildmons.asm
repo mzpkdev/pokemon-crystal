@@ -623,19 +623,26 @@ _SwarmWildmonCheck:
 	add hl, bc
 	ld a, BANK(SwarmData)
 	call GetFarByte
-	cp SWARM_PROFILE_DUNSPARCE
-	jr z, .Dunsparce
-	cp SWARM_PROFILE_YANMA
-	jr z, .Yanma
-	jr _NoSwarmWildmon
-
-.Dunsparce:
-	ld hl, DunsparceSwarmWildMons
-	scf
-	ret
-
-.Yanma:
-	ld hl, YanmaSwarmWildMons
+	cp NUM_SWARM_PROFILES
+	jr nc, _NoSwarmWildmon
+	add a
+	ld c, a
+	ld b, 0
+	ld a, d
+	cp SWARM_METHOD_LAND
+	ld hl, LandSwarmProfilePointers
+	jr z, .got_profile_table
+	cp SWARM_METHOD_SURF
+	ld hl, SurfSwarmProfilePointers
+	jr nz, _NoSwarmWildmon
+.got_profile_table
+	add hl, bc
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	ld a, h
+	or l
+	jr z, _NoSwarmWildmon
 	scf
 	ret
 
@@ -1229,3 +1236,21 @@ INCLUDE "data/wild/swarm_grass.asm"
 
 SwarmWaterWildMons:
 INCLUDE "data/wild/swarm_water.asm"
+
+LandSwarmProfilePointers:
+	table_width 2
+	dw DunsparceSwarmWildMons
+	dw YanmaSwarmWildMons
+	dw 0
+	assert_table_length NUM_SWARM_PROFILES
+
+SurfSwarmProfilePointers:
+	table_width 2
+	dw 0
+	dw 0
+	dw 0
+	assert_table_length NUM_SWARM_PROFILES
+
+	assert BANK(LandSwarmProfilePointers) == BANK(DunsparceSwarmWildMons)
+	assert BANK(LandSwarmProfilePointers) == BANK(YanmaSwarmWildMons)
+	assert BANK(SurfSwarmProfilePointers) == BANK(SwarmWaterWildMons)

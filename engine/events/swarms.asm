@@ -201,15 +201,35 @@ IsCurrentMapActiveSwarm::
 	call GetActiveSwarm
 	ret c
 	push hl
-	ld bc, SWARMENTRY_MAP_GROUP
+	ld bc, SWARMENTRY_MAP_SCOPE
 	add hl, bc
+	ld a, [hl]
+	cp NUM_SWARM_SCOPES
+	jr nc, .no_match
+	add a
+	ld c, a
+	ld b, 0
+	ld hl, SwarmMapScopePointers
+	add hl, bc
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+.map_loop
+	ld a, [hli]
+	cp -1
+	jr z, .no_match
+	ld b, a
 	ld a, [wMapGroup]
-	cp [hl]
-	jr nz, .no_match
-	inc hl
+	cp b
+	jr nz, .next_map
 	ld a, [wMapNumber]
 	cp [hl]
-	jr nz, .no_match
+	jr z, .match
+.next_map
+	inc hl
+	jr .map_loop
+
+.match
 	pop hl
 	ld a, [wActiveSwarm]
 	and a
@@ -227,16 +247,43 @@ IsSwarmEntryUnlocked::
 	ret
 
 MACRO swarm_entry
-;\1 species, \2 form, \3 map, \4 landmark, \5 method, \6 pools, \7 profile
+;\1 species, \2 form, \3 map scope, \4 landmark, \5 method, \6 pools, \7 profile
+	assert \3 < NUM_SWARM_SCOPES, "Invalid swarm map scope"
+	assert \5 < NUM_SWARM_METHODS, "Invalid swarm encounter method"
+	assert \6 & ~(SWARM_POOL_JOHTO | SWARM_POOL_KANTO) == 0, "Invalid swarm selection pool"
+	assert \7 < NUM_SWARM_PROFILES, "Invalid swarm encounter profile"
 	dp \1, \2
-	map_id \3
+	db \3
 	db \4, \5, \6, \7
 ENDM
 
 SwarmData:
 	table_width SWARMENTRY_LENGTH
-	swarm_entry DUNSPARCE, NO_FORM, DARK_CAVE_VIOLET_ENTRANCE, DARK_CAVE, SWARM_METHOD_LAND, SWARM_POOL_JOHTO, SWARM_PROFILE_DUNSPARCE
-	swarm_entry YANMA, NO_FORM, ROUTE_35, ROUTE_35, SWARM_METHOD_LAND, SWARM_POOL_JOHTO, SWARM_PROFILE_YANMA
-	swarm_entry QWILFISH, NO_FORM, ROUTE_32, ROUTE_32, SWARM_METHOD_FISH, SWARM_POOL_JOHTO, SWARM_PROFILE_QWILFISH
+	swarm_entry DUNSPARCE, NO_FORM, SWARM_SCOPE_DARK_CAVE, DARK_CAVE, SWARM_METHOD_LAND, SWARM_POOL_JOHTO, SWARM_PROFILE_DUNSPARCE
+	swarm_entry YANMA, NO_FORM, SWARM_SCOPE_ROUTE_35, ROUTE_35, SWARM_METHOD_LAND, SWARM_POOL_JOHTO, SWARM_PROFILE_YANMA
+	swarm_entry QWILFISH, NO_FORM, SWARM_SCOPE_ROUTE_32, ROUTE_32, SWARM_METHOD_FISH, SWARM_POOL_JOHTO, SWARM_PROFILE_QWILFISH
 	assert_table_length NUM_SWARMS
 	assert @ - SwarmData == NUM_SWARMS * SWARMENTRY_LENGTH
+
+SwarmMapScopePointers:
+	table_width 2
+	dw .DarkCave
+	dw .Route35
+	dw .Route32
+	assert_table_length NUM_SWARM_SCOPES
+
+.DarkCave:
+	map_id DARK_CAVE_VIOLET_ENTRANCE
+	db -1
+
+.Route35:
+	map_id ROUTE_35
+	db -1
+
+.Route32:
+	map_id ROUTE_32
+	db -1
+
+	assert BANK(SwarmMapScopePointers) == BANK(.DarkCave)
+	assert BANK(SwarmMapScopePointers) == BANK(.Route35)
+	assert BANK(SwarmMapScopePointers) == BANK(.Route32)

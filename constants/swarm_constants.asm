@@ -7,6 +7,9 @@
 DEF NUM_SWARMS EQU const_value - 1
 
 static_assert SWARM_NONE == 0
+static_assert SWARM_DUNSPARCE_ID == 1
+static_assert SWARM_YANMA_ID == 2
+static_assert SWARM_QWILFISH_ID == 3
 static_assert NUM_SWARMS < $100
 
 ; Script-facing activation results
@@ -37,13 +40,22 @@ DEF SWARM_POOL_KANTO EQU 1 << SWARM_POOL_KANTO_F
 	const SWARM_PROFILE_QWILFISH
 DEF NUM_SWARM_PROFILES EQU const_value
 
+; Map scopes. A scope can contain one or more maps that share a swarm.
+	const_def
+	const SWARM_SCOPE_DARK_CAVE
+	const SWARM_SCOPE_ROUTE_35
+	const SWARM_SCOPE_ROUTE_32
+DEF NUM_SWARM_SCOPES EQU const_value
+
 ; SwarmData entry fields
 	rsreset
 DEF SWARMENTRY_SPECIES     rw
-DEF SWARMENTRY_MAP_GROUP   rb
-DEF SWARMENTRY_MAP_NUMBER  rb
+DEF SWARMENTRY_MAP_SCOPE   rb
 DEF SWARMENTRY_LANDMARK    rb
 DEF SWARMENTRY_METHOD      rb
 DEF SWARMENTRY_POOL        rb
 DEF SWARMENTRY_PROFILE     rb
 DEF SWARMENTRY_LENGTH EQU _RS
+
+static_assert NUM_SWARM_PROFILES < $100
+static_assert NUM_SWARM_SCOPES < $100

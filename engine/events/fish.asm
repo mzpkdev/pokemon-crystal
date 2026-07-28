@@ -227,12 +227,22 @@ GetFishGroupIndex:
 	add hl, bc
 	ld a, BANK(SwarmData)
 	call GetFarByte
-	cp SWARM_PROFILE_QWILFISH
-	jr nz, .no_swarm
+	cp NUM_SWARM_PROFILES
+	jr nc, .no_swarm
+	add a
+	ld c, a
+	ld b, 0
+	ld hl, FishSwarmProfiles
+	add hl, bc
+	ld a, [hli]
+	cp -1
+	jr z, .no_swarm
+	ld b, a
 	pop de
 	ld a, d
-	cp FISHGROUP_QWILFISH
-	jr z, .qwilfish
+	cp b
+	jr nz, .done
+	ld d, [hl]
 	jr .done
 
 .no_swarm
@@ -243,9 +253,12 @@ GetFishGroupIndex:
 	ld d, 0
 	ret
 
-.qwilfish
-	ld d, FISHGROUP_QWILFISH_SWARM
-	jr .done
+FishSwarmProfiles:
+	table_width 2
+	db -1, -1
+	db -1, -1
+	db FISHGROUP_QWILFISH, FISHGROUP_QWILFISH_SWARM
+	assert_table_length NUM_SWARM_PROFILES
 
 INCLUDE "data/wild/fish.asm"
 INCLUDE "data/items/fish_items.asm"
