@@ -1251,6 +1251,9 @@ LandSwarmProfilePointers:
 	dw DunsparceSwarmWildMons
 	dw YanmaSwarmWildMons
 	dw 0
+	rept NUM_SWARM_PROFILES - 3
+		dw 0
+	endr
 	assert_table_length NUM_SWARM_PROFILES
 
 SurfSwarmProfilePointers:
@@ -1258,6 +1261,9 @@ SurfSwarmProfilePointers:
 	dw 0
 	dw 0
 	dw 0
+	rept NUM_SWARM_PROFILES - 3
+		dw 0
+	endr
 	assert_table_length NUM_SWARM_PROFILES
 
 	assert BANK(LandSwarmProfilePointers) == BANK(DunsparceSwarmWildMons)

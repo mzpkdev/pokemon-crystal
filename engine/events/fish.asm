@@ -267,6 +267,9 @@ FishSwarmProfiles:
 	db -1, -1
 	db -1, -1
 	db FISHGROUP_QWILFISH, FISHGROUP_QWILFISH_SWARM
+	rept NUM_SWARM_PROFILES - 3
+		db -1, -1
+	endr
 	assert_table_length NUM_SWARM_PROFILES
 
 INCLUDE "data/wild/fish.asm"
