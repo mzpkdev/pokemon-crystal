@@ -203,6 +203,25 @@ EngineRematchScheduleFlags:
 	engine_flag wDailyPhoneTimeOfDayFlags, REMATCH_SCHEDULE_WILTON
 	engine_flag wDailyPhoneTimeOfDayFlags, REMATCH_SCHEDULE_PARRY
 	engine_flag wDailyPhoneTimeOfDayFlags, REMATCH_SCHEDULE_ERIN
+	engine_flag wDailyPhoneTimeOfDayFlags, REMATCH_SCHEDULE_BRANDON
+	engine_flag wDailyPhoneTimeOfDayFlags, REMATCH_SCHEDULE_WALT
+	engine_flag wDailyPhoneTimeOfDayFlags, REMATCH_SCHEDULE_KRISE
+	engine_flag wDailyPhoneTimeOfDayFlags, REMATCH_SCHEDULE_ALFRED
+	engine_flag wDailyPhoneTimeOfDayFlags, REMATCH_SCHEDULE_DOUG
+	engine_flag wDailyPhoneTimeOfDayFlags, REMATCH_SCHEDULE_ROB
+	engine_flag wDailyPhoneTimeOfDayFlags, REMATCH_SCHEDULE_KYLE
+	engine_flag wDailyPhoneTimeOfDayFlags, REMATCH_SCHEDULE_TANNER
+	engine_flag wDailyPhoneTimeOfDayFlagsExtension, REMATCH_SCHEDULE_KENNY - 32
+	engine_flag wDailyPhoneTimeOfDayFlagsExtension, REMATCH_SCHEDULE_TIM_AND_SUE - 32
+	engine_flag wDailyPhoneTimeOfDayFlagsExtension, REMATCH_SCHEDULE_JAMIE - 32
+	engine_flag wDailyPhoneTimeOfDayFlagsExtension, REMATCH_SCHEDULE_TORIN - 32
+	engine_flag wDailyPhoneTimeOfDayFlagsExtension, REMATCH_SCHEDULE_BILLY - 32
+	engine_flag wDailyPhoneTimeOfDayFlagsExtension, REMATCH_SCHEDULE_HILLARY - 32
+	engine_flag wDailyPhoneTimeOfDayFlagsExtension, REMATCH_SCHEDULE_KAY_AND_TIA - 32
+	engine_flag wDailyPhoneTimeOfDayFlagsExtension, REMATCH_SCHEDULE_AIDEN - 32
+	engine_flag wDailyPhoneTimeOfDayFlagsExtension, REMATCH_SCHEDULE_DALE - 32
+	engine_flag wDailyPhoneTimeOfDayFlagsExtension, REMATCH_SCHEDULE_REILLY - 32
+	engine_flag wDailyPhoneTimeOfDayFlagsExtension, REMATCH_SCHEDULE_KYLER - 32
 .end
 	assert (.end - EngineRematchScheduleFlags) / 3 == NUM_ENGINE_REMATCH_SCHEDULES
 	assert .end - EngineRematchScheduleFlags == NUM_REMATCH_SCHEDULES * 3

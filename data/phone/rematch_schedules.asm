@@ -29,4 +29,23 @@ RematchSchedules::
 	rematch_schedule THURSDAY,  REMATCH_SCHEDULE_MORNING   ; Wilton
 	rematch_schedule FRIDAY,    REMATCH_SCHEDULE_AFTERNOON ; Parry
 	rematch_schedule SATURDAY,  REMATCH_SCHEDULE_NIGHT     ; Erin
+	rematch_schedule SATURDAY,  REMATCH_SCHEDULE_MORNING   ; Brandon (Ian role)
+	rematch_schedule MONDAY,    REMATCH_SCHEDULE_AFTERNOON ; Walt
+	rematch_schedule SUNDAY,    REMATCH_SCHEDULE_MORNING   ; Krise
+	rematch_schedule TUESDAY,   REMATCH_SCHEDULE_AFTERNOON ; Alfred
+	rematch_schedule WEDNESDAY, REMATCH_SCHEDULE_MORNING   ; Doug
+	rematch_schedule FRIDAY,    REMATCH_SCHEDULE_MORNING   ; Rob
+	rematch_schedule WEDNESDAY, REMATCH_SCHEDULE_AFTERNOON ; Kyle
+	rematch_schedule MONDAY,    REMATCH_SCHEDULE_NIGHT     ; Tanner
+	rematch_schedule SUNDAY,    REMATCH_SCHEDULE_AFTERNOON ; Kenny
+	rematch_schedule FRIDAY,    REMATCH_SCHEDULE_AFTERNOON ; Tim & Sue
+	rematch_schedule TUESDAY,   REMATCH_SCHEDULE_NIGHT     ; Jamie
+	rematch_schedule WEDNESDAY, REMATCH_SCHEDULE_NIGHT     ; Torin
+	rematch_schedule FRIDAY,    REMATCH_SCHEDULE_NIGHT     ; Billy
+	rematch_schedule THURSDAY,  REMATCH_SCHEDULE_NIGHT     ; Hillary
+	rematch_schedule SATURDAY,  REMATCH_SCHEDULE_NIGHT     ; Kay & Tia
+	rematch_schedule MONDAY,    REMATCH_SCHEDULE_MORNING   ; Aiden
+	rematch_schedule SUNDAY,    REMATCH_SCHEDULE_AFTERNOON ; Dale (Eoin role)
+	rematch_schedule SUNDAY,    REMATCH_SCHEDULE_NIGHT     ; Reilly (Reese role)
+	rematch_schedule THURSDAY,  REMATCH_SCHEDULE_AFTERNOON ; Kyler
 	assert_table_length NUM_REMATCH_SCHEDULES
