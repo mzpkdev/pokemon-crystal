@@ -41,7 +41,7 @@ RobPhoneScript2:
 RobPhoneGift:
 	setevent EVENT_ROB_BERRY_READY
 RobPhoneGiftReminder:
-	getlandmarkname ROUTE_2_SOUTH, STRING_BUFFER_5
+	getlandmarkname ROUTE_2, STRING_BUFFER_5
 	farsjump PhoneScript_FoundItem_Male
 
 RobPhoneOffer:
@@ -50,5 +50,5 @@ RobPhoneOffer:
 	setval REMATCH_CONTACT_ROB
 	special Special_OfferRematch
 RobPhoneRematchReminder:
-	getlandmarkname ROUTE_2_SOUTH, STRING_BUFFER_5
+	getlandmarkname ROUTE_2, STRING_BUFFER_5
 	farsjump PhoneScript_WantsToBattle_Male

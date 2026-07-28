@@ -41,7 +41,7 @@ DougPhoneScript2:
 DougPhoneGift:
 	setevent EVENT_DOUG_BERRY_READY
 DougPhoneGiftReminder:
-	getlandmarkname ROUTE_2_SOUTH, STRING_BUFFER_5
+	getlandmarkname ROUTE_2, STRING_BUFFER_5
 	farsjump PhoneScript_FoundItem_Male
 
 DougPhoneOffer:
@@ -50,5 +50,5 @@ DougPhoneOffer:
 	setval REMATCH_CONTACT_DOUG
 	special Special_OfferRematch
 DougPhoneRematchReminder:
-	getlandmarkname ROUTE_2_SOUTH, STRING_BUFFER_5
+	getlandmarkname ROUTE_2, STRING_BUFFER_5
 	farsjump PhoneScript_WantsToBattle_Male
