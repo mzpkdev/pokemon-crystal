@@ -18,7 +18,7 @@ RematchPhoneEventSelectionTables:
 	rematch_phone_event_table JosePhoneEventSelection    ; JOSE
 	rematch_phone_event_table ReenaPhoneEventSelection   ; REENA
 	rematch_phone_event_table JoeyPhoneEventSelection    ; JOEY
-	no_rematch_phone_event_table                         ; WADE: contest roll precedes its eligibility checks
+	rematch_phone_event_table WadePhoneEventSelection    ; WADE
 	rematch_phone_event_table RalphPhoneEventSelection   ; RALPH
 	rematch_phone_event_table LizPhoneEventSelection     ; LIZ
 	rematch_phone_event_table AnthonyPhoneEventSelection ; ANTHONY
@@ -68,6 +68,7 @@ RematchPhoneEventRepeatSelectionTables:
 	assert_table_length NUM_REMATCH_CONTACTS
 
 	assert REMATCH_CONTACT_HUEY == 1
+	assert REMATCH_CONTACT_WADE == 7
 	assert REMATCH_CONTACT_ANTHONY == 10
 	assert REMATCH_CONTACT_GINA == 12
 	assert REMATCH_CONTACT_ALAN == 14
@@ -114,6 +115,13 @@ ReenaPhoneEventSelection:
 
 JoeyPhoneEventSelection:
 	phone_event_chance PHONE_EVENT_REMATCH, 2, 3
+	phone_event_fallback PHONE_EVENT_FLAVOR
+
+WadePhoneEventSelection:
+	phone_event_chance_always PHONE_EVENT_SPECIAL, 1, 2
+	phone_event_chance PHONE_EVENT_GIFT, 1, 2
+	phone_event_chance PHONE_EVENT_REMATCH, 1, 2
+	phone_event_chance PHONE_EVENT_RARE_REPORT, 1, 3
 	phone_event_fallback PHONE_EVENT_FLAVOR
 
 RalphPhoneEventSelection:
