@@ -63,11 +63,12 @@ GetTownMapSwarm::
 
 	ld e, JOHTO_REGION
 	cp KANTO_LANDMARK
-	ret c
+	jr c, .valid
 	inc e ; KANTO_REGION
 	cp SHAMOUTI_LANDMARK
-	ret c
+	jr c, .valid
 	inc e ; ORANGE_REGION
+.valid
 	and a
 	ret
 

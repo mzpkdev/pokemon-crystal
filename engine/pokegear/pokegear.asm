@@ -766,7 +766,7 @@ PokegearMap_InitSwarmIcon:
 	cp e
 	ret nz
 
-	ld a, d
+	ld e, d
 	farcall GetLandmarkCoords
 	push de
 	depixel 0, 0
