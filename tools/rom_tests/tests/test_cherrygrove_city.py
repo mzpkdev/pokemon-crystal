@@ -22,6 +22,6 @@ def test_new_game_reaches_cherrygrove_city(emulator: Emulator) -> None:
         name="cherrygrove-city-entry",
         # Compare the static road and sign. Trees, flowers, and the player's
         # idle sprite animate; map/coordinate assertions verify the position.
-        crop=(16, 32, 160, 80),
+        crop=(16, 32, 144, 80),
         ignore_boxes=((64, 48, 88, 80),),
     )
