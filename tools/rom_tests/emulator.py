@@ -107,6 +107,7 @@ class Emulator:
         name: str,
         *,
         crop: tuple[int, int, int, int] | None = None,
+        ignore_boxes: tuple[tuple[int, int, int, int], ...] = (),
     ) -> None:
         actual = self.pyboy.screen.image.convert("RGB")
         if os.environ.get("UPDATE_ROM_SNAPSHOTS") == "1":
@@ -115,6 +116,9 @@ class Emulator:
             return
 
         reference = Image.open(expected).convert("RGB")
+        for box in ignore_boxes:
+            actual.paste((0, 0, 0), box)
+            reference.paste((0, 0, 0), box)
         compared_actual = actual.crop(crop) if crop else actual
         compared_reference = reference.crop(crop) if crop else reference
         difference = ImageChops.difference(compared_actual, compared_reference)

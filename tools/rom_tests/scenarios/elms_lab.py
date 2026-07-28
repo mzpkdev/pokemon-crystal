@@ -24,8 +24,6 @@ def walk_until(
     max_presses: int = 160,
 ) -> None:
     for _ in range(max_presses):
-        if predicate():
-            return
         if emulator.is_in_battle():
             emulator.advance_until(
                 lambda: not emulator.is_in_battle(),
@@ -34,6 +32,8 @@ def walk_until(
                 description=f"finishing battle before {description}",
             )
             continue
+        if predicate():
+            return
         emulator.press(button)
 
     emulator.save_screenshot(f"timeout-{description}.png")

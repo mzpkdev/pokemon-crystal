@@ -20,6 +20,8 @@ def test_new_game_reaches_cherrygrove_city(emulator: Emulator) -> None:
     emulator.assert_screen_matches(
         SNAPSHOTS / "cherrygrove-city-entry.png",
         name="cherrygrove-city-entry",
-        # Ignore animated edge sprites and the treetop animation strip.
-        crop=(9, 11, 160, 144),
+        # Ignore animated edge sprites, the treetop strip, and the player's
+        # idle-animation pixels; map/coordinate assertions verify the position.
+        crop=(16, 11, 160, 144),
+        ignore_boxes=((64, 80, 88, 112),),
     )
