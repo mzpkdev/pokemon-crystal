@@ -23,6 +23,14 @@ FishGroups:
 	fishgroup 60 percent, (60 + 3) percent, .Remoraid_Old,         .Remoraid_Good,         .Remoraid_Super
 	fishgroup 65 percent, (65 + 5) percent, .Hisuian_Qwilfish_Old, .Hisuian_Qwilfish_Good, .Hisuian_Qwilfish_Super
 	fishgroup 65 percent, (65 + 5) percent, .Staryu_Old,           .Staryu_Good,           .Staryu_Super
+	; Swarm-only groups inherit their bite and item rates from the map's normal group.
+	fishgroup 65 percent, (65 + 5) percent, .Chinchou_Swarm_Old,  .Chinchou_Swarm_Good,  .Chinchou_Swarm_Super
+	fishgroup 65 percent, (65 + 5) percent, .Corsola_Swarm_Old,   .Corsola_Swarm_Good,   .Corsola_Swarm_Super
+	fishgroup 65 percent, (65 + 5) percent, .Horsea_Swarm_Old,    .Horsea_Swarm_Good,    .Horsea_Swarm_Super
+	fishgroup 65 percent, (65 + 5) percent, .Mantine_Swarm_Old,   .Mantine_Swarm_Good,   .Mantine_Swarm_Super
+	fishgroup 60 percent, (60 + 3) percent, .Dratini_Swarm_Old,   .Dratini_Swarm_Good,   .Dratini_Swarm_Super
+	fishgroup 65 percent, (65 + 5) percent, .Staryu_Swarm_Old,    .Staryu_Swarm_Good,    .Staryu_Swarm_Super
+	fishgroup 75 percent, (75 + 1) percent, .Shellder_Swarm_Old,  .Shellder_Swarm_Good,  .Shellder_Swarm_Super
 	assert_table_length NUM_FISHGROUPS
 
 MACRO fishentry
@@ -257,3 +265,108 @@ ENDM
 	fishentry  70 percent,     STARYU,     40
 	fishentry  90 percent + 1, KRABBY,     40
 	fishentry 100 percent,     KINGLER,    40
+
+.Chinchou_Swarm_Old:
+	fishentry  70 percent + 1, MAGIKARP,  5
+	fishentry  85 percent + 1, MAGIKARP,  5
+	fishentry 100 percent,     CHINCHOU,  5
+.Chinchou_Swarm_Good:
+	fishentry  35 percent,     MAGIKARP, 20
+	fishentry  70 percent,     CHINCHOU, 20
+	fishentry  90 percent + 1, CHINCHOU, 20
+	fishentry 100 percent,     KRABBY,   20
+.Chinchou_Swarm_Super:
+	fishentry  40 percent,     CHINCHOU, 40
+	fishentry  70 percent,     CHINCHOU, 40
+	fishentry  90 percent + 1, CHINCHOU, 40
+	fishentry 100 percent,     KINGLER,  40
+
+.Corsola_Swarm_Old:
+	fishentry  70 percent + 1, MAGIKARP, 5
+	fishentry  85 percent + 1, MAGIKARP, 5
+	fishentry 100 percent,     CORSOLA,  5
+.Corsola_Swarm_Good:
+	fishentry  35 percent,     MAGIKARP, 20
+	fishentry  70 percent,     CORSOLA,  20
+	fishentry  90 percent + 1, CORSOLA,  20
+	fishentry 100 percent,     KRABBY,   20
+.Corsola_Swarm_Super:
+	fishentry  40 percent,     CORSOLA, 40
+	fishentry  70 percent,     CORSOLA, 40
+	fishentry  90 percent + 1, CORSOLA, 40
+	fishentry 100 percent,     KINGLER, 40
+
+.Horsea_Swarm_Old:
+	fishentry  70 percent + 1, MAGIKARP, 10
+	fishentry  85 percent + 1, MAGIKARP, 10
+	fishentry 100 percent,     HORSEA,   10
+.Horsea_Swarm_Good:
+	fishentry  35 percent,     MAGIKARP, 20
+	fishentry  70 percent,     HORSEA,   20
+	fishentry  90 percent + 1, HORSEA,   20
+	fishentry 100 percent,     SHELLDER, 20
+.Horsea_Swarm_Super:
+	fishentry  40 percent,     HORSEA, 40
+	fishentry  70 percent,     HORSEA, 40
+	fishentry  90 percent + 1, HORSEA, 40
+	fishentry 100 percent,     LANTURN, 40
+
+.Mantine_Swarm_Old:
+	fishentry  70 percent + 1, MAGIKARP, 10
+	fishentry  85 percent + 1, MAGIKARP, 10
+	fishentry 100 percent,     MANTINE,  10
+.Mantine_Swarm_Good:
+	fishentry  35 percent,     MAGIKARP, 20
+	fishentry  70 percent,     MANTINE,  20
+	fishentry  90 percent + 1, MANTINE,  20
+	fishentry 100 percent,     SHELLDER, 20
+.Mantine_Swarm_Super:
+	fishentry  40 percent,     MANTINE, 40
+	fishentry  70 percent,     MANTINE, 40
+	fishentry  90 percent + 1, MANTINE, 40
+	fishentry 100 percent,     LANTURN, 40
+
+.Dratini_Swarm_Old:
+	fishentry  70 percent + 1, MAGIKARP, 10
+	fishentry  85 percent + 1, MAGIKARP, 10
+	fishentry 100 percent,     DRATINI,  10
+.Dratini_Swarm_Good:
+	fishentry  35 percent,     MAGIKARP, 20
+	fishentry  70 percent,     DRATINI,  20
+	fishentry  90 percent + 1, DRATINI,  20
+	fishentry 100 percent,     DRATINI,  20
+.Dratini_Swarm_Super:
+	fishentry  40 percent,     DRATINI,   40
+	fishentry  70 percent,     DRATINI,   40
+	fishentry  90 percent + 1, DRATINI,   40
+	fishentry 100 percent,     DRAGONAIR, 40
+
+.Staryu_Swarm_Old:
+	fishentry  70 percent + 1, MAGIKARP, 5
+	fishentry  85 percent + 1, MAGIKARP, 5
+	fishentry 100 percent,     STARYU,   5
+.Staryu_Swarm_Good:
+	fishentry  35 percent,     MAGIKARP, 20
+	fishentry  70 percent,     STARYU,   20
+	fishentry  90 percent + 1, STARYU,   20
+	fishentry 100 percent,     KRABBY,   20
+.Staryu_Swarm_Super:
+	fishentry  40 percent,     STARYU,  40
+	fishentry  70 percent,     STARYU,  40
+	fishentry  90 percent + 1, STARYU,  40
+	fishentry 100 percent,     KINGLER, 40
+
+.Shellder_Swarm_Old:
+	fishentry  70 percent + 1, MAGIKARP, 10
+	fishentry  85 percent + 1, MAGIKARP, 10
+	fishentry 100 percent,     SHELLDER, 10
+.Shellder_Swarm_Good:
+	fishentry  35 percent,     MAGIKARP, 20
+	fishentry  70 percent,     SHELLDER, 20
+	fishentry  90 percent + 1, SHELLDER, 20
+	fishentry 100 percent,     SHELLDER, 20
+.Shellder_Swarm_Super:
+	fishentry  40 percent,     SHELLDER, 40
+	fishentry  70 percent,     SHELLDER, 40
+	fishentry  90 percent + 1, SHELLDER, 40
+	fishentry 100 percent,     LANTURN,  40
