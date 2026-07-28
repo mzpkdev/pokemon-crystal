@@ -3,7 +3,7 @@ BrandonPhoneScript1:
 	setval REMATCH_CONTACT_BRANDON
 	special Special_CheckRematchPending
 	iftruefwd BrandonPhoneReminder
-	farscall PhoneScript_AnswerPhone_Male
+	farscall BrandonPhoneAnswer
 	setval REMATCH_CONTACT_BRANDON
 	special Special_TryClaimRematchScheduleWindow
 	iftruefwd BrandonPhoneOffer
@@ -11,7 +11,7 @@ BrandonPhoneScript1:
 
 BrandonPhoneScript2:
 	gettrainername POKEFANM, BRANDON, STRING_BUFFER_3
-	farscall PhoneScript_GreetPhone_Male
+	farscall BrandonPhoneGreeting
 	setval REMATCH_CONTACT_BRANDON
 	special Special_CheckRematchPending
 	iftruefwd .Flavor
@@ -42,3 +42,13 @@ BrandonPhoneOffer:
 BrandonPhoneReminder:
 	getlandmarkname ROUTE_34, STRING_BUFFER_5
 	farsjump PhoneScript_WantsToBattle_Male
+
+BrandonPhoneAnswer:
+	farwritetext BrandonAnswerPhoneText
+	promptbutton
+	end
+
+BrandonPhoneGreeting:
+	farwritetext BrandonGreetPhoneText
+	promptbutton
+	end

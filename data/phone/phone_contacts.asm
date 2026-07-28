@@ -50,5 +50,10 @@ PhoneContacts:
 	phone GENTLEMAN,    ALFRED,                OLIVINE_LIGHTHOUSE_2F,     %1111, AlfredPhoneScript1,  %1111, AlfredPhoneScript2
 	phone BUG_MANIAC,   DOUG,                  ROUTE_2_SOUTH,             %1111, DougPhoneScript1,    %1111, DougPhoneScript2
 	phone BUG_MANIAC,   ROB,                   ROUTE_2_SOUTH,             %1111, RobPhoneScript1,     %1111, RobPhoneScript2
+	phone FISHER,       KYLE,                  ROUTE_12_NORTH,            %1111, KylePhoneScript1,    %1111, KylePhoneScript2
+	phone CAMPER,       TANNER,                ROUTE_13,                  %1111, TannerPhoneScript1,  %1111, TannerPhoneScript2
+	phone HIKER,        KENNY,                 ROUTE_13,                  %1111, KennyPhoneScript1,   %1111, KennyPhoneScript2
+	phone COUPLE,       TIMANDSUE1,            ROUTE_13,                  %1111, TimAndSuePhoneScript1, %1111, TimAndSuePhoneScript2
+	phone FISHER,       KYLER,                 ROUTE_12_SOUTH,            %1111, KylerPhoneScript1,   %1111, KylerPhoneScript2
 	phone TRAINER_NONE, PHONECONTACT_BUENA,    GOLDENROD_DEPT_STORE_ROOF, %1111, BuenaPhoneScript1,   %1111, BuenaPhoneScript2
 	assert_table_length NUM_PHONE_CONTACTS + 1

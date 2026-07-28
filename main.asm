@@ -482,6 +482,11 @@ INCLUDE "engine/phone/scripts/krise.asm"
 INCLUDE "engine/phone/scripts/alfred.asm"
 INCLUDE "engine/phone/scripts/doug.asm"
 INCLUDE "engine/phone/scripts/rob.asm"
+INCLUDE "engine/phone/scripts/kyle.asm"
+INCLUDE "engine/phone/scripts/tanner.asm"
+INCLUDE "engine/phone/scripts/kenny.asm"
+INCLUDE "engine/phone/scripts/tim_and_sue.asm"
+INCLUDE "engine/phone/scripts/kyler.asm"
 INCLUDE "engine/phone/scripts/generic_callee.asm"
 
 
@@ -666,6 +671,10 @@ INCLUDE "data/phone/text/parry_callee.asm"
 INCLUDE "data/phone/text/erin_callee.asm"
 INCLUDE "data/phone/text/unused.asm"
 INCLUDE "data/phone/text/liz_overworld.asm"
+
+SECTION "Extended Phone Greetings", ROMX
+
+INCLUDE "data/phone/text/sourcrystal_contact_greetings.asm"
 
 
 SECTION "Diploma", ROMX

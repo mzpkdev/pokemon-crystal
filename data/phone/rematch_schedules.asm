@@ -35,10 +35,10 @@ RematchSchedules::
 	rematch_schedule TUESDAY,   REMATCH_SCHEDULE_AFTERNOON ; Alfred
 	rematch_schedule WEDNESDAY, REMATCH_SCHEDULE_MORNING   ; Doug
 	rematch_schedule FRIDAY,    REMATCH_SCHEDULE_MORNING   ; Rob
-	rematch_schedule WEDNESDAY, REMATCH_SCHEDULE_AFTERNOON ; Kyle
-	rematch_schedule MONDAY,    REMATCH_SCHEDULE_NIGHT     ; Tanner
-	rematch_schedule SUNDAY,    REMATCH_SCHEDULE_AFTERNOON ; Kenny
-	rematch_schedule FRIDAY,    REMATCH_SCHEDULE_AFTERNOON ; Tim & Sue
+	rematch_schedule WEDNESDAY, REMATCH_SCHEDULE_DAY_EVE   ; Kyle
+	rematch_schedule MONDAY,    REMATCH_SCHEDULE_NITE      ; Tanner
+	rematch_schedule SATURDAY,  REMATCH_SCHEDULE_DAY_EVE   ; Kenny
+	rematch_schedule FRIDAY,    REMATCH_SCHEDULE_DAY_EVE   ; Tim & Sue
 	rematch_schedule TUESDAY,   REMATCH_SCHEDULE_NIGHT     ; Jamie
 	rematch_schedule WEDNESDAY, REMATCH_SCHEDULE_NIGHT     ; Torin
 	rematch_schedule FRIDAY,    REMATCH_SCHEDULE_NIGHT     ; Billy
@@ -47,5 +47,5 @@ RematchSchedules::
 	rematch_schedule MONDAY,    REMATCH_SCHEDULE_MORNING   ; Aiden
 	rematch_schedule SUNDAY,    REMATCH_SCHEDULE_AFTERNOON ; Dale (Eoin role)
 	rematch_schedule SUNDAY,    REMATCH_SCHEDULE_NIGHT     ; Reilly (Reese role)
-	rematch_schedule THURSDAY,  REMATCH_SCHEDULE_AFTERNOON ; Kyler
+	rematch_schedule THURSDAY,  REMATCH_SCHEDULE_DAY_EVE   ; Kyler
 	assert_table_length NUM_REMATCH_SCHEDULES

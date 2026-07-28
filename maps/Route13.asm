@@ -20,12 +20,12 @@ Route13_MapScriptHeader:
 	object_event 16,  6, SPRITE_PICNICKER, SPRITEMOVEDATA_STANDING_LEFT, 0, 0, -1, 0, OBJECTTYPE_GENERICTRAINER, 4, GenericTrainerPicnickerGinger, -1
 	object_event 60, 11, SPRITE_BIRD_KEEPER, SPRITEMOVEDATA_STANDING_LEFT, 0, 0, -1, 0, OBJECTTYPE_GENERICTRAINER, 5, GenericTrainerBird_keeperPerry, -1
 	object_event 64,  1, SPRITE_BIRD_KEEPER, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, 0, OBJECTTYPE_GENERICTRAINER, 3, GenericTrainerBird_keeperBret, -1
-	object_event 34,  5, SPRITE_CAMPER, SPRITEMOVEDATA_SPINCLOCKWISE, 0, 0, -1, 0, OBJECTTYPE_GENERICTRAINER, 1, GenericTrainerCamperTanner, -1
+	object_event 34,  5, SPRITE_CAMPER, SPRITEMOVEDATA_SPINCLOCKWISE, 0, 0, -1, 0, OBJECTTYPE_TRAINER, 1, TrainerCamperTanner, -1
 	object_event 65,  9, SPRITE_PICNICKER, SPRITEMOVEDATA_STANDING_UP, 0, 0, -1, 0, OBJECTTYPE_GENERICTRAINER, 3, GenericTrainerPicnickerPiper, -1
-	object_event 52,  6, SPRITE_COOL_DUDE, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, PAL_NPC_BLUE, OBJECTTYPE_GENERICTRAINER, 1, GenericTrainerCoupleTimandsue1, -1
-	object_event 53,  6, SPRITE_CUTE_GIRL, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, PAL_NPC_BLUE, OBJECTTYPE_GENERICTRAINER, 1, GenericTrainerCoupleTimandsue2, -1
+	object_event 52,  6, SPRITE_COOL_DUDE, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, PAL_NPC_BLUE, OBJECTTYPE_TRAINER, 1, TrainerCoupleTimandsue1, -1
+	object_event 53,  6, SPRITE_CUTE_GIRL, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, PAL_NPC_BLUE, OBJECTTYPE_TRAINER, 1, TrainerCoupleTimandsue2, -1
 	object_event 38,  8, SPRITE_POKEFAN_M, SPRITEMOVEDATA_STANDING_LEFT, 0, 0, -1, 0, OBJECTTYPE_GENERICTRAINER, 3, GenericTrainerPokefanmJoshua, -1
-	object_event 14, 10, SPRITE_HIKER, SPRITEMOVEDATA_STANDING_LEFT, 0, 0, -1, 0, OBJECTTYPE_GENERICTRAINER, 4, GenericTrainerHikerKenny, -1
+	object_event 14, 10, SPRITE_HIKER, SPRITEMOVEDATA_STANDING_LEFT, 0, 0, -1, 0, OBJECTTYPE_TRAINER, 4, TrainerHikerKenny, -1
 	object_event 25,  6, SPRITE_POKEFAN_M, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, 0, OBJECTTYPE_GENERICTRAINER, 4, GenericTrainerPokefanmAlex, -1
 	object_event 21, 13, SPRITE_GRAMPS, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, PAL_NPC_PURPLE, OBJECTTYPE_SCRIPT, 0, Route13GrampsScript, -1
 	cuttree_event 54,  4, EVENT_ROUTE_13_CUT_TREE
@@ -136,9 +136,64 @@ Bird_keeperBretBeatenText:
 	line "Not good enough!"
 	done
 
-GenericTrainerCamperTanner:
-	generictrainer CAMPER, TANNER, EVENT_BEAT_CAMPER_TANNER, .SeenText, .BeatenText
+TrainerCamperTanner:
+	trainer CAMPER, TANNER, EVENT_BEAT_CAMPER_TANNER, .SeenText, .BeatenText, 0, .Script
+.Script:
+	loadvar VAR_CALLERID, PHONE_CAMPER_TANNER
+	opentext
+	setval REMATCH_CONTACT_TANNER
+	special Special_CheckRematchPending
+	iftruefwd .Rematch
+	checkcellnum PHONE_CAMPER_TANNER
+	iftrue_jumpopenedtext .AfterBattleText
+	checkevent EVENT_TANNER_ASKED_FOR_PHONE_NUMBER
+	iftruefwd .AskAgain
+	writetext .AfterBattleText
+	promptbutton
+	setevent EVENT_TANNER_ASKED_FOR_PHONE_NUMBER
+	writetext Route13TannerAskNumberText
+	sjumpfwd .Ask
+.AskAgain:
+	writetext Route13TannerAskAgainText
+.Ask:
+	askforphonenumber PHONE_CAMPER_TANNER
+	ifequalfwd PHONE_CONTACTS_FULL, .Full
+	ifequalfwd PHONE_CONTACT_REFUSED, .Declined
+	writetext Route13TannerAcceptedText
+	waitbutton
+	endtext
+.Full:
+	writetext Route13PhoneFullText
+	waitbutton
+	endtext
+.Declined:
+	writetext Route13TannerDeclinedText
+	waitbutton
+	endtext
+.Rematch:
+	writetext Route13TannerRematchText
+	waitbutton
+	closetext
+	winlosstext .BeatenText, 0
+	checkevent EVENT_BEAT_BLUE
+	iftruefwd .Fight3
+	checkflag ENGINE_FLYPOINT_PEWTER
+	iftruefwd .Fight2
+	loadtrainer CAMPER, TANNER
+	sjumpfwd .Battle
+.Fight2:
+	loadtrainer CAMPER, TANNER2
+	sjumpfwd .Battle
+.Fight3:
+	loadtrainer CAMPER, TANNER3
+.Battle:
+	startbattle
+	reloadmapafterbattle
+	setval REMATCH_CONTACT_TANNER
+	special Special_ConsumeRematch
+	end
 
+.AfterBattleText:
 	text "I figured it would"
 	line "be easy to knock"
 	cont "you out…"
@@ -175,9 +230,48 @@ GenericTrainerPicnickerPiper:
 	line "bad…"
 	done
 
-GenericTrainerCoupleTimandsue1:
-	generictrainer COUPLE, TIMANDSUE1, EVENT_BEAT_COUPLE_TIM_AND_SUE, .SeenText, .BeatenText
+TrainerCoupleTimandsue1:
+	trainer COUPLE, TIMANDSUE1, EVENT_BEAT_COUPLE_TIM_AND_SUE, .SeenText, .BeatenText, 0, .Script
+.Script:
+	loadvar VAR_CALLERID, PHONE_COUPLE_TIM_AND_SUE
+	opentext
+	setval REMATCH_CONTACT_TIM_AND_SUE
+	special Special_CheckRematchPending
+	iftruefwd .Rematch
+	checkcellnum PHONE_COUPLE_TIM_AND_SUE
+	iftrue_jumpopenedtext .AfterBattleText
+	checkevent EVENT_TIM_AND_SUE_ASKED_FOR_PHONE_NUMBER
+	iftruefwd .AskAgain
+	writetext .AfterBattleText
+	promptbutton
+	setevent EVENT_TIM_AND_SUE_ASKED_FOR_PHONE_NUMBER
+.AskAgain:
+	scall Route13TimAndSuePhoneRegistration
+	end
+.Rematch:
+	writetext Route13TimAndSueRematchText
+	waitbutton
+	closetext
+	winlosstext .BeatenText, 0
+	checkevent EVENT_BEAT_BLUE
+	iftruefwd .Fight3
+	checkflag ENGINE_FLYPOINT_PEWTER
+	iftruefwd .Fight2
+	loadtrainer COUPLE, TIMANDSUE1
+	sjumpfwd .Battle
+.Fight2:
+	loadtrainer COUPLE, TIMANDSUE3
+	sjumpfwd .Battle
+.Fight3:
+	loadtrainer COUPLE, TIMANDSUE5
+.Battle:
+	startbattle
+	reloadmapafterbattle
+	setval REMATCH_CONTACT_TIM_AND_SUE
+	special Special_ConsumeRematch
+	end
 
+.AfterBattleText:
 	text "Tim: If you've"
 	line "beaten her, you"
 	cont "must be strong!"
@@ -196,9 +290,48 @@ GenericTrainerCoupleTimandsue1:
 	line "strongest!"
 	done
 
-GenericTrainerCoupleTimandsue2:
-	generictrainer COUPLE, TIMANDSUE2, EVENT_BEAT_COUPLE_TIM_AND_SUE, .SeenText, .BeatenText
+TrainerCoupleTimandsue2:
+	trainer COUPLE, TIMANDSUE2, EVENT_BEAT_COUPLE_TIM_AND_SUE, .SeenText, .BeatenText, 0, .Script
+.Script:
+	loadvar VAR_CALLERID, PHONE_COUPLE_TIM_AND_SUE
+	opentext
+	setval REMATCH_CONTACT_TIM_AND_SUE
+	special Special_CheckRematchPending
+	iftruefwd .Rematch
+	checkcellnum PHONE_COUPLE_TIM_AND_SUE
+	iftrue_jumpopenedtext .AfterBattleText
+	checkevent EVENT_TIM_AND_SUE_ASKED_FOR_PHONE_NUMBER
+	iftruefwd .AskAgain
+	writetext .AfterBattleText
+	promptbutton
+	setevent EVENT_TIM_AND_SUE_ASKED_FOR_PHONE_NUMBER
+.AskAgain:
+	scall Route13TimAndSuePhoneRegistration
+	end
+.Rematch:
+	writetext Route13TimAndSueRematchText
+	waitbutton
+	closetext
+	winlosstext .BeatenText, 0
+	checkevent EVENT_BEAT_BLUE
+	iftruefwd .Fight3
+	checkflag ENGINE_FLYPOINT_PEWTER
+	iftruefwd .Fight2
+	loadtrainer COUPLE, TIMANDSUE2
+	sjumpfwd .Battle
+.Fight2:
+	loadtrainer COUPLE, TIMANDSUE4
+	sjumpfwd .Battle
+.Fight3:
+	loadtrainer COUPLE, TIMANDSUE6
+.Battle:
+	startbattle
+	reloadmapafterbattle
+	setval REMATCH_CONTACT_TIM_AND_SUE
+	special Special_ConsumeRematch
+	end
 
+.AfterBattleText:
 	text "Sue: That strength"
 	line "of yours…"
 	cont "I've got it!"
@@ -256,9 +389,64 @@ PokefanmJoshuaBeatenText:
 	text "Pi-Pikachu!"
 	done
 
-GenericTrainerHikerKenny:
-	generictrainer HIKER, KENNY, EVENT_BEAT_HIKER_KENNY, HikerKennySeenText, HikerKennyBeatenText
+TrainerHikerKenny:
+	trainer HIKER, KENNY, EVENT_BEAT_HIKER_KENNY, HikerKennySeenText, HikerKennyBeatenText, 0, .Script
+.Script:
+	loadvar VAR_CALLERID, PHONE_HIKER_KENNY
+	opentext
+	setval REMATCH_CONTACT_KENNY
+	special Special_CheckRematchPending
+	iftruefwd .Rematch
+	checkcellnum PHONE_HIKER_KENNY
+	iftrue_jumpopenedtext .AfterBattleText
+	checkevent EVENT_KENNY_ASKED_FOR_PHONE_NUMBER
+	iftruefwd .AskAgain
+	writetext .AfterBattleText
+	promptbutton
+	setevent EVENT_KENNY_ASKED_FOR_PHONE_NUMBER
+	writetext Route13KennyAskNumberText
+	sjumpfwd .Ask
+.AskAgain:
+	writetext Route13KennyAskAgainText
+.Ask:
+	askforphonenumber PHONE_HIKER_KENNY
+	ifequalfwd PHONE_CONTACTS_FULL, .Full
+	ifequalfwd PHONE_CONTACT_REFUSED, .Declined
+	writetext Route13KennyAcceptedText
+	waitbutton
+	endtext
+.Full:
+	writetext Route13PhoneFullText
+	waitbutton
+	endtext
+.Declined:
+	writetext Route13KennyDeclinedText
+	waitbutton
+	endtext
+.Rematch:
+	writetext Route13KennyRematchText
+	waitbutton
+	closetext
+	winlosstext HikerKennyBeatenText, 0
+	checkevent EVENT_BEAT_BLUE
+	iftruefwd .Fight3
+	checkflag ENGINE_FLYPOINT_PEWTER
+	iftruefwd .Fight2
+	loadtrainer HIKER, KENNY
+	sjumpfwd .Battle
+.Fight2:
+	loadtrainer HIKER, KENNY2
+	sjumpfwd .Battle
+.Fight3:
+	loadtrainer HIKER, KENNY3
+.Battle:
+	startbattle
+	reloadmapafterbattle
+	setval REMATCH_CONTACT_KENNY
+	special Special_ConsumeRematch
+	end
 
+.AfterBattleText:
 	text "Geological fea-"
 	line "tures don't appear"
 	cont "to change."
@@ -276,6 +464,104 @@ HikerKennySeenText:
 
 HikerKennyBeatenText:
 	text "I lost…"
+	done
+
+Route13TimAndSuePhoneRegistration:
+	writetext Route13TimAndSueAskNumberText
+	askforphonenumber PHONE_COUPLE_TIM_AND_SUE
+	ifequalfwd PHONE_CONTACTS_FULL, .Full
+	ifequalfwd PHONE_CONTACT_REFUSED, .Declined
+	writetext Route13TimAndSueAcceptedText
+	waitbutton
+	endtext
+.Full:
+	writetext Route13PhoneFullText
+	waitbutton
+	endtext
+.Declined:
+	writetext Route13TimAndSueDeclinedText
+	waitbutton
+	endtext
+
+Route13TannerAskNumberText:
+	text "Camping is more"
+	line "fun with friends."
+	para "Want to exchange"
+	line "phone numbers?"
+	done
+
+Route13TannerAskAgainText:
+	text "Want to talk about"
+	line "camping by phone?"
+	done
+
+Route13TannerAcceptedText:
+	text "I'll call when I'm"
+	line "ready to battle!"
+	done
+
+Route13TannerDeclinedText:
+	text "Maybe after the"
+	line "next campfire."
+	done
+
+Route13TannerRematchText:
+	text "The fire's ready,"
+	line "and so am I!"
+	done
+
+Route13KennyAskNumberText:
+	text "I can tell you"
+	line "of mountain life"
+	cont "over the phone."
+	para "Want my number?"
+	done
+
+Route13KennyAskAgainText:
+	text "Want to hear about"
+	line "mountain life?"
+	done
+
+Route13KennyAcceptedText:
+	text "I'll call from the"
+	line "mountains!"
+	done
+
+Route13KennyDeclinedText:
+	text "The mountains will"
+	line "still be here."
+	done
+
+Route13KennyRematchText:
+	text "Let's see how much"
+	line "we've changed!"
+	done
+
+Route13TimAndSueAskNumberText:
+	text "Sue: Let's swap"
+	line "phone numbers!"
+	para "We can talk about"
+	line "love and battles!"
+	done
+
+Route13TimAndSueAcceptedText:
+	text "Sue: We'll call"
+	line "you together!"
+	done
+
+Route13TimAndSueDeclinedText:
+	text "Sue: Maybe love"
+	line "needs more time."
+	done
+
+Route13TimAndSueRematchText:
+	text "Sue: We're both"
+	line "ready this time!"
+	done
+
+Route13PhoneFullText:
+	text "Your phone's"
+	line "memory is full."
 	done
 
 Route13TrainerTips1Text:

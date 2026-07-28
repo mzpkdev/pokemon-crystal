@@ -19,7 +19,7 @@ Route12South_MapScriptHeader:
 	object_event  7,  7, SPRITE_FISHER, SPRITEMOVEDATA_SPINRANDOM_FAST, 0, 0, -1, 0, OBJECTTYPE_GENERICTRAINER, 1, GenericTrainerFisherMartin, -1
 	object_event 14, 33, SPRITE_FISHER, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, 0, OBJECTTYPE_GENERICTRAINER, 1, GenericTrainerFisherStephen, -1
 	object_event 12, 63, SPRITE_FISHER, SPRITEMOVEDATA_STANDING_LEFT, 0, 0, -1, 0, OBJECTTYPE_GENERICTRAINER, 5, GenericTrainerFisherBarney, -1
-	object_event 10, 74, SPRITE_FISHER, SPRITEMOVEDATA_STANDING_LEFT, 0, 0, -1, 0, OBJECTTYPE_GENERICTRAINER, 1, GenericTrainerFisherKyler, -1
+	object_event 10, 74, SPRITE_FISHER, SPRITEMOVEDATA_STANDING_LEFT, 0, 0, -1, 0, OBJECTTYPE_TRAINER, 1, TrainerFisherKyler, -1
 	object_event 10, 24, SPRITE_BIRD_KEEPER, SPRITEMOVEDATA_SPINRANDOM_SLOW, 0, 0, -1, 0, OBJECTTYPE_GENERICTRAINER, 1, GenericTrainerBird_keeperJustin, -1
 	object_event  7, 57, SPRITE_BIRD_KEEPER, SPRITEMOVEDATA_SPINCLOCKWISE, 0, 0, -1, 0, OBJECTTYPE_GENERICTRAINER, 2, GenericTrainerBird_keeperGail, -1
 	object_event 10, 39, SPRITE_COOL_DUDE, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, PAL_NPC_BLUE, OBJECTTYPE_GENERICTRAINER, 1, GenericTrainerCoupleVicandtara1, -1
@@ -99,9 +99,69 @@ FisherBarneyBeatenText:
 	line "coming up next!"
 	done
 
-GenericTrainerFisherKyler:
-	generictrainer FISHER, KYLER, EVENT_BEAT_FISHER_KYLER, .SeenText, .BeatenText
+TrainerFisherKyler:
+	trainer FISHER, KYLER, EVENT_BEAT_FISHER_KYLER, .SeenText, .BeatenText, 0, .Script
+.Script:
+	loadvar VAR_CALLERID, PHONE_FISHER_KYLER
+	opentext
+	setval REMATCH_CONTACT_KYLER
+	special Special_CheckRematchPending
+	iftruefwd .Rematch
+	checkcellnum PHONE_FISHER_KYLER
+	iftrue_jumpopenedtext .AfterBattleText
+	checkevent EVENT_KYLER_ASKED_FOR_PHONE_NUMBER
+	iftruefwd .AskAgain
+	writetext .AfterBattleText
+	promptbutton
+	setevent EVENT_KYLER_ASKED_FOR_PHONE_NUMBER
+	writetext Route12KylerAskNumberText
+	sjumpfwd .Ask
+.AskAgain:
+	writetext Route12KylerAskAgainText
+.Ask:
+	askforphonenumber PHONE_FISHER_KYLER
+	ifequalfwd PHONE_CONTACTS_FULL, .Full
+	ifequalfwd PHONE_CONTACT_REFUSED, .Declined
+	writetext Route12KylerAcceptedText
+	waitbutton
+	endtext
+.Full:
+	writetext Route12KylerPhoneFullText
+	waitbutton
+	endtext
+.Declined:
+	writetext Route12KylerDeclinedText
+	waitbutton
+	endtext
+.Rematch:
+	writetext Route12KylerRematchText
+	waitbutton
+	closetext
+	winlosstext .BeatenText, 0
+	checkevent EVENT_BEAT_BLUE
+	iftruefwd .Fight4
+	checkflag ENGINE_FLYPOINT_CINNABAR
+	iftruefwd .Fight3
+	checkflag ENGINE_FLYPOINT_PEWTER
+	iftruefwd .Fight2
+	loadtrainer FISHER, KYLER
+	sjumpfwd .Battle
+.Fight2:
+	loadtrainer FISHER, KYLER2
+	sjumpfwd .Battle
+.Fight3:
+	loadtrainer FISHER, KYLER3
+	sjumpfwd .Battle
+.Fight4:
+	loadtrainer FISHER, KYLER4
+.Battle:
+	startbattle
+	reloadmapafterbattle
+	setval REMATCH_CONTACT_KYLER
+	special Special_ConsumeRematch
+	end
 
+.AfterBattleText:
 	text "Really? Rather"
 	line "than always catch-"
 	cont "ing new #mon,"
@@ -118,6 +178,39 @@ GenericTrainerFisherKyler:
 .BeatenText:
 	text "My #mon bucket"
 	line "is empty!"
+	done
+
+Route12KylerAskNumberText:
+	text "Let's trade fish"
+	line "stories by phone."
+
+	para "How about your"
+	line "number?"
+	done
+
+Route12KylerAskAgainText:
+	text "Want to trade"
+	line "fishing stories?"
+	done
+
+Route12KylerAcceptedText:
+	text "Maybe we'll hook"
+	line "a legend!"
+	done
+
+Route12KylerPhoneFullText:
+	text "Your phone's"
+	line "memory is full."
+	done
+
+Route12KylerDeclinedText:
+	text "I'll keep fishing"
+	line "on my own, then."
+	done
+
+Route12KylerRematchText:
+	text "A battle is on!"
+	line "Let's reel it in!"
 	done
 
 GenericTrainerBird_keeperJustin:

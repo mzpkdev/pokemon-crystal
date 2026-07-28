@@ -3,7 +3,7 @@ AlfredPhoneScript1:
 	setval REMATCH_CONTACT_ALFRED
 	special Special_CheckRematchPending
 	iftruefwd AlfredPhoneReminder
-	farscall PhoneScript_AnswerPhone_Male
+	farscall AlfredPhoneAnswer
 	setval REMATCH_CONTACT_ALFRED
 	special Special_TryClaimRematchScheduleWindow
 	iftruefwd AlfredPhoneOffer
@@ -11,7 +11,7 @@ AlfredPhoneScript1:
 
 AlfredPhoneScript2:
 	gettrainername GENTLEMAN, ALFRED, STRING_BUFFER_3
-	farscall PhoneScript_GreetPhone_Male
+	farscall AlfredPhoneGreeting
 	setval REMATCH_CONTACT_ALFRED
 	special Special_CheckRematchPending
 	iftruefwd .Flavor
@@ -39,3 +39,37 @@ AlfredPhoneOffer:
 AlfredPhoneReminder:
 	getlandmarkname LIGHTHOUSE, STRING_BUFFER_5
 	farsjump PhoneScript_WantsToBattle_Male
+
+AlfredPhoneAnswer:
+	checktime 1 << DAY
+	iftruefwd .Day
+	checktime (1 << EVE) | (1 << NITE)
+	iftruefwd .Nite
+	farwritetext AlfredAnswerPhoneText
+	promptbutton
+	end
+.Day:
+	farwritetext AlfredAnswerPhoneDayText
+	promptbutton
+	end
+.Nite:
+	farwritetext AlfredAnswerPhoneNiteText
+	promptbutton
+	end
+
+AlfredPhoneGreeting:
+	checktime 1 << DAY
+	iftruefwd .Day
+	checktime (1 << EVE) | (1 << NITE)
+	iftruefwd .Nite
+	farwritetext AlfredGreetPhoneText
+	promptbutton
+	end
+.Day:
+	farwritetext AlfredGreetPhoneDayText
+	promptbutton
+	end
+.Nite:
+	farwritetext AlfredGreetPhoneNiteText
+	promptbutton
+	end

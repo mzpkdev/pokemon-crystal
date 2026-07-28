@@ -3,7 +3,7 @@ WaltPhoneScript1:
 	setval REMATCH_CONTACT_WALT
 	special Special_CheckRematchPending
 	iftruefwd WaltPhoneReminder
-	farscall PhoneScript_AnswerPhone_Male
+	farscall WaltPhoneAnswer
 	setval REMATCH_CONTACT_WALT
 	special Special_TryClaimRematchScheduleWindow
 	iftruefwd WaltPhoneOffer
@@ -18,7 +18,7 @@ WaltPhoneScript1:
 
 WaltPhoneScript2:
 	gettrainername FIREBREATHER, WALT, STRING_BUFFER_3
-	farscall PhoneScript_GreetPhone_Male
+	farscall WaltPhoneGreeting
 	setval REMATCH_CONTACT_WALT
 	special Special_CheckRematchPending
 	iftruefwd .Flavor
@@ -49,3 +49,13 @@ WaltPhoneOffer:
 WaltPhoneReminder:
 	getlandmarkname ROUTE_35, STRING_BUFFER_5
 	farsjump PhoneScript_WantsToBattle_Male
+
+WaltPhoneAnswer:
+	farwritetext WaltAnswerPhoneText
+	promptbutton
+	end
+
+WaltPhoneGreeting:
+	farwritetext WaltGreetPhoneText
+	promptbutton
+	end

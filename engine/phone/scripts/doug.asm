@@ -5,7 +5,7 @@ DougPhoneScript1:
 	setval REMATCH_CONTACT_DOUG
 	special Special_CheckRematchPending
 	iftruefwd DougPhoneRematchReminder
-	farscall PhoneScript_AnswerPhone_Male
+	farscall DougPhoneAnswer
 	setval REMATCH_CONTACT_DOUG
 	special Special_TryClaimRematchScheduleWindow
 	iftruefwd DougPhoneOffer
@@ -19,7 +19,7 @@ DougPhoneScript1:
 
 DougPhoneScript2:
 	gettrainername BUG_MANIAC, DOUG, STRING_BUFFER_3
-	farscall PhoneScript_GreetPhone_Male
+	farscall DougPhoneGreeting
 	checkevent EVENT_DOUG_BERRY_READY
 	iftruefwd DougPhoneGiftReminder
 	setval REMATCH_CONTACT_DOUG
@@ -52,3 +52,13 @@ DougPhoneOffer:
 DougPhoneRematchReminder:
 	getlandmarkname ROUTE_2, STRING_BUFFER_5
 	farsjump PhoneScript_WantsToBattle_Male
+
+DougPhoneAnswer:
+	farwritetext DougAnswerPhoneText
+	promptbutton
+	end
+
+DougPhoneGreeting:
+	farwritetext DougGreetPhoneText
+	promptbutton
+	end

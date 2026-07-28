@@ -3,7 +3,7 @@ KrisePhoneScript1:
 	setval REMATCH_CONTACT_KRISE
 	special Special_CheckRematchPending
 	iftruefwd KrisePhoneReminder
-	farscall PhoneScript_AnswerPhone_Female
+	farscall KrisePhoneAnswer
 	setval REMATCH_CONTACT_KRISE
 	special Special_TryClaimRematchScheduleWindow
 	iftruefwd KrisePhoneOffer
@@ -11,7 +11,7 @@ KrisePhoneScript1:
 
 KrisePhoneScript2:
 	gettrainername LASS, KRISE, STRING_BUFFER_3
-	farscall PhoneScript_GreetPhone_Female
+	farscall KrisePhoneGreeting
 	setval REMATCH_CONTACT_KRISE
 	special Special_CheckRematchPending
 	iftruefwd .Flavor
@@ -42,3 +42,13 @@ KrisePhoneOffer:
 KrisePhoneReminder:
 	getlandmarkname NATIONAL_PARK, STRING_BUFFER_5
 	farsjump PhoneScript_WantsToBattle_Female
+
+KrisePhoneAnswer:
+	farwritetext KriseAnswerPhoneText
+	promptbutton
+	end
+
+KrisePhoneGreeting:
+	farwritetext KriseGreetPhoneText
+	promptbutton
+	end

@@ -41,9 +41,13 @@ RematchPhoneEventSelectionTables:
 	rematch_phone_event_table SourBasicPhoneEventSelection ; ALFRED
 	rematch_phone_event_table BerryRematchPhoneEventSelection ; DOUG
 	rematch_phone_event_table BerryRematchPhoneEventSelection ; ROB
-	rept NUM_REMATCH_CONTACTS - REMATCH_CONTACT_KYLE
+	rept REMATCH_CONTACT_JAMIE - REMATCH_CONTACT_KYLE
+		rematch_phone_event_table SourBasicPhoneEventSelection
+	endr
+	rept REMATCH_CONTACT_KYLER - REMATCH_CONTACT_JAMIE
 		rematch_phone_event_table ExtendedPhoneEventSelection
 	endr
+	rematch_phone_event_table SourBasicPhoneEventSelection ; KYLER
 	assert_table_length NUM_REMATCH_CONTACTS
 
 RematchPhoneEventRepeatSelectionTables:

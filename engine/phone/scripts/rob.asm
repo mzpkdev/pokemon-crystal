@@ -5,7 +5,7 @@ RobPhoneScript1:
 	setval REMATCH_CONTACT_ROB
 	special Special_CheckRematchPending
 	iftruefwd RobPhoneRematchReminder
-	farscall PhoneScript_AnswerPhone_Male
+	farscall RobPhoneAnswer
 	setval REMATCH_CONTACT_ROB
 	special Special_TryClaimRematchScheduleWindow
 	iftruefwd RobPhoneOffer
@@ -19,7 +19,7 @@ RobPhoneScript1:
 
 RobPhoneScript2:
 	gettrainername BUG_MANIAC, ROB, STRING_BUFFER_3
-	farscall PhoneScript_GreetPhone_Male
+	farscall RobPhoneGreeting
 	checkevent EVENT_ROB_BERRY_READY
 	iftruefwd RobPhoneGiftReminder
 	setval REMATCH_CONTACT_ROB
@@ -52,3 +52,13 @@ RobPhoneOffer:
 RobPhoneRematchReminder:
 	getlandmarkname ROUTE_2, STRING_BUFFER_5
 	farsjump PhoneScript_WantsToBattle_Male
+
+RobPhoneAnswer:
+	farwritetext RobAnswerPhoneText
+	promptbutton
+	end
+
+RobPhoneGreeting:
+	farwritetext RobGreetPhoneText
+	promptbutton
+	end
