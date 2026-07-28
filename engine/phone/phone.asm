@@ -9,13 +9,6 @@ PhoneFlagAction:
 	dec c
 	ld d, 0
 	ld hl, wPhoneList
-	ld a, c
-	cp PHONE_FLAG_BASE_BYTES * 8
-	jr c, .resolved
-	sub PHONE_FLAG_BASE_BYTES * 8
-	ld c, a
-	ld hl, wPhoneListExtension
-.resolved
 	farcall SmallFlagAction
 	pop bc
 	ret

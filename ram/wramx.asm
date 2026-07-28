@@ -1409,15 +1409,8 @@ wTimerEventStartDay:: db
 
 wFruitTreeFlags:: flag_array NUM_FRUIT_TREES
 
-wPhoneStorageExtension::
-wDailyRematchFlagsExtension:: ds REMATCH_FLAG_EXTENSION_BYTES
-wDailyPhoneTimeOfDayFlagsExtension:: ds REMATCH_SCHEDULE_FLAG_EXTENSION_BYTES
-wPhoneListExtension:: ds PHONE_FLAG_EXTENSION_BYTES
-wPhoneStorageMagic:: ds 4
-wPhoneStorageExtensionEnd::
-	assert wPhoneStorageMagic - wPhoneStorageExtension == 7
-	assert wPhoneStorageExtensionEnd - wPhoneStorageExtension == 11
-	ds 7 ; unused
+	; The unified phone/rematch arrays below grew by seven bytes.
+	ds 11 ; unused
 
 wHiddenGrottoContents::
 ; dbw content type, content id
@@ -1442,13 +1435,13 @@ wBugContestOfficerPrize:: db
 wInPokegear:: db
 wWalkingOnBridge:: db
 
-wDailyRematchFlags:: ds REMATCH_FLAG_BASE_BYTES
+wDailyRematchFlags:: ds REMATCH_FLAG_BYTES
 wDailyRematchFlagsEnd::
-	assert wDailyRematchFlagsEnd - wDailyRematchFlags == REMATCH_FLAG_BASE_BYTES
+	assert wDailyRematchFlagsEnd - wDailyRematchFlags == REMATCH_FLAG_BYTES
 wDailyPhoneItemFlags:: ds 4
-wDailyPhoneTimeOfDayFlags:: ds REMATCH_SCHEDULE_FLAG_BASE_BYTES
+wDailyPhoneTimeOfDayFlags:: ds REMATCH_SCHEDULE_FLAG_BYTES
 wDailyPhoneTimeOfDayFlagsEnd::
-	assert wDailyPhoneTimeOfDayFlagsEnd - wDailyPhoneTimeOfDayFlags == REMATCH_SCHEDULE_FLAG_BASE_BYTES
+	assert wDailyPhoneTimeOfDayFlagsEnd - wDailyPhoneTimeOfDayFlags == REMATCH_SCHEDULE_FLAG_BYTES
 wKenjiBreakTimer:: dw ; Kenji
 	ds 2 ; unused
 
@@ -1461,9 +1454,9 @@ wBattlePointsEnd::
 wStepCount:: db
 wPoisonStepCount:: db
 
-wPhoneList:: ds PHONE_FLAG_BASE_BYTES
+wPhoneList:: ds PHONE_FLAG_BYTES
 wPhoneListEnd::
-	assert wPhoneListEnd - wPhoneList == PHONE_FLAG_BASE_BYTES
+	assert wPhoneListEnd - wPhoneList == PHONE_FLAG_BYTES
 
 	ds 1 ; unused
 

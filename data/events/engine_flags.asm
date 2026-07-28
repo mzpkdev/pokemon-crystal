@@ -211,17 +211,17 @@ EngineRematchScheduleFlags:
 	engine_flag wDailyPhoneTimeOfDayFlags, REMATCH_SCHEDULE_ROB
 	engine_flag wDailyPhoneTimeOfDayFlags, REMATCH_SCHEDULE_KYLE
 	engine_flag wDailyPhoneTimeOfDayFlags, REMATCH_SCHEDULE_TANNER
-	engine_flag wDailyPhoneTimeOfDayFlagsExtension, REMATCH_SCHEDULE_KENNY - 32
-	engine_flag wDailyPhoneTimeOfDayFlagsExtension, REMATCH_SCHEDULE_TIM_AND_SUE - 32
-	engine_flag wDailyPhoneTimeOfDayFlagsExtension, REMATCH_SCHEDULE_JAMIE - 32
-	engine_flag wDailyPhoneTimeOfDayFlagsExtension, REMATCH_SCHEDULE_TORIN - 32
-	engine_flag wDailyPhoneTimeOfDayFlagsExtension, REMATCH_SCHEDULE_BILLY - 32
-	engine_flag wDailyPhoneTimeOfDayFlagsExtension, REMATCH_SCHEDULE_HILLARY - 32
-	engine_flag wDailyPhoneTimeOfDayFlagsExtension, REMATCH_SCHEDULE_KAY_AND_TIA - 32
-	engine_flag wDailyPhoneTimeOfDayFlagsExtension, REMATCH_SCHEDULE_AIDEN - 32
-	engine_flag wDailyPhoneTimeOfDayFlagsExtension, REMATCH_SCHEDULE_DALE - 32
-	engine_flag wDailyPhoneTimeOfDayFlagsExtension, REMATCH_SCHEDULE_REILLY - 32
-	engine_flag wDailyPhoneTimeOfDayFlagsExtension, REMATCH_SCHEDULE_KYLER - 32
+	engine_flag wDailyPhoneTimeOfDayFlags, REMATCH_SCHEDULE_KENNY
+	engine_flag wDailyPhoneTimeOfDayFlags, REMATCH_SCHEDULE_TIM_AND_SUE
+	engine_flag wDailyPhoneTimeOfDayFlags, REMATCH_SCHEDULE_JAMIE
+	engine_flag wDailyPhoneTimeOfDayFlags, REMATCH_SCHEDULE_TORIN
+	engine_flag wDailyPhoneTimeOfDayFlags, REMATCH_SCHEDULE_BILLY
+	engine_flag wDailyPhoneTimeOfDayFlags, REMATCH_SCHEDULE_HILLARY
+	engine_flag wDailyPhoneTimeOfDayFlags, REMATCH_SCHEDULE_KAY_AND_TIA
+	engine_flag wDailyPhoneTimeOfDayFlags, REMATCH_SCHEDULE_AIDEN
+	engine_flag wDailyPhoneTimeOfDayFlags, REMATCH_SCHEDULE_DALE
+	engine_flag wDailyPhoneTimeOfDayFlags, REMATCH_SCHEDULE_REILLY
+	engine_flag wDailyPhoneTimeOfDayFlags, REMATCH_SCHEDULE_KYLER
 .end
 	assert (.end - EngineRematchScheduleFlags) / 3 == NUM_ENGINE_REMATCH_SCHEDULES
 	assert .end - EngineRematchScheduleFlags == NUM_REMATCH_SCHEDULES * 3
