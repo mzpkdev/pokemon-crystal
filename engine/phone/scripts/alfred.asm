@@ -7,7 +7,7 @@ AlfredPhoneScript1:
 	setval REMATCH_CONTACT_ALFRED
 	special Special_TryClaimRematchScheduleWindow
 	iftruefwd AlfredPhoneOffer
-	farsjump Phone_GenericCall_Male
+	farsjump AlfredPhoneCalleeFlavor
 
 AlfredPhoneScript2:
 	gettrainername GENTLEMAN, ALFRED, STRING_BUFFER_3
@@ -24,7 +24,13 @@ AlfredPhoneScript2:
 	special Special_SelectRematchContactPhoneEvent
 	ifequalfwd PHONE_EVENT_REMATCH, AlfredPhoneOffer
 .Flavor:
-	farsjump Phone_GenericCall_Male
+	farsjump AlfredPhoneCallerFlavor
+AlfredPhoneCalleeFlavor:
+	farwritetext AlfredExtraordinaryPhoneText
+	end
+AlfredPhoneCallerFlavor:
+	farwritetext AlfredNoctowlPhoneText
+	end
 AlfredPhoneOffer:
 	setval REMATCH_CONTACT_ALFRED
 	special Special_MarkRematchScheduleUsed

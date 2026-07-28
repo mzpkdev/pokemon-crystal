@@ -7,7 +7,7 @@ KrisePhoneScript1:
 	setval REMATCH_CONTACT_KRISE
 	special Special_TryClaimRematchScheduleWindow
 	iftruefwd KrisePhoneOffer
-	farsjump Phone_GenericCall_Female
+	farsjump KrisePhoneCalleeFlavor
 
 KrisePhoneScript2:
 	gettrainername LASS, KRISE, STRING_BUFFER_3
@@ -25,7 +25,13 @@ KrisePhoneScript2:
 	ifequalfwd PHONE_EVENT_REMATCH, KrisePhoneOffer
 	ifequalfwd PHONE_EVENT_RARE_REPORT, KrisePhoneRare
 .Flavor:
-	farsjump Phone_GenericCall_Female
+	farsjump KrisePhoneCallerFlavor
+KrisePhoneCalleeFlavor:
+	farwritetext KriseMiniskirtPhoneText
+	end
+KrisePhoneCallerFlavor:
+	farwritetext KrisePcBoxesPhoneText
+	end
 KrisePhoneRare:
 	farsjump Phone_CheckIfUnseenRare_Female
 KrisePhoneOffer:

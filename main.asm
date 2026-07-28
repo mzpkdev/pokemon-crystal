@@ -428,6 +428,7 @@ INCLUDE "data/phone/text/kenji_overworld.asm"
 INCLUDE "data/phone/text/parry_overworld.asm"
 INCLUDE "data/phone/text/erin_overworld.asm"
 INCLUDE "data/phone/text/sourcrystal_reuse_batch.asm"
+INCLUDE "data/phone/text/route2_gift_pair.asm"
 
 
 SECTION "bank2E", ROMX
@@ -479,6 +480,8 @@ INCLUDE "engine/phone/scripts/brandon.asm"
 INCLUDE "engine/phone/scripts/walt.asm"
 INCLUDE "engine/phone/scripts/krise.asm"
 INCLUDE "engine/phone/scripts/alfred.asm"
+INCLUDE "engine/phone/scripts/doug.asm"
+INCLUDE "engine/phone/scripts/rob.asm"
 INCLUDE "engine/phone/scripts/generic_callee.asm"
 
 

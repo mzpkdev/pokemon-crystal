@@ -11,7 +11,7 @@ WaltPhoneScript1:
 	ifequalfwd TUESDAY, .Contest
 	ifequalfwd THURSDAY, .Contest
 	ifequalfwd SATURDAY, .Contest
-	farsjump Phone_GenericCall_Male
+	farsjump WaltPhoneCalleeFlavor
 .Contest:
 	farwritetext WaltBugContestPhoneText
 	end
@@ -32,7 +32,13 @@ WaltPhoneScript2:
 	ifequalfwd PHONE_EVENT_REMATCH, WaltPhoneOffer
 	ifequalfwd PHONE_EVENT_RARE_REPORT, WaltPhoneRare
 .Flavor:
-	farsjump Phone_GenericCall_Male
+	farsjump WaltPhoneCallerFlavor
+WaltPhoneCalleeFlavor:
+	farwritetext WaltTypesPhoneText
+	end
+WaltPhoneCallerFlavor:
+	farwritetext WaltTechniquePhoneText
+	end
 WaltPhoneRare:
 	farsjump Phone_CheckIfUnseenRare_Male
 WaltPhoneOffer:

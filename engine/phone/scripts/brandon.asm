@@ -7,7 +7,7 @@ BrandonPhoneScript1:
 	setval REMATCH_CONTACT_BRANDON
 	special Special_TryClaimRematchScheduleWindow
 	iftruefwd BrandonPhoneOffer
-	farsjump Phone_GenericCall_Male
+	farsjump BrandonPhoneCalleeFlavor
 
 BrandonPhoneScript2:
 	gettrainername POKEFANM, BRANDON, STRING_BUFFER_3
@@ -24,7 +24,15 @@ BrandonPhoneScript2:
 	special Special_SelectRematchContactPhoneEvent
 	ifequalfwd PHONE_EVENT_REMATCH, BrandonPhoneOffer
 .Flavor:
-	farsjump Phone_GenericCall_Male
+	farsjump BrandonPhoneCallerFlavor
+
+BrandonPhoneCalleeFlavor:
+	farwritetext BrandonShortsPhoneText
+	end
+
+BrandonPhoneCallerFlavor:
+	farwritetext BrandonImprovedPhoneText
+	end
 
 BrandonPhoneOffer:
 	setval REMATCH_CONTACT_BRANDON

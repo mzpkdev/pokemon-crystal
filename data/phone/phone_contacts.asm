@@ -48,5 +48,7 @@ PhoneContacts:
 	phone HIKER,        PARRY1,                ROUTE_45,                  %1111, ParryPhoneScript1,   %1111, ParryPhoneScript2
 	phone PICNICKER,    ERIN1,                 ROUTE_46,                  %1111, ErinPhoneScript1,    %1111, ErinPhoneScript2
 	phone GENTLEMAN,    ALFRED,                OLIVINE_LIGHTHOUSE_2F,     %1111, AlfredPhoneScript1,  %1111, AlfredPhoneScript2
+	phone BUG_MANIAC,   DOUG,                  ROUTE_2_SOUTH,             %1111, DougPhoneScript1,    %1111, DougPhoneScript2
+	phone BUG_MANIAC,   ROB,                   ROUTE_2_SOUTH,             %1111, RobPhoneScript1,     %1111, RobPhoneScript2
 	phone TRAINER_NONE, PHONECONTACT_BUENA,    GOLDENROD_DEPT_STORE_ROOF, %1111, BuenaPhoneScript1,   %1111, BuenaPhoneScript2
 	assert_table_length NUM_PHONE_CONTACTS + 1
