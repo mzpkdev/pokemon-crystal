@@ -26,6 +26,56 @@ GetSwarmByID:
 	scf
 	ret
 
+GetTownMapSwarm::
+; Return the active swarm data needed by Town Map consumers.
+; Carry is set when there is no active swarm or its landmark is not displayable.
+; Otherwise:
+; bc = species/form pair in the canonical dp encoding
+; d  = landmark
+; e  = region (JOHTO_REGION, KANTO_REGION, or ORANGE_REGION)
+	call GetActiveSwarm
+	ret c
+
+; SwarmData may be in a different bank from the Town Map caller.
+	push hl
+	ld bc, SWARMENTRY_SPECIES
+	add hl, bc
+	ld a, BANK(SwarmData)
+	call GetFarWord
+	ld c, l
+	ld b, h
+	pop hl
+
+	ld de, SWARMENTRY_LANDMARK
+	add hl, de
+	push bc
+	ld a, BANK(SwarmData)
+	call GetFarByte
+	ld d, a
+	pop bc
+
+; SPECIAL_MAP has no map coordinates, and values outside the landmark table
+; must never reach Town Map coordinate lookup.
+	and a
+	jr z, .invalid
+	cp NUM_LANDMARKS
+	jr nc, .invalid
+
+	ld e, JOHTO_REGION
+	cp KANTO_LANDMARK
+	jr c, .valid
+	inc e ; KANTO_REGION
+	cp SHAMOUTI_LANDMARK
+	jr c, .valid
+	inc e ; ORANGE_REGION
+.valid
+	and a
+	ret
+
+.invalid
+	scf
+	ret
+
 IsSwarmActive::
 ; Carry is set when a valid swarm is active.
 	call GetActiveSwarm
@@ -41,15 +91,18 @@ TryActivateSwarm::
 	and a
 	jr nz, .fail
 	ld a, b
+	push af
 	call GetSwarmByID
-	jr c, .fail
+	jr c, .restore_fail
 	call IsSwarmEntryUnlocked
-	jr c, .fail
-	ld a, b
+	jr c, .restore_fail
+	pop af
 	ld [wActiveSwarm], a
 	and a
 	ret
 
+.restore_fail
+	pop af
 .fail
 	scf
 	ret
