@@ -2582,6 +2582,21 @@ CamperGroup:
 	tr_mon 58, SUDOWOODO
 	end_trainer
 
+	def_trainer TANNER2, "Tanner"
+	tr_mon 60, SUDOWOODO
+	tr_mon 59, CHINCHOU
+	tr_mon 56, SKIPLOOM
+	end_trainer
+
+	def_trainer TANNER3, "Tanner"
+	tr_mon 64, SUDOWOODO
+		tr_moves LOW_KICK, ROCK_SLIDE, DIG, DOUBLE_EDGE
+	tr_mon 63, LANTURN
+		tr_moves RAIN_DANCE, THUNDER, CONFUSE_RAY, HYDRO_PUMP
+	tr_mon 60, JUMPLUFF
+		tr_moves GIGA_DRAIN, POISONPOWDER, LEECH_SEED, PROTECT
+	end_trainer
+
 	def_trainer CLARK, "Clark"
 	tr_mon 56, "Campfire", QUILAVA
 	end_trainer
@@ -2853,6 +2868,30 @@ TwinsGroup:
 	tr_mon 56, QUAGSIRE
 	end_trainer
 
+	def_trainer KAYANDTIA3, "Kay & Tia"
+	tr_mon 58, QUAGSIRE
+	tr_mon 58, QUAGSIRE
+	end_trainer
+
+	def_trainer KAYANDTIA4, "Kay & Tia"
+	tr_mon 58, QUAGSIRE
+	tr_mon 58, QUAGSIRE
+	end_trainer
+
+	def_trainer KAYANDTIA5, "Kay & Tia"
+	tr_mon 65, QUAGSIRE
+		tr_moves SURF, EARTHQUAKE, TOXIC, AMNESIA
+	tr_mon 65, QUAGSIRE
+		tr_moves SURF, EARTHQUAKE, TOXIC, AMNESIA
+	end_trainer
+
+	def_trainer KAYANDTIA6, "Kay & Tia"
+	tr_mon 65, QUAGSIRE
+		tr_moves SURF, EARTHQUAKE, TOXIC, AMNESIA
+	tr_mon 65, QUAGSIRE
+		tr_moves SURF, EARTHQUAKE, TOXIC, AMNESIA
+	end_trainer
+
 
 SECTION "FisherGroup", ROMX
 FisherGroup:
@@ -2949,6 +2988,24 @@ FisherGroup:
 	tr_mon 57, SEAKING
 	tr_mon 54, QWILFISH
 	tr_mon 57, SEAKING
+	end_trainer
+
+	def_trainer KYLE2, "Kyle"
+	tr_mon 55, SEAKING
+	tr_mon 59, SEAKING
+	tr_mon 53, QWILFISH
+	tr_mon 51, KRABBY
+	end_trainer
+
+	def_trainer KYLE3, "Kyle"
+	tr_mon 58, SEAKING
+		tr_moves SUPERSONIC, RAIN_DANCE, WATERFALL, HORN_ATTACK
+	tr_mon 62, SEAKING
+		tr_moves MEGAHORN, RAIN_DANCE, WATERFALL, FLAIL
+	tr_mon 59, QWILFISH
+		tr_moves PIN_MISSILE, RAIN_DANCE, SURF, SLUDGE_BOMB
+	tr_mon 61, KINGLER
+		tr_moves CRABHAMMER, SWORDS_DANCE, DIG, STOMP
 	end_trainer
 
 	def_trainer HENRY, "Henry"
@@ -3048,6 +3105,33 @@ FisherGroup:
 	tr_mon 48, MAGIKARP, MALE | PLAIN_FORM
 	tr_mon 48, MAGIKARP, MALE | MAGIKARP_BUBBLES_FORM
 	tr_mon 48, MAGIKARP, MALE | MAGIKARP_CALICO3_FORM
+	end_trainer
+
+	def_trainer KYLER2, "Kyler"
+	tr_mon 55, MAGIKARP, MALE | PLAIN_FORM
+	tr_mon 55, MAGIKARP, MALE | MAGIKARP_BUBBLES_FORM
+	tr_mon 55, MAGIKARP, MALE | MAGIKARP_CALICO3_FORM
+	tr_mon 55, MAGIKARP, MALE | MAGIKARP_ORCA_FORM
+		tr_dvs 0 HP, 10 Atk, 10 Def, 10 Spe, 10 SAt, 10 SDf
+	end_trainer
+
+	def_trainer KYLER3, "Kyler"
+	tr_mon 80, MAGIKARP, MALE | PLAIN_FORM
+	tr_mon 80, MAGIKARP, MALE | MAGIKARP_BUBBLES_FORM
+	tr_mon 80, MAGIKARP, MALE | MAGIKARP_CALICO1_FORM
+	tr_mon 80, MAGIKARP, MALE | MAGIKARP_CALICO2_FORM
+	tr_mon 80, MAGIKARP, MALE | MAGIKARP_ORCA_FORM
+		tr_dvs 0 HP, 10 Atk, 10 Def, 10 Spe, 10 SAt, 10 SDf
+	end_trainer
+
+	def_trainer KYLER4, "Kyler"
+	tr_mon 99, MAGIKARP, MALE | PLAIN_FORM
+	tr_mon 99, MAGIKARP, MALE | MAGIKARP_BUBBLES_FORM
+	tr_mon 99, MAGIKARP, MALE | MAGIKARP_CALICO1_FORM
+	tr_mon 99, MAGIKARP, MALE | MAGIKARP_CALICO2_FORM
+	tr_mon 99, MAGIKARP, MALE | MAGIKARP_CALICO3_FORM
+	tr_mon 99, MAGIKARP, MALE | MAGIKARP_ORCA_FORM
+		tr_dvs 0 HP, 10 Atk, 10 Def, 10 Spe, 10 SAt, 10 SDf
 	end_trainer
 
 	def_trainer MURPHY, "Murphy"
@@ -3370,6 +3454,24 @@ HikerGroup:
 	tr_mon 56, GRAVELER
 	tr_mon 58, GOLEM
 	tr_mon 56, GRAVELER
+	end_trainer
+
+	def_trainer KENNY2, "Kenny"
+	tr_mon 56, SANDSLASH
+	tr_mon 51, GRAVELER
+	tr_mon 58, GOLEM
+	tr_mon 60, ONIX
+	end_trainer
+
+	def_trainer KENNY3, "Kenny"
+	tr_mon 56, SANDSLASH
+		tr_moves EARTHQUAKE, SLASH, FURY_CUTTER, SANDSTORM
+	tr_mon 54, GRAVELER
+		tr_moves EARTHQUAKE, EXPLOSION, DEFENSE_CURL, ROLLOUT
+	tr_mon 59, GOLEM
+		tr_moves EARTHQUAKE, EXPLOSION, ROCK_SLIDE, DOUBLE_EDGE
+	tr_mon 64, STEELIX
+		tr_moves CRUNCH, IRON_TAIL, EARTHQUAKE, CURSE
 	end_trainer
 
 	def_trainer JIM, "Jim"
@@ -3723,6 +3825,29 @@ PokefanMGroup:
 	tr_mon 13, MAREEP
 	end_trainer
 
+	; Reuses Sourcrystal Youngster Ian's rematch progression.
+	def_trainer BRANDON2, "Brandon"
+	tr_mon 24, MANKEY
+	tr_mon 26, DIGLETT
+	end_trainer
+
+	def_trainer BRANDON3, "Brandon"
+	tr_mon 39, MANKEY
+	tr_mon 41, DUGTRIO
+	end_trainer
+
+	def_trainer BRANDON4, "Brandon"
+	tr_mon 51, PRIMEAPE
+	tr_mon 53, DUGTRIO
+	end_trainer
+
+	def_trainer BRANDON5, "Brandon"
+	tr_mon 60, PRIMEAPE
+		tr_moves OUTRAGE, CROSS_CHOP, SWAGGER, SCREECH
+	tr_mon 62, DUGTRIO
+		tr_moves EARTHQUAKE, TRI_ATTACK, FISSURE, SLASH
+	end_trainer
+
 	def_trainer JEREMY, "Jeremy"
 	tr_mon 44, MEOWTH @ SITRUS_BERRY
 	tr_mon 45, PERSIAN @ SITRUS_BERRY
@@ -3814,6 +3939,19 @@ OfficerFGroup:
 	tr_mon 54, GROWLITHE
 	tr_mon 58, ARCANINE
 	tr_mon 57, BLASTOISE
+	end_trainer
+
+	; Officer Jamie keeps her identity while reusing Sourcrystal Jamie's stages.
+	def_trainer JAMIE2, "Jamie"
+	tr_mon 60, FEAROW
+	tr_mon 60, SKARMORY
+	end_trainer
+
+	def_trainer JAMIE3, "Jamie"
+	tr_mon 65, FEAROW
+		tr_moves FEINT_ATTACK, SWIFT, BITE, SKY_ATTACK
+	tr_mon 65, SKARMORY
+		tr_moves DRILL_PECK, STEEL_WING, SLASH, AGILITY
 	end_trainer
 
 	def_trainer MARA, "Mara"
@@ -4134,6 +4272,28 @@ endc
 	tr_mon 17, CUBONE
 	end_trainer
 
+	def_trainer KRISE2, "Krise"
+	tr_mon 21, ODDISH
+	tr_mon 24, CUBONE
+	end_trainer
+
+	def_trainer KRISE3, "Krise"
+	tr_mon 40, GLOOM
+	tr_mon 42, CUBONE
+	end_trainer
+
+	def_trainer KRISE4, "Krise"
+	tr_mon 53, GLOOM
+	tr_mon 56, MAROWAK
+	end_trainer
+
+	def_trainer KRISE5, "Krise"
+	tr_mon 59, VILEPLUME
+		tr_moves GIGA_DRAIN, SLEEP_POWDER, SLUDGE_BOMB, MOONLIGHT
+	tr_mon 62, MAROWAK
+		tr_moves BONEMERANG, DOUBLE_EDGE, IRON_TAIL, CURSE
+	end_trainer
+
 	def_trainer CONNIE, "Connie"
 	tr_mon 20, AZUMARILL
 	tr_mon 21, MAGNETON
@@ -4343,6 +4503,18 @@ BugManiacGroup:
 	tr_mon 59, BUTTERFREE
 	end_trainer
 
+	def_trainer ROB2, "Rob"
+	tr_mon 62, BEEDRILL
+	tr_mon 59, BUTTERFREE
+	end_trainer
+
+	def_trainer ROB3, "Rob"
+	tr_mon 65, BEEDRILL
+		tr_moves PIN_MISSILE, SLUDGE_BOMB, OUTRAGE, FOCUS_ENERGY
+	tr_mon 64, BUTTERFREE
+		tr_moves SLEEP_POWDER, GIGA_DRAIN, PSYCHIC_M, NIGHTMARE
+	end_trainer
+
 	def_trainer ED, "Ed"
 	tr_mon 61, YANMA
 	tr_mon 62, BEEDRILL
@@ -4352,6 +4524,18 @@ BugManiacGroup:
 	def_trainer DOUG, "Doug"
 	tr_mon 59, BUTTERFREE
 	tr_mon 57, ARIADOS
+	end_trainer
+
+	def_trainer DOUG2, "Doug"
+	tr_mon 61, BUTTERFREE
+	tr_mon 59, ARIADOS
+	end_trainer
+
+	def_trainer DOUG3, "Doug"
+	tr_mon 65, BUTTERFREE
+		tr_moves STUN_SPORE, WHIRLWIND, PSYCHIC_M, SAFEGUARD
+	tr_mon 63, ARIADOS
+		tr_moves SWORDS_DANCE, PIN_MISSILE, SLUDGE_BOMB, NIGHT_SHADE
 	end_trainer
 
 	def_trainer DANE, "Dane"
@@ -4475,6 +4659,30 @@ FirebreatherGroup:
 	def_trainer WALT, "Walt"
 	tr_mon 11, MAGMAR
 	tr_mon 16, MAGMAR
+	end_trainer
+
+	def_trainer WALT2, "Walt"
+	tr_mon 21, MAGMAR
+	tr_mon 26, MAGMAR
+	end_trainer
+
+	def_trainer WALT3, "Walt"
+	tr_mon 40, MAGMAR
+	tr_mon 45, MAGMAR
+	end_trainer
+
+	def_trainer WALT4, "Walt"
+	tr_mon 51, MAGMAR
+	tr_mon 54, MAGMAR
+	end_trainer
+
+	def_trainer WALT5, "Walt"
+	tr_mon 40, MAGBY
+		tr_moves SMOKESCREEN, SUNNY_DAY, FIRE_PUNCH, CONFUSE_RAY
+	tr_mon 57, MAGMAR
+		tr_moves FEINT_ATTACK, SUNNY_DAY, FLAMETHROWER, THUNDERPUNCH
+	tr_mon 64, MAGMAR @ CHARCOAL
+		tr_moves FIRE_BLAST, HYPER_BEAM, PSYCHIC_M, CROSS_CHOP
 	end_trainer
 
 	def_trainer RAY, "Ray"
@@ -4687,6 +4895,23 @@ SchoolboyGroup:
 	tr_mon 55, DITTO
 	end_trainer
 
+	def_trainer BILLY2, "Billy"
+	tr_mon 60, PARASECT
+	tr_mon 61, POLIWHIRL
+	tr_mon 60, DITTO
+	end_trainer
+
+	def_trainer BILLY3, "Billy"
+	tr_mon 60, MR__MIME
+		tr_moves PSYCHIC_M, SUBSTITUTE, REFLECT, BATON_PASS
+	tr_mon 65, PARASECT
+		tr_moves GIGA_DRAIN, FURY_CUTTER, SLASH, SPORE
+	tr_mon 63, POLIWRATH
+		tr_moves SUBMISSION, SURF, HYPNOSIS, BODY_SLAM
+	tr_mon 61, DITTO
+		tr_moves TRANSFORM, NO_MOVE, NO_MOVE, NO_MOVE
+	end_trainer
+
 	def_trainer NATE, "Nate"
 	tr_mon 46, LEDIAN
 	tr_mon 48, EXEGGUTOR
@@ -4709,6 +4934,21 @@ SchoolboyGroup:
 	def_trainer TORIN, "Torin"
 	tr_mon 58, SANDSLASH
 	tr_mon 55, GOLBAT
+	end_trainer
+
+	def_trainer TORIN2, "Torin"
+	tr_mon 58, SANDSLASH
+	tr_mon 61, GOLBAT
+	tr_mon 58, VULPIX
+	end_trainer
+
+	def_trainer TORIN3, "Torin"
+	tr_mon 62, SANDSLASH
+		tr_moves DIG, RAPID_SPIN, SLASH, FURY_CUTTER
+	tr_mon 63, GOLBAT
+		tr_moves CRUNCH, CONFUSE_RAY, WING_ATTACK, SLUDGE_BOMB
+	tr_mon 62, VULPIX
+		tr_moves CONFUSE_RAY, FIRE_BLAST, DISABLE, DIG
 	end_trainer
 
 	def_trainer TRAVIS, "Travis"
@@ -5151,6 +5391,30 @@ CoupleGroup:
 	tr_mon 53, KADABRA, MALE
 	end_trainer
 
+	def_trainer TIMANDSUE3, "Tim & Sue"
+	tr_mon 57, KADABRA, MALE
+	tr_mon 62, GOLDUCK, FEMALE
+	end_trainer
+
+	def_trainer TIMANDSUE4, "Tim & Sue"
+	tr_mon 62, GOLDUCK, FEMALE
+	tr_mon 57, KADABRA, MALE
+	end_trainer
+
+	def_trainer TIMANDSUE5, "Tim & Sue"
+	tr_mon 61, ALAKAZAM, MALE
+		tr_moves PSYCHIC_M, RECOVER, REFLECT, FIRE_PUNCH
+	tr_mon 66, GOLDUCK, FEMALE
+		tr_moves ICE_BEAM, SURF, LIGHT_SCREEN, PSYCHIC_M
+	end_trainer
+
+	def_trainer TIMANDSUE6, "Tim & Sue"
+	tr_mon 66, GOLDUCK, FEMALE
+		tr_moves ICE_BEAM, SURF, LIGHT_SCREEN, PSYCHIC_M
+	tr_mon 61, ALAKAZAM, MALE
+		tr_moves PSYCHIC_M, RECOVER, REFLECT, FIRE_PUNCH
+	end_trainer
+
 	def_trainer JOEANDJO1, "Joe & Jo"
 	tr_mon 56, ALAKAZAM, MALE
 	tr_mon 52, BUTTERFREE, FEMALE
@@ -5183,6 +5447,19 @@ GentlemanGroup:
 
 	def_trainer ALFRED, "Alfred"
 	tr_mon 22, NOCTOWL
+	end_trainer
+
+	def_trainer ALFRED2, "Alfred"
+	tr_mon 46, NOCTOWL
+	end_trainer
+
+	def_trainer ALFRED3, "Alfred"
+	tr_mon 52, NOCTOWL
+	end_trainer
+
+	def_trainer ALFRED4, "Alfred"
+	tr_mon 64, NOCTOWL
+		tr_moves HEADBUTT, HYPNOSIS, DREAM_EATER, SKY_ATTACK
 	end_trainer
 
 	def_trainer MILTON, "Milton"
@@ -6286,6 +6563,16 @@ TeacherFGroup:
 	tr_mon 59, MAROWAK
 	end_trainer
 
+	def_trainer HILLARY2, "Hillary"
+	tr_mon 61, AIPOM
+	tr_mon 61, SUNFLORA
+	end_trainer
+
+	def_trainer HILLARY3, "Hillary"
+	tr_mon 64, AIPOM
+	tr_mon 64, SUNFLORA
+	end_trainer
+
 	def_trainer SHIRLEY, "Shirley"
 	tr_mon 47, WIGGLYTUFF
 	end_trainer
@@ -6416,6 +6703,19 @@ BikerGroup:
 	tr_mon 59, WEEZING
 	end_trainer
 
+	; Reuses Sourcrystal Biker Reese's rematch progression.
+	def_trainer REILLY2, "Reilly"
+	tr_mon 58, ARBOK
+	tr_mon 60, WEEZING
+	end_trainer
+
+	def_trainer REILLY3, "Reilly"
+	tr_mon 66, ARBOK
+		tr_moves CRUNCH, DIG, GLARE, SLUDGE_BOMB
+	tr_mon 65, WEEZING
+		tr_moves TOXIC, FLAMETHROWER, EXPLOSION, SLUDGE_BOMB
+	end_trainer
+
 	def_trainer JOEL, "Joel"
 	tr_mon 57, MAGMAR
 	tr_mon 57, MAGMAR
@@ -6432,6 +6732,19 @@ BikerGroup:
 	tr_mon 57, WEEZING
 	end_trainer
 
+	; Reuses Sourcrystal Biker Eoin's rematch progression.
+	def_trainer DALE2, "Dale"
+	tr_mon 58, TEDDIURSA
+	tr_mon 59, AZUMARILL
+	end_trainer
+
+	def_trainer DALE3, "Dale"
+	tr_mon 68, URSARING
+		tr_moves SLASH, CROSS_CHOP, SCARY_FACE, DIG
+	tr_mon 64, AZUMARILL
+		tr_moves HYDRO_PUMP, BELLY_DRUM, DOUBLE_EDGE, IRON_TAIL
+	end_trainer
+
 	def_trainer JACOB, "Jacob"
 	tr_mon 54, MAGMAR
 	tr_mon 54, TENTACRUEL
@@ -6440,6 +6753,20 @@ BikerGroup:
 	def_trainer AIDEN, "Aiden"
 	tr_mon 55, URSARING
 	tr_mon 55, AZUMARILL
+	end_trainer
+
+	def_trainer AIDEN2, "Aiden"
+	tr_mon 60, HYPNO
+	tr_mon 59, TENTACRUEL
+	end_trainer
+
+	def_trainer AIDEN3, "Aiden"
+	tr_mon 65, TENTACRUEL
+		tr_moves SLUDGE_BOMB, BARRIER, BUBBLEBEAM, MIRROR_COAT
+	tr_mon 68, HYPNO
+		tr_moves PSYCHIC_M, HYPNOSIS, NIGHTMARE, FIRE_PUNCH
+	tr_mon 68, TENTACRUEL
+		tr_moves SLUDGE_BOMB, HYDRO_PUMP, BARRIER, ICY_WIND
 	end_trainer
 
 	def_trainer DAN, "Dan"
