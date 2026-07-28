@@ -229,7 +229,9 @@ hLCDInterruptFunctionTarget::
 hLCDInterruptFunctionTargetLo:: db ; LOW(target)
 hLCDInterruptFunctionTargetHi:: db ; HIGH(target)
 
-	ds 4 ; unused
+; Transient encounter source; never part of saved state.
+hEncounterSwarmID:: db
+	ds 3 ; unused
 
 ; functions used by Judge Machine
 

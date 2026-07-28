@@ -158,6 +158,7 @@ TryWildEncounter::
 
 .no_battle
 	xor a ; BATTLETYPE_NORMAL
+	ldh [hEncounterSwarmID], a
 	ld [wTempWildMonSpecies], a
 	ld [wBattleType], a
 	ld a, 1
@@ -257,7 +258,11 @@ _ChooseWildEncounter:
 	push bc
 	call CheckEncounterRoamMon
 	pop bc
-	jmp c, .startwildbattle
+	jr nc, .not_roaming
+	xor a
+	ldh [hEncounterSwarmID], a
+	jmp .startwildbattle
+.not_roaming
 	xor a ; BATTLETYPE_NORMAL
 	ld [wBattleType], a
 
@@ -564,6 +569,8 @@ ApplyAbilityEffectsOnEncounterMon:
 	ret
 
 LoadWildMonDataPointer:
+	xor a
+	ldh [hEncounterSwarmID], a
 	call CheckOnWater
 	jr z, _WaterWildmonLookup
 
@@ -623,19 +630,28 @@ _SwarmWildmonCheck:
 	add hl, bc
 	ld a, BANK(SwarmData)
 	call GetFarByte
-	cp SWARM_PROFILE_DUNSPARCE
-	jr z, .Dunsparce
-	cp SWARM_PROFILE_YANMA
-	jr z, .Yanma
-	jr _NoSwarmWildmon
-
-.Dunsparce:
-	ld hl, DunsparceSwarmWildMons
-	scf
-	ret
-
-.Yanma:
-	ld hl, YanmaSwarmWildMons
+	cp NUM_SWARM_PROFILES
+	jr nc, _NoSwarmWildmon
+	add a
+	ld c, a
+	ld b, 0
+	ld a, d
+	cp SWARM_METHOD_LAND
+	ld hl, LandSwarmProfilePointers
+	jr z, .got_profile_table
+	cp SWARM_METHOD_SURF
+	ld hl, SurfSwarmProfilePointers
+	jr nz, _NoSwarmWildmon
+.got_profile_table
+	add hl, bc
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	ld a, h
+	or l
+	jr z, _NoSwarmWildmon
+	ld a, [wActiveSwarm]
+	ldh [hEncounterSwarmID], a
 	scf
 	ret
 
@@ -1229,3 +1245,21 @@ INCLUDE "data/wild/swarm_grass.asm"
 
 SwarmWaterWildMons:
 INCLUDE "data/wild/swarm_water.asm"
+
+LandSwarmProfilePointers:
+	table_width 2
+	dw DunsparceSwarmWildMons
+	dw YanmaSwarmWildMons
+	dw 0
+	assert_table_length NUM_SWARM_PROFILES
+
+SurfSwarmProfilePointers:
+	table_width 2
+	dw 0
+	dw 0
+	dw 0
+	assert_table_length NUM_SWARM_PROFILES
+
+	assert BANK(LandSwarmProfilePointers) == BANK(DunsparceSwarmWildMons)
+	assert BANK(LandSwarmProfilePointers) == BANK(YanmaSwarmWildMons)
+	assert BANK(SurfSwarmProfilePointers) == BANK(SwarmWaterWildMons)

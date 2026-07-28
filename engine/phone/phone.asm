@@ -1,19 +1,42 @@
 PhoneFlagAction:
 ; Valid contacts start from index 1, but the flag array starts at index 0.
+	ld a, c
+	and a
+	ret z
+	cp NUM_PHONE_CONTACTS + 1
+	jr nc, .invalid
 	push bc
 	dec c
 	ld d, 0
 	ld hl, wPhoneList
+	ld a, c
+	cp PHONE_FLAG_BASE_BYTES * 8
+	jr c, .resolved
+	sub PHONE_FLAG_BASE_BYTES * 8
+	ld c, a
+	ld hl, wPhoneListExtension
+.resolved
 	farcall SmallFlagAction
 	pop bc
+	ret
+.invalid
+	xor a
 	ret
 
 AddPhoneNumber::
 ; Adds phone number c to the contact list. Returns carry if already present.
+	ld a, c
+	and a
+	jr z, .full
+	cp NUM_PHONE_CONTACTS + 1
+	jr nc, .full
 	call CheckCellNum
 	ret c
 	ld b, SET_FLAG
 	jr DoAddOrDelPhoneNumber
+.full
+	scf
+	ret
 
 DelCellNum::
 ; Deletes phone number c from the contact list. Returns carry if not present.

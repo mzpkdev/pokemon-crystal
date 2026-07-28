@@ -147,7 +147,12 @@ rept (NUM_FRUIT_TREES + 7) / 8 - 1
 endr
 	ld [hl], a
 	ld hl, wDailyRematchFlags
-rept REMATCH_FLAG_BYTES - 1
+rept REMATCH_FLAG_BASE_BYTES - 1
+	ld [hli], a
+endr
+	ld [hl], a
+	ld hl, wDailyRematchFlagsExtension
+rept REMATCH_FLAG_EXTENSION_BYTES - 1
 	ld [hli], a
 endr
 	ld [hl], a
@@ -157,7 +162,12 @@ rept 4 - 1
 endr
 	ld [hl], a
 	ld hl, wDailyPhoneTimeOfDayFlags
-rept REMATCH_SCHEDULE_FLAG_BYTES - 1
+rept REMATCH_SCHEDULE_FLAG_BASE_BYTES - 1
+	ld [hli], a
+endr
+	ld [hl], a
+	ld hl, wDailyPhoneTimeOfDayFlagsExtension
+rept REMATCH_SCHEDULE_FLAG_EXTENSION_BYTES - 1
 	ld [hli], a
 endr
 	ld [hl], a
