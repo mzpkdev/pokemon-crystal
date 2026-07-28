@@ -90,15 +90,18 @@ TryActivateSwarm::
 	and a
 	jr nz, .fail
 	ld a, b
+	push af
 	call GetSwarmByID
-	jr c, .fail
+	jr c, .restore_fail
 	call IsSwarmEntryUnlocked
-	jr c, .fail
-	ld a, b
+	jr c, .restore_fail
+	pop af
 	ld [wActiveSwarm], a
 	and a
 	ret
 
+.restore_fail
+	pop af
 .fail
 	scf
 	ret
