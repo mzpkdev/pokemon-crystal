@@ -560,7 +560,7 @@ TrainerPokefanmBrandon:
 .Script:
 	loadvar VAR_CALLERID, PHONE_POKEFANM_BRANDON
 	opentext
-	checkevent EVENT_BRANDON_BERRY_READY
+	checkflag ENGINE_BRANDON_HAS_BERRY
 	iftruefwd .GiveBerry
 	setval REMATCH_CONTACT_BRANDON
 	special Special_CheckRematchPending
@@ -622,9 +622,9 @@ TrainerPokefanmBrandon:
 	reloadmapafterbattle
 	setval REMATCH_CONTACT_BRANDON
 	special Special_ConsumeRematch
-	checkevent EVENT_BRANDON_BERRY_CLAIMED
+	checkflag ENGINE_BRANDON_GAVE_BERRY
 	iftruefwd .Done
-	setevent EVENT_BRANDON_BERRY_READY
+	setflag ENGINE_BRANDON_HAS_BERRY
 	opentext
 	sjumpfwd .GiveBerry
 .BattleBase:
@@ -649,8 +649,8 @@ TrainerPokefanmBrandon:
 	verbosegiveitem CHERI_BERRY
 .GiftResult:
 	iffalsefwd .PackFull
-	clearevent EVENT_BRANDON_BERRY_READY
-	setevent EVENT_BRANDON_BERRY_CLAIMED
+	clearflag ENGINE_BRANDON_HAS_BERRY
+	setflag ENGINE_BRANDON_GAVE_BERRY
 	writetext BrandonBerryReceivedText
 	waitbutton
 	endtext

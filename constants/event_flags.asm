@@ -570,14 +570,14 @@
 	const EVENT_WALT_ASKED_FOR_PHONE_NUMBER
 	const EVENT_KRISE_ASKED_FOR_PHONE_NUMBER
 	const EVENT_ALFRED_ASKED_FOR_PHONE_NUMBER
-	const EVENT_BRANDON_BERRY_READY
-	const EVENT_BRANDON_BERRY_CLAIMED
+	const_skip ; formerly Brandon's berry state; now a daily engine flag
+	const_skip ; formerly Brandon's berry state; now a daily engine flag
 	const EVENT_DOUG_ASKED_FOR_PHONE_NUMBER
 	const EVENT_ROB_ASKED_FOR_PHONE_NUMBER
-	const EVENT_DOUG_BERRY_READY
-	const EVENT_DOUG_BERRY_CLAIMED
-	const EVENT_ROB_BERRY_READY
-	const EVENT_ROB_BERRY_CLAIMED
+	const_skip ; formerly Doug's berry state; now a daily engine flag
+	const_skip ; formerly Doug's berry state; now a daily engine flag
+	const_skip ; formerly Rob's berry state; now a daily engine flag
+	const_skip ; formerly Rob's berry state; now a daily engine flag
 	const EVENT_KYLE_ASKED_FOR_PHONE_NUMBER
 	const EVENT_TANNER_ASKED_FOR_PHONE_NUMBER
 	const EVENT_KENNY_ASKED_FOR_PHONE_NUMBER

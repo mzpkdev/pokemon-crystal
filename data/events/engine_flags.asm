@@ -177,6 +177,12 @@ EngineFlags:
 	engine_flag wDailyPhoneItemFlags, 7 ; tully has water stone
 	engine_flag wDailyPhoneItemFlags, 8 ; tiffany has fairy feather
 	engine_flag wDailyPhoneItemFlags, 9 ; wilton has item (see EVENT_WILTON_HAS_*** in constants/event_flags.asm)
+	engine_flag wDailyPhoneItemFlags, 10 ; brandon has berry
+	engine_flag wDailyPhoneItemFlags, 11 ; brandon gave berry
+	engine_flag wDailyPhoneItemFlags, 12 ; doug has berry
+	engine_flag wDailyPhoneItemFlags, 13 ; doug gave berry
+	engine_flag wDailyPhoneItemFlags, 14 ; rob has berry
+	engine_flag wDailyPhoneItemFlags, 15 ; rob gave berry
 
 EngineRematchScheduleFlags:
 	engine_flag wDailyPhoneTimeOfDayFlags, REMATCH_SCHEDULE_JACK

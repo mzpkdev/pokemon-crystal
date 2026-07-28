@@ -1,6 +1,6 @@
 RobPhoneScript1:
 	gettrainername BUG_MANIAC, ROB, STRING_BUFFER_3
-	checkevent EVENT_ROB_BERRY_READY
+	checkflag ENGINE_ROB_HAS_BERRY
 	iftruefwd RobPhoneGiftReminder
 	setval REMATCH_CONTACT_ROB
 	special Special_CheckRematchPending
@@ -9,11 +9,11 @@ RobPhoneScript1:
 	setval REMATCH_CONTACT_ROB
 	special Special_TryClaimRematchScheduleWindow
 	iftruefwd RobPhoneOffer
-	checkevent EVENT_ROB_BERRY_CLAIMED
+	checkflag ENGINE_ROB_GAVE_BERRY
 	iftruefwd .Flavor
 	random 3
 	ifequalfwd 0, RobPhoneGift
-	setevent EVENT_ROB_BERRY_CLAIMED
+	setflag ENGINE_ROB_GAVE_BERRY
 .Flavor:
 	farwritetext RobPhoneFlavorText
 	end
@@ -21,7 +21,7 @@ RobPhoneScript1:
 RobPhoneScript2:
 	gettrainername BUG_MANIAC, ROB, STRING_BUFFER_3
 	farscall RobPhoneGreeting
-	checkevent EVENT_ROB_BERRY_READY
+	checkflag ENGINE_ROB_HAS_BERRY
 	iftruefwd RobPhoneGiftReminder
 	setval REMATCH_CONTACT_ROB
 	special Special_CheckRematchPending
@@ -29,7 +29,7 @@ RobPhoneScript2:
 	setval REMATCH_CONTACT_ROB
 	special Special_CheckRematchScheduleUsed
 	iftruefwd .Flavor
-	checkevent EVENT_ROB_BERRY_CLAIMED
+	checkflag ENGINE_ROB_GAVE_BERRY
 	iftruefwd .RematchOnly
 	setval PHONE_EVENT_CAP_GIFT | PHONE_EVENT_CAP_REMATCH | PHONE_EVENT_CAP_FLAVOR
 	sjumpfwd .Select
@@ -40,14 +40,14 @@ RobPhoneScript2:
 	setval REMATCH_CONTACT_ROB
 	special Special_SelectRematchContactPhoneEvent
 	ifequalfwd PHONE_EVENT_GIFT, RobPhoneGift
-	setevent EVENT_ROB_BERRY_CLAIMED
+	setflag ENGINE_ROB_GAVE_BERRY
 	ifequalfwd PHONE_EVENT_REMATCH, RobPhoneOffer
 .Flavor:
 	farwritetext RobPhoneFlavorText
 	end
 
 RobPhoneGift:
-	setevent EVENT_ROB_BERRY_READY
+	setflag ENGINE_ROB_HAS_BERRY
 RobPhoneGiftReminder:
 	getlandmarkname ROUTE_2, STRING_BUFFER_5
 	farsjump PhoneScript_FoundItem_Male

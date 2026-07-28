@@ -626,7 +626,13 @@ _SwarmWildmonCheck:
 	ld a, BANK(SwarmData)
 	call GetFarByte
 	cp d
+	jr z, .method_matches
+	cp SWARM_METHOD_WATER
 	jr nz, _NoSwarmWildmon
+	ld a, d
+	cp SWARM_METHOD_SURF
+	jr nz, _NoSwarmWildmon
+.method_matches
 	ld bc, SWARMENTRY_PROFILE - SWARMENTRY_METHOD
 	add hl, bc
 	ld a, BANK(SwarmData)

@@ -115,6 +115,7 @@ static_assert NUM_SWARMS < $100
 	const SWARM_METHOD_LAND
 	const SWARM_METHOD_SURF
 	const SWARM_METHOD_FISH
+	const SWARM_METHOD_WATER ; fishing and surfing
 DEF NUM_SWARM_METHODS EQU const_value
 
 ; Swarm selection pools (bitmasks)

@@ -28,7 +28,7 @@ TrainerBug_maniacRob:
 	setval REMATCH_CONTACT_ROB
 	special Special_CheckRematchPending
 	iftruefwd .Rematch
-	checkevent EVENT_ROB_BERRY_READY
+	checkflag ENGINE_ROB_HAS_BERRY
 	iftruefwd .GiveBerry
 	checkcellnum PHONE_BUG_MANIAC_ROB
 	iftrue_jumpopenedtext Bug_maniacRobAfterBattleText
@@ -83,8 +83,8 @@ TrainerBug_maniacRob:
 	promptbutton
 	scall Route2SouthGiveBerry
 	iffalsefwd .PackFull
-	clearevent EVENT_ROB_BERRY_READY
-	setevent EVENT_ROB_BERRY_CLAIMED
+	clearflag ENGINE_ROB_HAS_BERRY
+	setflag ENGINE_ROB_GAVE_BERRY
 	writetext Route2SouthBerryReceivedText
 	waitbutton
 	endtext
@@ -101,7 +101,7 @@ TrainerBug_maniacDoug:
 	setval REMATCH_CONTACT_DOUG
 	special Special_CheckRematchPending
 	iftruefwd .Rematch
-	checkevent EVENT_DOUG_BERRY_READY
+	checkflag ENGINE_DOUG_HAS_BERRY
 	iftruefwd .GiveBerry
 	checkcellnum PHONE_BUG_MANIAC_DOUG
 	iftrue_jumpopenedtext Bug_maniacDougAfterBattleText
@@ -156,8 +156,8 @@ TrainerBug_maniacDoug:
 	promptbutton
 	scall Route2SouthGiveBerry
 	iffalsefwd .PackFull
-	clearevent EVENT_DOUG_BERRY_READY
-	setevent EVENT_DOUG_BERRY_CLAIMED
+	clearflag ENGINE_DOUG_HAS_BERRY
+	setflag ENGINE_DOUG_GAVE_BERRY
 	writetext Route2SouthBerryReceivedText
 	waitbutton
 	endtext

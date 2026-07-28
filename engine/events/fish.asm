@@ -229,7 +229,10 @@ GetFishGroupIndex:
 	ld a, BANK(SwarmData)
 	call GetFarByte
 	cp SWARM_METHOD_FISH
+	jr z, .swarm_method
+	cp SWARM_METHOD_WATER
 	jr nz, .no_swarm
+.swarm_method
 	ld bc, SWARMENTRY_PROFILE - SWARMENTRY_METHOD
 	add hl, bc
 	ld a, BANK(SwarmData)

@@ -10,8 +10,11 @@ LoadSwarmWildmonProfile:
 	ld hl, LandSwarmProfilePointers
 	jr z, .got_profile_table
 	cp SWARM_METHOD_SURF
-	ld hl, SurfSwarmProfilePointers
+	jr z, .water
+	cp SWARM_METHOD_WATER
 	jr nz, .not_found
+.water
+	ld hl, SurfSwarmProfilePointers
 .got_profile_table
 	add hl, bc
 	ld a, [hli]
@@ -165,11 +168,44 @@ LandSwarmProfilePointers:
 
 SurfSwarmProfilePointers:
 	table_width 2
-	rept SWARM_PROFILE_POLIWAG
+	rept SWARM_PROFILE_QWILFISH
+		dw 0
+	endr
+	dw QwilfishSwarmWaterWildMons
+	rept SWARM_PROFILE_CHINCHOU - SWARM_PROFILE_QWILFISH - 1
+		dw 0
+	endr
+	dw ChinchouSwarmWaterWildMons
+	dw RemoraidSwarmWaterWildMons
+	rept SWARM_PROFILE_HORSEA - SWARM_PROFILE_REMORAID - 1
+		dw 0
+	endr
+	dw HorseaSwarmWaterWildMons
+	rept SWARM_PROFILE_DRATINI - SWARM_PROFILE_HORSEA - 1
+		dw 0
+	endr
+	dw DratiniSwarmWaterWildMons
+	rept SWARM_PROFILE_CORSOLA - SWARM_PROFILE_DRATINI - 1
+		dw 0
+	endr
+	dw CorsolaSwarmWaterWildMons
+	rept SWARM_PROFILE_MANTINE - SWARM_PROFILE_CORSOLA - 1
+		dw 0
+	endr
+	dw MantineSwarmWaterWildMons
+	rept SWARM_PROFILE_POLIWAG - SWARM_PROFILE_MANTINE - 1
 		dw 0
 	endr
 	dw PoliwagSwarmWaterWildMons
-	rept NUM_SWARM_PROFILES - SWARM_PROFILE_POLIWAG - 1
+	rept SWARM_PROFILE_STARYU - SWARM_PROFILE_POLIWAG - 1
+		dw 0
+	endr
+	dw StaryuSwarmWaterWildMons
+	rept SWARM_PROFILE_SHELLDER - SWARM_PROFILE_STARYU - 1
+		dw 0
+	endr
+	dw ShellderSwarmWaterWildMons
+	rept NUM_SWARM_PROFILES - SWARM_PROFILE_SHELLDER - 1
 		dw 0
 	endr
 	assert_table_length NUM_SWARM_PROFILES
