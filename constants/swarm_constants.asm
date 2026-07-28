@@ -47,6 +47,17 @@ DEF NUM_SWARM_PROFILES EQU const_value
 	const SWARM_SCOPE_ROUTE_32
 DEF NUM_SWARM_SCOPES EQU const_value
 
+; Unlock rules. Rules are dispatched through SwarmUnlockRulePointers.
+	const_def
+	const SWARM_UNLOCK_NONE
+DEF NUM_SWARM_UNLOCK_RULES EQU const_value
+
+; Shiny policies.
+	const_def
+	const SWARM_SHINY_NORMAL
+	const SWARM_SHINY_BOOSTED
+DEF NUM_SWARM_SHINY_POLICIES EQU const_value
+
 ; SwarmData entry fields
 	rsreset
 DEF SWARMENTRY_SPECIES     rw
@@ -55,7 +66,11 @@ DEF SWARMENTRY_LANDMARK    rb
 DEF SWARMENTRY_METHOD      rb
 DEF SWARMENTRY_POOL        rb
 DEF SWARMENTRY_PROFILE     rb
+DEF SWARMENTRY_UNLOCK_RULE rb
+DEF SWARMENTRY_SHINY_POLICY rb
 DEF SWARMENTRY_LENGTH EQU _RS
 
 static_assert NUM_SWARM_PROFILES < $100
 static_assert NUM_SWARM_SCOPES < $100
+static_assert NUM_SWARM_UNLOCK_RULES < $100
+static_assert NUM_SWARM_SHINY_POLICIES < $100

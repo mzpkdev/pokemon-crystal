@@ -267,6 +267,49 @@ endr
 	cp BATTLETYPE_GROTTO
 	jr z, .not_shiny
 
+	push bc
+	push de
+	push hl
+	farcall CheckEncounterSwarmShinyBoost
+	pop hl
+	pop de
+	pop bc
+	jr nc, .shiny_check
+
+; Swarm species use a 1/64 shiny rate, or 1/32 with the Shiny Charm.
+	ld c, %00111111
+	call .CheckSwarmShinyCharm
+	jr nc, .swarm_shiny_roll
+	srl c
+.swarm_shiny_roll
+	call Random
+	and c
+	jr z, .shiny
+	jr .not_shiny
+
+.CheckSwarmShinyCharm:
+; Preserve the caller's registers and wCurKeyItem while returning carry set
+; when the Shiny Charm is present.
+	push bc
+	push de
+	push hl
+	ld a, [wCurKeyItem]
+	ld e, a
+	ld a, SHINY_CHARM
+	ld [wCurKeyItem], a
+	call CheckKeyItem
+	ld a, 0
+	adc a
+	ld d, a
+	ld a, e
+	ld [wCurKeyItem], a
+	ld a, d
+	rra
+	pop hl
+	pop de
+	pop bc
+	ret
+
 .shiny_check
 	call Random
 	and a

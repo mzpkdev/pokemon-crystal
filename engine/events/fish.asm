@@ -14,6 +14,11 @@ rept FISHGROUP_DATA_LENGTH
 	add hl, de
 endr
 	call .Fish
+	ld a, d
+	and a
+	jr nz, .got_swarm_mon
+	ld [wEncounterSwarmID], a
+.got_swarm_mon
 
 	pop af
 	pop hl
@@ -213,6 +218,8 @@ GetFishLocations:
 GetFishGroupIndex:
 ; Return the index of fishgroup d in de.
 
+	xor a
+	ld [wEncounterSwarmID], a
 	push bc
 	push de
 	farcall IsCurrentMapActiveSwarm
@@ -243,6 +250,8 @@ GetFishGroupIndex:
 	cp b
 	jr nz, .done
 	ld d, [hl]
+	ld a, [wActiveSwarm]
+	ld [wEncounterSwarmID], a
 	jr .done
 
 .no_swarm

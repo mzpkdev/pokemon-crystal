@@ -242,26 +242,114 @@ IsCurrentMapActiveSwarm::
 
 IsSwarmEntryUnlocked::
 ; Input: hl = swarm entry.
-; Carry set means ineligible. Initially all entries are unlocked.
+; Carry set means ineligible. Preserve hl for table iteration callers.
+	push hl
+	ld bc, SWARMENTRY_UNLOCK_RULE
+	add hl, bc
+	ld a, [hl]
+	cp NUM_SWARM_UNLOCK_RULES
+	jr nc, .locked
+	ld hl, SwarmUnlockRulePointers
+	call JumpTable
+	pop hl
+	ret
+
+.locked
+	pop hl
+	scf
+	ret
+
+SwarmUnlockRulePointers:
+	table_width 2
+	dw .None
+	assert_table_length NUM_SWARM_UNLOCK_RULES
+
+.None:
+	and a
+	ret
+
+	assert BANK(SwarmUnlockRulePointers) == BANK(.None)
+
+CheckEncounterSwarmShinyBoost::
+; Carry is set only when the transient encounter marker identifies the active
+; swarm, its shiny policy is boosted, and its advertised species/form is the
+; Pokemon currently being generated. NO_FORM advertises all forms of a species.
+; Invalid state fails closed.
+	ld a, [wEncounterSwarmID]
+	ld b, a
+	xor a
+	ld [wEncounterSwarmID], a
+	ld a, b
+	and a
+	jr z, .no_boost
+	ld a, [wActiveSwarm]
+	cp b
+	jr nz, .no_boost
+	call GetSwarmByID
+	jr c, .no_boost
+	push hl
+	ld bc, SWARMENTRY_SHINY_POLICY
+	add hl, bc
+	ld a, [hl]
+	cp NUM_SWARM_SHINY_POLICIES
+	jr nc, .pop_no_boost
+	cp SWARM_SHINY_BOOSTED
+	jr nz, .pop_no_boost
+	pop hl
+	ld a, [hli]
+	ld b, a
+	ld a, [wCurPartySpecies]
+	cp b
+	jr nz, .no_boost
+	ld a, [hl]
+	and SPECIESFORM_MASK
+	ld b, a
+	ld a, [wCurForm]
+	and SPECIESFORM_MASK
+	ld c, a
+	and EXTSPECIES_MASK
+	ld d, a
+	ld a, b
+	and EXTSPECIES_MASK
+	cp d
+	jr nz, .no_boost
+	ld a, b
+	and FORM_MASK
+	jr z, .boost
+	ld b, a
+	ld a, c
+	and FORM_MASK
+	cp b
+	jr nz, .no_boost
+.boost
+	scf
+	ret
+
+.pop_no_boost
+	pop hl
+.no_boost
 	and a
 	ret
 
 MACRO swarm_entry
-;\1 species, \2 form, \3 map scope, \4 landmark, \5 method, \6 pools, \7 profile
+;\1 species, \2 form, \3 map scope, \4 landmark, \5 method, \6 pools,
+;\7 profile, \8 unlock rule, \9 shiny policy
 	assert \3 < NUM_SWARM_SCOPES, "Invalid swarm map scope"
 	assert \5 < NUM_SWARM_METHODS, "Invalid swarm encounter method"
 	assert \6 & ~(SWARM_POOL_JOHTO | SWARM_POOL_KANTO) == 0, "Invalid swarm selection pool"
 	assert \7 < NUM_SWARM_PROFILES, "Invalid swarm encounter profile"
+	assert \8 < NUM_SWARM_UNLOCK_RULES, "Invalid swarm unlock rule"
+	assert \9 < NUM_SWARM_SHINY_POLICIES, "Invalid swarm shiny policy"
 	dp \1, \2
 	db \3
-	db \4, \5, \6, \7
+	db \4, \5, \6, \7, \8, \9
 ENDM
 
 SwarmData:
 	table_width SWARMENTRY_LENGTH
-	swarm_entry DUNSPARCE, NO_FORM, SWARM_SCOPE_DARK_CAVE, DARK_CAVE, SWARM_METHOD_LAND, SWARM_POOL_JOHTO, SWARM_PROFILE_DUNSPARCE
-	swarm_entry YANMA, NO_FORM, SWARM_SCOPE_ROUTE_35, ROUTE_35, SWARM_METHOD_LAND, SWARM_POOL_JOHTO, SWARM_PROFILE_YANMA
-	swarm_entry QWILFISH, NO_FORM, SWARM_SCOPE_ROUTE_32, ROUTE_32, SWARM_METHOD_FISH, SWARM_POOL_JOHTO, SWARM_PROFILE_QWILFISH
+	swarm_entry DUNSPARCE, NO_FORM, SWARM_SCOPE_DARK_CAVE, DARK_CAVE, SWARM_METHOD_LAND, SWARM_POOL_JOHTO, SWARM_PROFILE_DUNSPARCE, SWARM_UNLOCK_NONE, SWARM_SHINY_BOOSTED
+	swarm_entry YANMA, NO_FORM, SWARM_SCOPE_ROUTE_35, ROUTE_35, SWARM_METHOD_LAND, SWARM_POOL_JOHTO, SWARM_PROFILE_YANMA, SWARM_UNLOCK_NONE, SWARM_SHINY_BOOSTED
+	swarm_entry QWILFISH, NO_FORM, SWARM_SCOPE_ROUTE_32, ROUTE_32, SWARM_METHOD_FISH, SWARM_POOL_JOHTO, SWARM_PROFILE_QWILFISH, SWARM_UNLOCK_NONE, SWARM_SHINY_BOOSTED
 	assert_table_length NUM_SWARMS
 	assert @ - SwarmData == NUM_SWARMS * SWARMENTRY_LENGTH
 

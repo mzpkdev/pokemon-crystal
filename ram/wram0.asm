@@ -1038,6 +1038,9 @@ wBattleTowerBattleEnded:: db
 
 wCurForm:: db
 
+; Transient encounter source; never part of saved state.
+wEncounterSwarmID:: db
+
 wRNGState:: ds 4
 wRNGCumulativeDividerPlus:: dw
 wRNGCumulativeDividerMinus:: db
