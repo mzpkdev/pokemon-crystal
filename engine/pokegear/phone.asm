@@ -289,9 +289,18 @@ PokegearPhone_GetCellNumberFromE:
 
 PokegearPhone_CountSetBits:
 ; Returns result in wNumSetBits
+	push de
 	ld hl, wPhoneList
-	ld b, wPhoneListEnd - wPhoneList
-	jmp CountSetBits
+	ld b, PHONE_FLAG_BASE_BYTES
+	call CountSetBits
+	ld e, a
+	ld hl, wPhoneListExtension
+	ld b, PHONE_FLAG_EXTENSION_BYTES
+	call CountSetBits
+	add e
+	ld [wNumSetBits], a
+	pop de
+	ret
 
 PokegearPhoneContactSubmenu:
 	call PokegearPhone_GetCellNumber
