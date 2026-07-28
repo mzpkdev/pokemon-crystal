@@ -32,6 +32,1378 @@ DunsparceSwarmWildMons:
 
 	db -1 ; end
 
+; Golbat swarm
+GolbatSwarmWildMons:
+	def_grass_wildmons VICTORY_ROAD_1F
+	db 6 percent ; encounter rate
+	; morn
+	wildmon 34, GOLBAT
+	wildmon 32, GOLBAT
+	wildmon 33, DONPHAN
+	wildmon 34, ONIX
+	wildmon 35, URSARING
+	wildmon 35, RHYHORN
+	wildmon 36, RHYDON
+	; day
+	wildmon 34, GOLBAT
+	wildmon 32, GOLBAT
+	wildmon 33, DONPHAN
+	wildmon 34, ONIX
+	wildmon 35, URSARING
+	wildmon 35, RHYHORN
+	wildmon 36, RHYDON
+	; nite
+	wildmon 34, GOLBAT
+	wildmon 32, GOLBAT
+	wildmon 33, DONPHAN
+	wildmon 34, ONIX
+	wildmon 35, URSARING
+	wildmon 35, RHYHORN
+	wildmon 36, RHYDON
+	end_grass_wildmons
+
+	db -1 ; end
+
+; Doduo swarm
+DoduoSwarmWildMons:
+	def_grass_wildmons ROUTE_26
+	db 10 percent ; encounter rate
+	; morn
+	wildmon 28, DODUO
+	wildmon 28, SANDSLASH
+	wildmon 32, DODUO
+	wildmon 30, DODUO
+	wildmon 30, RATICATE
+	wildmon 30, PONYTA
+	wildmon 30, ARBOK
+	; day
+	wildmon 28, DODUO
+	wildmon 28, SANDSLASH
+	wildmon 32, DODUO
+	wildmon 30, DODUO
+	wildmon 30, RATICATE
+	wildmon 30, PONYTA
+	wildmon 30, ARBOK
+	; nite
+	wildmon 28, DODUO
+	wildmon 28, SANDSLASH
+	wildmon 32, DODUO
+	wildmon 30, QUAGSIRE
+	wildmon 30, RATICATE
+	wildmon 30, PONYTA
+	wildmon 30, ARBOK
+	end_grass_wildmons
+
+	db -1 ; end
+
+; Furret swarm
+FurretSwarmWildMons:
+	def_grass_wildmons ROUTE_1
+	db 10 percent ; encounter rate
+	; morn
+	wildmon 6, FURRET
+	wildmon 7, FURRET
+	wildmon 3, RATTATA
+	wildmon 4, SENTRET
+	wildmon 4, RATTATA
+	wildmon 6, PIDGEY
+	wildmon 7, PIDGEY
+	; day
+	wildmon 6, FURRET
+	wildmon 7, FURRET
+	wildmon 3, RATTATA
+	wildmon 4, SENTRET
+	wildmon 4, RATTATA
+	wildmon 6, PIDGEY
+	wildmon 7, PIDGEY
+	; nite
+	wildmon 6, FURRET
+	wildmon 7, FURRET
+	wildmon 3, RATTATA
+	wildmon 4, RATTATA
+	wildmon 4, HOOTHOOT
+	wildmon 6, HOOTHOOT
+	wildmon 7, HOOTHOOT
+	end_grass_wildmons
+
+	db -1 ; end
+
+; Pikachu swarm
+PikachuSwarmWildMons:
+	def_grass_wildmons VIRIDIAN_FOREST
+	db 6 percent ; encounter rate
+	; morn
+	wildmon 3, PIKACHU
+	wildmon 4, PIKACHU
+	wildmon 5, METAPOD
+	wildmon 5, KAKUNA
+	wildmon 7, PIKACHU
+	wildmon 8, BUTTERFREE
+	wildmon 8, BEEDRILL
+	; day
+	wildmon 3, PIKACHU
+	wildmon 4, PIKACHU
+	wildmon 5, METAPOD
+	wildmon 5, KAKUNA
+	wildmon 7, PIKACHU
+	wildmon 8, BUTTERFREE
+	wildmon 8, BEEDRILL
+	; nite
+	wildmon 3, PIKACHU
+	wildmon 4, PIKACHU
+	wildmon 5, HOOTHOOT
+	wildmon 5, NOCTOWL
+	wildmon 7, PIKACHU
+	wildmon 8, NOCTOWL
+	wildmon 8, NOCTOWL
+	end_grass_wildmons
+
+	db -1 ; end
+
+; Magmar swarm
+MagmarSwarmWildMons:
+	def_grass_wildmons POKEMON_MANSION_1F
+	db 6 percent ; encounter rate
+	; morn
+	wildmon 35, MAGMAR
+	wildmon 35, MAGMAR
+	wildmon 32, SLUGMA
+	wildmon 30, DITTO
+	wildmon 40, MUK
+	wildmon 34, GRIMER
+	wildmon 38, KOFFING
+	; day
+	wildmon 35, MAGMAR
+	wildmon 35, MAGMAR
+	wildmon 32, SLUGMA
+	wildmon 30, DITTO
+	wildmon 40, MUK
+	wildmon 34, GRIMER
+	wildmon 38, KOFFING
+	; nite
+	wildmon 35, MAGMAR
+	wildmon 35, MAGMAR
+	wildmon 32, SLUGMA
+	wildmon 30, DITTO
+	wildmon 40, MUK
+	wildmon 34, GRIMER
+	wildmon 38, KOFFING
+	end_grass_wildmons
+
+	def_grass_wildmons POKEMON_MANSION_B1F
+	db 6 percent ; encounter rate
+	; morn
+	wildmon 36, MAGMAR
+	wildmon 37, MAGMAR
+	wildmon 35, SLUGMA
+	wildmon 35, KOFFING
+	wildmon 40, MAGMAR
+	wildmon 32, DITTO
+	wildmon 42, WEEZING
+	; day
+	wildmon 36, MAGMAR
+	wildmon 37, MAGMAR
+	wildmon 35, SLUGMA
+	wildmon 35, KOFFING
+	wildmon 40, MAGMAR
+	wildmon 32, DITTO
+	wildmon 42, WEEZING
+	; nite
+	wildmon 36, MAGMAR
+	wildmon 37, MAGMAR
+	wildmon 35, SLUGMA
+	wildmon 35, KOFFING
+	wildmon 40, MAGMAR
+	wildmon 32, DITTO
+	wildmon 42, WEEZING
+	end_grass_wildmons
+
+	db -1 ; end
+
+; Geodude swarm
+GeodudeSwarmWildMons:
+	def_grass_wildmons MOUNT_MOON_1F
+	db 6 percent ; encounter rate
+	; morn
+	wildmon 8, GEODUDE
+	wildmon 10, GEODUDE
+	wildmon 12, SANDSHREW
+	wildmon 12, ZUBAT
+	wildmon 11, PARAS
+	wildmon 10, ZUBAT
+	wildmon 12, CLEFAIRY
+	; day
+	wildmon 8, GEODUDE
+	wildmon 10, GEODUDE
+	wildmon 12, SANDSHREW
+	wildmon 12, ZUBAT
+	wildmon 11, PARAS
+	wildmon 10, ZUBAT
+	wildmon 12, CLEFAIRY
+	; nite
+	wildmon 8, GEODUDE
+	wildmon 10, GEODUDE
+	wildmon 12, SANDSHREW
+	wildmon 12, ZUBAT
+	wildmon 11, PARAS
+	wildmon 10, ZUBAT
+	wildmon 12, CLEFAIRY
+	end_grass_wildmons
+
+	db -1 ; end
+
+; Jigglypuff swarm
+JigglypuffSwarmWildMons:
+	def_grass_wildmons ROUTE_5
+	db 10 percent ; encounter rate
+	; morn
+	wildmon 14, JIGGLYPUFF
+	wildmon 15, JIGGLYPUFF
+	wildmon 15, SNUBBULL
+	wildmon 17, JIGGLYPUFF
+	wildmon 12, PIDGEY
+	wildmon 14, PIDGEOTTO
+	wildmon 14, ABRA
+	; day
+	wildmon 14, JIGGLYPUFF
+	wildmon 15, JIGGLYPUFF
+	wildmon 15, SNUBBULL
+	wildmon 17, JIGGLYPUFF
+	wildmon 12, PIDGEY
+	wildmon 14, PIDGEOTTO
+	wildmon 14, ABRA
+	; nite
+	wildmon 14, JIGGLYPUFF
+	wildmon 15, JIGGLYPUFF
+	wildmon 15, MEOWTH
+	wildmon 17, JIGGLYPUFF
+	wildmon 12, HOOTHOOT
+	wildmon 14, NOCTOWL
+	wildmon 14, ABRA
+	end_grass_wildmons
+
+	db -1 ; end
+
+; Meowth swarm
+MeowthSwarmWildMons:
+	def_grass_wildmons ROUTE_11
+	db 10 percent ; encounter rate
+	; morn
+	wildmon 18, MEOWTH
+	wildmon 20, MEOWTH
+	wildmon 20, RATICATE
+	wildmon 19, MAGNEMITE
+	wildmon 17, MEOWTH
+	wildmon 18, HOPPIP
+	wildmon 18, HOPPIP
+	; day
+	wildmon 18, MEOWTH
+	wildmon 20, MEOWTH
+	wildmon 20, RATICATE
+	wildmon 19, MAGNEMITE
+	wildmon 17, MEOWTH
+	wildmon 18, HOPPIP
+	wildmon 18, HOPPIP
+	; nite
+	wildmon 18, MEOWTH
+	wildmon 20, MEOWTH
+	wildmon 16, DROWZEE
+	wildmon 19, MAGNEMITE
+	wildmon 17, MEOWTH
+	wildmon 18, HYPNO
+	wildmon 18, HYPNO
+	end_grass_wildmons
+
+	db -1 ; end
+
+; Fearow swarm
+FearowSwarmWildMons:
+	def_grass_wildmons ROUTE_9
+	db 10 percent ; encounter rate
+	; morn
+	wildmon 18, FEAROW
+	wildmon 20, FEAROW
+	wildmon 16, MANKEY
+	wildmon 17, SPEAROW
+	wildmon 19, FEAROW
+	wildmon 18, PRIMEAPE
+	wildmon 18, PRIMEAPE
+	; day
+	wildmon 18, FEAROW
+	wildmon 20, FEAROW
+	wildmon 16, MANKEY
+	wildmon 17, SPEAROW
+	wildmon 19, FEAROW
+	wildmon 18, PRIMEAPE
+	wildmon 18, PRIMEAPE
+	; nite
+	wildmon 18, FEAROW
+	wildmon 20, FEAROW
+	wildmon 16, MANKEY
+	wildmon 17, VENONAT
+	wildmon 19, FEAROW
+	wildmon 18, VENOMOTH
+	wildmon 18, PRIMEAPE
+	end_grass_wildmons
+
+	db -1 ; end
+
+; Cubone swarm
+CuboneSwarmWildMons:
+	def_grass_wildmons ROCK_TUNNEL_1F
+	db 6 percent ; encounter rate
+	; morn
+	wildmon 15, CUBONE
+	wildmon 16, CUBONE
+	wildmon 17, MACHOP
+	wildmon 17, ZUBAT
+	wildmon 21, MACHOKE
+	wildmon 17, GEODUDE
+	wildmon 19, CUBONE
+	; day
+	wildmon 15, CUBONE
+	wildmon 16, CUBONE
+	wildmon 17, MACHOP
+	wildmon 17, ZUBAT
+	wildmon 21, MACHOKE
+	wildmon 17, GEODUDE
+	wildmon 19, CUBONE
+	; nite
+	wildmon 15, CUBONE
+	wildmon 16, CUBONE
+	wildmon 17, MACHOP
+	wildmon 17, ZUBAT
+	wildmon 21, MACHOKE
+	wildmon 17, GEODUDE
+	wildmon 19, CUBONE
+	end_grass_wildmons
+
+	def_grass_wildmons ROCK_TUNNEL_B1F
+	db 6 percent ; encounter rate
+	; morn
+	wildmon 17, CUBONE
+	wildmon 18, CUBONE
+	wildmon 17, ONIX
+	wildmon 20, CUBONE
+	wildmon 22, MAROWAK
+	wildmon 20, KANGASKHAN
+	wildmon 22, KANGASKHAN
+	; day
+	wildmon 17, CUBONE
+	wildmon 18, CUBONE
+	wildmon 17, ONIX
+	wildmon 20, CUBONE
+	wildmon 22, MAROWAK
+	wildmon 20, KANGASKHAN
+	wildmon 22, KANGASKHAN
+	; nite
+	wildmon 17, CUBONE
+	wildmon 18, CUBONE
+	wildmon 17, ONIX
+	wildmon 20, CUBONE
+	wildmon 22, MAROWAK
+	wildmon 20, KANGASKHAN
+	wildmon 22, KANGASKHAN
+	end_grass_wildmons
+
+	db -1 ; end
+
+; Murkrow swarm
+MurkrowSwarmWildMons:
+	def_grass_wildmons ROUTE_7
+	db 10 percent ; encounter rate
+	; morn
+	wildmon 22, MURKROW
+	wildmon 22, MURKROW
+	wildmon 20, SNUBBULL
+	wildmon 24, RATICATE
+	wildmon 20, JIGGLYPUFF
+	wildmon 19, ABRA
+	wildmon 19, ABRA
+	; day
+	wildmon 22, MURKROW
+	wildmon 22, MURKROW
+	wildmon 20, SNUBBULL
+	wildmon 24, RATICATE
+	wildmon 20, JIGGLYPUFF
+	wildmon 19, ABRA
+	wildmon 19, ABRA
+	; nite
+	wildmon 22, MURKROW
+	wildmon 22, MURKROW
+	wildmon 20, HOUNDOUR
+	wildmon 24, PERSIAN
+	wildmon 20, JIGGLYPUFF
+	wildmon 19, ABRA
+	wildmon 19, ABRA
+	end_grass_wildmons
+
+	db -1 ; end
+
+; Haunter swarm
+HaunterSwarmWildMons:
+	def_grass_wildmons ROUTE_8
+	db 10 percent ; encounter rate
+	; morn
+	wildmon 24, HAUNTER
+	wildmon 24, HAUNTER
+	wildmon 22, SNUBBULL
+	wildmon 19, ABRA
+	wildmon 24, HAUNTER
+	wildmon 20, KADABRA
+	wildmon 27, KADABRA
+	; day
+	wildmon 24, HAUNTER
+	wildmon 24, HAUNTER
+	wildmon 22, SNUBBULL
+	wildmon 19, ABRA
+	wildmon 24, HAUNTER
+	wildmon 20, KADABRA
+	wildmon 27, KADABRA
+	; nite
+	wildmon 24, HAUNTER
+	wildmon 24, HAUNTER
+	wildmon 22, MEOWTH
+	wildmon 19, ABRA
+	wildmon 24, HAUNTER
+	wildmon 20, KADABRA
+	wildmon 27, KADABRA
+	end_grass_wildmons
+
+	db -1 ; end
+
+; Slugma swarm
+SlugmaSwarmWildMons:
+	def_grass_wildmons ROUTE_16_WEST
+	db 10 percent ; encounter rate
+	; morn
+	wildmon 27, SLUGMA
+	wildmon 29, SLUGMA
+	wildmon 26, GRIMER
+	wildmon 28, GRIMER
+	wildmon 29, SLUGMA
+	wildmon 30, MUK
+	wildmon 30, MUK
+	; day
+	wildmon 27, SLUGMA
+	wildmon 29, SLUGMA
+	wildmon 26, GRIMER
+	wildmon 28, GRIMER
+	wildmon 29, SLUGMA
+	wildmon 30, MUK
+	wildmon 30, MUK
+	; nite
+	wildmon 27, SLUGMA
+	wildmon 29, SLUGMA
+	wildmon 26, GRIMER
+	wildmon 28, GRIMER
+	wildmon 29, SLUGMA
+	wildmon 30, MUK
+	wildmon 30, MUK
+	end_grass_wildmons
+
+	db -1 ; end
+
+; Voltorb swarm
+VoltorbSwarmWildMons:
+	def_grass_wildmons ROUTE_10_NORTH
+	db 10 percent ; encounter rate
+	; morn
+	wildmon 17, VOLTORB
+	wildmon 18, VOLTORB
+	wildmon 16, MANKEY
+	wildmon 17, MAGNEMITE
+	wildmon 20, VOLTORB
+	wildmon 18, PRIMEAPE
+	wildmon 18, PRIMEAPE
+	; day
+	wildmon 17, VOLTORB
+	wildmon 18, VOLTORB
+	wildmon 16, MANKEY
+	wildmon 17, MAGNEMITE
+	wildmon 20, VOLTORB
+	wildmon 18, PRIMEAPE
+	wildmon 18, PRIMEAPE
+	; nite
+	wildmon 17, VOLTORB
+	wildmon 18, VOLTORB
+	wildmon 16, MANKEY
+	wildmon 17, MAGNEMITE
+	wildmon 20, VOLTORB
+	wildmon 18, PRIMEAPE
+	wildmon 18, PRIMEAPE
+	end_grass_wildmons
+
+	db -1 ; end
+
+; Nidorino swarm
+NidorinoSwarmWildMons:
+	def_grass_wildmons ROUTE_14
+	db 10 percent ; encounter rate
+	; morn
+	wildmon 28, NIDORINO
+	wildmon 28, NIDORINO
+	wildmon 28, NIDORINA
+	wildmon 30, PIDGEOTTO
+	wildmon 30, NIDORINO
+	wildmon 30, SKIPLOOM
+	wildmon 30, CHANSEY
+	; day
+	wildmon 28, NIDORINO
+	wildmon 28, NIDORINO
+	wildmon 28, NIDORINA
+	wildmon 30, PIDGEOTTO
+	wildmon 30, NIDORINO
+	wildmon 30, SKIPLOOM
+	wildmon 30, CHANSEY
+	; nite
+	wildmon 28, NIDORINO
+	wildmon 28, NIDORINO
+	wildmon 28, QUAGSIRE
+	wildmon 30, NOCTOWL
+	wildmon 28, NIDORINA
+	wildmon 30, QUAGSIRE
+	wildmon 30, CHANSEY
+	end_grass_wildmons
+
+	db -1 ; end
+
+; Farfetch'd swarm
+FarfetchDSwarmWildMons:
+	def_grass_wildmons ROUTE_13
+	db 10 percent ; encounter rate
+	; morn
+	wildmon 25, FARFETCH_D
+	wildmon 28, FARFETCH_D
+	wildmon 25, NIDORINO
+	wildmon 25, NIDORINA
+	wildmon 27, FARFETCH_D
+	wildmon 29, SKIPLOOM
+	wildmon 31, CHANSEY
+	; day
+	wildmon 25, FARFETCH_D
+	wildmon 28, FARFETCH_D
+	wildmon 25, NIDORINO
+	wildmon 25, NIDORINA
+	wildmon 27, FARFETCH_D
+	wildmon 29, SKIPLOOM
+	wildmon 31, CHANSEY
+	; nite
+	wildmon 25, FARFETCH_D
+	wildmon 28, FARFETCH_D
+	wildmon 25, VENONAT
+	wildmon 25, QUAGSIRE
+	wildmon 27, FARFETCH_D
+	wildmon 29, QUAGSIRE
+	wildmon 31, CHANSEY
+	end_grass_wildmons
+
+	db -1 ; end
+
+; Seel swarm
+SeelSwarmWildMons:
+	def_grass_wildmons SEAFOAM_ISLANDS_B1F
+	db 6 percent ; encounter rate
+	; morn
+	wildmon 32, SEEL
+	wildmon 34, SEEL
+	wildmon 34, GOLBAT
+	wildmon 28, PSYDUCK
+	wildmon 34, GOLDUCK
+	wildmon 28, ZUBAT
+	wildmon 29, ZUBAT
+	; day
+	wildmon 32, SEEL
+	wildmon 34, SEEL
+	wildmon 34, GOLBAT
+	wildmon 28, PSYDUCK
+	wildmon 34, GOLDUCK
+	wildmon 28, ZUBAT
+	wildmon 29, ZUBAT
+	; nite
+	wildmon 32, SEEL
+	wildmon 34, SEEL
+	wildmon 34, GOLBAT
+	wildmon 28, PSYDUCK
+	wildmon 35, GOLDUCK
+	wildmon 28, ZUBAT
+	wildmon 29, ZUBAT
+	end_grass_wildmons
+
+	def_grass_wildmons SEAFOAM_ISLANDS_B2F
+	db 6 percent ; encounter rate
+	; morn
+	wildmon 33, SEEL
+	wildmon 35, SEEL
+	wildmon 35, GOLBAT
+	wildmon 30, PSYDUCK
+	wildmon 35, GOLDUCK
+	wildmon 29, ZUBAT
+	wildmon 30, ZUBAT
+	; day
+	wildmon 33, SEEL
+	wildmon 35, SEEL
+	wildmon 35, GOLBAT
+	wildmon 30, PSYDUCK
+	wildmon 35, GOLDUCK
+	wildmon 29, ZUBAT
+	wildmon 30, ZUBAT
+	; nite
+	wildmon 33, SEEL
+	wildmon 35, SEEL
+	wildmon 35, GOLBAT
+	wildmon 30, PSYDUCK
+	wildmon 35, GOLDUCK
+	wildmon 29, ZUBAT
+	wildmon 30, ZUBAT
+	end_grass_wildmons
+
+	def_grass_wildmons SEAFOAM_ISLANDS_B3F
+	db 6 percent ; encounter rate
+	; morn
+	wildmon 34, SEEL
+	wildmon 36, SEEL
+	wildmon 32, PSYDUCK
+	wildmon 36, GOLDUCK
+	wildmon 36, DEWGONG
+	wildmon 36, GOLBAT
+	wildmon 32, ZUBAT
+	; day
+	wildmon 34, SEEL
+	wildmon 36, SEEL
+	wildmon 32, PSYDUCK
+	wildmon 36, GOLDUCK
+	wildmon 36, DEWGONG
+	wildmon 36, GOLBAT
+	wildmon 32, ZUBAT
+	; nite
+	wildmon 34, SEEL
+	wildmon 36, SEEL
+	wildmon 32, PSYDUCK
+	wildmon 36, GOLDUCK
+	wildmon 36, DEWGONG
+	wildmon 36, GOLBAT
+	wildmon 32, ZUBAT
+	end_grass_wildmons
+
+	def_grass_wildmons SEAFOAM_ISLANDS_B4F
+	db 6 percent ; encounter rate
+	; morn
+	wildmon 38, SEEL
+	wildmon 34, SEEL
+	wildmon 34, PSYDUCK
+	wildmon 38, GOLDUCK
+	wildmon 40, DEWGONG
+	wildmon 40, JYNX
+	wildmon 40, JYNX
+	; day
+	wildmon 38, SEEL
+	wildmon 34, SEEL
+	wildmon 34, PSYDUCK
+	wildmon 38, GOLDUCK
+	wildmon 40, DEWGONG
+	wildmon 40, JYNX
+	wildmon 40, JYNX
+	; nite
+	wildmon 38, SEEL
+	wildmon 34, SEEL
+	wildmon 34, PSYDUCK
+	wildmon 38, GOLDUCK
+	wildmon 40, DEWGONG
+	wildmon 40, JYNX
+	wildmon 40, JYNX
+	end_grass_wildmons
+
+	db -1 ; end
+
+; Rhyhorn swarm
+RhyhornSwarmWildMons:
+	def_grass_wildmons VICTORY_ROAD_1F
+	db 6 percent ; encounter rate
+	; morn
+	wildmon 34, RHYHORN
+	wildmon 32, RHYHORN
+	wildmon 33, DONPHAN
+	wildmon 34, RHYHORN
+	wildmon 35, URSARING
+	wildmon 35, GOLBAT
+	wildmon 36, RHYDON
+	; day
+	wildmon 34, RHYHORN
+	wildmon 32, RHYHORN
+	wildmon 33, DONPHAN
+	wildmon 34, RHYHORN
+	wildmon 35, URSARING
+	wildmon 35, GOLBAT
+	wildmon 36, RHYDON
+	; nite
+	wildmon 34, RHYHORN
+	wildmon 32, RHYHORN
+	wildmon 33, DONPHAN
+	wildmon 34, RHYHORN
+	wildmon 35, URSARING
+	wildmon 35, GOLBAT
+	wildmon 36, RHYDON
+	end_grass_wildmons
+
+	db -1 ; end
+
+; Mr.Mime swarm
+MrMimeSwarmWildMons:
+	def_grass_wildmons ROUTE_21
+	db 6 percent ; encounter rate
+	; morn
+	wildmon 27, MR__MIME
+	wildmon 25, MR__MIME
+	wildmon 35, TANGELA
+	wildmon 20, RATICATE
+	wildmon 30, TANGELA
+	wildmon 28, MR__MIME
+	wildmon 28, MR__MIME
+	; day
+	wildmon 27, MR__MIME
+	wildmon 25, MR__MIME
+	wildmon 35, TANGELA
+	wildmon 20, RATICATE
+	wildmon 28, MR__MIME
+	wildmon 30, MR__MIME
+	wildmon 30, MR__MIME
+	; nite
+	wildmon 27, MR__MIME
+	wildmon 25, MR__MIME
+	wildmon 35, TANGELA
+	wildmon 20, RATICATE
+	wildmon 30, TANGELA
+	wildmon 28, MR__MIME
+	wildmon 28, MR__MIME
+	end_grass_wildmons
+
+	db -1 ; end
+
+; Raticate swarm
+RaticateSwarmWildMons:
+	def_grass_wildmons ROUTE_1
+	db 10 percent ; encounter rate
+	; morn
+	wildmon 6, RATICATE
+	wildmon 8, RATICATE
+	wildmon 4, SENTRET
+	wildmon 4, PIDGEY
+	wildmon 7, RATICATE
+	wildmon 6, PIDGEY
+	wildmon 7, FURRET
+	; day
+	wildmon 6, RATICATE
+	wildmon 8, RATICATE
+	wildmon 4, SENTRET
+	wildmon 4, PIDGEY
+	wildmon 7, RATICATE
+	wildmon 6, PIDGEY
+	wildmon 7, FURRET
+	; nite
+	wildmon 6, RATICATE
+	wildmon 8, RATICATE
+	wildmon 4, RATTATA
+	wildmon 4, HOOTHOOT
+	wildmon 7, RATICATE
+	wildmon 6, HOOTHOOT
+	wildmon 7, HOOTHOOT
+	end_grass_wildmons
+
+	db -1 ; end
+
+; Bulbasaur swarm
+BulbasaurSwarmWildMons:
+	def_grass_wildmons VIRIDIAN_FOREST
+	db 6 percent ; encounter rate
+	; morn
+	wildmon 3, CATERPIE
+	wildmon 3, WEEDLE
+	wildmon 5, METAPOD
+	wildmon 5, KAKUNA
+	wildmon 8, BULBASAUR
+	wildmon 8, BULBASAUR
+	wildmon 7, PIKACHU
+	; day
+	wildmon 3, CATERPIE
+	wildmon 3, WEEDLE
+	wildmon 5, METAPOD
+	wildmon 5, KAKUNA
+	wildmon 8, BULBASAUR
+	wildmon 8, BULBASAUR
+	wildmon 7, PIKACHU
+	; nite
+	wildmon 3, HOOTHOOT
+	wildmon 3, HOOTHOOT
+	wildmon 5, HOOTHOOT
+	wildmon 5, NOCTOWL
+	wildmon 8, BULBASAUR
+	wildmon 8, BULBASAUR
+	wildmon 7, PIKACHU
+	end_grass_wildmons
+
+	db -1 ; end
+
+; Charmander swarm
+CharmanderSwarmWildMons:
+	def_grass_wildmons ROUTE_22
+	db 10 percent ; encounter rate
+	; morn
+	wildmon 3, RATTATA
+	wildmon 3, SPEAROW
+	wildmon 5, SPEAROW
+	wildmon 4, DODUO
+	wildmon 8, CHARMANDER
+	wildmon 8, CHARMANDER
+	wildmon 6, PONYTA
+	; day
+	wildmon 3, RATTATA
+	wildmon 3, SPEAROW
+	wildmon 5, SPEAROW
+	wildmon 4, DODUO
+	wildmon 8, CHARMANDER
+	wildmon 8, CHARMANDER
+	wildmon 6, PONYTA
+	; nite
+	wildmon 3, RATTATA
+	wildmon 3, POLIWAG
+	wildmon 5, RATTATA
+	wildmon 4, POLIWAG
+	wildmon 8, CHARMANDER
+	wildmon 8, CHARMANDER
+	wildmon 6, PONYTA
+	end_grass_wildmons
+
+	db -1 ; end
+
+; Clefairy swarm
+ClefairySwarmWildMons:
+	def_grass_wildmons MOUNT_MOON_1F
+	db 6 percent ; encounter rate
+	; morn
+	wildmon 8, CLEFAIRY
+	wildmon 10, CLEFAIRY
+	wildmon 12, SANDSHREW
+	wildmon 12, PARAS
+	wildmon 11, ZUBAT
+	wildmon 10, GEODUDE
+	wildmon 12, GEODUDE
+	; day
+	wildmon 8, CLEFAIRY
+	wildmon 10, CLEFAIRY
+	wildmon 12, SANDSHREW
+	wildmon 12, PARAS
+	wildmon 11, ZUBAT
+	wildmon 10, GEODUDE
+	wildmon 12, GEODUDE
+	; nite
+	wildmon 8, CLEFAIRY
+	wildmon 10, CLEFAIRY
+	wildmon 12, SANDSHREW
+	wildmon 12, PARAS
+	wildmon 11, ZUBAT
+	wildmon 10, GEODUDE
+	wildmon 12, CLEFAIRY
+	end_grass_wildmons
+
+	db -1 ; end
+
+; Noctowl swarm
+NoctowlSwarmWildMons:
+	def_grass_wildmons ROUTE_5
+	db 10 percent ; encounter rate
+	; morn
+	wildmon 15, NOCTOWL
+	wildmon 17, NOCTOWL
+	wildmon 15, SNUBBULL
+	wildmon 12, PIDGEY
+	wildmon 14, JIGGLYPUFF
+	wildmon 14, PIDGEOTTO
+	wildmon 14, ABRA
+	; day
+	wildmon 15, NOCTOWL
+	wildmon 17, NOCTOWL
+	wildmon 15, SNUBBULL
+	wildmon 12, PIDGEY
+	wildmon 14, JIGGLYPUFF
+	wildmon 14, PIDGEOTTO
+	wildmon 14, ABRA
+	; nite
+	wildmon 13, NOCTOWL
+	wildmon 15, NOCTOWL
+	wildmon 13, MEOWTH
+	wildmon 12, HOOTHOOT
+	wildmon 14, JIGGLYPUFF
+	wildmon 14, NOCTOWL
+	wildmon 14, ABRA
+	end_grass_wildmons
+
+	db -1 ; end
+
+; Abra swarm
+AbraSwarmWildMons:
+	def_grass_wildmons ROUTE_6
+	db 10 percent ; encounter rate
+	; morn
+	wildmon 10, ABRA
+	wildmon 11, ABRA
+	wildmon 17, BELLSPROUT
+	wildmon 17, MAGNEMITE
+	wildmon 12, ABRA
+	wildmon 17, SNUBBULL
+	wildmon 17, GRANBULL
+	; day
+	wildmon 10, ABRA
+	wildmon 11, ABRA
+	wildmon 17, BELLSPROUT
+	wildmon 17, MAGNEMITE
+	wildmon 12, ABRA
+	wildmon 17, SNUBBULL
+	wildmon 17, GRANBULL
+	; nite
+	wildmon 10, ABRA
+	wildmon 11, ABRA
+	wildmon 17, ODDISH
+	wildmon 17, MAGNEMITE
+	wildmon 12, ABRA
+	wildmon 17, MEOWTH
+	wildmon 17, PSYDUCK
+	end_grass_wildmons
+
+	db -1 ; end
+
+; Pidgeotto swarm
+PidgeottoSwarmWildMons:
+	def_grass_wildmons ROUTE_11
+	db 10 percent ; encounter rate
+	; morn
+	wildmon 16, PIDGEOTTO
+	wildmon 20, PIDGEOTTO
+	wildmon 20, RATICATE
+	wildmon 19, MAGNEMITE
+	wildmon 17, PIDGEOTTO
+	wildmon 18, HOPPIP
+	wildmon 18, HOPPIP
+	; day
+	wildmon 16, PIDGEOTTO
+	wildmon 20, PIDGEOTTO
+	wildmon 20, RATICATE
+	wildmon 19, MAGNEMITE
+	wildmon 17, PIDGEOTTO
+	wildmon 18, HOPPIP
+	wildmon 18, HOPPIP
+	; nite
+	wildmon 16, PIDGEOTTO
+	wildmon 20, PIDGEOTTO
+	wildmon 16, DROWZEE
+	wildmon 19, MAGNEMITE
+	wildmon 20, RATICATE
+	wildmon 18, HYPNO
+	wildmon 18, HYPNO
+	end_grass_wildmons
+
+	db -1 ; end
+
+; Squirtle swarm
+SquirtleSwarmWildMons:
+	def_grass_wildmons ROUTE_25
+	db 10 percent ; encounter rate
+	; morn
+	wildmon 13, PIDGEY
+	wildmon 15, BELLSPROUT
+	wildmon 16, VENONAT
+	wildmon 12, ABRA
+	wildmon 8, SQUIRTLE
+	wildmon 8, SQUIRTLE
+	wildmon 16, WEEPINBELL
+	; day
+	wildmon 13, PIDGEY
+	wildmon 15, BELLSPROUT
+	wildmon 16, VENONAT
+	wildmon 12, ABRA
+	wildmon 8, SQUIRTLE
+	wildmon 8, SQUIRTLE
+	wildmon 16, WEEPINBELL
+	; nite
+	wildmon 13, VENONAT
+	wildmon 15, ODDISH
+	wildmon 16, VENOMOTH
+	wildmon 12, ABRA
+	wildmon 8, SQUIRTLE
+	wildmon 8, SQUIRTLE
+	wildmon 16, BELLSPROUT
+	end_grass_wildmons
+
+	db -1 ; end
+
+; Kangaskhan swarm
+KangaskhanSwarmWildMons:
+	def_grass_wildmons ROCK_TUNNEL_1F
+	db 6 percent ; encounter rate
+	; morn
+	wildmon 15, KANGASKHAN
+	wildmon 16, KANGASKHAN
+	wildmon 17, MACHOP
+	wildmon 17, ZUBAT
+	wildmon 21, MACHOKE
+	wildmon 17, CUBONE
+	wildmon 19, CUBONE
+	; day
+	wildmon 15, KANGASKHAN
+	wildmon 16, KANGASKHAN
+	wildmon 17, MACHOP
+	wildmon 17, ZUBAT
+	wildmon 21, MACHOKE
+	wildmon 17, CUBONE
+	wildmon 19, CUBONE
+	; nite
+	wildmon 15, KANGASKHAN
+	wildmon 16, KANGASKHAN
+	wildmon 17, MACHOP
+	wildmon 17, ZUBAT
+	wildmon 21, MACHOKE
+	wildmon 17, CUBONE
+	wildmon 19, CUBONE
+	end_grass_wildmons
+
+	def_grass_wildmons ROCK_TUNNEL_B1F
+	db 6 percent ; encounter rate
+	; morn
+	wildmon 17, KANGASKHAN
+	wildmon 20, KANGASKHAN
+	wildmon 17, CUBONE
+	wildmon 18, ONIX
+	wildmon 22, KANGASKHAN
+	wildmon 20, MAROWAK
+	wildmon 22, MAROWAK
+	; day
+	wildmon 17, KANGASKHAN
+	wildmon 20, KANGASKHAN
+	wildmon 17, CUBONE
+	wildmon 18, ONIX
+	wildmon 22, KANGASKHAN
+	wildmon 20, MAROWAK
+	wildmon 22, MAROWAK
+	; nite
+	wildmon 17, KANGASKHAN
+	wildmon 20, KANGASKHAN
+	wildmon 17, CUBONE
+	wildmon 18, ONIX
+	wildmon 22, KANGASKHAN
+	wildmon 20, MAROWAK
+	wildmon 22, MAROWAK
+	end_grass_wildmons
+
+	db -1 ; end
+
+; Electabuzz swarm
+ElectabuzzSwarmWildMons:
+	def_grass_wildmons ROUTE_10_SOUTH
+	db 10 percent ; encounter rate
+	; morn
+	wildmon 33, ELECTABUZZ
+	wildmon 34, ELECTABUZZ
+	wildmon 33, VOLTORB
+	wildmon 35, SPEAROW
+	wildmon 37, ELECTABUZZ
+	wildmon 33, FEAROW
+	wildmon 36, RATICATE
+	; day
+	wildmon 33, ELECTABUZZ
+	wildmon 34, ELECTABUZZ
+	wildmon 33, VOLTORB
+	wildmon 35, SPEAROW
+	wildmon 37, ELECTABUZZ
+	wildmon 33, FEAROW
+	wildmon 36, RATICATE
+	; nite
+	wildmon 33, ELECTABUZZ
+	wildmon 33, VOLTORB
+	wildmon 35, QUAGSIRE
+	wildmon 37, ELECTABUZZ
+	wildmon 34, ELECTABUZZ
+	wildmon 33, QUAGSIRE
+	wildmon 36, RATICATE
+	end_grass_wildmons
+
+	db -1 ; end
+
+; Tyrogue swarm
+TyrogueSwarmWildMons:
+	def_grass_wildmons ROUTE_8
+	db 10 percent ; encounter rate
+	; morn
+	wildmon 19, TYROGUE
+	wildmon 16, TYROGUE
+	wildmon 22, SNUBBULL
+	wildmon 24, PIDGEOTTO
+	wildmon 18, TYROGUE
+	wildmon 20, KADABRA
+	wildmon 27, KADABRA
+	; day
+	wildmon 19, TYROGUE
+	wildmon 16, TYROGUE
+	wildmon 22, SNUBBULL
+	wildmon 24, PIDGEOTTO
+	wildmon 18, TYROGUE
+	wildmon 20, KADABRA
+	wildmon 27, KADABRA
+	; nite
+	wildmon 19, TYROGUE
+	wildmon 16, TYROGUE
+	wildmon 22, MEOWTH
+	wildmon 24, NOCTOWL
+	wildmon 18, TYROGUE
+	wildmon 24, HAUNTER
+	wildmon 27, KADABRA
+	end_grass_wildmons
+
+	db -1 ; end
+
+; Grimer swarm
+GrimerSwarmWildMons:
+	def_grass_wildmons ROUTE_17_SOUTH
+	db 10 percent ; encounter rate
+	; morn
+	wildmon 26, GRIMER
+	wildmon 28, GRIMER
+	wildmon 27, FEAROW
+	wildmon 29, GRIMER
+	wildmon 29, SLUGMA
+	wildmon 30, MUK
+	wildmon 32, MUK
+	; day
+	wildmon 26, GRIMER
+	wildmon 28, GRIMER
+	wildmon 27, FEAROW
+	wildmon 29, GRIMER
+	wildmon 29, SLUGMA
+	wildmon 30, MUK
+	wildmon 32, MUK
+	; nite
+	wildmon 26, GRIMER
+	wildmon 27, GRIMER
+	wildmon 28, GRIMER
+	wildmon 29, MUK
+	wildmon 29, SLUGMA
+	wildmon 30, MUK
+	wildmon 32, MUK
+	end_grass_wildmons
+
+	db -1 ; end
+
+; Exeggcute swarm
+ExeggcuteSwarmWildMons:
+	def_grass_wildmons ROUTE_15
+	db 10 percent ; encounter rate
+	; morn
+	wildmon 26, EXEGGCUTE
+	wildmon 28, EXEGGCUTE
+	wildmon 28, NIDORINO
+	wildmon 28, NIDORINA
+	wildmon 28, HOPPIP
+	wildmon 30, SKIPLOOM
+	wildmon 30, CHANSEY
+	; day
+	wildmon 26, EXEGGCUTE
+	wildmon 28, EXEGGCUTE
+	wildmon 28, NIDORINO
+	wildmon 28, NIDORINA
+	wildmon 28, HOPPIP
+	wildmon 30, SKIPLOOM
+	wildmon 30, CHANSEY
+	; nite
+	wildmon 26, EXEGGCUTE
+	wildmon 28, EXEGGCUTE
+	wildmon 28, VENONAT
+	wildmon 32, NOCTOWL
+	wildmon 28, VENOMOTH
+	wildmon 30, QUAGSIRE
+	wildmon 30, CHANSEY
+	end_grass_wildmons
+
+	db -1 ; end
+
+; Nidorina swarm
+NidorinaSwarmWildMons:
+	def_grass_wildmons ROUTE_14
+	db 10 percent ; encounter rate
+	; morn
+	wildmon 28, NIDORINA
+	wildmon 28, NIDORINA
+	wildmon 28, NIDORINO
+	wildmon 30, PIDGEOTTO
+	wildmon 30, NIDORINA
+	wildmon 30, SKIPLOOM
+	wildmon 30, CHANSEY
+	; day
+	wildmon 28, NIDORINA
+	wildmon 28, NIDORINA
+	wildmon 28, NIDORINO
+	wildmon 30, PIDGEOTTO
+	wildmon 30, NIDORINA
+	wildmon 30, SKIPLOOM
+	wildmon 30, CHANSEY
+	; nite
+	wildmon 28, NIDORINA
+	wildmon 28, NIDORINA
+	wildmon 28, QUAGSIRE
+	wildmon 30, NOCTOWL
+	wildmon 28, NIDORINO
+	wildmon 30, QUAGSIRE
+	wildmon 30, CHANSEY
+	end_grass_wildmons
+
+	db -1 ; end
+
+; Chansey swarm
+ChanseySwarmWildMons:
+	def_grass_wildmons ROUTE_13
+	db 10 percent ; encounter rate
+	; morn
+	wildmon 28, CHANSEY
+	wildmon 25, CHANSEY
+	wildmon 25, NIDORINO
+	wildmon 25, NIDORINA
+	wildmon 27, FARFETCH_D
+	wildmon 29, SKIPLOOM
+	wildmon 31, CHANSEY
+	; day
+	wildmon 28, CHANSEY
+	wildmon 25, CHANSEY
+	wildmon 25, NIDORINO
+	wildmon 25, NIDORINA
+	wildmon 27, FARFETCH_D
+	wildmon 29, SKIPLOOM
+	wildmon 31, CHANSEY
+	; nite
+	wildmon 28, CHANSEY
+	wildmon 25, CHANSEY
+	wildmon 25, VENONAT
+	wildmon 25, QUAGSIRE
+	wildmon 27, FARFETCH_D
+	wildmon 29, QUAGSIRE
+	wildmon 31, CHANSEY
+	end_grass_wildmons
+
+	db -1 ; end
+
+; Jynx swarm
+JynxSwarmWildMons:
+	def_grass_wildmons SEAFOAM_ISLANDS_B1F
+	db 6 percent ; encounter rate
+	; morn
+	wildmon 32, JYNX
+	wildmon 34, JYNX
+	wildmon 34, SEEL
+	wildmon 28, PSYDUCK
+	wildmon 34, GOLDUCK
+	wildmon 28, GOLBAT
+	wildmon 29, ZUBAT
+	; day
+	wildmon 32, JYNX
+	wildmon 34, JYNX
+	wildmon 34, SEEL
+	wildmon 28, PSYDUCK
+	wildmon 34, GOLDUCK
+	wildmon 28, GOLBAT
+	wildmon 29, ZUBAT
+	; nite
+	wildmon 32, JYNX
+	wildmon 34, JYNX
+	wildmon 34, SEEL
+	wildmon 28, PSYDUCK
+	wildmon 34, GOLDUCK
+	wildmon 28, GOLBAT
+	wildmon 29, ZUBAT
+	end_grass_wildmons
+
+	def_grass_wildmons SEAFOAM_ISLANDS_B2F
+	db 6 percent ; encounter rate
+	; morn
+	wildmon 33, JYNX
+	wildmon 35, JYNX
+	wildmon 35, SEEL
+	wildmon 30, PSYDUCK
+	wildmon 35, GOLDUCK
+	wildmon 29, GOLBAT
+	wildmon 30, ZUBAT
+	; day
+	wildmon 33, JYNX
+	wildmon 35, JYNX
+	wildmon 35, SEEL
+	wildmon 30, PSYDUCK
+	wildmon 35, GOLDUCK
+	wildmon 29, GOLBAT
+	wildmon 30, ZUBAT
+	; nite
+	wildmon 33, JYNX
+	wildmon 35, JYNX
+	wildmon 35, SEEL
+	wildmon 30, PSYDUCK
+	wildmon 35, GOLDUCK
+	wildmon 29, GOLBAT
+	wildmon 30, ZUBAT
+	end_grass_wildmons
+
+	def_grass_wildmons SEAFOAM_ISLANDS_B3F
+	db 6 percent ; encounter rate
+	; morn
+	wildmon 36, JYNX
+	wildmon 36, JYNX
+	wildmon 36, DEWGONG
+	wildmon 36, GOLDUCK
+	wildmon 32, PSYDUCK
+	wildmon 34, SEEL
+	wildmon 32, ZUBAT
+	; day
+	wildmon 36, JYNX
+	wildmon 36, JYNX
+	wildmon 36, DEWGONG
+	wildmon 36, GOLDUCK
+	wildmon 32, PSYDUCK
+	wildmon 34, SEEL
+	wildmon 32, ZUBAT
+	; nite
+	wildmon 36, JYNX
+	wildmon 36, JYNX
+	wildmon 36, DEWGONG
+	wildmon 36, GOLDUCK
+	wildmon 32, PSYDUCK
+	wildmon 34, SEEL
+	wildmon 32, ZUBAT
+	end_grass_wildmons
+
+	def_grass_wildmons SEAFOAM_ISLANDS_B4F
+	db 6 percent ; encounter rate
+	; morn
+	wildmon 38, JYNX
+	wildmon 36, JYNX
+	wildmon 38, DEWGONG
+	wildmon 38, GOLDUCK
+	wildmon 40, JYNX
+	wildmon 34, SEEL
+	wildmon 40, GOLBAT
+	; day
+	wildmon 38, JYNX
+	wildmon 36, JYNX
+	wildmon 38, DEWGONG
+	wildmon 38, GOLDUCK
+	wildmon 40, JYNX
+	wildmon 34, SEEL
+	wildmon 40, GOLBAT
+	; nite
+	wildmon 38, JYNX
+	wildmon 36, JYNX
+	wildmon 38, DEWGONG
+	wildmon 38, GOLDUCK
+	wildmon 40, JYNX
+	wildmon 34, SEEL
+	wildmon 40, GOLBAT
+	end_grass_wildmons
+
+	db -1 ; end
+
 ; Yanma swarm
 YanmaSwarmWildMons:
 	def_grass_wildmons ROUTE_35

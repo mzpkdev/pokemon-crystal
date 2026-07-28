@@ -123,17 +123,53 @@ LandSwarmProfilePointers:
 	dw OnixSwarmWildMons
 	dw SneaselSwarmWildMons
 	dw SkarmorySwarmWildMons
-	rept NUM_SWARM_PROFILES - 52
-		dw 0
-	endr
+	dw GolbatSwarmWildMons
+	dw DoduoSwarmWildMons
+	dw FurretSwarmWildMons
+	dw PikachuSwarmWildMons
+	dw MagmarSwarmWildMons
+	dw GeodudeSwarmWildMons
+	dw JigglypuffSwarmWildMons
+	dw 0
+	dw MeowthSwarmWildMons
+	dw FearowSwarmWildMons
+	dw CuboneSwarmWildMons
+	dw MurkrowSwarmWildMons
+	dw HaunterSwarmWildMons
+	dw SlugmaSwarmWildMons
+	dw VoltorbSwarmWildMons
+	dw NidorinoSwarmWildMons
+	dw FarfetchDSwarmWildMons
+	dw 0
+	dw SeelSwarmWildMons
+	dw RhyhornSwarmWildMons
+	dw MrMimeSwarmWildMons
+	dw RaticateSwarmWildMons
+	dw BulbasaurSwarmWildMons
+	dw CharmanderSwarmWildMons
+	dw ClefairySwarmWildMons
+	dw NoctowlSwarmWildMons
+	dw AbraSwarmWildMons
+	dw PidgeottoSwarmWildMons
+	dw SquirtleSwarmWildMons
+	dw KangaskhanSwarmWildMons
+	dw ElectabuzzSwarmWildMons
+	dw TyrogueSwarmWildMons
+	dw GrimerSwarmWildMons
+	dw ExeggcuteSwarmWildMons
+	dw NidorinaSwarmWildMons
+	dw ChanseySwarmWildMons
+	dw 0
+	dw JynxSwarmWildMons
 	assert_table_length NUM_SWARM_PROFILES
 
 SurfSwarmProfilePointers:
 	table_width 2
-	dw 0
-	dw 0
-	dw 0
-	rept NUM_SWARM_PROFILES - 3
+	rept SWARM_PROFILE_POLIWAG
+		dw 0
+	endr
+	dw PoliwagSwarmWaterWildMons
+	rept NUM_SWARM_PROFILES - SWARM_PROFILE_POLIWAG - 1
 		dw 0
 	endr
 	assert_table_length NUM_SWARM_PROFILES
@@ -142,4 +178,7 @@ SurfSwarmProfilePointers:
 	assert BANK(LandSwarmProfilePointers) == BANK(DunsparceSwarmWildMons)
 	assert BANK(LandSwarmProfilePointers) == BANK(YanmaSwarmWildMons)
 	assert BANK(LandSwarmProfilePointers) == BANK(SkarmorySwarmWildMons)
+	assert BANK(LandSwarmProfilePointers) == BANK(GolbatSwarmWildMons)
+	assert BANK(LandSwarmProfilePointers) == BANK(JynxSwarmWildMons)
 	assert BANK(SurfSwarmProfilePointers) == BANK(SwarmWaterWildMons)
+	assert BANK(SurfSwarmProfilePointers) == BANK(PoliwagSwarmWaterWildMons)
