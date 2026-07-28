@@ -26,30 +26,45 @@ TiffanyPhoneScript1:
 
 TiffanyPhoneScript2:
 	gettrainername PICNICKER, TIFFANY1, STRING_BUFFER_3
-	farscall PhoneScript_Random4
-	ifequalfwd $0, TiffanysFamilyMembers
-	farscall PhoneScript_GreetPhone_Female
 	setval REMATCH_CONTACT_TIFFANY
 	special Special_CheckRematchPending
-	iftruefwd .Generic
+	iftruefwd .GatedCandidates
 	setval REMATCH_CONTACT_TIFFANY
 	special Special_CheckRematchScheduleUsed
-	iftruefwd .Generic
+	iftruefwd .GatedCandidates
 	checkflag ENGINE_TIFFANY_HAS_FAIRYFEATHER
-	iftruefwd .Generic
-	farscall PhoneScript_Random3
-	ifequalfwd $0, TiffanyWantsBattle
+	iftruefwd .GatedCandidates
 	checkevent EVENT_TIFFANY_GAVE_FAIRYFEATHER
-	iftruefwd .FairyFeather
-	farscall PhoneScript_Random2
-	ifequalfwd $0, TiffanyHasFairyFeather
+	iftruefwd .RepeatPolicy
+	setval PHONE_EVENT_CAP_REMATCH | PHONE_EVENT_CAP_GIFT | PHONE_EVENT_CAP_FLAVOR
+	special Special_StageRematchPhoneEventCandidates
+	sjumpfwd .SelectEvent
 
-.FairyFeather:
-	farscall PhoneScript_Random11
-	ifequalfwd $0, TiffanyHasFairyFeather
+.RepeatPolicy:
+	setval PHONE_EVENT_CAP_REMATCH | PHONE_EVENT_CAP_GIFT | PHONE_EVENT_CAP_FLAVOR | PHONE_EVENT_USE_REPEAT_POLICY
+	special Special_StageRematchPhoneEventCandidates
+	sjumpfwd .SelectEvent
 
-.Generic:
+.GatedCandidates:
+	setval PHONE_EVENT_CAP_FLAVOR
+	special Special_StageRematchPhoneEventCandidates
+
+.SelectEvent:
+	setval REMATCH_CONTACT_TIFFANY
+	special Special_SelectRematchContactPhoneEvent
+	ifequalfwd PHONE_EVENT_RESULT_FAMILY, TiffanysFamilyMembers
+	ifequalfwd PHONE_EVENT_REMATCH, .Rematch
+	ifequalfwd PHONE_EVENT_GIFT, .Gift
+	farscall PhoneScript_GreetPhone_Female
 	farsjump Phone_GenericCall_Female
+
+.Rematch:
+	farscall PhoneScript_GreetPhone_Female
+	sjumpfwd TiffanyWantsBattle
+
+.Gift:
+	farscall PhoneScript_GreetPhone_Female
+	sjumpfwd TiffanyHasFairyFeather
 
 TiffanyWantsBattle:
 	setval REMATCH_CONTACT_TIFFANY
