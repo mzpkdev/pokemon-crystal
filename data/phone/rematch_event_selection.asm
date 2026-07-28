@@ -44,13 +44,13 @@ RematchPhoneEventSelectionTables:
 	rept REMATCH_CONTACT_JAMIE - REMATCH_CONTACT_KYLE
 		rematch_phone_event_table SourBasicPhoneEventSelection
 	endr
-	rematch_phone_event_table ExtendedPhoneEventSelection ; JAMIE
+	rematch_phone_event_table SourBasicPhoneEventSelection ; JAMIE
 	rept REMATCH_CONTACT_AIDEN - REMATCH_CONTACT_TORIN
 		rematch_phone_event_table SourBasicPhoneEventSelection
 	endr
-	rept REMATCH_CONTACT_KYLER - REMATCH_CONTACT_AIDEN
-		rematch_phone_event_table ExtendedPhoneEventSelection
-	endr
+	rematch_phone_event_table SourBasicPhoneEventSelection ; AIDEN
+	rematch_phone_event_table SourBasicPhoneEventSelection ; DALE
+	rematch_phone_event_table SourBasicPhoneEventSelection ; REILLY
 	rematch_phone_event_table SourBasicPhoneEventSelection ; KYLER
 	assert_table_length NUM_REMATCH_CONTACTS
 

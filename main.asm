@@ -430,6 +430,7 @@ INCLUDE "data/phone/text/erin_overworld.asm"
 INCLUDE "data/phone/text/sourcrystal_reuse_batch.asm"
 INCLUDE "data/phone/text/route14_15_rematches.asm"
 INCLUDE "data/phone/text/route2_gift_pair.asm"
+INCLUDE "data/phone/text/cycling_road_rematches.asm"
 
 
 SECTION "bank2E", ROMX
@@ -492,6 +493,10 @@ INCLUDE "engine/phone/scripts/torin.asm"
 INCLUDE "engine/phone/scripts/billy.asm"
 INCLUDE "engine/phone/scripts/hillary.asm"
 INCLUDE "engine/phone/scripts/kay_and_tia.asm"
+INCLUDE "engine/phone/scripts/jamie.asm"
+INCLUDE "engine/phone/scripts/aiden.asm"
+INCLUDE "engine/phone/scripts/dale.asm"
+INCLUDE "engine/phone/scripts/reilly.asm"
 INCLUDE "engine/phone/scripts/generic_callee.asm"
 
 

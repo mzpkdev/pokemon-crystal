@@ -24,7 +24,7 @@ OfficerfJamieScript:
 	checktime 1 << NITE
 	iffalse_jumptextfaceplayer OfficerfJamieDaytimeText
 	checkevent EVENT_BEAT_OFFICERF_JAMIE
-	iftrue_jumptextfaceplayer OfficerfJamieAfterText
+	iftruefwd .Phone
 	faceplayer
 	opentext
 	special SaveMusic
@@ -37,7 +37,61 @@ OfficerfJamieScript:
 	startbattle
 	reloadmapafterbattle
 	setevent EVENT_BEAT_OFFICERF_JAMIE
+.Phone:
+	loadvar VAR_CALLERID, PHONE_OFFICERF_JAMIE
+	faceplayer
+	opentext
+	setval REMATCH_CONTACT_JAMIE
+	special Special_CheckRematchPending
+	iftruefwd .Rematch
+	checkcellnum PHONE_OFFICERF_JAMIE
+	iftrue_jumpopenedtext OfficerfJamieAfterText
+	checkevent EVENT_JAMIE_ASKED_FOR_PHONE_NUMBER
+	iftruefwd .AskAgain
+	writetext OfficerfJamieAfterText
+	promptbutton
+	setevent EVENT_JAMIE_ASKED_FOR_PHONE_NUMBER
+	writetext OfficerfJamieAskNumberText
+	sjumpfwd .Ask
+.AskAgain:
+	writetext OfficerfJamieAskAgainText
+.Ask:
+	askforphonenumber PHONE_OFFICERF_JAMIE
+	ifequalfwd PHONE_CONTACTS_FULL, .Full
+	ifequalfwd PHONE_CONTACT_REFUSED, .Declined
+	writetext OfficerfJamieAcceptedText
+	waitbutton
 	endtext
+.Full:
+	writetext OfficerfJamiePhoneFullText
+	waitbutton
+	endtext
+.Declined:
+	writetext OfficerfJamieDeclinedText
+	waitbutton
+	endtext
+.Rematch:
+	writetext OfficerfJamieRematchText
+	waitbutton
+	closetext
+	winlosstext OfficerfJamieBeatenText, 0
+	checkevent EVENT_BEAT_BLUE
+	iftruefwd .Fight3
+	checkflag ENGINE_FLYPOINT_PEWTER
+	iftruefwd .Fight2
+	loadtrainer OFFICERF, JAMIE
+	sjumpfwd .Battle
+.Fight2:
+	loadtrainer OFFICERF, JAMIE2
+	sjumpfwd .Battle
+.Fight3:
+	loadtrainer OFFICERF, JAMIE3
+.Battle:
+	startbattle
+	reloadmapafterbattle
+	setval REMATCH_CONTACT_JAMIE
+	special Special_ConsumeRematch
+	end
 
 OfficerfJamieSeenText:
 	text "Hey you! Are you"
@@ -63,6 +117,40 @@ OfficerfJamieDaytimeText:
 
 	para "Don't you get"
 	line "involved, got it?"
+	done
+
+OfficerfJamieAskNumberText:
+	text "I can notify you"
+	line "when I am ready"
+	cont "for our rematch."
+
+	para "May I register"
+	line "your phone number?"
+	done
+
+OfficerfJamieAskAgainText:
+	text "May I register"
+	line "your number now?"
+	done
+
+OfficerfJamieAcceptedText:
+	text "Thank you. I will"
+	line "call after patrol."
+	done
+
+OfficerfJamieDeclinedText:
+	text "Understood. Ride"
+	line "safely out there."
+	done
+
+OfficerfJamiePhoneFullText:
+	text "Your phone list"
+	line "is full."
+	done
+
+OfficerfJamieRematchText:
+	text "Right on time."
+	line "Let us begin!"
 	done
 
 CyclingRoadSignText:
