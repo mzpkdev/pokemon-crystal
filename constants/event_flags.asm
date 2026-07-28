@@ -566,6 +566,31 @@
 	const EVENT_KENJI_ASKED_FOR_PHONE_NUMBER
 	const EVENT_PARRY_ASKED_FOR_PHONE_NUMBER
 	const EVENT_ERIN_ASKED_FOR_PHONE_NUMBER
+	const EVENT_BRANDON_ASKED_FOR_PHONE_NUMBER
+	const EVENT_WALT_ASKED_FOR_PHONE_NUMBER
+	const EVENT_KRISE_ASKED_FOR_PHONE_NUMBER
+	const EVENT_ALFRED_ASKED_FOR_PHONE_NUMBER
+	const_skip ; formerly Brandon's berry state; now a daily engine flag
+	const_skip ; formerly Brandon's berry state; now a daily engine flag
+	const EVENT_DOUG_ASKED_FOR_PHONE_NUMBER
+	const EVENT_ROB_ASKED_FOR_PHONE_NUMBER
+	const_skip ; formerly Doug's berry state; now a daily engine flag
+	const_skip ; formerly Doug's berry state; now a daily engine flag
+	const_skip ; formerly Rob's berry state; now a daily engine flag
+	const_skip ; formerly Rob's berry state; now a daily engine flag
+	const EVENT_KYLE_ASKED_FOR_PHONE_NUMBER
+	const EVENT_TANNER_ASKED_FOR_PHONE_NUMBER
+	const EVENT_KENNY_ASKED_FOR_PHONE_NUMBER
+	const EVENT_TIM_AND_SUE_ASKED_FOR_PHONE_NUMBER
+	const EVENT_KYLER_ASKED_FOR_PHONE_NUMBER
+	const EVENT_TORIN_ASKED_FOR_PHONE_NUMBER
+	const EVENT_BILLY_ASKED_FOR_PHONE_NUMBER
+	const EVENT_HILLARY_ASKED_FOR_PHONE_NUMBER
+	const EVENT_KAY_AND_TIA_ASKED_FOR_PHONE_NUMBER
+	const EVENT_JAMIE_ASKED_FOR_PHONE_NUMBER
+	const EVENT_AIDEN_ASKED_FOR_PHONE_NUMBER
+	const EVENT_DALE_ASKED_FOR_PHONE_NUMBER
+	const EVENT_REILLY_ASKED_FOR_PHONE_NUMBER
 	const EVENT_BUENA_OFFERED_HER_PHONE_NUMBER_NO_BLUE_CARD
 	const EVENT_GINA_GAVE_LEAF_STONE
 	const EVENT_ALAN_GAVE_FIRE_STONE

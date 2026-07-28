@@ -291,13 +291,8 @@ PokegearPhone_CountSetBits:
 ; Returns result in wNumSetBits
 	push de
 	ld hl, wPhoneList
-	ld b, PHONE_FLAG_BASE_BYTES
+	ld b, PHONE_FLAG_BYTES
 	call CountSetBits
-	ld e, a
-	ld hl, wPhoneListExtension
-	ld b, PHONE_FLAG_EXTENSION_BYTES
-	call CountSetBits
-	add e
 	ld [wNumSetBits], a
 	pop de
 	ret

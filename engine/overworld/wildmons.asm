@@ -616,7 +616,8 @@ _GetWaterWildmonPointer:
 
 _SwarmWildmonCheck:
 ; Input: a = encounter method.
-; Return the active swarm's full encounter profile in hl, with carry set.
+; Return the current map's table from the active swarm profile in hl,
+; with carry set.
 	ld d, a
 	farcall IsCurrentMapActiveSwarm
 	jr c, _NoSwarmWildmon
@@ -625,31 +626,21 @@ _SwarmWildmonCheck:
 	ld a, BANK(SwarmData)
 	call GetFarByte
 	cp d
+	jr z, .method_matches
+	cp SWARM_METHOD_WATER
 	jr nz, _NoSwarmWildmon
+	ld a, d
+	cp SWARM_METHOD_SURF
+	jr nz, _NoSwarmWildmon
+.method_matches
 	ld bc, SWARMENTRY_PROFILE - SWARMENTRY_METHOD
 	add hl, bc
 	ld a, BANK(SwarmData)
 	call GetFarByte
 	cp NUM_SWARM_PROFILES
 	jr nc, _NoSwarmWildmon
-	add a
-	ld c, a
-	ld b, 0
-	ld a, d
-	cp SWARM_METHOD_LAND
-	ld hl, LandSwarmProfilePointers
-	jr z, .got_profile_table
-	cp SWARM_METHOD_SURF
-	ld hl, SurfSwarmProfilePointers
-	jr nz, _NoSwarmWildmon
-.got_profile_table
-	add hl, bc
-	ld a, [hli]
-	ld h, [hl]
-	ld l, a
-	ld a, h
-	or l
-	jr z, _NoSwarmWildmon
+	farcall LoadSwarmWildmonProfile
+	jr nc, _NoSwarmWildmon
 	ld a, [wActiveSwarm]
 	ldh [hEncounterSwarmID], a
 	scf
@@ -1239,27 +1230,3 @@ INCLUDE "data/wild/orange_grass.asm"
 
 OrangeWaterWildMons:
 INCLUDE "data/wild/orange_water.asm"
-
-SwarmGrassWildMons:
-INCLUDE "data/wild/swarm_grass.asm"
-
-SwarmWaterWildMons:
-INCLUDE "data/wild/swarm_water.asm"
-
-LandSwarmProfilePointers:
-	table_width 2
-	dw DunsparceSwarmWildMons
-	dw YanmaSwarmWildMons
-	dw 0
-	assert_table_length NUM_SWARM_PROFILES
-
-SurfSwarmProfilePointers:
-	table_width 2
-	dw 0
-	dw 0
-	dw 0
-	assert_table_length NUM_SWARM_PROFILES
-
-	assert BANK(LandSwarmProfilePointers) == BANK(DunsparceSwarmWildMons)
-	assert BANK(LandSwarmProfilePointers) == BANK(YanmaSwarmWildMons)
-	assert BANK(SurfSwarmProfilePointers) == BANK(SwarmWaterWildMons)

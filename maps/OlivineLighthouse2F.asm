@@ -23,11 +23,79 @@ TrainerGentlemanAlfred:
 	trainer GENTLEMAN, ALFRED, EVENT_BEAT_GENTLEMAN_ALFRED, GentlemanAlfredSeenText, GentlemanAlfredBeatenText, 0, GentlemanAlfredScript
 
 GentlemanAlfredScript:
-	endifjustbattled
+	loadvar VAR_CALLERID, PHONE_GENTLEMAN_ALFRED
+	opentext
+	setval REMATCH_CONTACT_ALFRED
+	special Special_CheckRematchPending
+	iftruefwd .Rematch
+	checkcellnum PHONE_GENTLEMAN_ALFRED
+	iftruefwd .AfterBattle
+	checkevent EVENT_ALFRED_ASKED_FOR_PHONE_NUMBER
+	iftruefwd .AskAgain
+	scall .WriteAfterText
+	promptbutton
+	setevent EVENT_ALFRED_ASKED_FOR_PHONE_NUMBER
+	writetext AlfredAskNumberText
+	sjumpfwd .Ask
+.AskAgain:
+	writetext AlfredAskAgainText
+.Ask:
+	askforphonenumber PHONE_GENTLEMAN_ALFRED
+	ifequalfwd $1, .Full
+	ifequalfwd $2, .Declined
+	writetext AlfredAcceptedText
+	waitbutton
+	endtext
+.Full:
+	writetext AlfredPhoneFullText
+	waitbutton
+	endtext
+.Declined:
+	writetext AlfredDeclinedText
+	waitbutton
+	endtext
+.AfterBattle:
 	checkevent EVENT_JASMINE_RETURNED_TO_GYM
-	iftrue_jumptextfaceplayer GentlemanAlfredFinalText
-	jumpthistextfaceplayer
+	iftrue_jumpopenedtext GentlemanAlfredFinalText
+	jumpopenedtext GentlemanAlfredConcernText
+.WriteAfterText:
+	checkevent EVENT_JASMINE_RETURNED_TO_GYM
+	iftruefwd .WriteFinal
+	writetext GentlemanAlfredConcernText
+	sjumpfwd .TextDone
+.WriteFinal:
+	writetext GentlemanAlfredFinalText
+.TextDone:
+	end
+.Rematch:
+	writetext AlfredRematchText
+	waitbutton
+	closetext
+	winlosstext GentlemanAlfredBeatenText, 0
+	checkevent EVENT_RESTORED_POWER_TO_KANTO
+	iftruefwd .Fight4
+	checkevent EVENT_BEAT_ELITE_FOUR
+	iftruefwd .Fight3
+	checkevent EVENT_CLEARED_RADIO_TOWER
+	iftruefwd .Fight2
+	loadtrainer GENTLEMAN, ALFRED
+	sjumpfwd .Battle
+.Fight2:
+	loadtrainer GENTLEMAN, ALFRED2
+	sjumpfwd .Battle
+.Fight3:
+	loadtrainer GENTLEMAN, ALFRED3
+	sjumpfwd .Battle
+.Fight4:
+	loadtrainer GENTLEMAN, ALFRED4
+.Battle:
+	startbattle
+	reloadmapafterbattle
+	setval REMATCH_CONTACT_ALFRED
+	special Special_ConsumeRematch
+	end
 
+GentlemanAlfredConcernText:
 	text "Up top is a #-"
 	line "mon that keeps the"
 	cont "Lighthouse lit."
@@ -199,6 +267,30 @@ GentlemanAlfredFinalText:
 
 	para "You've done us a"
 	line "real service!"
+	done
+
+AlfredAskNumberText:
+	text "May I register my"
+	line "number with you?"
+	done
+AlfredAskAgainText:
+	text "Would you consider"
+	line "my number now?"
+	done
+AlfredAcceptedText:
+	text "Splendid. I shall"
+	line "call for rematches"
+	done
+AlfredPhoneFullText:
+	text "Your phone appears"
+	line "to be full."
+	done
+AlfredDeclinedText:
+	text "Very well."
+	done
+AlfredRematchText:
+	text "Let us illuminate"
+	line "our skills!"
 	done
 
 SailorHueyGiveProteinText:

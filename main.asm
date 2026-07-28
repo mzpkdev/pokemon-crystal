@@ -31,7 +31,6 @@ SECTION "bank3", ROMX
 
 INCLUDE "engine/events/checktime.asm"
 INCLUDE "engine/events/specials.asm"
-INCLUDE "engine/events/swarms.asm"
 INCLUDE "engine/events/rematches.asm"
 INCLUDE "data/phone/rematch_schedules.asm"
 INCLUDE "engine/pokemon/health.asm"
@@ -44,6 +43,11 @@ INCLUDE "engine/pokemon/breedmon_level_growth.asm"
 INCLUDE "engine/events/bug_contest/caught_mon.asm"
 INCLUDE "engine/events/bug_contest/display_stats.asm"
 INCLUDE "engine/items/item_effects.asm"
+
+
+SECTION "Swarms", ROMX
+
+INCLUDE "engine/events/swarms.asm"
 
 
 SECTION "Print Number", ROMX
@@ -153,6 +157,11 @@ INCLUDE "engine/movie/trade_animation.asm"
 SECTION "Wild Data", ROMX
 
 INCLUDE "engine/overworld/wildmons.asm"
+
+
+SECTION "Swarm Wild Data", ROMX
+
+INCLUDE "engine/overworld/swarm_wildmons.asm"
 
 
 SECTION "bankB", ROMX
@@ -374,8 +383,12 @@ INCLUDE "engine/phone/phone.asm"
 INCLUDE "engine/rtc/timeset.asm"
 INCLUDE "engine/pokegear/phone.asm"
 INCLUDE "engine/pokegear/pokegear.asm"
-INCLUDE "engine/events/fish.asm"
 INCLUDE "engine/games/slot_machine.asm"
+
+
+SECTION "Fishing", ROMX
+
+INCLUDE "engine/events/fish.asm"
 
 
 SECTION "Phone Scripts", ROMX
@@ -414,6 +427,10 @@ INCLUDE "data/phone/text/wilton_overworld.asm"
 INCLUDE "data/phone/text/kenji_overworld.asm"
 INCLUDE "data/phone/text/parry_overworld.asm"
 INCLUDE "data/phone/text/erin_overworld.asm"
+INCLUDE "data/phone/text/sourcrystal_reuse_batch.asm"
+INCLUDE "data/phone/text/route14_15_rematches.asm"
+INCLUDE "data/phone/text/route2_gift_pair.asm"
+INCLUDE "data/phone/text/cycling_road_rematches.asm"
 
 
 SECTION "bank2E", ROMX
@@ -461,6 +478,25 @@ INCLUDE "engine/phone/scripts/wilton.asm"
 INCLUDE "engine/phone/scripts/kenji.asm"
 INCLUDE "engine/phone/scripts/parry.asm"
 INCLUDE "engine/phone/scripts/erin.asm"
+INCLUDE "engine/phone/scripts/brandon.asm"
+INCLUDE "engine/phone/scripts/walt.asm"
+INCLUDE "engine/phone/scripts/krise.asm"
+INCLUDE "engine/phone/scripts/alfred.asm"
+INCLUDE "engine/phone/scripts/doug.asm"
+INCLUDE "engine/phone/scripts/rob.asm"
+INCLUDE "engine/phone/scripts/kyle.asm"
+INCLUDE "engine/phone/scripts/tanner.asm"
+INCLUDE "engine/phone/scripts/kenny.asm"
+INCLUDE "engine/phone/scripts/tim_and_sue.asm"
+INCLUDE "engine/phone/scripts/kyler.asm"
+INCLUDE "engine/phone/scripts/torin.asm"
+INCLUDE "engine/phone/scripts/billy.asm"
+INCLUDE "engine/phone/scripts/hillary.asm"
+INCLUDE "engine/phone/scripts/kay_and_tia.asm"
+INCLUDE "engine/phone/scripts/jamie.asm"
+INCLUDE "engine/phone/scripts/aiden.asm"
+INCLUDE "engine/phone/scripts/dale.asm"
+INCLUDE "engine/phone/scripts/reilly.asm"
 INCLUDE "engine/phone/scripts/generic_callee.asm"
 
 
@@ -645,6 +681,10 @@ INCLUDE "data/phone/text/parry_callee.asm"
 INCLUDE "data/phone/text/erin_callee.asm"
 INCLUDE "data/phone/text/unused.asm"
 INCLUDE "data/phone/text/liz_overworld.asm"
+
+SECTION "Extended Phone Greetings", ROMX
+
+INCLUDE "data/phone/text/sourcrystal_contact_greetings.asm"
 
 
 SECTION "Diploma", ROMX

@@ -75,7 +75,6 @@ NewGame:
 	call ResetWRAM_NotPlus
 _NewGame_FinishSetup:
 	call ResetWRAM
-	farcall EnsurePhoneStorageFormat
 	farcall ClearSavedObjPals
 	ld a, -1
 	ld [wOvercastRandomDay], a

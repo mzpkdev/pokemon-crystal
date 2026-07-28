@@ -290,13 +290,30 @@ PrepareOaksPkmnTalkSwarm:
 	cp SHAMOUTI_LANDMARK
 	jr nc, .no_swarm
 	ld b, SWARM_POOL_KANTO
-	jr .activate
+	ld c, SWARM_POOL_KANTO_ALT
+	jr .choose_class
 
 .johto
 	ld b, SWARM_POOL_JOHTO
+	ld c, SWARM_POOL_JOHTO_ALT
+.choose_class
+; Pick the normal or alternate regional class with equal probability. If the
+; preferred class has no unlocked entries, fall back to the other one.
+	call Random
+	and 1
+	jr z, .activate
+	ld a, b
+	ld b, c
+	ld c, a
 .activate
+	push bc
+	farcall TryActivateRandomSwarm
+	pop bc
+	jr nc, .activated
+	ld b, c
 	farcall TryActivateRandomSwarm
 	jr c, .no_swarm
+.activated
 	farcall GetActiveSwarm
 	jr c, .no_swarm
 

@@ -35,6 +35,23 @@ RematchPhoneEventSelectionTables:
 	rematch_phone_event_table WiltonPhoneEventSelection  ; WILTON
 	rematch_phone_event_table ParryPhoneEventSelection   ; PARRY
 	rematch_phone_event_table ErinPhoneEventSelection    ; ERIN
+	rematch_phone_event_table SourBasicPhoneEventSelection ; BRANDON
+	rematch_phone_event_table SourRarePhoneEventSelection  ; WALT
+	rematch_phone_event_table SourRarePhoneEventSelection  ; KRISE
+	rematch_phone_event_table SourBasicPhoneEventSelection ; ALFRED
+	rematch_phone_event_table BerryRematchPhoneEventSelection ; DOUG
+	rematch_phone_event_table BerryRematchPhoneEventSelection ; ROB
+	rept REMATCH_CONTACT_JAMIE - REMATCH_CONTACT_KYLE
+		rematch_phone_event_table SourBasicPhoneEventSelection
+	endr
+	rematch_phone_event_table SourBasicPhoneEventSelection ; JAMIE
+	rept REMATCH_CONTACT_AIDEN - REMATCH_CONTACT_TORIN
+		rematch_phone_event_table SourBasicPhoneEventSelection
+	endr
+	rematch_phone_event_table SourBasicPhoneEventSelection ; AIDEN
+	rematch_phone_event_table SourBasicPhoneEventSelection ; DALE
+	rematch_phone_event_table SourBasicPhoneEventSelection ; REILLY
+	rematch_phone_event_table SourBasicPhoneEventSelection ; KYLER
 	assert_table_length NUM_REMATCH_CONTACTS
 
 RematchPhoneEventRepeatSelectionTables:
@@ -65,6 +82,9 @@ RematchPhoneEventRepeatSelectionTables:
 	no_rematch_phone_event_table                               ; WILTON
 	no_rematch_phone_event_table                               ; PARRY
 	no_rematch_phone_event_table                               ; ERIN
+	rept NUM_REMATCH_CONTACTS - REMATCH_CONTACT_BRANDON
+		no_rematch_phone_event_table
+	endr
 	assert_table_length NUM_REMATCH_CONTACTS
 
 	assert REMATCH_CONTACT_HUEY == 1
@@ -230,4 +250,22 @@ ErinPhoneEventSelection:
 	phone_event_chance PHONE_EVENT_REMATCH, 2, 3
 	phone_event_fallback PHONE_EVENT_FLAVOR
 
-	assert BANK(JackPhoneEventSelection) == BANK(ErinPhoneEventSelection)
+ExtendedPhoneEventSelection:
+	phone_event_chance PHONE_EVENT_REMATCH, 1, 2
+	phone_event_fallback PHONE_EVENT_FLAVOR
+
+SourBasicPhoneEventSelection:
+	phone_event_chance PHONE_EVENT_REMATCH, 1, 3
+	phone_event_fallback PHONE_EVENT_FLAVOR
+
+SourRarePhoneEventSelection:
+	phone_event_chance PHONE_EVENT_REMATCH, 1, 3
+	phone_event_chance PHONE_EVENT_RARE_REPORT, 1, 4
+	phone_event_fallback PHONE_EVENT_FLAVOR
+
+BerryRematchPhoneEventSelection:
+	phone_event_chance PHONE_EVENT_GIFT, 1, 3
+	phone_event_chance PHONE_EVENT_REMATCH, 1, 3
+	phone_event_fallback PHONE_EVENT_FLAVOR
+
+	assert BANK(JackPhoneEventSelection) == BANK(BerryRematchPhoneEventSelection)

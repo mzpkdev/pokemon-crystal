@@ -1,0 +1,40 @@
+TimAndSuePhoneScript1:
+	gettrainername COUPLE, TIMANDSUE1, STRING_BUFFER_3
+	setval REMATCH_CONTACT_TIM_AND_SUE
+	special Special_CheckRematchPending
+	iftruefwd TimAndSuePhoneReminder
+	farwritetext TimAndSueAnswerPhoneText
+	promptbutton
+	setval REMATCH_CONTACT_TIM_AND_SUE
+	special Special_TryClaimRematchScheduleWindow
+	iftruefwd TimAndSuePhoneOffer
+	farwritetext TimAndSueLovePhoneText
+	end
+
+TimAndSuePhoneScript2:
+	gettrainername COUPLE, TIMANDSUE1, STRING_BUFFER_3
+	farwritetext TimAndSueGreetPhoneText
+	promptbutton
+	setval REMATCH_CONTACT_TIM_AND_SUE
+	special Special_CheckRematchPending
+	iftruefwd TimAndSuePhoneReminder
+	setval REMATCH_CONTACT_TIM_AND_SUE
+	special Special_CheckRematchScheduleUsed
+	iftruefwd .Flavor
+	setval PHONE_EVENT_CAP_REMATCH | PHONE_EVENT_CAP_FLAVOR
+	special Special_StageRematchPhoneEventCandidates
+	setval REMATCH_CONTACT_TIM_AND_SUE
+	special Special_SelectRematchContactPhoneEvent
+	ifequalfwd PHONE_EVENT_REMATCH, TimAndSuePhoneOffer
+.Flavor:
+	farwritetext TimAndSueLovePhoneText
+	end
+
+TimAndSuePhoneOffer:
+	setval REMATCH_CONTACT_TIM_AND_SUE
+	special Special_MarkRematchScheduleUsed
+	setval REMATCH_CONTACT_TIM_AND_SUE
+	special Special_OfferRematch
+TimAndSuePhoneReminder:
+	getlandmarkname ROUTE_13, STRING_BUFFER_5
+	farsjump PhoneScript_WantsToBattle_Female

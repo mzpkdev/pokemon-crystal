@@ -405,7 +405,6 @@ TryLoadSaveFile:
 	call VerifyChecksum
 	jr nz, .backup
 	call LoadPlayerData
-	farcall EnsurePhoneStorageFormat
 	call LoadPokemonData
 
 	; If a mid-save was aborted but main save data is good, finish it.
@@ -423,7 +422,6 @@ TryLoadSaveFile:
 	call VerifyBackupChecksum
 	jr nz, .corrupt
 	call LoadBackupPlayerData
-	farcall EnsurePhoneStorageFormat
 	call LoadBackupPokemonData
 	farcall RestorePartyMonMail
 	call LoadStorageSystem

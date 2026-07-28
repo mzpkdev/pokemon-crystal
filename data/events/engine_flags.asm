@@ -177,6 +177,12 @@ EngineFlags:
 	engine_flag wDailyPhoneItemFlags, 7 ; tully has water stone
 	engine_flag wDailyPhoneItemFlags, 8 ; tiffany has fairy feather
 	engine_flag wDailyPhoneItemFlags, 9 ; wilton has item (see EVENT_WILTON_HAS_*** in constants/event_flags.asm)
+	engine_flag wDailyPhoneItemFlags, 10 ; brandon has berry
+	engine_flag wDailyPhoneItemFlags, 11 ; brandon gave berry
+	engine_flag wDailyPhoneItemFlags, 12 ; doug has berry
+	engine_flag wDailyPhoneItemFlags, 13 ; doug gave berry
+	engine_flag wDailyPhoneItemFlags, 14 ; rob has berry
+	engine_flag wDailyPhoneItemFlags, 15 ; rob gave berry
 
 EngineRematchScheduleFlags:
 	engine_flag wDailyPhoneTimeOfDayFlags, REMATCH_SCHEDULE_JACK
@@ -203,6 +209,25 @@ EngineRematchScheduleFlags:
 	engine_flag wDailyPhoneTimeOfDayFlags, REMATCH_SCHEDULE_WILTON
 	engine_flag wDailyPhoneTimeOfDayFlags, REMATCH_SCHEDULE_PARRY
 	engine_flag wDailyPhoneTimeOfDayFlags, REMATCH_SCHEDULE_ERIN
+	engine_flag wDailyPhoneTimeOfDayFlags, REMATCH_SCHEDULE_BRANDON
+	engine_flag wDailyPhoneTimeOfDayFlags, REMATCH_SCHEDULE_WALT
+	engine_flag wDailyPhoneTimeOfDayFlags, REMATCH_SCHEDULE_KRISE
+	engine_flag wDailyPhoneTimeOfDayFlags, REMATCH_SCHEDULE_ALFRED
+	engine_flag wDailyPhoneTimeOfDayFlags, REMATCH_SCHEDULE_DOUG
+	engine_flag wDailyPhoneTimeOfDayFlags, REMATCH_SCHEDULE_ROB
+	engine_flag wDailyPhoneTimeOfDayFlags, REMATCH_SCHEDULE_KYLE
+	engine_flag wDailyPhoneTimeOfDayFlags, REMATCH_SCHEDULE_TANNER
+	engine_flag wDailyPhoneTimeOfDayFlags, REMATCH_SCHEDULE_KENNY
+	engine_flag wDailyPhoneTimeOfDayFlags, REMATCH_SCHEDULE_TIM_AND_SUE
+	engine_flag wDailyPhoneTimeOfDayFlags, REMATCH_SCHEDULE_JAMIE
+	engine_flag wDailyPhoneTimeOfDayFlags, REMATCH_SCHEDULE_TORIN
+	engine_flag wDailyPhoneTimeOfDayFlags, REMATCH_SCHEDULE_BILLY
+	engine_flag wDailyPhoneTimeOfDayFlags, REMATCH_SCHEDULE_HILLARY
+	engine_flag wDailyPhoneTimeOfDayFlags, REMATCH_SCHEDULE_KAY_AND_TIA
+	engine_flag wDailyPhoneTimeOfDayFlags, REMATCH_SCHEDULE_AIDEN
+	engine_flag wDailyPhoneTimeOfDayFlags, REMATCH_SCHEDULE_DALE
+	engine_flag wDailyPhoneTimeOfDayFlags, REMATCH_SCHEDULE_REILLY
+	engine_flag wDailyPhoneTimeOfDayFlags, REMATCH_SCHEDULE_KYLER
 .end
 	assert (.end - EngineRematchScheduleFlags) / 3 == NUM_ENGINE_REMATCH_SCHEDULES
 	assert .end - EngineRematchScheduleFlags == NUM_REMATCH_SCHEDULES * 3

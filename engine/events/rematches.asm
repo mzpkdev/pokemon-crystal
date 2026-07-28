@@ -1,33 +1,3 @@
-EnsurePhoneStorageFormat::
-; Saved extension bytes replaced historical padding. Clear them once when
-; loading an older save, then mark the new layout as initialized.
-	ld a, [wPhoneStorageMagic]
-	cp PHONE_STORAGE_MAGIC_1
-	jr nz, .initialize
-	ld a, [wPhoneStorageMagic + 1]
-	cp PHONE_STORAGE_MAGIC_2
-	jr nz, .initialize
-	ld a, [wPhoneStorageMagic + 2]
-	cp PHONE_STORAGE_MAGIC_3
-	jr nz, .initialize
-	ld a, [wPhoneStorageMagic + 3]
-	cp PHONE_STORAGE_MAGIC_4
-	ret z
-.initialize
-	xor a
-	ld hl, wPhoneStorageExtension
-	ld bc, wPhoneStorageMagic - wPhoneStorageExtension
-	call ByteFill
-	ld a, PHONE_STORAGE_MAGIC_1
-	ld [wPhoneStorageMagic], a
-	ld a, PHONE_STORAGE_MAGIC_2
-	ld [wPhoneStorageMagic + 1], a
-	ld a, PHONE_STORAGE_MAGIC_3
-	ld [wPhoneStorageMagic + 2], a
-	ld a, PHONE_STORAGE_MAGIC_4
-	ld [wPhoneStorageMagic + 3], a
-	ret
-
 CheckRematchPending::
 ; Check whether a contact has a pending rematch.
 ; Input:  a = REMATCH_CONTACT_* ID
@@ -196,12 +166,6 @@ GetRematchFlag:
 	ld e, a
 	ld d, 0
 	ld hl, wDailyRematchFlags
-	cp REMATCH_FLAG_BASE_BYTES
-	jr c, .got_byte
-	sub REMATCH_FLAG_BASE_BYTES
-	ld e, a
-	ld hl, wDailyRematchFlagsExtension
-.got_byte
 	add hl, de
 	ld a, c
 	and 7
@@ -237,12 +201,6 @@ GetRematchScheduleFlag:
 	ld e, a
 	ld d, 0
 	ld hl, wDailyPhoneTimeOfDayFlags
-	cp REMATCH_SCHEDULE_FLAG_BASE_BYTES
-	jr c, .got_byte
-	sub REMATCH_SCHEDULE_FLAG_BASE_BYTES
-	ld e, a
-	ld hl, wDailyPhoneTimeOfDayFlagsExtension
-.got_byte
 	add hl, de
 	ld a, c
 	and 7

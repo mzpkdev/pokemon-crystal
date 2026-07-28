@@ -17,13 +17,13 @@ Route17South_MapScriptHeader:
 	bg_event  9, 99, BGEVENT_JUMPTEXT, Route17SouthNotice2Text
 
 	def_object_events
-	object_event 12,  7, SPRITE_BIKER, SPRITEMOVEDATA_STANDING_LEFT, 0, 0, -1, 0, OBJECTTYPE_GENERICTRAINER, 4, GenericTrainerBikerDale, -1
-	object_event  4, 15, SPRITE_BIKER, SPRITEMOVEDATA_SPINRANDOM_FAST, 0, 0, -1, 0, OBJECTTYPE_GENERICTRAINER, 4, GenericTrainerBikerReilly, -1
+	object_event 12,  7, SPRITE_BIKER, SPRITEMOVEDATA_STANDING_LEFT, 0, 0, -1, 0, OBJECTTYPE_TRAINER, 4, TrainerBikerDale, -1
+	object_event  4, 15, SPRITE_BIKER, SPRITEMOVEDATA_SPINRANDOM_FAST, 0, 0, -1, 0, OBJECTTYPE_TRAINER, 4, TrainerBikerReilly, -1
 	object_event 18, 22, SPRITE_BIKER, SPRITEMOVEDATA_STANDING_LEFT, 0, 0, -1, 0, OBJECTTYPE_GENERICTRAINER, 3, GenericTrainerBikerJacob, -1
 	object_event  2, 35, SPRITE_BIKER, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, 0, OBJECTTYPE_GENERICTRAINER, 3, GenericTrainerBikerDan, -1
 	object_event  3, 54, SPRITE_BIKER, SPRITEMOVEDATA_SPINRANDOM_FAST, 0, 0, -1, 0, OBJECTTYPE_GENERICTRAINER, 3, GenericTrainerBikerGlenn, -1
 	object_event 11, 63, SPRITE_BIKER, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, 0, OBJECTTYPE_GENERICTRAINER, 2, GenericTrainerBikerJoel, -1
-	object_event 13, 70, SPRITE_BIKER, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, 0, OBJECTTYPE_GENERICTRAINER, 4, GenericTrainerBikerAiden, -1
+	object_event 13, 70, SPRITE_BIKER, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, 0, OBJECTTYPE_TRAINER, 4, TrainerBikerAiden, -1
 	object_event  3, 84, SPRITE_BIKER, SPRITEMOVEDATA_SPINRANDOM_FAST, 0, 0, -1, 0, OBJECTTYPE_GENERICTRAINER, 2, GenericTrainerBikerTeddy, -1
 	object_event  6, 126, SPRITE_BIKER, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, 0, OBJECTTYPE_SCRIPT, 0, ObjectEvent, -1
 	object_event  1, 27, SPRITE_ROUGHNECK, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, 0, OBJECTTYPE_GENERICTRAINER, 3, GenericTrainerRoughneckBrian, -1
@@ -35,11 +35,99 @@ Route17SouthAlwaysOnBikeCallback:
 	setflag ENGINE_DOWNHILL
 	endcallback
 
-GenericTrainerBikerReilly:
-	generictrainer BIKER, REILLY, EVENT_BEAT_BIKER_REILLY, BikerReillySeenText, BikerReillyBeatenText
+TrainerBikerReilly:
+	trainer BIKER, REILLY, EVENT_BEAT_BIKER_REILLY, BikerReillySeenText, BikerReillyBeatenText, 0, .Script
+.Script:
+	loadvar VAR_CALLERID, PHONE_BIKER_REILLY
+	opentext
+	setval REMATCH_CONTACT_REILLY
+	special Special_CheckRematchPending
+	iftruefwd .Rematch
+	checkcellnum PHONE_BIKER_REILLY
+	iftrue_jumpopenedtext .AfterBattleText
+	checkevent EVENT_REILLY_ASKED_FOR_PHONE_NUMBER
+	iftruefwd .AskAgain
+	writetext .AfterBattleText
+	promptbutton
+	setevent EVENT_REILLY_ASKED_FOR_PHONE_NUMBER
+	writetext .AskNumberText
+	sjumpfwd .Ask
+.AskAgain:
+	writetext .AskAgainText
+.Ask:
+	askforphonenumber PHONE_BIKER_REILLY
+	ifequalfwd PHONE_CONTACTS_FULL, .Full
+	ifequalfwd PHONE_CONTACT_REFUSED, .Declined
+	writetext .AcceptedText
+	waitbutton
+	endtext
+.Full:
+	writetext .PhoneFullText
+	waitbutton
+	endtext
+.Declined:
+	writetext .DeclinedText
+	waitbutton
+	endtext
+.Rematch:
+	writetext .RematchText
+	waitbutton
+	closetext
+	winlosstext BikerReillyBeatenText, 0
+	checkevent EVENT_BEAT_BLUE
+	iftruefwd .Fight3
+	checkflag ENGINE_FLYPOINT_PEWTER
+	iftruefwd .Fight2
+	loadtrainer BIKER, REILLY
+	sjumpfwd .Battle
+.Fight2:
+	loadtrainer BIKER, REILLY2
+	sjumpfwd .Battle
+.Fight3:
+	loadtrainer BIKER, REILLY3
+.Battle:
+	startbattle
+	reloadmapafterbattle
+	setval REMATCH_CONTACT_REILLY
+	special Special_ConsumeRematch
+	end
 
+.AfterBattleText:
 	text "Don't get cocky,"
 	line "you Johto punk!"
+	done
+
+.AskNumberText:
+	text "Let's settle this"
+	line "again sometime."
+
+	para "Trade phone"
+	line "numbers with me?"
+	done
+
+.AskAgainText:
+	text "Ready to trade"
+	line "phone numbers?"
+	done
+
+.AcceptedText:
+	text "Good. I'll call"
+	line "when I'm ready."
+	done
+
+.DeclinedText:
+	text "Your loss. Maybe"
+	line "next time."
+	done
+
+.PhoneFullText:
+	text "Your phone list"
+	line "is full."
+	done
+
+.RematchText:
+	text "Back for more?"
+	line "Let's ride!"
 	done
 
 BikerReillySeenText:
@@ -90,12 +178,101 @@ BikerGlennBeatenText:
 	line "awesome torque!"
 	done
 
-GenericTrainerBikerDale:
-	generictrainer BIKER, DALE, EVENT_BEAT_BIKER_DALE, BikerDaleSeenText, BikerDaleBeatenText
+TrainerBikerDale:
+	trainer BIKER, DALE, EVENT_BEAT_BIKER_DALE, BikerDaleSeenText, BikerDaleBeatenText, 0, .Script
+.Script:
+	loadvar VAR_CALLERID, PHONE_BIKER_DALE
+	opentext
+	setval REMATCH_CONTACT_DALE
+	special Special_CheckRematchPending
+	iftruefwd .Rematch
+	checkcellnum PHONE_BIKER_DALE
+	iftrue_jumpopenedtext .AfterBattleText
+	checkevent EVENT_DALE_ASKED_FOR_PHONE_NUMBER
+	iftruefwd .AskAgain
+	writetext .AfterBattleText
+	promptbutton
+	setevent EVENT_DALE_ASKED_FOR_PHONE_NUMBER
+	writetext .AskNumberText
+	sjumpfwd .Ask
+.AskAgain:
+	writetext .AskAgainText
+.Ask:
+	askforphonenumber PHONE_BIKER_DALE
+	ifequalfwd PHONE_CONTACTS_FULL, .Full
+	ifequalfwd PHONE_CONTACT_REFUSED, .Declined
+	writetext .AcceptedText
+	waitbutton
+	endtext
+.Full:
+	writetext .PhoneFullText
+	waitbutton
+	endtext
+.Declined:
+	writetext .DeclinedText
+	waitbutton
+	endtext
+.Rematch:
+	writetext .RematchText
+	waitbutton
+	closetext
+	winlosstext BikerDaleBeatenText, 0
+	checkevent EVENT_BEAT_BLUE
+	iftruefwd .Fight3
+	checkflag ENGINE_FLYPOINT_PEWTER
+	iftruefwd .Fight2
+	loadtrainer BIKER, DALE
+	sjumpfwd .Battle
+.Fight2:
+	loadtrainer BIKER, DALE2
+	sjumpfwd .Battle
+.Fight3:
+	loadtrainer BIKER, DALE3
+.Battle:
+	startbattle
+	reloadmapafterbattle
+	setval REMATCH_CONTACT_DALE
+	special Special_ConsumeRematch
+	end
 
+.AfterBattleText:
 	text "You're so cool!"
 	line "You don't do any-"
 	cont "thing halfway!"
+	done
+
+.AskNumberText:
+	text "My hunch says we"
+	line "should battle"
+	cont "again."
+
+	para "Can I register"
+	line "your number?"
+	done
+
+.AskAgainText:
+	text "Can I register"
+	line "your number now?"
+	done
+
+.AcceptedText:
+	text "I knew you'd say"
+	line "yes! I'll call."
+	done
+
+.DeclinedText:
+	text "Guess my hunch was"
+	line "off this time."
+	done
+
+.PhoneFullText:
+	text "Your phone list"
+	line "is full."
+	done
+
+.RematchText:
+	text "My hunch was good!"
+	line "Come on! Let's go!"
 	done
 
 BikerDaleSeenText:
@@ -128,15 +305,103 @@ BikerJacobBeatenText:
 	text "Argh. I failed!"
 	done
 
-GenericTrainerBikerAiden:
-	generictrainer BIKER, AIDEN, EVENT_BEAT_BIKER_AIDEN, BikerAidenSeenText, BikerAidenBeatenText
+TrainerBikerAiden:
+	trainer BIKER, AIDEN, EVENT_BEAT_BIKER_AIDEN, BikerAidenSeenText, BikerAidenBeatenText, 0, .Script
+.Script:
+	loadvar VAR_CALLERID, PHONE_BIKER_AIDEN
+	opentext
+	setval REMATCH_CONTACT_AIDEN
+	special Special_CheckRematchPending
+	iftruefwd .Rematch
+	checkcellnum PHONE_BIKER_AIDEN
+	iftrue_jumpopenedtext .AfterBattleText
+	checkevent EVENT_AIDEN_ASKED_FOR_PHONE_NUMBER
+	iftruefwd .AskAgain
+	writetext .AfterBattleText
+	promptbutton
+	setevent EVENT_AIDEN_ASKED_FOR_PHONE_NUMBER
+	writetext .AskNumberText
+	sjumpfwd .Ask
+.AskAgain:
+	writetext .AskAgainText
+.Ask:
+	askforphonenumber PHONE_BIKER_AIDEN
+	ifequalfwd PHONE_CONTACTS_FULL, .Full
+	ifequalfwd PHONE_CONTACT_REFUSED, .Declined
+	writetext .AcceptedText
+	waitbutton
+	endtext
+.Full:
+	writetext .PhoneFullText
+	waitbutton
+	endtext
+.Declined:
+	writetext .DeclinedText
+	waitbutton
+	endtext
+.Rematch:
+	writetext .RematchText
+	waitbutton
+	closetext
+	winlosstext BikerAidenBeatenText, 0
+	checkevent EVENT_BEAT_BLUE
+	iftruefwd .Fight3
+	checkflag ENGINE_FLYPOINT_PEWTER
+	iftruefwd .Fight2
+	loadtrainer BIKER, AIDEN
+	sjumpfwd .Battle
+.Fight2:
+	loadtrainer BIKER, AIDEN2
+	sjumpfwd .Battle
+.Fight3:
+	loadtrainer BIKER, AIDEN3
+.Battle:
+	startbattle
+	reloadmapafterbattle
+	setval REMATCH_CONTACT_AIDEN
+	special Special_ConsumeRematch
+	end
 
+.AfterBattleText:
 	text "Gaon gaooon!"
 	line "Buwaribaribari…!"
 
 	para "There, my engine"
 	line "imitation has"
 	cont "evolved!"
+	done
+
+.AskNumberText:
+	text "Want to hear my"
+	line "engine improve?"
+
+	para "Trade phone"
+	line "numbers with me?"
+	done
+
+.AskAgainText:
+	text "Want to trade"
+	line "phone numbers?"
+	done
+
+.AcceptedText:
+	text "Vroom! I'll call"
+	line "when I'm tuned up!"
+	done
+
+.DeclinedText:
+	text "Hnnff... Maybe"
+	line "next time."
+	done
+
+.PhoneFullText:
+	text "Your phone list"
+	line "is full."
+	done
+
+.RematchText:
+	text "My engine's ready!"
+	line "Vroom! Let's go!"
 	done
 
 BikerAidenSeenText:

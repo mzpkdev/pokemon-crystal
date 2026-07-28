@@ -30,10 +30,19 @@ RematchPhoneEventCapabilities:
 	rematch_phone_event_capabilities PHONE_EVENT_CAP_REMATCH | PHONE_EVENT_CAP_GIFT | PHONE_EVENT_CAP_FLAVOR ; WILTON
 	rematch_phone_event_capabilities PHONE_EVENT_CAP_REMATCH | PHONE_EVENT_CAP_FLAVOR ; PARRY
 	rematch_phone_event_capabilities PHONE_EVENT_CAP_REMATCH | PHONE_EVENT_CAP_FLAVOR ; ERIN
+	rematch_phone_event_capabilities PHONE_EVENT_CAP_REMATCH | PHONE_EVENT_CAP_FLAVOR ; BRANDON
+	rematch_phone_event_capabilities PHONE_EVENT_CAP_REMATCH | PHONE_EVENT_CAP_RARE_REPORT | PHONE_EVENT_CAP_FLAVOR ; WALT
+	rematch_phone_event_capabilities PHONE_EVENT_CAP_REMATCH | PHONE_EVENT_CAP_RARE_REPORT | PHONE_EVENT_CAP_FLAVOR ; KRISE
+	rematch_phone_event_capabilities PHONE_EVENT_CAP_REMATCH | PHONE_EVENT_CAP_FLAVOR ; ALFRED
+	rematch_phone_event_capabilities PHONE_EVENT_CAP_REMATCH | PHONE_EVENT_CAP_GIFT | PHONE_EVENT_CAP_FLAVOR ; DOUG
+	rematch_phone_event_capabilities PHONE_EVENT_CAP_REMATCH | PHONE_EVENT_CAP_GIFT | PHONE_EVENT_CAP_FLAVOR ; ROB
+	rept NUM_REMATCH_CONTACTS - REMATCH_CONTACT_KYLE
+		rematch_phone_event_capabilities PHONE_EVENT_CAP_REMATCH | PHONE_EVENT_CAP_FLAVOR
+	endr
 	assert_table_length NUM_REMATCH_CONTACTS
 
 	assert REMATCH_CONTACT_JACK == 0
-	assert REMATCH_CONTACT_ERIN == NUM_REMATCH_CONTACTS - 1
+	assert REMATCH_CONTACT_KYLER == NUM_REMATCH_CONTACTS - 1
 
 GetRematchPhoneEventCapabilities::
 ; Return every phone event type a rematch contact can produce.

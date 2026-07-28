@@ -182,6 +182,8 @@ DEF BETA EQU __trainer_class__
 	const CRAIG
 	const FELIX
 	const TANNER
+	const TANNER2
+	const TANNER3
 	const CLARK
 	const PEDRO
 	const AMOS
@@ -234,6 +236,10 @@ DEF BETA EQU __trainer_class__
 	const DAYANDDANI2
 	const KAYANDTIA1
 	const KAYANDTIA2
+	const KAYANDTIA3
+	const KAYANDTIA4
+	const KAYANDTIA5
+	const KAYANDTIA6
 
 	trainerclass FISHER
 	const RALPH1
@@ -251,6 +257,8 @@ DEF BETA EQU __trainer_class__
 	const JUSTIN
 	const ARNOLD
 	const KYLE
+	const KYLE2
+	const KYLE3
 	const HENRY
 	const MARVIN
 	const ANDRE
@@ -266,6 +274,9 @@ DEF BETA EQU __trainer_class__
 	const FRANCIS
 	const LEROY
 	const KYLER
+	const KYLER2
+	const KYLER3
+	const KYLER4
 	const MURPHY
 	const LIAM
 	const GIDEON
@@ -326,6 +337,8 @@ DEF BETA EQU __trainer_class__
 	const NOLAND
 	const SIDNEY
 	const KENNY
+	const KENNY2
+	const KENNY3
 	const JIM
 	const DANIEL
 	const EDWIN
@@ -357,6 +370,10 @@ DEF BETA EQU __trainer_class__
 	const CARTER
 	const TREVOR
 	const BRANDON
+	const BRANDON2
+	const BRANDON3
+	const BRANDON4
+	const BRANDON5
 	const JEREMY
 	const COLIN
 	const ALEX
@@ -379,6 +396,8 @@ DEF BETA EQU __trainer_class__
 
 	trainerclass OFFICERF
 	const JAMIE
+	const JAMIE2
+	const JAMIE3
 	const MARA
 	const JENNY
 
@@ -445,6 +464,10 @@ DEF BETA EQU __trainer_class__
 	const CATHY ; custom pal
 	const AMANDA
 	const KRISE
+	const KRISE2
+	const KRISE3
+	const KRISE4
+	const KRISE5
 	const CONNIE
 	const LINDA
 	const LAURA
@@ -482,8 +505,12 @@ DEF BETA EQU __trainer_class__
 	trainerclass BUG_MANIAC
 	const LOU
 	const ROB
+	const ROB2
+	const ROB3
 	const ED
 	const DOUG
+	const DOUG2
+	const DOUG3
 	const DANE
 	const DION
 	const STACEY
@@ -509,6 +536,10 @@ DEF BETA EQU __trainer_class__
 	const BURT
 	const BILL
 	const WALT
+	const WALT2
+	const WALT3
+	const WALT4
+	const WALT5
 	const RAY
 	const LYLE
 	const JAY
@@ -547,11 +578,15 @@ DEF BETA EQU __trainer_class__
 	const DUDLEY
 	const JOE
 	const BILLY
+	const BILLY2
+	const BILLY3
 	const NATE
 	const RICKY
 	const SHERMAN
 	const SCHOOLBOY_CONNOR
 	const TORIN
+	const TORIN2
+	const TORIN3
 	const TRAVIS
 
 	trainerclass SCHOOLGIRL
@@ -644,6 +679,10 @@ DEF BETA EQU __trainer_class__
 	const VICANDTARA2
 	const TIMANDSUE1
 	const TIMANDSUE2
+	const TIMANDSUE3
+	const TIMANDSUE4
+	const TIMANDSUE5
+	const TIMANDSUE6
 	const JOEANDJO1 ; custom pal
 	const JOEANDJO2 ; custom pal
 
@@ -652,6 +691,9 @@ DEF BETA EQU __trainer_class__
 	const EDWARD
 	const GREGORY
 	const ALFRED
+	const ALFRED2
+	const ALFRED3
+	const ALFRED4
 	const MILTON
 	const CAMUS
 	const GEOFFREY
@@ -863,6 +905,8 @@ DEF BETA EQU __trainer_class__
 	trainerclass TEACHER_F
 	const COLETTE
 	const HILLARY ; custom pal
+	const HILLARY2
+	const HILLARY3
 	const SHIRLEY
 	const KATHRYN
 	const CLARICE
@@ -892,11 +936,17 @@ DEF BETA EQU __trainer_class__
 	const ZEKE ; custom pal
 	const CHARLES
 	const REILLY
+	const REILLY2
+	const REILLY3
 	const JOEL
 	const GLENN
 	const DALE
+	const DALE2
+	const DALE3
 	const JACOB
 	const AIDEN
+	const AIDEN2
+	const AIDEN3
 	const DAN
 	const TEDDY
 	const TYRONE

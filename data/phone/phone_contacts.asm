@@ -19,8 +19,8 @@ PhoneContacts:
 	phone SCHOOLBOY,    JACK1,                 NATIONAL_PARK,             %1111, JackPhoneScript1,    %1111, JackPhoneScript2
 	phone POKEFANF,     BEVERLY1,              NATIONAL_PARK,             %1111, BeverlyPhoneScript1, %1111, BeverlyPhoneScript2
 	phone SAILOR,       HUEY1,                 OLIVINE_LIGHTHOUSE_2F,     %1111, HueyPhoneScript1,    %1111, HueyPhoneScript2
-	phone TRAINER_NONE, PHONE_00,              N_A,                       %0000, UnusedPhoneScript,   %0000, UnusedPhoneScript
-	phone TRAINER_NONE, PHONE_00,              N_A,                       %0000, UnusedPhoneScript,   %0000, UnusedPhoneScript
+	phone POKEFANM,     BRANDON,               ROUTE_34,                  %1111, BrandonPhoneScript1, %1111, BrandonPhoneScript2
+	phone FIREBREATHER, WALT,                  ROUTE_35,                  %1111, WaltPhoneScript1,    %1111, WaltPhoneScript2
 	phone COOLTRAINERM, GAVEN1,                ROUTE_26,                  %1111, GavenPhoneScript1,   %1111, GavenPhoneScript2
 	phone COOLTRAINERF, BETH1,                 ROUTE_26,                  %1111, BethPhoneScript1,    %1111, BethPhoneScript2
 	phone BIRD_KEEPER,  JOSE1,                 ROUTE_27,                  %1111, JosePhoneScript1,    %1111, JosePhoneScript2
@@ -35,7 +35,7 @@ PhoneContacts:
 	phone JUGGLER,      IRWIN1,                ROUTE_35,                  %1111, IrwinPhoneScript1,   %1111, IrwinPhoneScript2
 	phone BUG_CATCHER,  ARNIE1,                ROUTE_35,                  %1111, ArniePhoneScript1,   %1111, ArniePhoneScript2
 	phone SCHOOLBOY,    ALAN1,                 ROUTE_36,                  %1111, AlanPhoneScript1,    %1111, AlanPhoneScript2
-	phone TRAINER_NONE, PHONE_00,              N_A,                       %0000, UnusedPhoneScript,   %0000, UnusedPhoneScript
+	phone LASS,         KRISE,                 NATIONAL_PARK,             %1111, KrisePhoneScript1,   %1111, KrisePhoneScript2
 	phone LASS,         DANA1,                 ROUTE_38,                  %1111, DanaPhoneScript1,    %1111, DanaPhoneScript2
 	phone SCHOOLBOY,    CHAD1,                 ROUTE_38,                  %1111, ChadPhoneScript1,    %1111, ChadPhoneScript2
 	phone POKEFANM,     DEREK1,                ROUTE_39,                  %1111, DerekPhoneScript1,   %1111, DerekPhoneScript2
@@ -47,5 +47,21 @@ PhoneContacts:
 	phone BLACKBELT_T,  KENJI1,                ROUTE_45,                  %1111, KenjiPhoneScript1,   %1111, KenjiPhoneScript2
 	phone HIKER,        PARRY1,                ROUTE_45,                  %1111, ParryPhoneScript1,   %1111, ParryPhoneScript2
 	phone PICNICKER,    ERIN1,                 ROUTE_46,                  %1111, ErinPhoneScript1,    %1111, ErinPhoneScript2
+	phone GENTLEMAN,    ALFRED,                OLIVINE_LIGHTHOUSE_2F,     %1111, AlfredPhoneScript1,  %1111, AlfredPhoneScript2
+	phone BUG_MANIAC,   DOUG,                  ROUTE_2_SOUTH,             %1111, DougPhoneScript1,    %1111, DougPhoneScript2
+	phone BUG_MANIAC,   ROB,                   ROUTE_2_SOUTH,             %1111, RobPhoneScript1,     %1111, RobPhoneScript2
+	phone FISHER,       KYLE,                  ROUTE_12_NORTH,            %1111, KylePhoneScript1,    %1111, KylePhoneScript2
+	phone CAMPER,       TANNER,                ROUTE_13,                  %1111, TannerPhoneScript1,  %1111, TannerPhoneScript2
+	phone HIKER,        KENNY,                 ROUTE_13,                  %1111, KennyPhoneScript1,   %1111, KennyPhoneScript2
+	phone COUPLE,       TIMANDSUE1,            ROUTE_13,                  %1111, TimAndSuePhoneScript1, %1111, TimAndSuePhoneScript2
+	phone FISHER,       KYLER,                 ROUTE_12_SOUTH,            %1111, KylerPhoneScript1,   %1111, KylerPhoneScript2
+	phone SCHOOLBOY,    TORIN,                 ROUTE_14,                  %1111, TorinPhoneScript1,   %1111, TorinPhoneScript2
+	phone SCHOOLBOY,    BILLY,                 ROUTE_15,                  %1111, BillyPhoneScript1,   %1111, BillyPhoneScript2
+	phone TEACHER_F,    HILLARY,               ROUTE_15,                  %1111, HillaryPhoneScript1, %1111, HillaryPhoneScript2
+	phone TWINS,        KAYANDTIA1,            ROUTE_15,                  %1111, KayAndTiaPhoneScript1, %1111, KayAndTiaPhoneScript2
+	phone OFFICERF,     JAMIE,                 ROUTE_17_NORTH,            %1111, JamiePhoneScript1,   %1111, JamiePhoneScript2
+	phone BIKER,        AIDEN,                 ROUTE_17_SOUTH,            %1111, AidenPhoneScript1,   %1111, AidenPhoneScript2
+	phone BIKER,        DALE,                  ROUTE_17_SOUTH,            %1111, DalePhoneScript1,    %1111, DalePhoneScript2
+	phone BIKER,        REILLY,                ROUTE_17_SOUTH,            %1111, ReillyPhoneScript1,  %1111, ReillyPhoneScript2
 	phone TRAINER_NONE, PHONECONTACT_BUENA,    GOLDENROD_DEPT_STORE_ROOF, %1111, BuenaPhoneScript1,   %1111, BuenaPhoneScript2
 	assert_table_length NUM_PHONE_CONTACTS + 1
