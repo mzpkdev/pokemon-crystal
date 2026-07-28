@@ -1752,6 +1752,9 @@ wDexAreaHighlight:: db
 wDexAreaHighlightY:: db
 wDexAreaHighlightX:: db
 
+	; Keep the expanded fish-group flags within one page. The low-byte-only
+	; append path relies on this invariant.
+	ds 20
 wDexAreaValidGroups::
 UNION
 wDexAreaValidFishGroups:: ds NUM_FISHGROUPS
@@ -1775,9 +1778,7 @@ wDexAreaLastMode:: db
 
 	; Used to align wDexAreaMons. Feel free to add more data here, just don't
 	; let wDexAreaMons be misaligned (an assert will tell you if you do).
-	; The seven appended swarm-only fish groups crossed the previous alignment
-	; boundary, so wrap this padding to the next page.
-	ds 252
+	ds 232
 
 ALIGN 8
 wDexAreaMons::
