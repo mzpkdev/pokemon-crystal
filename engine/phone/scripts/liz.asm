@@ -1,14 +1,12 @@
 LizPhoneScript1:
 	gettrainername PICNICKER, LIZ1, STRING_BUFFER_3
-	checkflag ENGINE_LIZ_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_LIZ
+	special Special_CheckRematchPending
 	iftruefwd .WantsBattle
 	farscall PhoneScript_AnswerPhone_Female
-	checkflag ENGINE_LIZ_THURSDAY_AFTERNOON
-	iftruefwd .NotThursday
-	readvar VAR_WEEKDAY
-	ifnotequal THURSDAY, .NotThursday
-	checktime 1 << DAY
-	iftruefwd LizThursdayAfternoon
+	setval REMATCH_CONTACT_LIZ
+	special Special_TryClaimRematchScheduleWindow
+	iftruefwd LizScheduledRematch
 
 .NotThursday:
 	special RandomPhoneMon
@@ -20,31 +18,50 @@ LizPhoneScript1:
 
 LizPhoneScript2:
 	gettrainername PICNICKER, LIZ1, STRING_BUFFER_3
-	farscall PhoneScript_Random4
-	ifequalfwd $0, LizWrongNumber
-	farscall PhoneScript_GreetPhone_Female
-	checkflag ENGINE_LIZ_READY_FOR_REMATCH
-	iftruefwd .next
-	checkflag ENGINE_LIZ_THURSDAY_AFTERNOON
-	iftruefwd .next
+	setval REMATCH_CONTACT_LIZ
+	special Special_CheckRematchPending
+	iftruefwd .CheckGoldenrod
+	setval REMATCH_CONTACT_LIZ
+	special Special_CheckRematchScheduleUsed
 
-.next:
-	farscall PhoneScript_Random2
-	ifequalfwd $0, LizGossip
+.CheckGoldenrod:
 	checkflag ENGINE_FLYPOINT_GOLDENROD
-	iffalsefwd .Generic
-	farscall PhoneScript_Random2
-	ifequalfwd $0, LizWantsBattle
+	iffalsefwd .NoRematch
+	setval PHONE_EVENT_CAP_REMATCH | PHONE_EVENT_CAP_FLAVOR
+	special Special_StageRematchPhoneEventCandidates
+	sjumpfwd .SelectEvent
+
+.NoRematch:
+	setval PHONE_EVENT_CAP_FLAVOR
+	special Special_StageRematchPhoneEventCandidates
+
+.SelectEvent:
+	setval REMATCH_CONTACT_LIZ
+	special Special_SelectRematchContactPhoneEvent
+	ifequalfwd PHONE_EVENT_RESULT_WRONG_NUMBER, LizWrongNumber
+	ifequalfwd PHONE_EVENT_RESULT_GOSSIP, .Gossip
+	ifequalfwd PHONE_EVENT_REMATCH, .Rematch
+	farscall PhoneScript_GreetPhone_Female
 
 .Generic:
 	farsjump Phone_GenericCall_Female
 
-LizThursdayAfternoon:
-	setflag ENGINE_LIZ_THURSDAY_AFTERNOON
+.Gossip:
+	farscall PhoneScript_GreetPhone_Female
+	sjumpfwd LizGossip
+
+.Rematch:
+	farscall PhoneScript_GreetPhone_Female
+	sjumpfwd LizWantsBattle
 
 LizWantsBattle:
+	setval REMATCH_CONTACT_LIZ
+	special Special_MarkRematchScheduleUsed
+
+LizScheduledRematch:
 	getlandmarkname ROUTE_32, STRING_BUFFER_5
-	setflag ENGINE_LIZ_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_LIZ
+	special Special_OfferRematch
 	farsjump PhoneScript_WantsToBattle_Female
 
 LizWrongNumber:

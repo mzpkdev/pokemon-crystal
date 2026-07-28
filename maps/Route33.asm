@@ -33,9 +33,11 @@ TrainerHikerAnthony:
 .Script:
 	loadvar VAR_CALLERID, PHONE_HIKER_ANTHONY
 	opentext
-	checkflag ENGINE_ANTHONY_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_ANTHONY
+	special Special_CheckRematchPending
 	iftruefwd .Rematch
-	checkflag ENGINE_DUNSPARCE_SWARM
+	setval SWARM_DUNSPARCE_ID
+	special Special_CheckActiveSwarm
 	iftrue_jumpopenedtext HikerAnthonyDunsparceText
 	checkcellnum PHONE_HIKER_ANTHONY
 	iftruefwd .NumberAccepted
@@ -83,7 +85,8 @@ TrainerHikerAnthony:
 	startbattle
 	reloadmapafterbattle
 	loadmem wAnthonyFightCount, 1
-	clearflag ENGINE_ANTHONY_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_ANTHONY
+	special Special_ConsumeRematch
 	end
 
 .LoadFight1:
@@ -91,7 +94,8 @@ TrainerHikerAnthony:
 	startbattle
 	reloadmapafterbattle
 	loadmem wAnthonyFightCount, 2
-	clearflag ENGINE_ANTHONY_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_ANTHONY
+	special Special_ConsumeRematch
 	end
 
 .LoadFight2:
@@ -99,7 +103,8 @@ TrainerHikerAnthony:
 	startbattle
 	reloadmapafterbattle
 	loadmem wAnthonyFightCount, 3
-	clearflag ENGINE_ANTHONY_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_ANTHONY
+	special Special_ConsumeRematch
 	end
 
 .LoadFight3:
@@ -107,14 +112,16 @@ TrainerHikerAnthony:
 	startbattle
 	reloadmapafterbattle
 	loadmem wAnthonyFightCount, 4
-	clearflag ENGINE_ANTHONY_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_ANTHONY
+	special Special_ConsumeRematch
 	end
 
 .LoadFight4:
 	loadtrainer HIKER, ANTHONY5
 	startbattle
 	reloadmapafterbattle
-	clearflag ENGINE_ANTHONY_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_ANTHONY
+	special Special_ConsumeRematch
 	end
 
 .NumberAccepted:

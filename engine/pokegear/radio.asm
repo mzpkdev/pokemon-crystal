@@ -110,6 +110,10 @@ PlayRadioShow:
 	dw BuenasPassword20 ; $4d
 	dw BuenasPassword21 ; $4e
 	dw RadioScroll ; $4f
+	dw OaksPkmnTalkSwarm1 ; $50
+	dw OaksPkmnTalkSwarm2 ; $51
+	dw OaksPkmnTalkSwarm3 ; $52
+	dw OaksPkmnTalkSwarm4 ; $53
 	assert_table_length NUM_RADIO_SEGMENTS
 
 NextRadioLine:
@@ -172,6 +176,17 @@ OaksPkmnTalk3:
 	jr NextRadioLine
 
 OaksPkmnTalk4:
+; Report or activate a swarm once, before the regular program.
+	ld a, [wOaksPkmnTalkSegmentCounter]
+	cp 5
+	jr nz, .regular_program
+	call PrepareOaksPkmnTalkSwarm
+	jr c, .regular_program
+	ld hl, OPT_SwarmText1
+	ld a, OAKS_POKEMON_TALK_SWARM_1
+	jmp NextRadioLine
+
+.regular_program
 ; Choose a random route, and a random Pokemon from that route.
 	call Random
 	and $1f
@@ -265,6 +280,77 @@ OaksPkmnTalk4:
 	ld a, OAKS_POKEMON_TALK
 	jmp PrintRadioLine
 
+PrepareOaksPkmnTalkSwarm:
+; Keep an existing swarm. Otherwise, activate one from the current region.
+	farcall GetActiveSwarm
+	jr nc, .load_names
+	call GetCurrentLandmark
+	cp KANTO_LANDMARK
+	jr c, .johto
+	cp SHAMOUTI_LANDMARK
+	jr nc, .no_swarm
+	ld b, SWARM_POOL_KANTO
+	jr .activate
+
+.johto
+	ld b, SWARM_POOL_JOHTO
+.activate
+	farcall TryActivateRandomSwarm
+	jr c, .no_swarm
+	farcall GetActiveSwarm
+	jr c, .no_swarm
+
+.load_names
+; SwarmData is in another bank. Load its 9-bit species/form pair first.
+	ld bc, SWARMENTRY_SPECIES
+	add hl, bc
+	ld a, BANK(SwarmData)
+	call GetFarWord
+	ld a, l
+	ld [wNamedObjectIndex], a
+	ld [wCurPartySpecies], a
+	ld a, h
+	ld [wNamedObjectIndex + 1], a
+	ld [wCurForm], a
+	call GetPokemonName
+	ld hl, wStringBuffer1
+	ld de, wMonOrItemNameBuffer
+	ld bc, MON_NAME_LENGTH
+	rst CopyBytes
+
+; Reload the canonical entry and resolve its landmark name.
+	farcall GetActiveSwarm
+	ld bc, SWARMENTRY_LANDMARK
+	add hl, bc
+	ld a, BANK(SwarmData)
+	call GetFarByte
+	ld e, a
+	farcall GetLandmarkName
+	and a
+	ret
+
+.no_swarm
+	scf
+	ret
+
+OaksPkmnTalkSwarm1:
+	ld hl, OPT_SwarmText2
+	ld a, OAKS_POKEMON_TALK_SWARM_2
+	jmp NextRadioLine
+
+OaksPkmnTalkSwarm2:
+	ld hl, OPT_SwarmText3
+	ld a, OAKS_POKEMON_TALK_SWARM_3
+	jmp NextRadioLine
+
+OaksPkmnTalkSwarm3:
+	ld hl, OPT_SwarmText4
+	ld a, OAKS_POKEMON_TALK_SWARM_4
+	jmp NextRadioLine
+
+OaksPkmnTalkSwarm4:
+	jmp OaksPkmnTalk4.regular_program
+
 INCLUDE "data/radio/oaks_pkmn_talk_routes.asm"
 
 OaksPkmnTalk5:
@@ -295,6 +381,18 @@ OPT_OakText2:
 OPT_OakText3:
 	; @ .
 	text_farend _OPT_OakText3
+OPT_SwarmText1:
+	; MARY: News flash!
+	text_farend _OPT_SwarmText1
+OPT_SwarmText2:
+	; @ swarm
+	text_farend _OPT_SwarmText2
+OPT_SwarmText3:
+	; spotted near
+	text_farend _OPT_SwarmText3
+OPT_SwarmText4:
+	; @ !
+	text_farend _OPT_SwarmText4
 OaksPkmnTalk7:
 	ld hl, wNamedObjectIndex
 	ld a, [wCurPartySpecies]

@@ -476,9 +476,11 @@ TrainerFisherRalph1:
 .Script:
 	loadvar VAR_CALLERID, PHONE_FISHER_RALPH
 	opentext
-	checkflag ENGINE_RALPH_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_RALPH
+	special Special_CheckRematchPending
 	iftruefwd .Rematch
-	checkflag ENGINE_FISH_SWARM
+	setval SWARM_QWILFISH_ID
+	special Special_CheckActiveSwarm
 	iftruefwd .Swarm
 	checkcellnum PHONE_FISHER_RALPH
 	iftruefwd .NumberAccepted
@@ -526,7 +528,8 @@ TrainerFisherRalph1:
 	startbattle
 	reloadmapafterbattle
 	loadmem wRalphFightCount, 1
-	clearflag ENGINE_RALPH_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_RALPH
+	special Special_ConsumeRematch
 	end
 
 .LoadFight1:
@@ -534,7 +537,8 @@ TrainerFisherRalph1:
 	startbattle
 	reloadmapafterbattle
 	loadmem wRalphFightCount, 2
-	clearflag ENGINE_RALPH_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_RALPH
+	special Special_ConsumeRematch
 	end
 
 .LoadFight2:
@@ -542,7 +546,8 @@ TrainerFisherRalph1:
 	startbattle
 	reloadmapafterbattle
 	loadmem wRalphFightCount, 3
-	clearflag ENGINE_RALPH_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_RALPH
+	special Special_ConsumeRematch
 	end
 
 .LoadFight3:
@@ -550,14 +555,16 @@ TrainerFisherRalph1:
 	startbattle
 	reloadmapafterbattle
 	loadmem wRalphFightCount, 4
-	clearflag ENGINE_RALPH_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_RALPH
+	special Special_ConsumeRematch
 	end
 
 .LoadFight4:
 	loadtrainer FISHER, RALPH5
 	startbattle
 	reloadmapafterbattle
-	clearflag ENGINE_RALPH_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_RALPH
+	special Special_ConsumeRematch
 	end
 
 .Swarm:
@@ -598,7 +605,8 @@ TrainerPicnickerLiz1:
 .Script:
 	loadvar VAR_CALLERID, PHONE_PICNICKER_LIZ
 	opentext
-	checkflag ENGINE_LIZ_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_LIZ
+	special Special_CheckRematchPending
 	iftruefwd .Rematch
 	checkcellnum PHONE_PICNICKER_LIZ
 	iftruefwd .NumberAccepted
@@ -646,7 +654,8 @@ TrainerPicnickerLiz1:
 	startbattle
 	reloadmapafterbattle
 	loadmem wLizFightCount, 1
-	clearflag ENGINE_LIZ_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_LIZ
+	special Special_ConsumeRematch
 	end
 
 .LoadFight1:
@@ -654,7 +663,8 @@ TrainerPicnickerLiz1:
 	startbattle
 	reloadmapafterbattle
 	loadmem wLizFightCount, 2
-	clearflag ENGINE_LIZ_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_LIZ
+	special Special_ConsumeRematch
 	end
 
 .LoadFight2:
@@ -662,7 +672,8 @@ TrainerPicnickerLiz1:
 	startbattle
 	reloadmapafterbattle
 	loadmem wLizFightCount, 3
-	clearflag ENGINE_LIZ_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_LIZ
+	special Special_ConsumeRematch
 	end
 
 .LoadFight3:
@@ -670,14 +681,16 @@ TrainerPicnickerLiz1:
 	startbattle
 	reloadmapafterbattle
 	loadmem wLizFightCount, 4
-	clearflag ENGINE_LIZ_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_LIZ
+	special Special_ConsumeRematch
 	end
 
 .LoadFight4:
 	loadtrainer PICNICKER, LIZ5
 	startbattle
 	reloadmapafterbattle
-	clearflag ENGINE_LIZ_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_LIZ
+	special Special_ConsumeRematch
 	end
 
 .NumberAccepted:

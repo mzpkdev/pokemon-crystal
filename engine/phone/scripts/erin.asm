@@ -1,14 +1,12 @@
 ErinPhoneScript1:
 	gettrainername PICNICKER, ERIN1, STRING_BUFFER_3
-	checkflag ENGINE_ERIN_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_ERIN
+	special Special_CheckRematchPending
 	iftruefwd .WantsBattle
 	farscall PhoneScript_AnswerPhone_Female
-	checkflag ENGINE_ERIN_SATURDAY_NIGHT
-	iftruefwd .NotSaturday
-	readvar VAR_WEEKDAY
-	ifnotequal SATURDAY, .NotSaturday
-	checktime (1 << EVE) | (1 << NITE)
-	iftruefwd ErinSaturdayNight
+	setval REMATCH_CONTACT_ERIN
+	special Special_TryClaimRematchScheduleWindow
+	iftruefwd ErinScheduledRematch
 
 .NotSaturday:
 	farsjump ErinWorkingHardScript
@@ -20,21 +18,28 @@ ErinPhoneScript1:
 ErinPhoneScript2:
 	gettrainername PICNICKER, ERIN1, STRING_BUFFER_3
 	farscall PhoneScript_GreetPhone_Female
-	checkflag ENGINE_ERIN_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_ERIN
+	special Special_CheckRematchPending
 	iftruefwd .GenericCall
-	checkflag ENGINE_ERIN_SATURDAY_NIGHT
+	setval REMATCH_CONTACT_ERIN
+	special Special_CheckRematchScheduleUsed
 	iftruefwd .GenericCall
-	farscall PhoneScript_Random3
-	ifequalfwd $0, ErinWantsBattle
-	ifequalfwd $1, ErinWantsBattle
+	setval PHONE_EVENT_CAP_REMATCH | PHONE_EVENT_CAP_FLAVOR
+	special Special_StageRematchPhoneEventCandidates
+	setval REMATCH_CONTACT_ERIN
+	special Special_SelectRematchContactPhoneEvent
+	ifequalfwd PHONE_EVENT_REMATCH, ErinWantsBattle
+	ifequalfwd PHONE_EVENT_FLAVOR, .GenericCall
 
 .GenericCall:
 	farsjump Phone_GenericCall_Female
 
-ErinSaturdayNight:
-	setflag ENGINE_ERIN_SATURDAY_NIGHT
-
 ErinWantsBattle:
+	setval REMATCH_CONTACT_ERIN
+	special Special_MarkRematchScheduleUsed
+
+ErinScheduledRematch:
 	getlandmarkname ROUTE_46, STRING_BUFFER_5
-	setflag ENGINE_ERIN_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_ERIN
+	special Special_OfferRematch
 	farsjump PhoneScript_WantsToBattle_Female

@@ -1,14 +1,12 @@
 ToddPhoneScript1:
 	gettrainername CAMPER, TODD1, STRING_BUFFER_3
-	checkflag ENGINE_TODD_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_TODD
+	special Special_CheckRematchPending
 	iftruefwd .WantsBattle
 	farscall PhoneScript_AnswerPhone_Male
-	checkflag ENGINE_TODD_SATURDAY_MORNING
-	iftruefwd .NotSaturday
-	readvar VAR_WEEKDAY
-	ifnotequal SATURDAY, .NotSaturday
-	checktime 1 << MORN
-	iftruefwd ToddSaturdayMorning
+	setval REMATCH_CONTACT_TODD
+	special Special_TryClaimRematchScheduleWindow
+	iftruefwd ToddScheduledRematch
 
 .NotSaturday:
 	checkflag ENGINE_GOLDENROD_DEPT_STORE_SALE_IS_ON
@@ -25,30 +23,43 @@ ToddPhoneScript1:
 ToddPhoneScript2:
 	gettrainername CAMPER, TODD1, STRING_BUFFER_3
 	farscall PhoneScript_GreetPhone_Male
-	checkflag ENGINE_TODD_READY_FOR_REMATCH
-	iftruefwd .TryForSale
-	checkflag ENGINE_TODD_SATURDAY_MORNING
-	iftruefwd .TryForSale
+	setval REMATCH_CONTACT_TODD
+	special Special_CheckRematchPending
+	iftruefwd .SaleCandidates
+	setval REMATCH_CONTACT_TODD
+	special Special_CheckRematchScheduleUsed
+	iftruefwd .SaleCandidates
 	checkflag ENGINE_FLYPOINT_GOLDENROD
-	iffalsefwd .NoGoldenrod
-	farscall PhoneScript_Random2
-	ifequalfwd $0, ToddWantsBattle
+	iffalsefwd .GenericCandidates
+	setval PHONE_EVENT_CAP_REMATCH | PHONE_EVENT_CAP_SPECIAL | PHONE_EVENT_CAP_RARE_REPORT | PHONE_EVENT_CAP_FLAVOR
+	special Special_StageRematchPhoneEventCandidates
+	sjumpfwd .SelectEvent
 
-.TryForSale:
-	farscall PhoneScript_Random2
-	ifequalfwd $0, ToddDeptStoreSale
+.SaleCandidates:
+	setval PHONE_EVENT_CAP_SPECIAL | PHONE_EVENT_CAP_RARE_REPORT | PHONE_EVENT_CAP_FLAVOR
+	special Special_StageRematchPhoneEventCandidates
+	sjumpfwd .SelectEvent
 
-.NoGoldenrod:
-	farscall PhoneScript_Random3
-	ifequalfwd $0, ToddFoundRare
+.GenericCandidates:
+	setval PHONE_EVENT_CAP_RARE_REPORT | PHONE_EVENT_CAP_FLAVOR
+	special Special_StageRematchPhoneEventCandidates
+
+.SelectEvent:
+	setval REMATCH_CONTACT_TODD
+	special Special_SelectRematchContactPhoneEvent
+	ifequalfwd PHONE_EVENT_REMATCH, ToddWantsBattle
+	ifequalfwd PHONE_EVENT_SPECIAL, ToddDeptStoreSale
+	ifequalfwd PHONE_EVENT_RARE_REPORT, ToddFoundRare
 	farsjump Phone_GenericCall_Male
 
-ToddSaturdayMorning:
-	setflag ENGINE_TODD_SATURDAY_MORNING
-
 ToddWantsBattle:
+	setval REMATCH_CONTACT_TODD
+	special Special_MarkRematchScheduleUsed
+
+ToddScheduledRematch:
 	getlandmarkname ROUTE_34, STRING_BUFFER_5
-	setflag ENGINE_TODD_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_TODD
+	special Special_OfferRematch
 	farsjump PhoneScript_WantsToBattle_Male
 
 ToddFoundRare:

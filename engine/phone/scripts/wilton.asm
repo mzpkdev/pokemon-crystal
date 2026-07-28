@@ -1,16 +1,17 @@
 WiltonPhoneScript1:
 	gettrainername FISHER, WILTON1, STRING_BUFFER_3
-	checkflag ENGINE_WILTON_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_WILTON
+	special Special_CheckRematchPending
 	iftruefwd .WantsBattle
 	farscall PhoneScript_AnswerPhone_Male
-	checkflag ENGINE_WILTON_THRUSDAY_MORNING
+	setval REMATCH_CONTACT_WILTON
+	special Special_CheckRematchScheduleUsed
 	iftruefwd .NotThursday
 	checkflag ENGINE_WILTON_HAS_ITEM
 	iftruefwd .HasItem
-	readvar VAR_WEEKDAY
-	ifnotequal THURSDAY, .NotThursday
-	checktime 1 << MORN
-	iftruefwd WiltonThursdayMorning
+	setval REMATCH_CONTACT_WILTON
+	special Special_TryClaimRematchScheduleWindow
+	iftruefwd WiltonScheduledRematch
 
 .NotThursday:
 	farsjump WiltonHaventFoundAnythingScript
@@ -26,26 +27,37 @@ WiltonPhoneScript1:
 WiltonPhoneScript2:
 	gettrainername FISHER, WILTON1, STRING_BUFFER_3
 	farscall PhoneScript_GreetPhone_Male
-	checkflag ENGINE_WILTON_READY_FOR_REMATCH
-	iftruefwd .GenericCall
-	checkflag ENGINE_WILTON_THRUSDAY_MORNING
-	iftruefwd .GenericCall
+	setval REMATCH_CONTACT_WILTON
+	special Special_CheckRematchPending
+	iftruefwd .GenericCandidates
+	setval REMATCH_CONTACT_WILTON
+	special Special_CheckRematchScheduleUsed
+	iftruefwd .GenericCandidates
 	checkflag ENGINE_WILTON_HAS_ITEM
-	iftruefwd .GenericCall
-	farscall PhoneScript_Random2
-	ifequalfwd $0, WiltonWantsBattle
-	farscall PhoneScript_Random2
-	ifequalfwd $0, WiltonHasItem
+	iftruefwd .GenericCandidates
+	setval PHONE_EVENT_CAP_REMATCH | PHONE_EVENT_CAP_GIFT | PHONE_EVENT_CAP_FLAVOR
+	special Special_StageRematchPhoneEventCandidates
+	sjumpfwd .SelectEvent
 
-.GenericCall:
+.GenericCandidates:
+	setval PHONE_EVENT_CAP_FLAVOR
+	special Special_StageRematchPhoneEventCandidates
+
+.SelectEvent:
+	setval REMATCH_CONTACT_WILTON
+	special Special_SelectRematchContactPhoneEvent
+	ifequalfwd PHONE_EVENT_REMATCH, WiltonWantsBattle
+	ifequalfwd PHONE_EVENT_GIFT, WiltonHasItem
 	farsjump Phone_GenericCall_Male
 
-WiltonThursdayMorning:
-	setflag ENGINE_WILTON_THRUSDAY_MORNING
-
 WiltonWantsBattle:
+	setval REMATCH_CONTACT_WILTON
+	special Special_MarkRematchScheduleUsed
+
+WiltonScheduledRematch:
 	getlandmarkname ROUTE_44, STRING_BUFFER_5
-	setflag ENGINE_WILTON_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_WILTON
+	special Special_OfferRematch
 	farsjump PhoneScript_WantsToBattle_Male
 
 WiltonHasItem:

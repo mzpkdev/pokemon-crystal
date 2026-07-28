@@ -1,14 +1,12 @@
 BrentPhoneScript1:
 	gettrainername POKEMANIAC, BRENT1, STRING_BUFFER_3
-	checkflag ENGINE_BRENT_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_BRENT
+	special Special_CheckRematchPending
 	iftruefwd .WantsBattle
 	farscall PhoneScript_AnswerPhone_Male
-	checkflag ENGINE_BRENT_MONDAY_MORNING
-	iftruefwd .NotMonday
-	readvar VAR_WEEKDAY
-	ifnotequal MONDAY, .NotMonday
-	checktime 1 << MORN
-	iftruefwd BrentMondayMorning
+	setval REMATCH_CONTACT_BRENT
+	special Special_TryClaimRematchScheduleWindow
+	iftruefwd BrentScheduledRematch
 
 .NotMonday:
 	farsjump BrentHangUpScript
@@ -20,24 +18,35 @@ BrentPhoneScript1:
 BrentPhoneScript2:
 	gettrainername POKEMANIAC, BRENT1, STRING_BUFFER_3
 	farscall PhoneScript_GreetPhone_Male
-	farscall PhoneScript_Random2
-	ifequalfwd $0, BrentBillTrivia
-	checkflag ENGINE_BRENT_READY_FOR_REMATCH
-	iftruefwd .Generic
-	checkflag ENGINE_BRENT_MONDAY_MORNING
-	iftruefwd .Generic
-	farscall PhoneScript_Random2
-	ifequalfwd $0, BrentWantsBattle
+	setval REMATCH_CONTACT_BRENT
+	special Special_CheckRematchPending
+	iftruefwd .NoRematch
+	setval REMATCH_CONTACT_BRENT
+	special Special_CheckRematchScheduleUsed
+	iftruefwd .NoRematch
+	setval PHONE_EVENT_CAP_REMATCH | PHONE_EVENT_CAP_FLAVOR
+	special Special_StageRematchPhoneEventCandidates
+	sjumpfwd .SelectEvent
 
-.Generic:
+.NoRematch:
+	setval PHONE_EVENT_CAP_FLAVOR
+	special Special_StageRematchPhoneEventCandidates
+
+.SelectEvent:
+	setval REMATCH_CONTACT_BRENT
+	special Special_SelectRematchContactPhoneEvent
+	ifequalfwd PHONE_EVENT_RESULT_TRIVIA, BrentBillTrivia
+	ifequalfwd PHONE_EVENT_REMATCH, BrentWantsBattle
 	farsjump Phone_GenericCall_Male
 
-BrentMondayMorning:
-	setflag ENGINE_BRENT_MONDAY_MORNING
-
 BrentWantsBattle:
+	setval REMATCH_CONTACT_BRENT
+	special Special_MarkRematchScheduleUsed
+
+BrentScheduledRematch:
 	getlandmarkname ROUTE_43, STRING_BUFFER_5
-	setflag ENGINE_BRENT_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_BRENT
+	special Special_OfferRematch
 	farsjump PhoneScript_WantsToBattle_Male
 
 BrentBillTrivia:

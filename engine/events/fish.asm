@@ -213,35 +213,38 @@ GetFishLocations:
 GetFishGroupIndex:
 ; Return the index of fishgroup d in de.
 
-	push hl
-	ld hl, wDailyFlags
-	bit 2, [hl] ; ENGINE_FISH_SWARM
-	pop hl
-	jr z, .done
-
+	push bc
+	push de
+	farcall IsCurrentMapActiveSwarm
+	jr c, .no_swarm
+	ld bc, SWARMENTRY_METHOD
+	add hl, bc
+	ld a, BANK(SwarmData)
+	call GetFarByte
+	cp SWARM_METHOD_FISH
+	jr nz, .no_swarm
+	ld bc, SWARMENTRY_PROFILE - SWARMENTRY_METHOD
+	add hl, bc
+	ld a, BANK(SwarmData)
+	call GetFarByte
+	cp SWARM_PROFILE_QWILFISH
+	jr nz, .no_swarm
+	pop de
 	ld a, d
 	cp FISHGROUP_QWILFISH
 	jr z, .qwilfish
-	cp FISHGROUP_REMORAID
-	jr z, .remoraid
+	jr .done
 
+.no_swarm
+	pop de
 .done
+	pop bc
 	ld e, d
 	ld d, 0
 	ret
 
 .qwilfish
-	ld a, [wFishingSwarmFlag]
-	cp FISHSWARM_QWILFISH
-	jr nz, .done
 	ld d, FISHGROUP_QWILFISH_SWARM
-	jr .done
-
-.remoraid
-	ld a, [wFishingSwarmFlag]
-	cp FISHSWARM_REMORAID
-	jr nz, .done
-	ld d, FISHGROUP_REMORAID_SWARM
 	jr .done
 
 INCLUDE "data/wild/fish.asm"

@@ -1403,11 +1403,12 @@ wDailyFlags4:: db
 wWeeklyFlags:: db
 wWeeklyFlags2:: db
 wSwarmFlags:: db
+wActiveSwarm:: db
 wTimerEventStartDay:: db
 
 wFruitTreeFlags:: flag_array NUM_FRUIT_TREES
 
-	ds 19 ; unused
+	ds 18 ; unused
 
 wHiddenGrottoContents::
 ; dbw content type, content id
@@ -1432,12 +1433,15 @@ wBugContestOfficerPrize:: db
 wInPokegear:: db
 wWalkingOnBridge:: db
 
-wDailyRematchFlags:: ds 4
+wDailyRematchFlags:: ds REMATCH_FLAG_BYTES
+wDailyRematchFlagsEnd::
+	assert wDailyRematchFlagsEnd - wDailyRematchFlags == REMATCH_FLAG_BYTES
 wDailyPhoneItemFlags:: ds 4
-wDailyPhoneTimeOfDayFlags:: ds 4
+wDailyPhoneTimeOfDayFlags:: ds REMATCH_SCHEDULE_FLAG_BYTES
+wDailyPhoneTimeOfDayFlagsEnd::
+	assert wDailyPhoneTimeOfDayFlagsEnd - wDailyPhoneTimeOfDayFlags == REMATCH_SCHEDULE_FLAG_BYTES
 wKenjiBreakTimer:: dw ; Kenji
-wYanmaMapGroup:: db
-wYanmaMapNumber:: db
+	ds 2 ; unused
 
 wVermilionGymTrashCan1:: db
 wVermilionGymTrashCan2:: db
@@ -1575,9 +1579,7 @@ wLevelUpMon:: breed_struct wLevelUpMon
 wBugContestBackupPartyCount:: db
 wContestMon:: party_struct wContestMon
 
-wDunsparceMapGroup:: db
-wDunsparceMapNumber:: db
-wFishingSwarmFlag:: db
+	ds 3 ; unused
 
 wRoamMon1:: roam_struct wRoamMon1
 wRoamMon2:: roam_struct wRoamMon2

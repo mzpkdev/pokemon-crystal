@@ -1,16 +1,13 @@
 JackPhoneScript1:
 	gettrainername SCHOOLBOY, JACK1, STRING_BUFFER_3
-	checkflag ENGINE_JACK_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_JACK
+	special Special_CheckRematchPending
 	iftruefwd .WantsBattle
 	farscall PhoneScript_AnswerPhone_Male
-	checkflag ENGINE_JACK_MONDAY_MORNING
-	iftruefwd .NotMonday
-	readvar VAR_WEEKDAY
-	ifnotequal MONDAY, .NotMonday
-	checktime 1 << MORN
-	iftruefwd JackMondayMorning
+	setval REMATCH_CONTACT_JACK
+	special Special_TryClaimRematchScheduleWindow
+	iftruefwd JackScheduledRematch
 
-.NotMonday:
 	farsjump JackPhoneTipsScript
 
 .WantsBattle:
@@ -20,26 +17,36 @@ JackPhoneScript1:
 JackPhoneScript2:
 	gettrainername SCHOOLBOY, JACK1, STRING_BUFFER_3
 	farscall PhoneScript_GreetPhone_Male
-	farscall PhoneScript_Random2
-	ifequalfwd $0, JackBattleTrivia
-	checkflag ENGINE_JACK_READY_FOR_REMATCH
-	iftruefwd .WaitingForBattle
-	checkflag ENGINE_JACK_MONDAY_MORNING
-	iftruefwd .WaitingForBattle
-	farscall PhoneScript_Random2
-	ifequalfwd $0, JackWantsToBattle
+	setval REMATCH_CONTACT_JACK
+	special Special_CheckRematchPending
+	iftruefwd .NoRematch
+	setval REMATCH_CONTACT_JACK
+	special Special_CheckRematchScheduleUsed
+	iftruefwd .NoRematch
+	setval PHONE_EVENT_CAP_REMATCH | PHONE_EVENT_CAP_RARE_REPORT | PHONE_EVENT_CAP_FLAVOR
+	special Special_StageRematchPhoneEventCandidates
+	sjumpfwd .SelectEvent
 
-.WaitingForBattle:
-	farscall PhoneScript_Random3
-	ifequalfwd $0, JackFindsRare
+.NoRematch:
+	setval PHONE_EVENT_CAP_RARE_REPORT | PHONE_EVENT_CAP_FLAVOR
+	special Special_StageRematchPhoneEventCandidates
+
+.SelectEvent:
+	setval REMATCH_CONTACT_JACK
+	special Special_SelectRematchContactPhoneEvent
+	ifequalfwd PHONE_EVENT_RESULT_TRIVIA, JackBattleTrivia
+	ifequalfwd PHONE_EVENT_REMATCH, JackWantsToBattle
+	ifequalfwd PHONE_EVENT_RARE_REPORT, JackFindsRare
 	farsjump Phone_GenericCall_Male
 
-JackMondayMorning:
-	setflag ENGINE_JACK_MONDAY_MORNING
-
 JackWantsToBattle:
+	setval REMATCH_CONTACT_JACK
+	special Special_MarkRematchScheduleUsed
+
+JackScheduledRematch:
 	getlandmarkname NATIONAL_PARK, STRING_BUFFER_5
-	setflag ENGINE_JACK_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_JACK
+	special Special_OfferRematch
 	farsjump PhoneScript_WantsToBattle_Male
 
 JackFindsRare:

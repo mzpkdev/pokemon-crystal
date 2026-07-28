@@ -8,6 +8,18 @@ DEF NUM_POKEGEAR_CARDS EQU const_value
 
 DEF PHONE_DISPLAY_HEIGHT EQU 4
 
+; vTiles0 $00-$0d are PokegearSpritesGFX, and $10-$17 are the player icon.
+; Keep the swarm mini in its own fixed range for the Town Map marker.
+DEF POKEGEAR_SWARM_ICON_TILE EQU $20
+DEF POKEGEAR_SWARM_ICON_TILES EQU 8
+DEF POKEGEAR_FLY_ICON_PALETTE EQU NUM_PLAYER_GENDERS
+DEF POKEGEAR_SWARM_ICON_PALETTE EQU 5
+assert POKEGEAR_SWARM_ICON_TILE >= $18
+assert POKEGEAR_SWARM_ICON_TILE + POKEGEAR_SWARM_ICON_TILES <= $100
+assert POKEGEAR_FLY_ICON_PALETTE < 8
+assert POKEGEAR_SWARM_ICON_PALETTE < 8
+assert POKEGEAR_SWARM_ICON_PALETTE != POKEGEAR_FLY_ICON_PALETTE
+
 ; PokegearJumptable.Jumptable indexes
 	const_def
 	const POKEGEARSTATE_CLOCKINIT       ; 0
@@ -105,6 +117,7 @@ PokeGear:
 	call InitPokegearTilemap
 	ld a, CGB_POKEGEAR_PALS
 	call GetCGBLayout
+	call Pokegear_LoadSwarmIconPalette
 	call SetDefaultBGPAndOBP
 	ld a, %11100100
 	jmp DmgToCgbObjPal0
@@ -160,12 +173,48 @@ Pokegear_LoadGFX:
 	call FarCopyBytes
 	pop af
 	ldh [rWBK], a
-	ret
+	jr .load_swarm_icon
 
 .load_alt_sprite
 	ld de, vTiles0 tile $10
 	ld a, BANK(FastShipGFX) ; aka BANK(SinjohRuinsArrowGFX)
-	jmp Decompress
+	call Decompress
+
+.load_swarm_icon
+	farcall GetTownMapSwarm
+	ret c
+
+	; GetTownMapSwarm returns the canonical packed species/form pair in bc.
+	; LoadMiniForSpeciesAndForm handles both the extended-species bit and form.
+	push bc
+	farcall LoadMiniForSpeciesAndForm
+	ld h, d
+	ld l, e
+	ld de, vTiles0 tile POKEGEAR_SWARM_ICON_TILE
+	ld c, POKEGEAR_SWARM_ICON_TILES
+	call DecompressRequest2bpp
+	pop bc
+	ret
+
+Pokegear_LoadSwarmIconPalette:
+	farcall GetTownMapSwarm
+	ret c
+
+	; Use the normal overworld icon colors in a dedicated OBJ palette.
+	ld a, c
+	ld [wCurPartySpecies], a
+	xor a
+	ld [wCurIconShiny], a
+	ld a, b
+	ld [wCurIconForm], a
+	ld hl, wCurIconShiny
+	farcall GetMonIconPalette
+	farcall DecodeMonIconPal
+	ld de, wOBPals1 palette POKEGEAR_SWARM_ICON_PALETTE
+	farcall CopySpritePalHandler
+	ld a, TRUE
+	ldh [hCGBPalUpdate], a
+	ret
 
 FastShipGFX:
 INCBIN "gfx/town_map/fast_ship.2bpp.lzp"
@@ -507,6 +556,8 @@ PokegearMap_Init:
 	ld [wPokegearMapCursorObjectPointer], a
 	ld a, b
 	ld [wPokegearMapCursorObjectPointer + 1], a
+	ld a, [wPokegearMapRegion]
+	call PokegearMap_InitSwarmIcon
 	ld a, [wTownMapCanShowFly]
 	and a
 	jr z, .no_fly
@@ -702,6 +753,42 @@ PokegearMap_InitCursor:
 	push bc
 	call PokegearMap_UpdateCursorPosition
 	pop bc
+	ret
+
+PokegearMap_InitSwarmIcon:
+; Initialize one static 2x2 mini icon when the active swarm belongs to
+; the displayed region. The cursor is initialized first so it keeps
+; higher OAM priority where the two markers overlap.
+	push af
+	farcall GetTownMapSwarm
+	jr c, .not_displayable
+	pop af
+	cp e
+	ret nz
+
+	ld e, d
+	farcall GetLandmarkCoords
+	push de
+	depixel 0, 0
+	ld a, SPRITE_ANIM_INDEX_TOWN_MAP_SWARM
+	call InitSpriteAnimStruct
+	pop de
+	ld hl, SPRITEANIMSTRUCT_TILE_ID
+	add hl, bc
+	ld [hl], POKEGEAR_SWARM_ICON_TILE
+	ld hl, SPRITEANIMSTRUCT_ANIM_SEQ_ID
+	add hl, bc
+	ld [hl], SPRITE_ANIM_SEQ_NULL
+	ld hl, SPRITEANIMSTRUCT_XCOORD
+	add hl, bc
+	ld [hl], e
+	ld hl, SPRITEANIMSTRUCT_YCOORD
+	add hl, bc
+	ld [hl], d
+	ret
+
+.not_displayable
+	pop af
 	ret
 
 TownMap_UpdateLandmarkName:
@@ -1211,8 +1298,20 @@ _TownMap:
 	ld [wTownMapCursorObjectPointer], a
 	ld a, b
 	ld [wTownMapCursorObjectPointer + 1], a
+	ld a, [wTownMapPlayerIconLandmark]
+	cp SHAMOUTI_LANDMARK
+	ld a, ORANGE_REGION
+	jr nc, .got_swarm_region
+	ld a, [wTownMapPlayerIconLandmark]
+	cp KANTO_LANDMARK
+	ld a, KANTO_REGION
+	jr nc, .got_swarm_region
+	ld a, JOHTO_REGION
+.got_swarm_region
+	call PokegearMap_InitSwarmIcon
 	ld a, CGB_POKEGEAR_PALS
 	call GetCGBLayout
+	call Pokegear_LoadSwarmIconPalette
 	call SetDefaultBGPAndOBP
 	ld a, %11100100
 	call DmgToCgbObjPal0

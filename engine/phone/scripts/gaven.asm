@@ -1,14 +1,12 @@
 GavenPhoneScript1:
 	gettrainername COOLTRAINERM, GAVEN1, STRING_BUFFER_3
-	checkflag ENGINE_GAVEN_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_GAVEN
+	special Special_CheckRematchPending
 	iftruefwd .WantsBattle
 	farscall PhoneScript_AnswerPhone_Male
-	checkflag ENGINE_GAVEN_THURSDAY_MORNING
-	iftruefwd .NotThursday
-	readvar VAR_WEEKDAY
-	ifnotequal THURSDAY, .NotThursday
-	checktime 1 << MORN
-	iftruefwd GavenThursdayMorningScript
+	setval REMATCH_CONTACT_GAVEN
+	special Special_TryClaimRematchScheduleWindow
+	iftruefwd GavenScheduledRematch
 
 .NotThursday:
 	farsjump GavenHangUpNotThursdayScript
@@ -20,24 +18,35 @@ GavenPhoneScript1:
 GavenPhoneScript2:
 	gettrainername COOLTRAINERM, GAVEN1, STRING_BUFFER_3
 	farscall PhoneScript_GreetPhone_Male
-	checkflag ENGINE_GAVEN_READY_FOR_REMATCH
-	iftruefwd .WaitingForBattle
-	checkflag ENGINE_GAVEN_THURSDAY_MORNING
-	iftruefwd .WaitingForBattle
-	farscall PhoneScript_Random2
-	ifequalfwd $0, GavenWantsRematch
+	setval REMATCH_CONTACT_GAVEN
+	special Special_CheckRematchPending
+	iftruefwd .GenericCandidates
+	setval REMATCH_CONTACT_GAVEN
+	special Special_CheckRematchScheduleUsed
+	iftruefwd .GenericCandidates
+	setval PHONE_EVENT_CAP_REMATCH | PHONE_EVENT_CAP_RARE_REPORT | PHONE_EVENT_CAP_FLAVOR
+	special Special_StageRematchPhoneEventCandidates
+	sjumpfwd .SelectEvent
 
-.WaitingForBattle:
-	farscall PhoneScript_Random3
-	ifequalfwd $0, GavenFoundRare
+.GenericCandidates:
+	setval PHONE_EVENT_CAP_RARE_REPORT | PHONE_EVENT_CAP_FLAVOR
+	special Special_StageRematchPhoneEventCandidates
+
+.SelectEvent:
+	setval REMATCH_CONTACT_GAVEN
+	special Special_SelectRematchContactPhoneEvent
+	ifequalfwd PHONE_EVENT_REMATCH, GavenWantsRematch
+	ifequalfwd PHONE_EVENT_RARE_REPORT, GavenFoundRare
 	farsjump Phone_GenericCall_Male
 
-GavenThursdayMorningScript:
-	setflag ENGINE_GAVEN_THURSDAY_MORNING
-
 GavenWantsRematch:
+	setval REMATCH_CONTACT_GAVEN
+	special Special_MarkRematchScheduleUsed
+
+GavenScheduledRematch:
 	getlandmarkname ROUTE_26, STRING_BUFFER_5
-	setflag ENGINE_GAVEN_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_GAVEN
+	special Special_OfferRematch
 	farsjump PhoneScript_WantsToBattle_Male
 
 GavenFoundRare:

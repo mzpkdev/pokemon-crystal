@@ -139,6 +139,7 @@ CheckDailyResetTimer::
 	ld [hli], a ; wWeeklyFlags
 	ld [hli], a ; wWeeklyFlags2
 	ld [hl], a ; wSwarmFlags
+	farcall ClearActiveSwarm
 	ld [wLuckyNumberShowFlag], a
 	ld hl, wFruitTreeFlags
 rept (NUM_FRUIT_TREES + 7) / 8 - 1
@@ -146,7 +147,7 @@ rept (NUM_FRUIT_TREES + 7) / 8 - 1
 endr
 	ld [hl], a
 	ld hl, wDailyRematchFlags
-rept 4 - 1
+rept REMATCH_FLAG_BYTES - 1
 	ld [hli], a
 endr
 	ld [hl], a
@@ -156,7 +157,7 @@ rept 4 - 1
 endr
 	ld [hl], a
 	ld hl, wDailyPhoneTimeOfDayFlags
-rept 4 - 1
+rept REMATCH_SCHEDULE_FLAG_BYTES - 1
 	ld [hli], a
 endr
 	ld [hl], a

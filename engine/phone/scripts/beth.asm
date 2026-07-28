@@ -1,14 +1,12 @@
 BethPhoneScript1:
 	gettrainername COOLTRAINERF, BETH1, STRING_BUFFER_3
-	checkflag ENGINE_BETH_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_BETH
+	special Special_CheckRematchPending
 	iftruefwd .WantsBattle
 	farscall PhoneScript_AnswerPhone_Female
-	checkflag ENGINE_BETH_FRIDAY_AFTERNOON
-	iftruefwd .NotFriday
-	readvar VAR_WEEKDAY
-	ifnotequal FRIDAY, .NotFriday
-	checktime 1 << DAY
-	iftruefwd BethFridayAfternoon
+	setval REMATCH_CONTACT_BETH
+	special Special_TryClaimRematchScheduleWindow
+	iftruefwd BethScheduledRematch
 
 .NotFriday:
 	farsjump BethHangUpScript
@@ -20,20 +18,28 @@ BethPhoneScript1:
 BethPhoneScript2:
 	gettrainername COOLTRAINERF, BETH1, STRING_BUFFER_3
 	farscall PhoneScript_GreetPhone_Female
-	checkflag ENGINE_BETH_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_BETH
+	special Special_CheckRematchPending
 	iftruefwd .Generic
-	checkflag ENGINE_BETH_FRIDAY_AFTERNOON
+	setval REMATCH_CONTACT_BETH
+	special Special_CheckRematchScheduleUsed
 	iftruefwd .Generic
-	farscall PhoneScript_Random2
-	ifequalfwd $0, BethWantsBattle
+	setval PHONE_EVENT_CAP_REMATCH | PHONE_EVENT_CAP_FLAVOR
+	special Special_StageRematchPhoneEventCandidates
+	setval REMATCH_CONTACT_BETH
+	special Special_SelectRematchContactPhoneEvent
+	ifequalfwd PHONE_EVENT_REMATCH, BethWantsBattle
+	ifequalfwd PHONE_EVENT_FLAVOR, .Generic
 
 .Generic:
 	farsjump Phone_GenericCall_Female
 
-BethFridayAfternoon:
-	setflag ENGINE_BETH_FRIDAY_AFTERNOON
-
 BethWantsBattle:
+	setval REMATCH_CONTACT_BETH
+	special Special_MarkRematchScheduleUsed
+
+BethScheduledRematch:
 	getlandmarkname ROUTE_26, STRING_BUFFER_5
-	setflag ENGINE_BETH_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_BETH
+	special Special_OfferRematch
 	farsjump PhoneScript_WantsToBattle_Female

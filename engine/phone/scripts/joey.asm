@@ -1,14 +1,12 @@
 JoeyPhoneScript1:
 	gettrainername YOUNGSTER, JOEY1, STRING_BUFFER_3
-	checkflag ENGINE_JOEY_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_JOEY
+	special Special_CheckRematchPending
 	iftruefwd .WantsBattle
 	farscall PhoneScript_AnswerPhone_Male
-	checkflag ENGINE_JOEY_MONDAY_AFTERNOON
-	iftruefwd .NotMonday
-	readvar VAR_WEEKDAY
-	ifnotequal MONDAY, .NotMonday
-	checktime 1 << DAY
-	iftruefwd JoeyMondayAfternoon
+	setval REMATCH_CONTACT_JOEY
+	special Special_TryClaimRematchScheduleWindow
+	iftruefwd JoeyScheduledRematch
 
 .NotMonday:
 	special RandomPhoneMon
@@ -23,21 +21,28 @@ JoeyPhoneScript1:
 JoeyPhoneScript2:
 	gettrainername YOUNGSTER, JOEY1, STRING_BUFFER_3
 	farscall PhoneScript_GreetPhone_Male
-	checkflag ENGINE_JOEY_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_JOEY
+	special Special_CheckRematchPending
 	iftruefwd .Generic
-	checkflag ENGINE_JOEY_MONDAY_AFTERNOON
+	setval REMATCH_CONTACT_JOEY
+	special Special_CheckRematchScheduleUsed
 	iftruefwd .Generic
-	farscall PhoneScript_Random3
-	ifequalfwd $0, JoeyWantsBattle
-	ifequalfwd $1, JoeyWantsBattle
+	setval PHONE_EVENT_CAP_REMATCH | PHONE_EVENT_CAP_FLAVOR
+	special Special_StageRematchPhoneEventCandidates
+	setval REMATCH_CONTACT_JOEY
+	special Special_SelectRematchContactPhoneEvent
+	ifequalfwd PHONE_EVENT_REMATCH, JoeyWantsBattle
+	ifequalfwd PHONE_EVENT_FLAVOR, .Generic
 
 .Generic:
 	farsjump Phone_GenericCall_Male
 
-JoeyMondayAfternoon:
-	setflag ENGINE_JOEY_MONDAY_AFTERNOON
-
 JoeyWantsBattle:
+	setval REMATCH_CONTACT_JOEY
+	special Special_MarkRematchScheduleUsed
+
+JoeyScheduledRematch:
 	getlandmarkname ROUTE_30, STRING_BUFFER_5
-	setflag ENGINE_JOEY_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_JOEY
+	special Special_OfferRematch
 	farsjump PhoneScript_WantsToBattle_Male

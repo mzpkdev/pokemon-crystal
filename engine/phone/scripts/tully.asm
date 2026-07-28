@@ -1,16 +1,17 @@
 TullyPhoneScript1:
 	gettrainername FISHER, TULLY1, STRING_BUFFER_3
-	checkflag ENGINE_TULLY_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_TULLY
+	special Special_CheckRematchPending
 	iftruefwd .WantsBattle
 	farscall PhoneScript_AnswerPhone_Male
-	checkflag ENGINE_TULLY_SUNDAY_NIGHT
+	setval REMATCH_CONTACT_TULLY
+	special Special_CheckRematchScheduleUsed
 	iftruefwd .NotSunday
 	checkflag ENGINE_TULLY_HAS_WATER_STONE
 	iftruefwd .WaterStone
-	readvar VAR_WEEKDAY
-	ifnotequal SUNDAY, .NotSunday
-	checktime (1 << EVE) | (1 << NITE)
-	iftruefwd TullySundayNight
+	setval REMATCH_CONTACT_TULLY
+	special Special_TryClaimRematchScheduleWindow
+	iftruefwd TullyScheduledRematch
 
 .NotSunday:
 	farsjump TullyNoItemScript
@@ -26,32 +27,41 @@ TullyPhoneScript1:
 TullyPhoneScript2:
 	gettrainername FISHER, TULLY1, STRING_BUFFER_3
 	farscall PhoneScript_GreetPhone_Male
-	checkflag ENGINE_TULLY_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_TULLY
+	special Special_CheckRematchPending
 	iftruefwd .Generic
-	checkflag ENGINE_TULLY_SUNDAY_NIGHT
+	setval REMATCH_CONTACT_TULLY
+	special Special_CheckRematchScheduleUsed
 	iftruefwd .Generic
 	checkflag ENGINE_TULLY_HAS_WATER_STONE
 	iftruefwd .Generic
-	farscall PhoneScript_Random3
-	ifequalfwd $0, TullyWantsBattle
 	checkevent EVENT_TULLY_GAVE_WATER_STONE
-	iftruefwd .WaterStone
-	farscall PhoneScript_Random2
-	ifequalfwd $0, TullyFoundWaterStone
+	iftruefwd .RepeatPolicy
+	setval PHONE_EVENT_CAP_REMATCH | PHONE_EVENT_CAP_GIFT | PHONE_EVENT_CAP_FLAVOR
+	special Special_StageRematchPhoneEventCandidates
+	sjumpfwd .SelectEvent
 
-.WaterStone:
-	farscall PhoneScript_Random11
-	ifequalfwd $0, TullyFoundWaterStone
+.RepeatPolicy:
+	setval PHONE_EVENT_CAP_REMATCH | PHONE_EVENT_CAP_GIFT | PHONE_EVENT_CAP_FLAVOR | PHONE_EVENT_USE_REPEAT_POLICY
+	special Special_StageRematchPhoneEventCandidates
+
+.SelectEvent:
+	setval REMATCH_CONTACT_TULLY
+	special Special_SelectRematchContactPhoneEvent
+	ifequalfwd PHONE_EVENT_REMATCH, TullyWantsBattle
+	ifequalfwd PHONE_EVENT_GIFT, TullyFoundWaterStone
 
 .Generic:
 	farsjump Phone_GenericCall_Male
 
-TullySundayNight:
-	setflag ENGINE_TULLY_SUNDAY_NIGHT
-
 TullyWantsBattle:
+	setval REMATCH_CONTACT_TULLY
+	special Special_MarkRematchScheduleUsed
+
+TullyScheduledRematch:
 	getlandmarkname ROUTE_42, STRING_BUFFER_5
-	setflag ENGINE_TULLY_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_TULLY
+	special Special_OfferRematch
 	farsjump PhoneScript_WantsToBattle_Male
 
 TullyFoundWaterStone:

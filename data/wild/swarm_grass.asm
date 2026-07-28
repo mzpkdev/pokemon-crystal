@@ -1,6 +1,7 @@
 ; swarms in grass
 
 ; Dunsparce swarm
+DunsparceSwarmWildMons:
 	def_grass_wildmons DARK_CAVE_VIOLET_ENTRANCE
 	db 4 percent ; encounter rate
 	; morn
@@ -30,6 +31,7 @@
 	end_grass_wildmons
 
 ; Yanma swarm
+YanmaSwarmWildMons:
 	def_grass_wildmons ROUTE_35
 	db 10 percent ; encounter rate
 	; morn

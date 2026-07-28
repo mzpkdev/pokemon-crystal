@@ -1,16 +1,17 @@
 JosePhoneScript1:
 	gettrainername BIRD_KEEPER, JOSE2, STRING_BUFFER_3
-	checkflag ENGINE_JOSE_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_JOSE
+	special Special_CheckRematchPending
 	iftruefwd .WantsBattle
 	farscall PhoneScript_AnswerPhone_Male
-	checkflag ENGINE_JOSE_SATURDAY_NIGHT
+	setval REMATCH_CONTACT_JOSE
+	special Special_CheckRematchScheduleUsed
 	iftruefwd .NotSaturday
 	checkflag ENGINE_JOSE_HAS_STAR_PIECE
 	iftruefwd .HasItem
-	readvar VAR_WEEKDAY
-	ifnotequal SATURDAY, .NotSaturday
-	checktime (1 << EVE) | (1 << NITE)
-	iftruefwd JoseSaturdayNight
+	setval REMATCH_CONTACT_JOSE
+	special Special_TryClaimRematchScheduleWindow
+	iftruefwd JoseScheduledRematch
 
 .NotSaturday:
 	farsjump JoseHangUpScript
@@ -26,28 +27,38 @@ JosePhoneScript1:
 JosePhoneScript2:
 	gettrainername BIRD_KEEPER, JOSE2, STRING_BUFFER_3
 	farscall PhoneScript_GreetPhone_Male
-	checkflag ENGINE_JOSE_READY_FOR_REMATCH
-	iftruefwd .Generic
-	checkflag ENGINE_JOSE_SATURDAY_NIGHT
-	iftruefwd .Generic
+	setval REMATCH_CONTACT_JOSE
+	special Special_CheckRematchPending
+	iftruefwd .GenericCandidates
+	setval REMATCH_CONTACT_JOSE
+	special Special_CheckRematchScheduleUsed
+	iftruefwd .GenericCandidates
 	checkflag ENGINE_JOSE_HAS_STAR_PIECE
-	iftruefwd .Generic
-	farscall PhoneScript_Random3
-	ifequalfwd $0, JoseWantsBattle
-	farscall PhoneScript_Random3
-	ifequalfwd $0, JoseHasStarPiece
+	iftruefwd .GenericCandidates
+	setval PHONE_EVENT_CAP_REMATCH | PHONE_EVENT_CAP_GIFT | PHONE_EVENT_CAP_RARE_REPORT | PHONE_EVENT_CAP_FLAVOR
+	special Special_StageRematchPhoneEventCandidates
+	sjumpfwd .SelectEvent
 
-.Generic:
-	farscall PhoneScript_Random3
-	ifequalfwd $0, JoseFoundRare
+.GenericCandidates:
+	setval PHONE_EVENT_CAP_RARE_REPORT | PHONE_EVENT_CAP_FLAVOR
+	special Special_StageRematchPhoneEventCandidates
+
+.SelectEvent:
+	setval REMATCH_CONTACT_JOSE
+	special Special_SelectRematchContactPhoneEvent
+	ifequalfwd PHONE_EVENT_REMATCH, JoseWantsBattle
+	ifequalfwd PHONE_EVENT_GIFT, JoseHasStarPiece
+	ifequalfwd PHONE_EVENT_RARE_REPORT, JoseFoundRare
 	farsjump Phone_GenericCall_Male
 
-JoseSaturdayNight:
-	setflag ENGINE_JOSE_SATURDAY_NIGHT
-
 JoseWantsBattle:
+	setval REMATCH_CONTACT_JOSE
+	special Special_MarkRematchScheduleUsed
+
+JoseScheduledRematch:
 	getlandmarkname ROUTE_27, STRING_BUFFER_5
-	setflag ENGINE_JOSE_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_JOSE
+	special Special_OfferRematch
 	farsjump PhoneScript_WantsToBattle_Male
 
 JoseFoundRare:

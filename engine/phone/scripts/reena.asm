@@ -1,14 +1,12 @@
 ReenaPhoneScript1:
 	gettrainername COOLTRAINERF, REENA1, STRING_BUFFER_3
-	checkflag ENGINE_REENA_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_REENA
+	special Special_CheckRematchPending
 	iftruefwd .WantsBattle
 	farscall PhoneScript_AnswerPhone_Female
-	checkflag ENGINE_REENA_SUNDAY_MORNING
-	iftruefwd .NotSunday
-	readvar VAR_WEEKDAY
-	ifnotequal SUNDAY, .NotSunday
-	checktime 1 << MORN
-	iftruefwd ReenaSundayMorning
+	setval REMATCH_CONTACT_REENA
+	special Special_TryClaimRematchScheduleWindow
+	iftruefwd ReenaScheduledRematch
 
 .NotSunday:
 	farsjump ReenaForwardScript
@@ -20,20 +18,28 @@ ReenaPhoneScript1:
 ReenaPhoneScript2:
 	gettrainername COOLTRAINERF, REENA1, STRING_BUFFER_3
 	farscall PhoneScript_GreetPhone_Female
-	checkflag ENGINE_REENA_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_REENA
+	special Special_CheckRematchPending
 	iftruefwd .Generic
-	checkflag ENGINE_REENA_SUNDAY_MORNING
+	setval REMATCH_CONTACT_REENA
+	special Special_CheckRematchScheduleUsed
 	iftruefwd .Generic
-	farscall PhoneScript_Random2
-	ifequalfwd $0, ReenaWantsBattle
+	setval PHONE_EVENT_CAP_REMATCH | PHONE_EVENT_CAP_FLAVOR
+	special Special_StageRematchPhoneEventCandidates
+	setval REMATCH_CONTACT_REENA
+	special Special_SelectRematchContactPhoneEvent
+	ifequalfwd PHONE_EVENT_REMATCH, ReenaWantsBattle
+	ifequalfwd PHONE_EVENT_FLAVOR, .Generic
 
 .Generic:
 	farsjump Phone_GenericCall_Female
 
-ReenaSundayMorning:
-	setflag ENGINE_REENA_SUNDAY_MORNING
-
 ReenaWantsBattle:
+	setval REMATCH_CONTACT_REENA
+	special Special_MarkRematchScheduleUsed
+
+ReenaScheduledRematch:
 	getlandmarkname ROUTE_27, STRING_BUFFER_5
-	setflag ENGINE_REENA_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_REENA
+	special Special_OfferRematch
 	farsjump PhoneScript_WantsToBattle_Female

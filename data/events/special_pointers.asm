@@ -68,7 +68,18 @@ SpecialsPointers::
 	add_special Special_DayCareMon1
 	add_special Special_DayCareMon2
 	add_special Special_SelectRandomBugContestContestants
-	add_special Special_ActivateFishingSwarm
+	add_special Special_CheckActiveSwarm
+	add_special Special_TryActivateSwarm
+	add_special DoNothing ; reserved; previously Special_ActivateFishingSwarm
+	add_special Special_CheckRematchPending
+	add_special Special_OfferRematch
+	add_special Special_ConsumeRematch
+	add_special Special_CheckRematchScheduleUsed
+	add_special Special_MarkRematchScheduleUsed
+	add_special Special_TryClaimRematchScheduleWindow
+	add_special Special_GetRematchPhoneEventCapabilities
+	add_special Special_StageRematchPhoneEventCandidates
+	add_special Special_SelectRematchContactPhoneEvent
 	add_special ToggleMaptileDecorations
 	add_special ToggleDecorationsVisibility
 	add_special ReturnShuckie

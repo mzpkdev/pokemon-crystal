@@ -1,14 +1,12 @@
 VancePhoneScript1:
 	gettrainername BIRD_KEEPER, VANCE1, STRING_BUFFER_3
-	checkflag ENGINE_VANCE_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_VANCE
+	special Special_CheckRematchPending
 	iftruefwd .WantsBattle
 	farscall PhoneScript_AnswerPhone_Male
-	checkflag ENGINE_VANCE_WEDNESDAY_NIGHT
-	iftruefwd .NotWednesday
-	readvar VAR_WEEKDAY
-	ifnotequal WEDNESDAY, .NotWednesday
-	checktime (1 << EVE) | (1 << NITE)
-	iftruefwd VanceWednesdayNight
+	setval REMATCH_CONTACT_VANCE
+	special Special_TryClaimRematchScheduleWindow
+	iftruefwd VanceScheduledRematch
 
 .NotWednesday:
 	farsjump VanceLookingForwardScript
@@ -20,21 +18,28 @@ VancePhoneScript1:
 VancePhoneScript2:
 	gettrainername BIRD_KEEPER, VANCE1, STRING_BUFFER_3
 	farscall PhoneScript_GreetPhone_Male
-	checkflag ENGINE_VANCE_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_VANCE
+	special Special_CheckRematchPending
 	iftruefwd .WantsBattle
-	checkflag ENGINE_VANCE_WEDNESDAY_NIGHT
+	setval REMATCH_CONTACT_VANCE
+	special Special_CheckRematchScheduleUsed
 	iftruefwd .WantsBattle
-	farscall PhoneScript_Random3
-	ifequalfwd $0, VanceWantsRematch
-	ifequalfwd $1, VanceWantsRematch
+	setval PHONE_EVENT_CAP_REMATCH | PHONE_EVENT_CAP_FLAVOR
+	special Special_StageRematchPhoneEventCandidates
+	setval REMATCH_CONTACT_VANCE
+	special Special_SelectRematchContactPhoneEvent
+	ifequalfwd PHONE_EVENT_REMATCH, VanceWantsRematch
+	ifequalfwd PHONE_EVENT_FLAVOR, .WantsBattle
 
 .WantsBattle:
 	farsjump Phone_GenericCall_Male
 
-VanceWednesdayNight:
-	setflag ENGINE_VANCE_WEDNESDAY_NIGHT
-
 VanceWantsRematch:
+	setval REMATCH_CONTACT_VANCE
+	special Special_MarkRematchScheduleUsed
+
+VanceScheduledRematch:
 	getlandmarkname ROUTE_44, STRING_BUFFER_5
-	setflag ENGINE_VANCE_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_VANCE
+	special Special_OfferRematch
 	farsjump PhoneScript_WantsToBattle_Male

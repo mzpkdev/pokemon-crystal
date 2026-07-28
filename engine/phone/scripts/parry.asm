@@ -1,14 +1,12 @@
 ParryPhoneScript1:
 	gettrainername HIKER, PARRY1, STRING_BUFFER_3
-	checkflag ENGINE_PARRY_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_PARRY
+	special Special_CheckRematchPending
 	iftruefwd .WantsBattle
 	farscall PhoneScript_AnswerPhone_Male
-	checkflag ENGINE_PARRY_FRIDAY_AFTERNOON
-	iftruefwd .WantsRematch
-	readvar VAR_WEEKDAY
-	ifnotequal FRIDAY, .WantsRematch
-	checktime 1 << DAY
-	iftruefwd ParryFridayDay
+	setval REMATCH_CONTACT_PARRY
+	special Special_TryClaimRematchScheduleWindow
+	iftruefwd ParryScheduledRematch
 
 .WantsRematch:
 	farsjump ParryBattleWithMeScript
@@ -20,21 +18,28 @@ ParryPhoneScript1:
 ParryPhoneScript2:
 	gettrainername HIKER, PARRY1, STRING_BUFFER_3
 	farscall PhoneScript_GreetPhone_Male
-	checkflag ENGINE_PARRY_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_PARRY
+	special Special_CheckRematchPending
 	iftruefwd .GenericCall
-	checkflag ENGINE_PARRY_FRIDAY_AFTERNOON
+	setval REMATCH_CONTACT_PARRY
+	special Special_CheckRematchScheduleUsed
 	iftruefwd .GenericCall
-	farscall PhoneScript_Random2
-	ifequalfwd $0, ParryWantsBattle
-	ifequalfwd $1, ParryWantsBattle
+	setval PHONE_EVENT_CAP_REMATCH | PHONE_EVENT_CAP_FLAVOR
+	special Special_StageRematchPhoneEventCandidates
+	setval REMATCH_CONTACT_PARRY
+	special Special_SelectRematchContactPhoneEvent
+	ifequalfwd PHONE_EVENT_REMATCH, ParryWantsBattle
+	ifequalfwd PHONE_EVENT_FLAVOR, .GenericCall
 
 .GenericCall:
 	farsjump Phone_GenericCall_Male
 
-ParryFridayDay:
-	setflag ENGINE_PARRY_FRIDAY_AFTERNOON
-
 ParryWantsBattle:
+	setval REMATCH_CONTACT_PARRY
+	special Special_MarkRematchScheduleUsed
+
+ParryScheduledRematch:
 	getlandmarkname ROUTE_45, STRING_BUFFER_5
-	setflag ENGINE_PARRY_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_PARRY
+	special Special_OfferRematch
 	farsjump PhoneScript_WantsToBattle_Male

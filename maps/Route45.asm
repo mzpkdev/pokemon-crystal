@@ -284,7 +284,8 @@ TrainerHikerParry:
 HikerParry1Script:
 	loadvar VAR_CALLERID, PHONE_HIKER_PARRY
 	opentext
-	checkflag ENGINE_PARRY_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_PARRY
+	special Special_CheckRematchPending
 	iftruefwd .WantsBattle
 	checkcellnum PHONE_HIKER_PARRY
 	iftrue Route45NumberAcceptedM
@@ -324,7 +325,8 @@ HikerParry1Script:
 	startbattle
 	reloadmapafterbattle
 	loadmem wParryFightCount, 1
-	clearflag ENGINE_PARRY_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_PARRY
+	special Special_ConsumeRematch
 	end
 
 .LoadFight1:
@@ -332,14 +334,16 @@ HikerParry1Script:
 	startbattle
 	reloadmapafterbattle
 	loadmem wParryFightCount, 2
-	clearflag ENGINE_PARRY_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_PARRY
+	special Special_ConsumeRematch
 	end
 
 .LoadFight2:
 	loadtrainer HIKER, PARRY3
 	startbattle
 	reloadmapafterbattle
-	clearflag ENGINE_PARRY_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_PARRY
+	special Special_ConsumeRematch
 	checkevent EVENT_PARRY_IRON
 	iftruefwd .HasIron
 	checkevent EVENT_GOT_IRON_FROM_PARRY

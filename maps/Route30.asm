@@ -64,7 +64,8 @@ TrainerYoungsterJoey:
 .Script:
 	loadvar VAR_CALLERID, PHONE_YOUNGSTER_JOEY
 	opentext
-	checkflag ENGINE_JOEY_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_JOEY
+	special Special_CheckRematchPending
 	iftruefwd .Rematch
 	checkcellnum PHONE_YOUNGSTER_JOEY
 	iftruefwd .NumberAccepted
@@ -112,7 +113,8 @@ TrainerYoungsterJoey:
 	startbattle
 	reloadmapafterbattle
 	loadmem wJoeyFightCount, 1
-	clearflag ENGINE_JOEY_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_JOEY
+	special Special_ConsumeRematch
 	end
 
 .LoadFight1:
@@ -120,7 +122,8 @@ TrainerYoungsterJoey:
 	startbattle
 	reloadmapafterbattle
 	loadmem wJoeyFightCount, 2
-	clearflag ENGINE_JOEY_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_JOEY
+	special Special_ConsumeRematch
 	end
 
 .LoadFight2:
@@ -128,7 +131,8 @@ TrainerYoungsterJoey:
 	startbattle
 	reloadmapafterbattle
 	loadmem wJoeyFightCount, 3
-	clearflag ENGINE_JOEY_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_JOEY
+	special Special_ConsumeRematch
 	end
 
 .LoadFight3:
@@ -136,14 +140,16 @@ TrainerYoungsterJoey:
 	startbattle
 	reloadmapafterbattle
 	loadmem wJoeyFightCount, 4
-	clearflag ENGINE_JOEY_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_JOEY
+	special Special_ConsumeRematch
 	end
 
 .LoadFight4:
 	loadtrainer YOUNGSTER, JOEY5
 	startbattle
 	reloadmapafterbattle
-	clearflag ENGINE_JOEY_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_JOEY
+	special Special_ConsumeRematch
 	checkevent EVENT_JOEY_HP_UP
 	iftruefwd .GiveHPUp
 	checkevent EVENT_GOT_HP_UP_FROM_JOEY

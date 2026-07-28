@@ -1,16 +1,17 @@
 AlanPhoneScript1:
 	gettrainername SCHOOLBOY, ALAN1, STRING_BUFFER_3
-	checkflag ENGINE_ALAN_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_ALAN
+	special Special_CheckRematchPending
 	iftruefwd .WantsBattle
 	farscall PhoneScript_AnswerPhone_Male
-	checkflag ENGINE_ALAN_WEDNESDAY_AFTERNOON
+	setval REMATCH_CONTACT_ALAN
+	special Special_CheckRematchScheduleUsed
 	iftruefwd .NotWednesday
 	checkflag ENGINE_ALAN_HAS_FIRE_STONE
 	iftruefwd .FireStone
-	readvar VAR_WEEKDAY
-	ifnotequal WEDNESDAY, .NotWednesday
-	checktime 1 << DAY
-	iftruefwd AlanWednesdayDay
+	setval REMATCH_CONTACT_ALAN
+	special Special_TryClaimRematchScheduleWindow
+	iftruefwd AlanScheduledRematch
 
 .NotWednesday:
 	farsjump AlanHangUpScript
@@ -26,32 +27,41 @@ AlanPhoneScript1:
 AlanPhoneScript2:
 	gettrainername SCHOOLBOY, ALAN1, STRING_BUFFER_3
 	farscall PhoneScript_GreetPhone_Male
-	checkflag ENGINE_ALAN_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_ALAN
+	special Special_CheckRematchPending
 	iftruefwd .Generic
-	checkflag ENGINE_ALAN_WEDNESDAY_AFTERNOON
+	setval REMATCH_CONTACT_ALAN
+	special Special_CheckRematchScheduleUsed
 	iftruefwd .Generic
 	checkflag ENGINE_ALAN_HAS_FIRE_STONE
 	iftruefwd .Generic
-	farscall PhoneScript_Random3
-	ifequalfwd $0, AlanWantsBattle
 	checkevent EVENT_ALAN_GAVE_FIRE_STONE
-	iftruefwd .FireStone
-	farscall PhoneScript_Random2
-	ifequalfwd $0, AlanHasFireStone
+	iftruefwd .RepeatPolicy
+	setval PHONE_EVENT_CAP_REMATCH | PHONE_EVENT_CAP_GIFT | PHONE_EVENT_CAP_FLAVOR
+	special Special_StageRematchPhoneEventCandidates
+	sjumpfwd .SelectEvent
 
-.FireStone:
-	farscall PhoneScript_Random11
-	ifequalfwd $0, AlanHasFireStone
+.RepeatPolicy:
+	setval PHONE_EVENT_CAP_REMATCH | PHONE_EVENT_CAP_GIFT | PHONE_EVENT_CAP_FLAVOR | PHONE_EVENT_USE_REPEAT_POLICY
+	special Special_StageRematchPhoneEventCandidates
+
+.SelectEvent:
+	setval REMATCH_CONTACT_ALAN
+	special Special_SelectRematchContactPhoneEvent
+	ifequalfwd PHONE_EVENT_REMATCH, AlanWantsBattle
+	ifequalfwd PHONE_EVENT_GIFT, AlanHasFireStone
 
 .Generic:
 	farsjump Phone_GenericCall_Male
 
-AlanWednesdayDay:
-	setflag ENGINE_ALAN_WEDNESDAY_AFTERNOON
-
 AlanWantsBattle:
+	setval REMATCH_CONTACT_ALAN
+	special Special_MarkRematchScheduleUsed
+
+AlanScheduledRematch:
 	getlandmarkname ROUTE_36, STRING_BUFFER_5
-	setflag ENGINE_ALAN_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_ALAN
+	special Special_OfferRematch
 	farsjump PhoneScript_WantsToBattle_Male
 
 AlanHasFireStone:

@@ -53,7 +53,8 @@ TrainerLassDana1:
 .script
 	loadvar VAR_CALLERID, PHONE_LASS_DANA
 	opentext
-	checkflag ENGINE_DANA_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_DANA
+	special Special_CheckRematchPending
 	iftruefwd .DanaRematch
 	checkflag ENGINE_DANA_HAS_THUNDERSTONE
 	iftruefwd .TryGiveThunderstone
@@ -103,7 +104,8 @@ TrainerLassDana1:
 	startbattle
 	reloadmapafterbattle
 	loadmem wDanaFightCount, 1
-	clearflag ENGINE_DANA_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_DANA
+	special Special_ConsumeRematch
 	end
 
 .LoadFight1:
@@ -111,7 +113,8 @@ TrainerLassDana1:
 	startbattle
 	reloadmapafterbattle
 	loadmem wDanaFightCount, 2
-	clearflag ENGINE_DANA_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_DANA
+	special Special_ConsumeRematch
 	end
 
 .LoadFight2:
@@ -119,7 +122,8 @@ TrainerLassDana1:
 	startbattle
 	reloadmapafterbattle
 	loadmem wDanaFightCount, 3
-	clearflag ENGINE_DANA_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_DANA
+	special Special_ConsumeRematch
 	end
 
 .LoadFight3:
@@ -127,14 +131,16 @@ TrainerLassDana1:
 	startbattle
 	reloadmapafterbattle
 	loadmem wDanaFightCount, 4
-	clearflag ENGINE_DANA_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_DANA
+	special Special_ConsumeRematch
 	end
 
 .LoadFight4:
 	loadtrainer LASS, DANA5
 	startbattle
 	reloadmapafterbattle
-	clearflag ENGINE_DANA_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_DANA
+	special Special_ConsumeRematch
 	end
 
 .TryGiveThunderstone:
@@ -163,7 +169,8 @@ TrainerSchoolboyChad1:
 .script
 	loadvar VAR_CALLERID, PHONE_SCHOOLBOY_CHAD
 	opentext
-	checkflag ENGINE_CHAD_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_CHAD
+	special Special_CheckRematchPending
 	iftruefwd .ChadRematch
 	checkcellnum PHONE_SCHOOLBOY_CHAD
 	iftruefwd .HaveChadsNumber
@@ -211,7 +218,8 @@ TrainerSchoolboyChad1:
 	startbattle
 	reloadmapafterbattle
 	loadmem wChadFightCount, 1
-	clearflag ENGINE_CHAD_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_CHAD
+	special Special_ConsumeRematch
 	end
 
 .LoadFight1:
@@ -219,7 +227,8 @@ TrainerSchoolboyChad1:
 	startbattle
 	reloadmapafterbattle
 	loadmem wChadFightCount, 2
-	clearflag ENGINE_CHAD_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_CHAD
+	special Special_ConsumeRematch
 	end
 
 .LoadFight2:
@@ -227,7 +236,8 @@ TrainerSchoolboyChad1:
 	startbattle
 	reloadmapafterbattle
 	loadmem wChadFightCount, 3
-	clearflag ENGINE_CHAD_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_CHAD
+	special Special_ConsumeRematch
 	end
 
 .LoadFight3:
@@ -235,14 +245,16 @@ TrainerSchoolboyChad1:
 	startbattle
 	reloadmapafterbattle
 	loadmem wChadFightCount, 4
-	clearflag ENGINE_CHAD_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_CHAD
+	special Special_ConsumeRematch
 	end
 
 .LoadFight4:
 	loadtrainer SCHOOLBOY, CHAD5
 	startbattle
 	reloadmapafterbattle
-	clearflag ENGINE_CHAD_READY_FOR_REMATCH
+	setval REMATCH_CONTACT_CHAD
+	special Special_ConsumeRematch
 	end
 
 .HaveChadsNumber:

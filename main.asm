@@ -31,6 +31,9 @@ SECTION "bank3", ROMX
 
 INCLUDE "engine/events/checktime.asm"
 INCLUDE "engine/events/specials.asm"
+INCLUDE "engine/events/swarms.asm"
+INCLUDE "engine/events/rematches.asm"
+INCLUDE "data/phone/rematch_schedules.asm"
 INCLUDE "engine/pokemon/health.asm"
 INCLUDE "engine/events/overworld.asm"
 INCLUDE "engine/events/overcast.asm"
@@ -366,6 +369,7 @@ INCLUDE "data/pokemon/mini_icon_pointers.asm"
 
 SECTION "bank24", ROMX
 
+INCLUDE "engine/phone/event_selector.asm"
 INCLUDE "engine/phone/phone.asm"
 INCLUDE "engine/rtc/timeset.asm"
 INCLUDE "engine/pokegear/phone.asm"

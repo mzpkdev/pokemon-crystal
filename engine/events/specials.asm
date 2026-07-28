@@ -239,27 +239,136 @@ SpecialCheckPokerus:
 	ldh [hScriptVar], a
 	ret
 
-Special_ActivateFishingSwarm:
+Special_CheckActiveSwarm:
+; Input: hScriptVar = swarm ID.
+; Output: TRUE if that specific swarm is active.
 	ldh a, [hScriptVar]
-	ld [wFishingSwarmFlag], a
+	push af
+	farcall GetActiveSwarm
+	jr c, .no_active
+	ld b, a
+	pop af
+	cp b
+	jr nz, .no
+	ld a, TRUE
+	jr .done
+
+.no_active
+	pop af
+.no
+	xor a
+.done
+	ldh [hScriptVar], a
 	ret
 
-StoreSwarmMapIndices::
-	ld a, c
-	and a
-	jr nz, .yanma
-; swarm dark cave violet entrance
-	ld a, d
-	ld [wDunsparceMapGroup], a
-	ld a, e
-	ld [wDunsparceMapNumber], a
+Special_TryActivateSwarm:
+; Input: hScriptVar = swarm ID.
+; Output: SWARM_ACTIVATE_* result.
+	ldh a, [hScriptVar]
+	push af
+	farcall GetActiveSwarm
+	jr c, .activate
+	ld b, a
+	pop af
+	cp b
+	ld a, SWARM_ACTIVATE_CURRENT
+	jr z, .done
+	ld a, SWARM_ACTIVATE_BLOCKED
+	jr .done
+
+.activate
+	pop af
+	farcall TryActivateSwarm
+	ld a, SWARM_ACTIVATE_NEW
+	jr nc, .done
+	ld a, SWARM_ACTIVATE_BLOCKED
+.done
+	ldh [hScriptVar], a
 	ret
 
-.yanma
-	ld a, d
-	ld [wYanmaMapGroup], a
-	ld a, e
-	ld [wYanmaMapNumber], a
+Special_CheckRematchPending:
+; Input: hScriptVar = REMATCH_CONTACT_* ID.
+; Output: TRUE if a rematch is pending; FALSE if not or if the ID is invalid.
+	ldh a, [hScriptVar]
+	farcall CheckRematchPending
+	ldh [hScriptVar], a
+	ret
+
+Special_OfferRematch:
+; Input: hScriptVar = REMATCH_CONTACT_* ID.
+; Output: TRUE if the rematch is pending; FALSE if the ID is invalid.
+	ldh a, [hScriptVar]
+	farcall OfferRematch
+	ldh [hScriptVar], a
+	ret
+
+Special_ConsumeRematch:
+; Input: hScriptVar = REMATCH_CONTACT_* ID.
+; Output: TRUE if a pending rematch was consumed; FALSE if none was pending
+; or if the ID is invalid.
+	ldh a, [hScriptVar]
+	farcall ConsumeRematch
+	ldh [hScriptVar], a
+	ret
+
+Special_CheckRematchScheduleUsed:
+; Input: hScriptVar = REMATCH_CONTACT_* ID.
+; Output: TRUE if today's schedule was used; FALSE if unused or invalid.
+	ldh a, [hScriptVar]
+	farcall CheckRematchScheduleUsed
+	ldh [hScriptVar], a
+	ret
+
+Special_MarkRematchScheduleUsed:
+; Input: hScriptVar = REMATCH_CONTACT_* ID.
+; Output: TRUE if marked; FALSE if the ID is invalid.
+	ldh a, [hScriptVar]
+	farcall MarkRematchScheduleUsed
+	ldh [hScriptVar], a
+	ret
+
+Special_TryClaimRematchScheduleWindow:
+; Input: hScriptVar = REMATCH_CONTACT_* ID.
+; Output: TRUE only when today's configured window was unused and is now
+; claimed; FALSE when used, outside the window, or invalid.
+	ldh a, [hScriptVar]
+	farcall TryClaimRematchScheduleWindow
+	ldh [hScriptVar], a
+	ret
+
+Special_GetRematchPhoneEventCapabilities:
+; Input: hScriptVar = REMATCH_CONTACT_* ID.
+; Output: PHONE_EVENT_CAP_* mask, or 0 if the ID is invalid.
+	ldh a, [hScriptVar]
+	farcall GetRematchPhoneEventCapabilities
+	ldh [hScriptVar], a
+	ret
+
+Special_StageRematchPhoneEventCandidates:
+; Input: hScriptVar = PHONE_EVENT_CAP_* candidate mask, optionally ORed with
+; PHONE_EVENT_USE_REPEAT_POLICY to select the contact's alternate policy.
+; Stages the mask in the second byte of the script result word. Call
+; Special_SelectRematchContactPhoneEvent immediately after setting hScriptVar
+; to a REMATCH_CONTACT_* ID; selection eagerly consumes and clears the mask.
+	ldh a, [hScriptVar]
+	ldh [hScriptVar + 1], a
+	ret
+
+Special_SelectRematchContactPhoneEvent:
+; Input: hScriptVar = REMATCH_CONTACT_* ID; hScriptVar + 1 = staged candidates
+; (and optional PHONE_EVENT_USE_REPEAT_POLICY).
+; Output: hScriptVar = PHONE_EVENT_RESULT_* (including distinct variants); the
+; staged candidate mask is always cleared before selection so it cannot be
+; reused accidentally.
+	ldh a, [hScriptVar]
+	ld b, a
+	ldh a, [hScriptVar + 1]
+	ld c, a
+	xor a
+	ldh [hScriptVar + 1], a
+	ld a, b
+	farcall SelectRematchContactPhoneEvent
+	ldh [hScriptVar], a
 	ret
 
 Special_ResetLuckyNumberShowFlag:

@@ -10,6 +10,53 @@ MACRO? dwb
 	db \2
 ENDM
 
+MACRO phone_event_chance
+; event, numerator, denominator: select the event when
+; RandomRange(denominator) returns less than numerator.
+	assert _NARG == 3
+	assert \1 > PHONE_EVENT_NONE && \1 < NUM_PHONE_EVENTS
+	assert \2 > 0 && \2 <= \3
+	assert \3 > 0 && \3 <= $ff
+	db \1, \1, \2, \3
+ENDM
+
+MACRO phone_event_chance_always
+; event, numerator, denominator: as phone_event_chance, but consume and discard
+; the configured random roll even when the event's capability is disabled.
+	assert _NARG == 3
+	assert \1 > PHONE_EVENT_NONE && \1 < NUM_PHONE_EVENTS
+	assert \2 > 0 && \2 <= \3
+	assert \3 > 0 && \3 <= $ff
+	assert \1 & PHONE_EVENT_CAPABILITY_FLAG_MASK == 0
+	db \1, \1 | PHONE_EVENT_ROLL_WHEN_DISABLED, \2, \3
+ENDM
+
+MACRO phone_event_fallback
+; A zero numerator and denominator mark the required deterministic terminal entry.
+	assert _NARG == 1
+	assert \1 > PHONE_EVENT_NONE && \1 < NUM_PHONE_EVENTS
+	db \1, \1, 0, 0
+ENDM
+
+MACRO phone_event_variant_chance
+; result, capability, numerator, denominator: gate the distinct result using
+; the broad capability before applying its checked random chance.
+	assert _NARG == 4
+	assert \1 > PHONE_EVENT_RESULT_NONE && \1 < NUM_PHONE_EVENT_RESULTS
+	assert \2 > PHONE_EVENT_NONE && \2 < NUM_PHONE_EVENTS
+	assert \3 > 0 && \3 <= \4
+	assert \4 > 0 && \4 <= $ff
+	db \1, \2, \3, \4
+ENDM
+
+MACRO phone_event_variant_fallback
+; A distinct deterministic terminal result gated by a broad capability.
+	assert _NARG == 2
+	assert \1 > PHONE_EVENT_RESULT_NONE && \1 < NUM_PHONE_EVENT_RESULTS
+	assert \2 > PHONE_EVENT_NONE && \2 < NUM_PHONE_EVENTS
+	db \1, \2, 0, 0
+ENDM
+
 MACRO? dbw
 	db \1
 	dw \2
