@@ -159,6 +159,11 @@ SECTION "Wild Data", ROMX
 INCLUDE "engine/overworld/wildmons.asm"
 
 
+SECTION "Swarm Wild Data", ROMX
+
+INCLUDE "engine/overworld/swarm_wildmons.asm"
+
+
 SECTION "bankB", ROMX
 
 INCLUDE "engine/battle/trainer_huds.asm"

@@ -7,7 +7,8 @@ wDefaultSpawnpoint:: db
 
 UNION
 ; mon buffer
-	ds 78
+wWildEncounterDataBuffer:: ds GRASS_WILDDATA_LENGTH
+	ds 78 - GRASS_WILDDATA_LENGTH
 wMonOrItemNameBuffer:: ds NAME_LENGTH
 
 NEXTU

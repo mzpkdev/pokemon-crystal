@@ -633,32 +633,7 @@ _SwarmWildmonCheck:
 	call GetFarByte
 	cp NUM_SWARM_PROFILES
 	jr nc, _NoSwarmWildmon
-	add a
-	ld c, a
-	ld b, 0
-	ld a, d
-	cp SWARM_METHOD_LAND
-	ld hl, LandSwarmProfilePointers
-	jr z, .got_profile_table
-	cp SWARM_METHOD_SURF
-	ld hl, SurfSwarmProfilePointers
-	jr nz, _NoSwarmWildmon
-.got_profile_table
-	add hl, bc
-	ld a, [hli]
-	ld h, [hl]
-	ld l, a
-	ld a, h
-	or l
-	jr z, _NoSwarmWildmon
-	ld bc, GRASS_WILDDATA_LENGTH
-	ld a, d
-	cp SWARM_METHOD_LAND
-	jr z, .lookup_map
-	ld bc, WATER_WILDDATA_LENGTH
-.lookup_map
-	call CopyCurrMapDE
-	call LookUpWildmonsForMapDE
+	farcall LoadSwarmWildmonProfile
 	jr nc, _NoSwarmWildmon
 	ld a, [wActiveSwarm]
 	ldh [hEncounterSwarmID], a
@@ -1249,83 +1224,3 @@ INCLUDE "data/wild/orange_grass.asm"
 
 OrangeWaterWildMons:
 INCLUDE "data/wild/orange_water.asm"
-
-SwarmGrassWildMons:
-INCLUDE "data/wild/swarm_grass.asm"
-
-SwarmWaterWildMons:
-INCLUDE "data/wild/swarm_water.asm"
-
-LandSwarmProfilePointers:
-	table_width 2
-	dw DunsparceSwarmWildMons
-	dw YanmaSwarmWildMons
-	dw 0
-	dw MarillSwarmWildMons
-	dw MagnemiteSwarmWildMons
-	dw 0
-	dw 0
-	dw PhanpySwarmWildMons
-	dw CaterpieSwarmWildMons
-	dw SpinarakSwarmWildMons
-	dw ParasSwarmWildMons
-	dw HoppipSwarmWildMons
-	dw DittoSwarmWildMons
-	dw SunkernSwarmWildMons
-	dw VulpixSwarmWildMons
-	dw MiltankSwarmWildMons
-	dw SandshrewSwarmWildMons
-	dw EkansSwarmWildMons
-	dw SmeargleSwarmWildMons
-	dw 0
-	dw MankeySwarmWildMons
-	dw PonytaSwarmWildMons
-	dw DiglettSwarmWildMons
-	dw 0
-	dw SwinubSwarmWildMons
-	dw GligarSwarmWildMons
-	dw PsyduckSwarmWildMons
-	dw TeddiursaSwarmWildMons
-	dw BellsproutSwarmWildMons
-	dw MachopSwarmWildMons
-	dw TaurosSwarmWildMons
-	dw 0
-	dw LickitungSwarmWildMons
-	dw SlowpokeSwarmWildMons
-	dw WeedleSwarmWildMons
-	dw LedybaSwarmWildMons
-	dw OddishSwarmWildMons
-	dw PinecoSwarmWildMons
-	dw DrowzeeSwarmWildMons
-	dw VenonatSwarmWildMons
-	dw GrowlitheSwarmWildMons
-	dw StantlerSwarmWildMons
-	dw WooperSwarmWildMons
-	dw AipomSwarmWildMons
-	dw KoffingSwarmWildMons
-	dw 0
-	dw MareepSwarmWildMons
-	dw GirafarigSwarmWildMons
-	dw HoundourSwarmWildMons
-	dw OnixSwarmWildMons
-	dw SneaselSwarmWildMons
-	dw SkarmorySwarmWildMons
-	rept NUM_SWARM_PROFILES - 52
-		dw 0
-	endr
-	assert_table_length NUM_SWARM_PROFILES
-
-SurfSwarmProfilePointers:
-	table_width 2
-	dw 0
-	dw 0
-	dw 0
-	rept NUM_SWARM_PROFILES - 3
-		dw 0
-	endr
-	assert_table_length NUM_SWARM_PROFILES
-
-	assert BANK(LandSwarmProfilePointers) == BANK(DunsparceSwarmWildMons)
-	assert BANK(LandSwarmProfilePointers) == BANK(YanmaSwarmWildMons)
-	assert BANK(LandSwarmProfilePointers) == BANK(SkarmorySwarmWildMons)
-	assert BANK(SurfSwarmProfilePointers) == BANK(SwarmWaterWildMons)
