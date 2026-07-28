@@ -27,8 +27,8 @@ class Emulator:
         self.pyboy.set_emulation_speed(0)
 
     @staticmethod
-    def _load_symbols(path: Path) -> dict[str, int]:
-        symbols: dict[str, int] = {}
+    def _load_symbols(path: Path) -> dict[str, tuple[int, int]]:
+        symbols: dict[str, tuple[int, int]] = {}
         for line in path.read_text(encoding="utf-8").splitlines():
             if not line or line.startswith(";"):
                 continue
@@ -36,39 +36,50 @@ class Emulator:
             if ":" not in location:
                 # RGBDS also emits numeric constants, which are not addresses.
                 continue
-            _, address = location.split(":")
-            symbols[name] = int(address, 16)
+            bank, address = location.split(":")
+            symbols[name] = (int(bank, 16), int(address, 16))
         return symbols
+
+    def _location(self, symbol: str, offset: int = 0) -> tuple[int, int]:
+        bank, address = self.symbols[symbol]
+        return bank, address + offset
 
     def close(self) -> None:
         self.pyboy.stop()
 
     def read(self, symbol: str) -> int:
-        return self.pyboy.memory[self.symbols[symbol]]
+        return self.pyboy.memory[self._location(symbol)]
 
     def write(self, symbol: str, value: int) -> None:
         if not 0 <= value <= 0xFF:
             raise ValueError(f"Byte value out of range: {value}")
-        self.pyboy.memory[self.symbols[symbol]] = value
+        self.pyboy.memory[self._location(symbol)] = value
 
     def read_at(self, symbol: str, offset: int) -> int:
-        return self.pyboy.memory[self.symbols[symbol] + offset]
+        return self.pyboy.memory[self._location(symbol, offset)]
 
     def write_at(self, symbol: str, offset: int, value: int) -> None:
         if not 0 <= value <= 0xFF:
             raise ValueError(f"Byte value out of range: {value}")
-        self.pyboy.memory[self.symbols[symbol] + offset] = value
+        self.pyboy.memory[self._location(symbol, offset)] = value
+
+    def read_rom_at(self, symbol: str, offset: int, length: int) -> list[int]:
+        bank, address = self._location(symbol, offset)
+        return self.pyboy.memory[bank, address:address + length]
 
     def bag_contains(self, item: int) -> bool:
-        bag_items = self.symbols["wItems"]
+        bank, bag_items = self.symbols["wItems"]
         return any(
-            self.pyboy.memory[bag_items + index * 2] == item
+            self.pyboy.memory[bank, bag_items + index * 2] == item
             for index in range(self.read("wNumItems"))
         )
 
     def key_items_contain(self, item: int) -> bool:
-        key_items = self.symbols["wKeyItems"]
-        return any(self.pyboy.memory[key_items + index] == item for index in range(64))
+        bank, key_items = self.symbols["wKeyItems"]
+        return any(
+            self.pyboy.memory[bank, key_items + index] == item
+            for index in range(64)
+        )
 
     def is_in_battle(self) -> bool:
         return self.read("wBattleMode") != 0
