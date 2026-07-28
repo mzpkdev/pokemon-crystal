@@ -219,11 +219,14 @@ GetFishGroupIndex:
 	jr c, .no_swarm
 	ld bc, SWARMENTRY_METHOD
 	add hl, bc
-	ld a, [hli]
+	ld a, BANK(SwarmData)
+	call GetFarByte
 	cp SWARM_METHOD_FISH
 	jr nz, .no_swarm
-	inc hl ; SWARMENTRY_POOL
-	ld a, [hl] ; SWARMENTRY_PROFILE
+	ld bc, SWARMENTRY_PROFILE - SWARMENTRY_METHOD
+	add hl, bc
+	ld a, BANK(SwarmData)
+	call GetFarByte
 	cp SWARM_PROFILE_QWILFISH
 	jr nz, .no_swarm
 	pop de

@@ -615,12 +615,14 @@ _SwarmWildmonCheck:
 	jr c, _NoSwarmWildmon
 	ld bc, SWARMENTRY_METHOD
 	add hl, bc
-	ld a, [hl]
+	ld a, BANK(SwarmData)
+	call GetFarByte
 	cp d
 	jr nz, _NoSwarmWildmon
 	ld bc, SWARMENTRY_PROFILE - SWARMENTRY_METHOD
 	add hl, bc
-	ld a, [hl]
+	ld a, BANK(SwarmData)
+	call GetFarByte
 	cp SWARM_PROFILE_DUNSPARCE
 	jr z, .Dunsparce
 	cp SWARM_PROFILE_YANMA
