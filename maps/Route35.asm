@@ -25,7 +25,7 @@ Route35_MapScriptHeader:
 	object_event 11, 20, SPRITE_CUTE_GIRL, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, PAL_NPC_BLUE, OBJECTTYPE_GENERICTRAINER, 1, GenericTrainerCoupleGailandeli2, -1
 	object_event 14, 26, SPRITE_PICNICKER, SPRITEMOVEDATA_SPINRANDOM_FAST, 0, 0, -1, 0, OBJECTTYPE_GENERICTRAINER, 1, GenericTrainerPicnickerKim, -1
 	object_event 18, 29, SPRITE_BREEDER, SPRITEMOVEDATA_STANDING_UP, 0, 0, -1, 0, OBJECTTYPE_GENERICTRAINER, 3, GenericTrainerBreederTheresa, -1
-	object_event  6, 10, SPRITE_FIREBREATHER, SPRITEMOVEDATA_SPINCOUNTERCLOCKWISE, 0, 0, -1, 0, OBJECTTYPE_GENERICTRAINER, 2, GenericTrainerFirebreatherWalt, -1
+	object_event  6, 10, SPRITE_FIREBREATHER, SPRITEMOVEDATA_SPINCOUNTERCLOCKWISE, 0, 0, -1, 0, OBJECTTYPE_TRAINER, 2, TrainerFirebreatherWalt, -1
 	object_event 20,  7, SPRITE_BUG_CATCHER, SPRITEMOVEDATA_STANDING_DOWN, 0, 2, -1, 0, OBJECTTYPE_TRAINER, 3, TrainerBug_catcherArnie1, -1
 	object_event  9, 10, SPRITE_JUGGLER, SPRITEMOVEDATA_SPINRANDOM_FAST, 0, 0, -1, 0, OBJECTTYPE_TRAINER, 2, TrainerJugglerIrwin, -1
 	object_event  9,  6, SPRITE_OFFICER, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, 0, OBJECTTYPE_SCRIPT, 0, TrainerOfficerDirk, -1
@@ -234,13 +234,72 @@ TrainerBug_catcherArnie1:
 	line "I can't move."
 	done
 
-GenericTrainerFirebreatherWalt:
-	generictrainer FIREBREATHER, WALT, EVENT_BEAT_FIREBREATHER_WALT, FirebreatherWaltSeenText, FirebreatherWaltBeatenText
-
-	text "The #mon March"
-	line "on the radio lures"
-	cont "wild #mon."
-	done
+TrainerFirebreatherWalt:
+	trainer FIREBREATHER, WALT, EVENT_BEAT_FIREBREATHER_WALT, FirebreatherWaltSeenText, FirebreatherWaltBeatenText, 0, .Script
+.Script:
+	loadvar VAR_CALLERID, PHONE_FIREBREATHER_WALT
+	opentext
+	setval REMATCH_CONTACT_WALT
+	special Special_CheckRematchPending
+	iftruefwd .Rematch
+	checkcellnum PHONE_FIREBREATHER_WALT
+	iftrue_jumpopenedtext FirebreatherWaltAfterBattleText
+	checkevent EVENT_WALT_ASKED_FOR_PHONE_NUMBER
+	iftruefwd .AskAgain
+	writetext FirebreatherWaltAfterBattleText
+	promptbutton
+	setevent EVENT_WALT_ASKED_FOR_PHONE_NUMBER
+	writetext WaltAskNumberText
+	sjumpfwd .Ask
+.AskAgain:
+	writetext WaltAskAgainText
+.Ask:
+	askforphonenumber PHONE_FIREBREATHER_WALT
+	ifequalfwd $1, .Full
+	ifequalfwd $2, .Declined
+	writetext WaltAcceptedText
+	waitbutton
+	endtext
+.Full:
+	writetext WaltPhoneFullText
+	waitbutton
+	endtext
+.Declined:
+	writetext WaltDeclinedText
+	waitbutton
+	endtext
+.Rematch:
+	writetext WaltRematchText
+	waitbutton
+	closetext
+	winlosstext FirebreatherWaltBeatenText, 0
+	checkevent EVENT_RESTORED_POWER_TO_KANTO
+	iftruefwd .Fight5
+	checkevent EVENT_BEAT_ELITE_FOUR
+	iftruefwd .Fight4
+	checkevent EVENT_CLEARED_RADIO_TOWER
+	iftruefwd .Fight3
+	checkflag ENGINE_FLYPOINT_CIANWOOD
+	iftruefwd .Fight2
+	loadtrainer FIREBREATHER, WALT
+	sjumpfwd .Battle
+.Fight2:
+	loadtrainer FIREBREATHER, WALT2
+	sjumpfwd .Battle
+.Fight3:
+	loadtrainer FIREBREATHER, WALT3
+	sjumpfwd .Battle
+.Fight4:
+	loadtrainer FIREBREATHER, WALT4
+	sjumpfwd .Battle
+.Fight5:
+	loadtrainer FIREBREATHER, WALT5
+.Battle:
+	startbattle
+	reloadmapafterbattle
+	setval REMATCH_CONTACT_WALT
+	special Special_ConsumeRematch
+	end
 
 TrainerOfficerDirk:
 	faceplayer
@@ -383,6 +442,34 @@ FirebreatherWaltSeenText:
 FirebreatherWaltBeatenText:
 	text "Ow! I scorched the"
 	line "tip of my nose!"
+	done
+
+FirebreatherWaltAfterBattleText:
+	text "The #mon March"
+	line "on the radio lures"
+	cont "wild #mon."
+	done
+WaltAskNumberText:
+	text "Want battle tips?"
+	line "Register my number"
+	done
+WaltAskAgainText:
+	text "Changed your mind"
+	line "about my number?"
+	done
+WaltAcceptedText:
+	text "I'll call when I'm"
+	line "ready to battle!"
+	done
+WaltPhoneFullText:
+	text "Your phone's full."
+	done
+WaltDeclinedText:
+	text "Maybe next time."
+	done
+WaltRematchText:
+	text "Let's make this a"
+	line "heated rematch!"
 	done
 
 OfficerDirkSeenText:

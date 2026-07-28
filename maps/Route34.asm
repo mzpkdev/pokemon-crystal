@@ -34,7 +34,7 @@ Route34_MapScriptHeader:
 	object_event 15, 32, SPRITE_BREEDER, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, 0, OBJECTTYPE_GENERICTRAINER, 3, GenericTrainerBreederJulie, -1
 	object_event 10, 26, SPRITE_PICNICKER, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, 0, OBJECTTYPE_TRAINER, 3, TrainerPicnickerGina1, -1
 	object_event  6, 10, SPRITE_OFFICER_F, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, 0, OBJECTTYPE_SCRIPT, 0, OfficerfMaraScript, -1
-	object_event 18, 28, SPRITE_POKEFAN_M, SPRITEMOVEDATA_SPINCOUNTERCLOCKWISE, 0, 0, -1, 0, OBJECTTYPE_GENERICTRAINER, 3, GenericTrainerPokefanmBrandon, -1
+	object_event 18, 28, SPRITE_POKEFAN_M, SPRITEMOVEDATA_SPINCOUNTERCLOCKWISE, 0, 0, -1, 0, OBJECTTYPE_TRAINER, 3, TrainerPokefanmBrandon, -1
 	object_event 14, 18, SPRITE_DAYCARE_MON_1, SPRITEMOVEDATA_POKEMON, 0, 0, -1, 0, OBJECTTYPE_SCRIPT, 0, DayCareMon1Script, EVENT_DAYCARE_MON_1
 	object_event 17, 19, SPRITE_DAYCARE_MON_2, SPRITEMOVEDATA_POKEMON, 0, 0, -1, 0, OBJECTTYPE_SCRIPT, 0, DayCareMon2Script, EVENT_DAYCARE_MON_2
 	object_event 11, 48, SPRITE_ACE_TRAINER_F, SPRITEMOVEDATA_STANDING_LEFT, 0, 0, -1, 0, OBJECTTYPE_TRAINER, 5, TrainerCooltrainerfIrene, -1
@@ -555,15 +555,149 @@ Route34RichBoyIrvingScript:
 	cont "battle."
 	done
 
-GenericTrainerPokefanmBrandon:
-	generictrainer POKEFANM, BRANDON, EVENT_BEAT_POKEFANM_BRANDON, PokefanmBrandonSeenText, PokefanmBrandonBeatenText
+TrainerPokefanmBrandon:
+	trainer POKEFANM, BRANDON, EVENT_BEAT_POKEFANM_BRANDON, PokefanmBrandonSeenText, PokefanmBrandonBeatenText, 0, .Script
+.Script:
+	loadvar VAR_CALLERID, PHONE_POKEFANM_BRANDON
+	opentext
+	checkevent EVENT_BRANDON_BERRY_READY
+	iftruefwd .GiveBerry
+	setval REMATCH_CONTACT_BRANDON
+	special Special_CheckRematchPending
+	iftruefwd .Rematch
+	checkcellnum PHONE_POKEFANM_BRANDON
+	iftrue_jumpopenedtext PokefanmBrandonAfterBattleText
+	checkevent EVENT_BRANDON_ASKED_FOR_PHONE_NUMBER
+	iftruefwd .AskAgain
+	writetext PokefanmBrandonAfterBattleText
+	promptbutton
+	setevent EVENT_BRANDON_ASKED_FOR_PHONE_NUMBER
+	writetext BrandonAskNumberText
+	sjumpfwd .Ask
+.AskAgain:
+	writetext BrandonAskAgainText
+.Ask:
+	askforphonenumber PHONE_POKEFANM_BRANDON
+	ifequalfwd $1, .Full
+	ifequalfwd $2, .Declined
+	writetext BrandonAcceptedText
+	waitbutton
+	endtext
+.Full:
+	writetext BrandonPhoneFullText
+	waitbutton
+	endtext
+.Declined:
+	writetext BrandonDeclinedText
+	waitbutton
+	endtext
+.Rematch:
+	writetext BrandonRematchText
+	waitbutton
+	closetext
+	winlosstext PokefanmBrandonBeatenText, 0
+	checkevent EVENT_RESTORED_POWER_TO_KANTO
+	iftruefwd .Fight5
+	checkevent EVENT_BEAT_ELITE_FOUR
+	iftruefwd .Fight4
+	checkevent EVENT_CLEARED_RADIO_TOWER
+	iftruefwd .Fight3
+	checkflag ENGINE_FLYPOINT_MAHOGANY
+	iftruefwd .Fight2
+	loadtrainer POKEFANM, BRANDON
+	sjumpfwd .BattleBase
+.Fight2:
+	loadtrainer POKEFANM, BRANDON2
+	sjumpfwd .BattleUpgrade
+.Fight3:
+	loadtrainer POKEFANM, BRANDON3
+	sjumpfwd .BattleUpgrade
+.Fight4:
+	loadtrainer POKEFANM, BRANDON4
+	sjumpfwd .BattleUpgrade
+.Fight5:
+	loadtrainer POKEFANM, BRANDON5
+.BattleUpgrade:
+	startbattle
+	reloadmapafterbattle
+	setval REMATCH_CONTACT_BRANDON
+	special Special_ConsumeRematch
+	checkevent EVENT_BRANDON_BERRY_CLAIMED
+	iftruefwd .Done
+	setevent EVENT_BRANDON_BERRY_READY
+	opentext
+	sjumpfwd .GiveBerry
+.BattleBase:
+	startbattle
+	reloadmapafterbattle
+	setval REMATCH_CONTACT_BRANDON
+	special Special_ConsumeRematch
+.Done:
+	end
+.GiveBerry:
+	writetext BrandonBerryText
+	promptbutton
+	random 3
+	ifequalfwd 0, .Pecha
+	ifequalfwd 1, .Cheri
+	verbosegiveitem CHESTO_BERRY
+	sjumpfwd .GiftResult
+.Pecha:
+	verbosegiveitem PECHA_BERRY
+	sjumpfwd .GiftResult
+.Cheri:
+	verbosegiveitem CHERI_BERRY
+.GiftResult:
+	iffalsefwd .PackFull
+	clearevent EVENT_BRANDON_BERRY_READY
+	setevent EVENT_BRANDON_BERRY_CLAIMED
+	writetext BrandonBerryReceivedText
+	waitbutton
+	endtext
+.PackFull:
+	writetext BrandonPackFullText
+	waitbutton
+	endtext
 
+PokefanmBrandonAfterBattleText:
 	text "My #mon knew"
 	line "moves I didn't"
-	cont "know it had."
-
-	para "That confounded me"
-	line "to no end!"
+	cont "know it had!"
+	done
+BrandonAskNumberText:
+	text "Let's compare our"
+	line "Day-Care progress."
+	para "Register my number"
+	done
+BrandonAskAgainText:
+	text "Want my number?"
+	done
+BrandonAcceptedText:
+	text "I'll call when my"
+	line "team is ready!"
+	done
+BrandonPhoneFullText:
+	text "Your phone's full."
+	done
+BrandonDeclinedText:
+	text "Maybe another day."
+	done
+BrandonRematchText:
+	text "My partners have"
+	line "grown stronger!"
+	done
+BrandonBerryText:
+	text "You earned one of"
+	line "my status Berries!"
+	done
+BrandonBerryReceivedText:
+	text "Use that Berry to"
+	line "keep your partner"
+	cont "healthy!"
+	done
+BrandonPackFullText:
+	text "Your Pack is full."
+	para "Come back for it."
 	done
 
 TrainerCooltrainerfIrene:

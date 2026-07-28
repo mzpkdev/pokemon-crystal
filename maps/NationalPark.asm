@@ -29,7 +29,7 @@ NationalPark_MapScriptHeader:
 	object_event 29, 23, SPRITE_SCHOOLBOY, SPRITEMOVEDATA_SPINRANDOM_FAST, 0, 0, -1, 0, OBJECTTYPE_TRAINER, 3, TrainerSchoolboyJack1, -1
 	object_event 20, 29, SPRITE_POKEFAN_F, SPRITEMOVEDATA_SPINRANDOM_FAST, 0, 0, -1, 0, OBJECTTYPE_TRAINER, 2, TrainerPokefanfBeverly1, -1
 	object_event 18,  9, SPRITE_POKEFAN_M, SPRITEMOVEDATA_SPINRANDOM_FAST, 0, 0, -1, 0, OBJECTTYPE_GENERICTRAINER, 2, GenericTrainerPokefanmWilliam, -1
-	object_event 10, 14, SPRITE_LASS, SPRITEMOVEDATA_SPINRANDOM_FAST, 0, 0, -1, 0, OBJECTTYPE_GENERICTRAINER, 3, GenericTrainerLassKrise, -1
+	object_event 10, 14, SPRITE_LASS, SPRITEMOVEDATA_SPINRANDOM_FAST, 0, 0, -1, 0, OBJECTTYPE_TRAINER, 3, TrainerLassKrise, -1
 	object_event 28, 13, SPRITE_BUG_MANIAC, SPRITEMOVEDATA_SPINRANDOM_FAST, 0, 0, -1, 0, OBJECTTYPE_GENERICTRAINER, 3, GenericTrainerBugManiacLou, -1
 	object_event  4, 19, SPRITE_OFFICER, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, 0, OBJECTTYPE_SCRIPT, 0, OfficermKeithScript, -1
 	itemball_event 37, 12, SHINY_STONE, 1, EVENT_NATIONAL_PARK_SHINY_STONE
@@ -303,12 +303,97 @@ PokefanfBeverly1Script:
 .PackFull:
 	jumpstd packfullf
 
-GenericTrainerLassKrise:
-	generictrainer LASS, KRISE, EVENT_BEAT_LASS_KRISE, LassKriseSeenText, LassKriseBeatenText
+TrainerLassKrise:
+	trainer LASS, KRISE, EVENT_BEAT_LASS_KRISE, LassKriseSeenText, LassKriseBeatenText, 0, .Script
+.Script:
+	loadvar VAR_CALLERID, PHONE_LASS_KRISE
+	opentext
+	setval REMATCH_CONTACT_KRISE
+	special Special_CheckRematchPending
+	iftruefwd .Rematch
+	checkcellnum PHONE_LASS_KRISE
+	iftrue_jumpopenedtext LassKriseAfterBattleText
+	checkevent EVENT_KRISE_ASKED_FOR_PHONE_NUMBER
+	iftruefwd .AskAgain
+	writetext LassKriseAfterBattleText
+	promptbutton
+	setevent EVENT_KRISE_ASKED_FOR_PHONE_NUMBER
+	writetext KriseAskNumberText
+	sjumpfwd .Ask
+.AskAgain:
+	writetext KriseAskAgainText
+.Ask:
+	askforphonenumber PHONE_LASS_KRISE
+	ifequalfwd $1, .Full
+	ifequalfwd $2, .Declined
+	writetext KriseAcceptedText
+	waitbutton
+	endtext
+.Full:
+	writetext KrisePhoneFullText
+	waitbutton
+	endtext
+.Declined:
+	writetext KriseDeclinedText
+	waitbutton
+	endtext
+.Rematch:
+	writetext KriseRematchText
+	waitbutton
+	closetext
+	winlosstext LassKriseBeatenText, 0
+	checkevent EVENT_RESTORED_POWER_TO_KANTO
+	iftruefwd .Fight5
+	checkevent EVENT_BEAT_ELITE_FOUR
+	iftruefwd .Fight4
+	checkevent EVENT_CLEARED_RADIO_TOWER
+	iftruefwd .Fight3
+	checkflag ENGINE_FLYPOINT_OLIVINE
+	iftruefwd .Fight2
+	loadtrainer LASS, KRISE
+	sjumpfwd .Battle
+.Fight2:
+	loadtrainer LASS, KRISE2
+	sjumpfwd .Battle
+.Fight3:
+	loadtrainer LASS, KRISE3
+	sjumpfwd .Battle
+.Fight4:
+	loadtrainer LASS, KRISE4
+	sjumpfwd .Battle
+.Fight5:
+	loadtrainer LASS, KRISE5
+.Battle:
+	startbattle
+	reloadmapafterbattle
+	setval REMATCH_CONTACT_KRISE
+	special Special_ConsumeRematch
+	end
 
+LassKriseAfterBattleText:
 	text "I thought you were"
-	line "staring at me"
-	cont "because I'm cute!"
+	line "staring because"
+	cont "I'm cute!"
+	done
+KriseAskNumberText:
+	text "Register my number"
+	line "for a new battle?"
+	done
+KriseAskAgainText:
+	text "Want my number?"
+	done
+KriseAcceptedText:
+	text "I'll call you!"
+	done
+KrisePhoneFullText:
+	text "Your phone's full."
+	done
+KriseDeclinedText:
+	text "Oh. Maybe later."
+	done
+KriseRematchText:
+	text "Try not to stare"
+	line "during our battle!"
 	done
 
 NationalParkLassText:
