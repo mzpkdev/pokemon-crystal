@@ -48,12 +48,14 @@ class Emulator:
         self.pyboy.stop()
 
     def read(self, symbol: str) -> int:
-        return self.pyboy.memory[self._location(symbol)]
+        _, address = self._location(symbol)
+        return self.pyboy.memory[address]
 
     def write(self, symbol: str, value: int) -> None:
         if not 0 <= value <= 0xFF:
             raise ValueError(f"Byte value out of range: {value}")
-        self.pyboy.memory[self._location(symbol)] = value
+        _, address = self._location(symbol)
+        self.pyboy.memory[address] = value
 
     def read_at(self, symbol: str, offset: int) -> int:
         return self.pyboy.memory[self._location(symbol, offset)]
@@ -68,16 +70,16 @@ class Emulator:
         return self.pyboy.memory[bank, address:address + length]
 
     def bag_contains(self, item: int) -> bool:
-        bank, bag_items = self.symbols["wItems"]
+        _, bag_items = self.symbols["wItems"]
         return any(
-            self.pyboy.memory[bank, bag_items + index * 2] == item
+            self.pyboy.memory[bag_items + index * 2] == item
             for index in range(self.read("wNumItems"))
         )
 
     def key_items_contain(self, item: int) -> bool:
-        bank, key_items = self.symbols["wKeyItems"]
+        _, key_items = self.symbols["wKeyItems"]
         return any(
-            self.pyboy.memory[bank, key_items + index] == item
+            self.pyboy.memory[key_items + index] == item
             for index in range(64)
         )
 
