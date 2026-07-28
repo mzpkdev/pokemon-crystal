@@ -32,28 +32,10 @@ AddPhoneNumber::
 	jr nc, .full
 	call CheckCellNum
 	ret c
-	push bc
-	call CountPhoneNumbers
-	cp CONTACT_LIST_SIZE
-	pop bc
-	jr nc, .full
 	ld b, SET_FLAG
 	jr DoAddOrDelPhoneNumber
 .full
 	scf
-	ret
-
-CountPhoneNumbers:
-; Return the number of registered contacts in a and wNumSetBits.
-	ld hl, wPhoneList
-	ld b, PHONE_FLAG_BASE_BYTES
-	call CountSetBits
-	ld e, a
-	ld hl, wPhoneListExtension
-	ld b, PHONE_FLAG_EXTENSION_BYTES
-	call CountSetBits
-	add e
-	ld [wNumSetBits], a
 	ret
 
 DelCellNum::

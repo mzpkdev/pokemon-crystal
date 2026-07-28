@@ -254,11 +254,10 @@ DEF PHONE_CONTACT_SCRIPT2_BANK   rb
 DEF PHONE_CONTACT_SCRIPT2_ADDR   rw
 DEF PHONE_CONTACT_SIZE EQU _RS
 
-; maximum number of pokegear contacts
+; Legacy intended limit; the bitset-backed phone list is catalog-sized.
 DEF CONTACT_LIST_SIZE EQU 30
 
-; The catalog may grow independently of the deliberately retained 30-number
-; player-facing limit.
+; The catalog and saved phone-list capacity may grow independently.
 DEF PHONE_FLAG_BASE_BYTES EQU 5
 DEF PHONE_FLAG_EXTENSION_BYTES EQU 3
 DEF PHONE_FLAG_BYTES EQU PHONE_FLAG_BASE_BYTES + PHONE_FLAG_EXTENSION_BYTES
@@ -270,4 +269,3 @@ DEF PHONE_STORAGE_MAGIC_3 EQU $4e
 DEF PHONE_STORAGE_MAGIC_4 EQU $32
 
 	assert NUM_PHONE_CONTACTS <= PHONE_FLAG_CAPACITY
-	assert CONTACT_LIST_SIZE <= PHONE_FLAG_CAPACITY
