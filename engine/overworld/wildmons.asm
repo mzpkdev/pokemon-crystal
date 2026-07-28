@@ -158,6 +158,7 @@ TryWildEncounter::
 
 .no_battle
 	xor a ; BATTLETYPE_NORMAL
+	ldh [hEncounterSwarmID], a
 	ld [wTempWildMonSpecies], a
 	ld [wBattleType], a
 	ld a, 1
