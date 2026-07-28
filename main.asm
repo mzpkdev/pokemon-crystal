@@ -428,6 +428,7 @@ INCLUDE "data/phone/text/kenji_overworld.asm"
 INCLUDE "data/phone/text/parry_overworld.asm"
 INCLUDE "data/phone/text/erin_overworld.asm"
 INCLUDE "data/phone/text/sourcrystal_reuse_batch.asm"
+INCLUDE "data/phone/text/route14_15_rematches.asm"
 INCLUDE "data/phone/text/route2_gift_pair.asm"
 
 
@@ -487,6 +488,10 @@ INCLUDE "engine/phone/scripts/tanner.asm"
 INCLUDE "engine/phone/scripts/kenny.asm"
 INCLUDE "engine/phone/scripts/tim_and_sue.asm"
 INCLUDE "engine/phone/scripts/kyler.asm"
+INCLUDE "engine/phone/scripts/torin.asm"
+INCLUDE "engine/phone/scripts/billy.asm"
+INCLUDE "engine/phone/scripts/hillary.asm"
+INCLUDE "engine/phone/scripts/kay_and_tia.asm"
 INCLUDE "engine/phone/scripts/generic_callee.asm"
 
 

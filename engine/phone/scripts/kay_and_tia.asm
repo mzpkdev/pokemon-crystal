@@ -1,0 +1,40 @@
+KayAndTiaPhoneScript1:
+	gettrainername TWINS, KAYANDTIA1, STRING_BUFFER_3
+	setval REMATCH_CONTACT_KAY_AND_TIA
+	special Special_CheckRematchPending
+	iftruefwd KayAndTiaPhoneReminder
+	farwritetext KayAndTiaAnswerPhoneText
+	promptbutton
+	setval REMATCH_CONTACT_KAY_AND_TIA
+	special Special_TryClaimRematchScheduleWindow
+	iftruefwd KayAndTiaPhoneOffer
+	farwritetext KayAndTiaTwinPhoneText
+	end
+
+KayAndTiaPhoneScript2:
+	gettrainername TWINS, KAYANDTIA1, STRING_BUFFER_3
+	farwritetext KayAndTiaGreetPhoneText
+	promptbutton
+	setval REMATCH_CONTACT_KAY_AND_TIA
+	special Special_CheckRematchPending
+	iftruefwd KayAndTiaPhoneReminder
+	setval REMATCH_CONTACT_KAY_AND_TIA
+	special Special_CheckRematchScheduleUsed
+	iftruefwd .Flavor
+	setval PHONE_EVENT_CAP_REMATCH | PHONE_EVENT_CAP_FLAVOR
+	special Special_StageRematchPhoneEventCandidates
+	setval REMATCH_CONTACT_KAY_AND_TIA
+	special Special_SelectRematchContactPhoneEvent
+	ifequalfwd PHONE_EVENT_REMATCH, KayAndTiaPhoneOffer
+.Flavor:
+	farwritetext KayAndTiaTwinPhoneText
+	end
+
+KayAndTiaPhoneOffer:
+	setval REMATCH_CONTACT_KAY_AND_TIA
+	special Special_MarkRematchScheduleUsed
+	setval REMATCH_CONTACT_KAY_AND_TIA
+	special Special_OfferRematch
+KayAndTiaPhoneReminder:
+	getlandmarkname ROUTE_15, STRING_BUFFER_5
+	farsjump PhoneScript_WantsToBattle_Female

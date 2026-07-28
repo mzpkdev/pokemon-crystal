@@ -55,5 +55,9 @@ PhoneContacts:
 	phone HIKER,        KENNY,                 ROUTE_13,                  %1111, KennyPhoneScript1,   %1111, KennyPhoneScript2
 	phone COUPLE,       TIMANDSUE1,            ROUTE_13,                  %1111, TimAndSuePhoneScript1, %1111, TimAndSuePhoneScript2
 	phone FISHER,       KYLER,                 ROUTE_12_SOUTH,            %1111, KylerPhoneScript1,   %1111, KylerPhoneScript2
+	phone SCHOOLBOY,    TORIN,                 ROUTE_14,                  %1111, TorinPhoneScript1,   %1111, TorinPhoneScript2
+	phone SCHOOLBOY,    BILLY,                 ROUTE_15,                  %1111, BillyPhoneScript1,   %1111, BillyPhoneScript2
+	phone TEACHER_F,    HILLARY,               ROUTE_15,                  %1111, HillaryPhoneScript1, %1111, HillaryPhoneScript2
+	phone TWINS,        KAYANDTIA1,            ROUTE_15,                  %1111, KayAndTiaPhoneScript1, %1111, KayAndTiaPhoneScript2
 	phone TRAINER_NONE, PHONECONTACT_BUENA,    GOLDENROD_DEPT_STORE_ROOF, %1111, BuenaPhoneScript1,   %1111, BuenaPhoneScript2
 	assert_table_length NUM_PHONE_CONTACTS + 1

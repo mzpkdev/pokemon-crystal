@@ -1,0 +1,40 @@
+HillaryPhoneScript1:
+	gettrainername TEACHER_F, HILLARY, STRING_BUFFER_3
+	setval REMATCH_CONTACT_HILLARY
+	special Special_CheckRematchPending
+	iftruefwd HillaryPhoneReminder
+	farwritetext HillaryAnswerPhoneText
+	promptbutton
+	setval REMATCH_CONTACT_HILLARY
+	special Special_TryClaimRematchScheduleWindow
+	iftruefwd HillaryPhoneOffer
+	farwritetext HillaryExercisePhoneText
+	end
+
+HillaryPhoneScript2:
+	gettrainername TEACHER_F, HILLARY, STRING_BUFFER_3
+	farwritetext HillaryGreetPhoneText
+	promptbutton
+	setval REMATCH_CONTACT_HILLARY
+	special Special_CheckRematchPending
+	iftruefwd HillaryPhoneReminder
+	setval REMATCH_CONTACT_HILLARY
+	special Special_CheckRematchScheduleUsed
+	iftruefwd .Flavor
+	setval PHONE_EVENT_CAP_REMATCH | PHONE_EVENT_CAP_FLAVOR
+	special Special_StageRematchPhoneEventCandidates
+	setval REMATCH_CONTACT_HILLARY
+	special Special_SelectRematchContactPhoneEvent
+	ifequalfwd PHONE_EVENT_REMATCH, HillaryPhoneOffer
+.Flavor:
+	farwritetext HillaryExercisePhoneText
+	end
+
+HillaryPhoneOffer:
+	setval REMATCH_CONTACT_HILLARY
+	special Special_MarkRematchScheduleUsed
+	setval REMATCH_CONTACT_HILLARY
+	special Special_OfferRematch
+HillaryPhoneReminder:
+	getlandmarkname ROUTE_15, STRING_BUFFER_5
+	farsjump PhoneScript_WantsToBattle_Female

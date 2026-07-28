@@ -44,7 +44,11 @@ RematchPhoneEventSelectionTables:
 	rept REMATCH_CONTACT_JAMIE - REMATCH_CONTACT_KYLE
 		rematch_phone_event_table SourBasicPhoneEventSelection
 	endr
-	rept REMATCH_CONTACT_KYLER - REMATCH_CONTACT_JAMIE
+	rematch_phone_event_table ExtendedPhoneEventSelection ; JAMIE
+	rept REMATCH_CONTACT_AIDEN - REMATCH_CONTACT_TORIN
+		rematch_phone_event_table SourBasicPhoneEventSelection
+	endr
+	rept REMATCH_CONTACT_KYLER - REMATCH_CONTACT_AIDEN
 		rematch_phone_event_table ExtendedPhoneEventSelection
 	endr
 	rematch_phone_event_table SourBasicPhoneEventSelection ; KYLER

@@ -40,10 +40,10 @@ RematchSchedules::
 	rematch_schedule SATURDAY,  REMATCH_SCHEDULE_DAY_EVE   ; Kenny
 	rematch_schedule FRIDAY,    REMATCH_SCHEDULE_DAY_EVE   ; Tim & Sue
 	rematch_schedule TUESDAY,   REMATCH_SCHEDULE_NIGHT     ; Jamie
-	rematch_schedule WEDNESDAY, REMATCH_SCHEDULE_NIGHT     ; Torin
-	rematch_schedule FRIDAY,    REMATCH_SCHEDULE_NIGHT     ; Billy
-	rematch_schedule THURSDAY,  REMATCH_SCHEDULE_NIGHT     ; Hillary
-	rematch_schedule SATURDAY,  REMATCH_SCHEDULE_NIGHT     ; Kay & Tia
+	rematch_schedule WEDNESDAY, REMATCH_SCHEDULE_NITE      ; Torin
+	rematch_schedule FRIDAY,    REMATCH_SCHEDULE_NITE      ; Billy
+	rematch_schedule THURSDAY,  REMATCH_SCHEDULE_NITE      ; Hillary
+	rematch_schedule SATURDAY,  REMATCH_SCHEDULE_NITE      ; Kay & Tia
 	rematch_schedule MONDAY,    REMATCH_SCHEDULE_MORNING   ; Aiden
 	rematch_schedule SUNDAY,    REMATCH_SCHEDULE_AFTERNOON ; Dale (Eoin role)
 	rematch_schedule SUNDAY,    REMATCH_SCHEDULE_NIGHT     ; Reilly (Reese role)

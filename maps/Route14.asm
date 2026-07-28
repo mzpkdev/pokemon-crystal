@@ -16,7 +16,7 @@ Route14_MapScriptHeader:
 	object_event 11, 29, SPRITE_BIRD_KEEPER, SPRITEMOVEDATA_SPINRANDOM_FAST, 0, 0, -1, 0, OBJECTTYPE_GENERICTRAINER, 3, GenericTrainerBird_keeperRoy, -1
 	object_event 15, 15, SPRITE_BIRD_KEEPER, SPRITEMOVEDATA_STANDING_LEFT, 0, 0, -1, 0, OBJECTTYPE_GENERICTRAINER, 4, GenericTrainerBird_keeperJosh, -1
 	object_event  4, 19, SPRITE_SCHOOLBOY, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, 0, OBJECTTYPE_GENERICTRAINER, 4, GenericTrainerSchoolboyConnor, -1
-	object_event  4, 17, SPRITE_SCHOOLBOY, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, 0, OBJECTTYPE_GENERICTRAINER, 4, GenericTrainerSchoolboyTorin, -1
+	object_event  4, 17, SPRITE_SCHOOLBOY, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, 0, OBJECTTYPE_TRAINER, 4, TrainerSchoolboyTorin, -1
 	object_event  4, 15, SPRITE_SCHOOLBOY, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, 0, OBJECTTYPE_GENERICTRAINER, 4, GenericTrainerSchoolboyTravis, -1
 	object_event  9, 17, SPRITE_TEACHER, SPRITEMOVEDATA_STANDING_LEFT, 0, 0, -1, 0, OBJECTTYPE_GENERICTRAINER, 4, GenericTrainerTeacherClarice, -1
 	object_event  7,  7, SPRITE_TEACHER, SPRITEMOVEDATA_WALK_LEFT_RIGHT, 0, 1, -1, 0, OBJECTTYPE_COMMAND, trade, NPC_TRADE_KIM, -1
@@ -142,9 +142,64 @@ GenericTrainerSchoolboyConnor:
 	line "of a hurry."
 	done
 
-GenericTrainerSchoolboyTorin:
-	generictrainer SCHOOLBOY, TORIN, EVENT_BEAT_SCHOOLBOY_TORIN, .SeenText, .BeatenText
+TrainerSchoolboyTorin:
+	trainer SCHOOLBOY, TORIN, EVENT_BEAT_SCHOOLBOY_TORIN, .SeenText, .BeatenText, 0, .Script
+.Script:
+	loadvar VAR_CALLERID, PHONE_SCHOOLBOY_TORIN
+	opentext
+	setval REMATCH_CONTACT_TORIN
+	special Special_CheckRematchPending
+	iftruefwd .Rematch
+	checkcellnum PHONE_SCHOOLBOY_TORIN
+	iftrue_jumpopenedtext .AfterBattleText
+	checkevent EVENT_TORIN_ASKED_FOR_PHONE_NUMBER
+	iftruefwd .AskAgain
+	writetext .AfterBattleText
+	promptbutton
+	setevent EVENT_TORIN_ASKED_FOR_PHONE_NUMBER
+	writetext .AskNumberText
+	sjumpfwd .Ask
+.AskAgain:
+	writetext .AskAgainText
+.Ask:
+	askforphonenumber PHONE_SCHOOLBOY_TORIN
+	ifequalfwd PHONE_CONTACTS_FULL, .Full
+	ifequalfwd PHONE_CONTACT_REFUSED, .Declined
+	writetext .AcceptedText
+	waitbutton
+	endtext
+.Full:
+	writetext .PhoneFullText
+	waitbutton
+	endtext
+.Declined:
+	writetext .DeclinedText
+	waitbutton
+	endtext
+.Rematch:
+	writetext .RematchText
+	waitbutton
+	closetext
+	winlosstext .BeatenText, 0
+	checkevent EVENT_BEAT_BLUE
+	iftruefwd .Fight3
+	checkflag ENGINE_FLYPOINT_PEWTER
+	iftruefwd .Fight2
+	loadtrainer SCHOOLBOY, TORIN
+	sjumpfwd .Battle
+.Fight2:
+	loadtrainer SCHOOLBOY, TORIN2
+	sjumpfwd .Battle
+.Fight3:
+	loadtrainer SCHOOLBOY, TORIN3
+.Battle:
+	startbattle
+	reloadmapafterbattle
+	setval REMATCH_CONTACT_TORIN
+	special Special_ConsumeRematch
+	end
 
+.AfterBattleText:
 	text "All right! Next"
 	line "time, I won't make"
 	cont "any mistakes!"
@@ -158,6 +213,39 @@ GenericTrainerSchoolboyTorin:
 
 .BeatenText:
 	text "I see. I see."
+	done
+
+.AskNumberText:
+	text "Let's compare our"
+	line "study notes."
+
+	para "Can I get your"
+	line "phone number?"
+	done
+
+.AskAgainText:
+	text "Want to exchange"
+	line "phone numbers?"
+	done
+
+.AcceptedText:
+	text "Great! I'll call"
+	line "after I study."
+	done
+
+.DeclinedText:
+	text "Oh. Maybe after"
+	line "more studying."
+	done
+
+.PhoneFullText:
+	text "Your phone list"
+	line "is full."
+	done
+
+.RematchText:
+	text "Review is over!"
+	line "Let's battle!"
 	done
 
 GenericTrainerSchoolboyTravis:
