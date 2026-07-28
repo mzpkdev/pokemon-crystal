@@ -14,7 +14,7 @@ AlfredPhoneScript2:
 	farscall AlfredPhoneGreeting
 	setval REMATCH_CONTACT_ALFRED
 	special Special_CheckRematchPending
-	iftruefwd .Flavor
+	iftruefwd AlfredPhoneReminder
 	setval REMATCH_CONTACT_ALFRED
 	special Special_CheckRematchScheduleUsed
 	iftruefwd .Flavor

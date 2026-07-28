@@ -14,7 +14,7 @@ BrandonPhoneScript2:
 	farscall BrandonPhoneGreeting
 	setval REMATCH_CONTACT_BRANDON
 	special Special_CheckRematchPending
-	iftruefwd .Flavor
+	iftruefwd BrandonPhoneReminder
 	setval REMATCH_CONTACT_BRANDON
 	special Special_CheckRematchScheduleUsed
 	iftruefwd .Flavor

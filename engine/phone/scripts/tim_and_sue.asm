@@ -17,7 +17,7 @@ TimAndSuePhoneScript2:
 	promptbutton
 	setval REMATCH_CONTACT_TIM_AND_SUE
 	special Special_CheckRematchPending
-	iftruefwd .Flavor
+	iftruefwd TimAndSuePhoneReminder
 	setval REMATCH_CONTACT_TIM_AND_SUE
 	special Special_CheckRematchScheduleUsed
 	iftruefwd .Flavor

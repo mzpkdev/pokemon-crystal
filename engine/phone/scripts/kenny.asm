@@ -17,7 +17,7 @@ KennyPhoneScript2:
 	promptbutton
 	setval REMATCH_CONTACT_KENNY
 	special Special_CheckRematchPending
-	iftruefwd .Flavor
+	iftruefwd KennyPhoneReminder
 	setval REMATCH_CONTACT_KENNY
 	special Special_CheckRematchScheduleUsed
 	iftruefwd .Flavor

@@ -21,7 +21,7 @@ WaltPhoneScript2:
 	farscall WaltPhoneGreeting
 	setval REMATCH_CONTACT_WALT
 	special Special_CheckRematchPending
-	iftruefwd .Flavor
+	iftruefwd WaltPhoneReminder
 	setval REMATCH_CONTACT_WALT
 	special Special_CheckRematchScheduleUsed
 	iftruefwd .Flavor

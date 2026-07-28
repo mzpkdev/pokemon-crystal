@@ -17,7 +17,7 @@ KylePhoneScript2:
 	promptbutton
 	setval REMATCH_CONTACT_KYLE
 	special Special_CheckRematchPending
-	iftruefwd .Flavor
+	iftruefwd KylePhoneReminder
 	setval REMATCH_CONTACT_KYLE
 	special Special_CheckRematchScheduleUsed
 	iftruefwd .Flavor

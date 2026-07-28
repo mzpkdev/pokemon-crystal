@@ -14,7 +14,7 @@ KrisePhoneScript2:
 	farscall KrisePhoneGreeting
 	setval REMATCH_CONTACT_KRISE
 	special Special_CheckRematchPending
-	iftruefwd .Flavor
+	iftruefwd KrisePhoneReminder
 	setval REMATCH_CONTACT_KRISE
 	special Special_CheckRematchScheduleUsed
 	iftruefwd .Flavor

@@ -17,7 +17,7 @@ KylerPhoneScript2:
 	promptbutton
 	setval REMATCH_CONTACT_KYLER
 	special Special_CheckRematchPending
-	iftruefwd .Flavor
+	iftruefwd KylerPhoneReminder
 	setval REMATCH_CONTACT_KYLER
 	special Special_CheckRematchScheduleUsed
 	iftruefwd .Flavor

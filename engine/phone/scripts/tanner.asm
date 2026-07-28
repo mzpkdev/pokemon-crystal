@@ -17,7 +17,7 @@ TannerPhoneScript2:
 	promptbutton
 	setval REMATCH_CONTACT_TANNER
 	special Special_CheckRematchPending
-	iftruefwd .Flavor
+	iftruefwd TannerPhoneReminder
 	setval REMATCH_CONTACT_TANNER
 	special Special_CheckRematchScheduleUsed
 	iftruefwd .Flavor
