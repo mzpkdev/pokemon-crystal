@@ -31,7 +31,6 @@ SECTION "bank3", ROMX
 
 INCLUDE "engine/events/checktime.asm"
 INCLUDE "engine/events/specials.asm"
-INCLUDE "engine/events/swarms.asm"
 INCLUDE "engine/events/rematches.asm"
 INCLUDE "data/phone/rematch_schedules.asm"
 INCLUDE "engine/pokemon/health.asm"
@@ -44,6 +43,11 @@ INCLUDE "engine/pokemon/breedmon_level_growth.asm"
 INCLUDE "engine/events/bug_contest/caught_mon.asm"
 INCLUDE "engine/events/bug_contest/display_stats.asm"
 INCLUDE "engine/items/item_effects.asm"
+
+
+SECTION "Swarms", ROMX
+
+INCLUDE "engine/events/swarms.asm"
 
 
 SECTION "Print Number", ROMX
