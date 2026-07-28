@@ -51,6 +51,14 @@ class Emulator:
             raise ValueError(f"Byte value out of range: {value}")
         self.pyboy.memory[self.symbols[symbol]] = value
 
+    def read_at(self, symbol: str, offset: int) -> int:
+        return self.pyboy.memory[self.symbols[symbol] + offset]
+
+    def write_at(self, symbol: str, offset: int, value: int) -> None:
+        if not 0 <= value <= 0xFF:
+            raise ValueError(f"Byte value out of range: {value}")
+        self.pyboy.memory[self.symbols[symbol] + offset] = value
+
     def bag_contains(self, item: int) -> bool:
         bag_items = self.symbols["wItems"]
         return any(
