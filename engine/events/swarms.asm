@@ -275,10 +275,10 @@ CheckEncounterSwarmShinyBoost::
 ; swarm, its shiny policy is boosted, and its advertised species/form is the
 ; Pokemon currently being generated. NO_FORM advertises all forms of a species.
 ; Invalid state fails closed.
-	ld a, [wEncounterSwarmID]
+	ldh a, [hEncounterSwarmID]
 	ld b, a
 	xor a
-	ld [wEncounterSwarmID], a
+	ldh [hEncounterSwarmID], a
 	ld a, b
 	and a
 	jr z, .no_boost

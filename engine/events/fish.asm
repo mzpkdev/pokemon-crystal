@@ -17,7 +17,7 @@ endr
 	ld a, d
 	and a
 	jr nz, .got_swarm_mon
-	ld [wEncounterSwarmID], a
+	ldh [hEncounterSwarmID], a
 .got_swarm_mon
 
 	pop af
@@ -219,7 +219,7 @@ GetFishGroupIndex:
 ; Return the index of fishgroup d in de.
 
 	xor a
-	ld [wEncounterSwarmID], a
+	ldh [hEncounterSwarmID], a
 	push bc
 	push de
 	farcall IsCurrentMapActiveSwarm
@@ -251,7 +251,7 @@ GetFishGroupIndex:
 	jr nz, .done
 	ld d, [hl]
 	ld a, [wActiveSwarm]
-	ld [wEncounterSwarmID], a
+	ldh [hEncounterSwarmID], a
 	jr .done
 
 .no_swarm

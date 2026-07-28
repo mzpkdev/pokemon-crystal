@@ -259,7 +259,7 @@ _ChooseWildEncounter:
 	pop bc
 	jr nc, .not_roaming
 	xor a
-	ld [wEncounterSwarmID], a
+	ldh [hEncounterSwarmID], a
 	jmp .startwildbattle
 .not_roaming
 	xor a ; BATTLETYPE_NORMAL
@@ -569,7 +569,7 @@ ApplyAbilityEffectsOnEncounterMon:
 
 LoadWildMonDataPointer:
 	xor a
-	ld [wEncounterSwarmID], a
+	ldh [hEncounterSwarmID], a
 	call CheckOnWater
 	jr z, _WaterWildmonLookup
 
@@ -650,7 +650,7 @@ _SwarmWildmonCheck:
 	or l
 	jr z, _NoSwarmWildmon
 	ld a, [wActiveSwarm]
-	ld [wEncounterSwarmID], a
+	ldh [hEncounterSwarmID], a
 	scf
 	ret
 
