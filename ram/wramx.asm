@@ -1775,7 +1775,9 @@ wDexAreaLastMode:: db
 
 	; Used to align wDexAreaMons. Feel free to add more data here, just don't
 	; let wDexAreaMons be misaligned (an assert will tell you if you do).
-	ds 3
+	; The seven appended swarm-only fish groups crossed the previous alignment
+	; boundary, so wrap this padding to the next page.
+	ds 252
 
 ALIGN 8
 wDexAreaMons::
