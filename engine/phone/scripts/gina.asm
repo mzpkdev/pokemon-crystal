@@ -43,17 +43,34 @@ GinaPhoneScript2:
 	checkflag ENGINE_GINA_HAS_LEAF_STONE
 	iftruefwd .Generic
 	checkevent EVENT_GINA_GAVE_LEAF_STONE
-	iftruefwd .GaveLeafStone
-	farscall PhoneScript_Random2
-	ifequalfwd $0, GinaHasLeafStone
-
-.GaveLeafStone:
-	farscall PhoneScript_Random11
-	ifequalfwd $0, GinaHasLeafStone
+	iftruefwd .RepeatPolicy
 	checkflag ENGINE_FLYPOINT_GOLDENROD
-	iffalsefwd .Generic
-	farscall PhoneScript_Random3
-	ifequalfwd $0, GinaWantsBattle
+	iffalsefwd .FirstGiftCandidates
+	setval PHONE_EVENT_CAP_GIFT | PHONE_EVENT_CAP_REMATCH | PHONE_EVENT_CAP_FLAVOR
+	special Special_StageRematchPhoneEventCandidates
+	sjumpfwd .SelectEvent
+
+.FirstGiftCandidates:
+	setval PHONE_EVENT_CAP_GIFT | PHONE_EVENT_CAP_FLAVOR
+	special Special_StageRematchPhoneEventCandidates
+	sjumpfwd .SelectEvent
+
+.RepeatPolicy:
+	checkflag ENGINE_FLYPOINT_GOLDENROD
+	iffalsefwd .RepeatGiftCandidates
+	setval PHONE_EVENT_CAP_GIFT | PHONE_EVENT_CAP_REMATCH | PHONE_EVENT_CAP_FLAVOR | PHONE_EVENT_USE_REPEAT_POLICY
+	special Special_StageRematchPhoneEventCandidates
+	sjumpfwd .SelectEvent
+
+.RepeatGiftCandidates:
+	setval PHONE_EVENT_CAP_GIFT | PHONE_EVENT_CAP_FLAVOR | PHONE_EVENT_USE_REPEAT_POLICY
+	special Special_StageRematchPhoneEventCandidates
+
+.SelectEvent:
+	setval REMATCH_CONTACT_GINA
+	special Special_SelectRematchContactPhoneEvent
+	ifequalfwd PHONE_EVENT_GIFT, GinaHasLeafStone
+	ifequalfwd PHONE_EVENT_REMATCH, GinaWantsBattle
 
 .Generic:
 	farsjump Phone_GenericCall_Female
