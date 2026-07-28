@@ -29,26 +29,33 @@ DanaPhoneScript2:
 	farscall PhoneScript_GreetPhone_Female
 	setval REMATCH_CONTACT_DANA
 	special Special_CheckRematchPending
-	iftruefwd .Generic
+	iftruefwd .GatedCandidates
 	setval REMATCH_CONTACT_DANA
 	special Special_CheckRematchScheduleUsed
-	iftruefwd .Generic
+	iftruefwd .GatedCandidates
 	checkflag ENGINE_DANA_HAS_THUNDERSTONE
-	iftruefwd .Generic
-	farscall PhoneScript_Random3
-	ifequalfwd $0, DanaWantsBattle
+	iftruefwd .GatedCandidates
 	checkevent EVENT_DANA_GAVE_THUNDERSTONE
-	iftruefwd .Thunderstone
-	farscall PhoneScript_Random2
-	ifequalfwd $0, DanaHasThunderstone
+	iftruefwd .RepeatPolicy
+	setval PHONE_EVENT_CAP_REMATCH | PHONE_EVENT_CAP_GIFT | PHONE_EVENT_CAP_RARE_REPORT | PHONE_EVENT_CAP_FLAVOR
+	special Special_StageRematchPhoneEventCandidates
+	sjumpfwd .SelectEvent
 
-.Thunderstone:
-	farscall PhoneScript_Random11
-	ifequalfwd $0, DanaHasThunderstone
+.RepeatPolicy:
+	setval PHONE_EVENT_CAP_REMATCH | PHONE_EVENT_CAP_GIFT | PHONE_EVENT_CAP_RARE_REPORT | PHONE_EVENT_CAP_FLAVOR | PHONE_EVENT_USE_REPEAT_POLICY
+	special Special_StageRematchPhoneEventCandidates
+	sjumpfwd .SelectEvent
 
-.Generic:
-	farscall PhoneScript_Random3
-	ifequalfwd $0, DanaFoundRare
+.GatedCandidates:
+	setval PHONE_EVENT_CAP_RARE_REPORT | PHONE_EVENT_CAP_FLAVOR
+	special Special_StageRematchPhoneEventCandidates
+
+.SelectEvent:
+	setval REMATCH_CONTACT_DANA
+	special Special_SelectRematchContactPhoneEvent
+	ifequalfwd PHONE_EVENT_REMATCH, DanaWantsBattle
+	ifequalfwd PHONE_EVENT_GIFT, DanaHasThunderstone
+	ifequalfwd PHONE_EVENT_RARE_REPORT, DanaFoundRare
 	farsjump Phone_GenericCall_Female
 
 DanaWantsBattle:
