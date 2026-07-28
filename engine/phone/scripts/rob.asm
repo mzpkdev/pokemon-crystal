@@ -13,6 +13,7 @@ RobPhoneScript1:
 	iftruefwd .Flavor
 	random 3
 	ifequalfwd 0, RobPhoneGift
+	setevent EVENT_ROB_BERRY_CLAIMED
 .Flavor:
 	farwritetext RobPhoneFlavorText
 	end
@@ -28,11 +29,18 @@ RobPhoneScript2:
 	setval REMATCH_CONTACT_ROB
 	special Special_CheckRematchScheduleUsed
 	iftruefwd .Flavor
+	checkevent EVENT_ROB_BERRY_CLAIMED
+	iftruefwd .RematchOnly
 	setval PHONE_EVENT_CAP_GIFT | PHONE_EVENT_CAP_REMATCH | PHONE_EVENT_CAP_FLAVOR
+	sjumpfwd .Select
+.RematchOnly:
+	setval PHONE_EVENT_CAP_REMATCH | PHONE_EVENT_CAP_FLAVOR
+.Select:
 	special Special_StageRematchPhoneEventCandidates
 	setval REMATCH_CONTACT_ROB
 	special Special_SelectRematchContactPhoneEvent
 	ifequalfwd PHONE_EVENT_GIFT, RobPhoneGift
+	setevent EVENT_ROB_BERRY_CLAIMED
 	ifequalfwd PHONE_EVENT_REMATCH, RobPhoneOffer
 .Flavor:
 	farwritetext RobPhoneFlavorText

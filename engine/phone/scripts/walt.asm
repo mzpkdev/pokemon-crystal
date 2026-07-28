@@ -32,7 +32,14 @@ WaltPhoneScript2:
 	ifequalfwd PHONE_EVENT_REMATCH, WaltPhoneOffer
 	ifequalfwd PHONE_EVENT_RARE_REPORT, WaltPhoneRare
 .Flavor:
+	readvar VAR_WEEKDAY
+	ifequalfwd TUESDAY, .Contest
+	ifequalfwd THURSDAY, .Contest
+	ifequalfwd SATURDAY, .Contest
 	farsjump WaltPhoneCallerFlavor
+.Contest:
+	farwritetext WaltBugContestPhoneText
+	end
 WaltPhoneCalleeFlavor:
 	farwritetext WaltTypesPhoneText
 	end

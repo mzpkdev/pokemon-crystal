@@ -25,11 +25,11 @@ TrainerBug_maniacRob:
 .Script:
 	loadvar VAR_CALLERID, PHONE_BUG_MANIAC_ROB
 	opentext
-	checkevent EVENT_ROB_BERRY_READY
-	iftruefwd .GiveBerry
 	setval REMATCH_CONTACT_ROB
 	special Special_CheckRematchPending
 	iftruefwd .Rematch
+	checkevent EVENT_ROB_BERRY_READY
+	iftruefwd .GiveBerry
 	checkcellnum PHONE_BUG_MANIAC_ROB
 	iftrue_jumpopenedtext Bug_maniacRobAfterBattleText
 	checkevent EVENT_ROB_ASKED_FOR_PHONE_NUMBER
@@ -98,11 +98,11 @@ TrainerBug_maniacDoug:
 .Script:
 	loadvar VAR_CALLERID, PHONE_BUG_MANIAC_DOUG
 	opentext
-	checkevent EVENT_DOUG_BERRY_READY
-	iftruefwd .GiveBerry
 	setval REMATCH_CONTACT_DOUG
 	special Special_CheckRematchPending
 	iftruefwd .Rematch
+	checkevent EVENT_DOUG_BERRY_READY
+	iftruefwd .GiveBerry
 	checkcellnum PHONE_BUG_MANIAC_DOUG
 	iftrue_jumpopenedtext Bug_maniacDougAfterBattleText
 	checkevent EVENT_DOUG_ASKED_FOR_PHONE_NUMBER

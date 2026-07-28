@@ -13,6 +13,7 @@ DougPhoneScript1:
 	iftruefwd .Flavor
 	random 3
 	ifequalfwd 0, DougPhoneGift
+	setevent EVENT_DOUG_BERRY_CLAIMED
 .Flavor:
 	farwritetext DougPhoneFlavorText
 	end
@@ -28,11 +29,18 @@ DougPhoneScript2:
 	setval REMATCH_CONTACT_DOUG
 	special Special_CheckRematchScheduleUsed
 	iftruefwd .Flavor
+	checkevent EVENT_DOUG_BERRY_CLAIMED
+	iftruefwd .RematchOnly
 	setval PHONE_EVENT_CAP_GIFT | PHONE_EVENT_CAP_REMATCH | PHONE_EVENT_CAP_FLAVOR
+	sjumpfwd .Select
+.RematchOnly:
+	setval PHONE_EVENT_CAP_REMATCH | PHONE_EVENT_CAP_FLAVOR
+.Select:
 	special Special_StageRematchPhoneEventCandidates
 	setval REMATCH_CONTACT_DOUG
 	special Special_SelectRematchContactPhoneEvent
 	ifequalfwd PHONE_EVENT_GIFT, DougPhoneGift
+	setevent EVENT_DOUG_BERRY_CLAIMED
 	ifequalfwd PHONE_EVENT_REMATCH, DougPhoneOffer
 .Flavor:
 	farwritetext DougPhoneFlavorText

@@ -260,7 +260,7 @@ SourBasicPhoneEventSelection:
 
 SourRarePhoneEventSelection:
 	phone_event_chance PHONE_EVENT_REMATCH, 1, 3
-	phone_event_chance PHONE_EVENT_RARE_REPORT, 1, 3
+	phone_event_chance PHONE_EVENT_RARE_REPORT, 1, 4
 	phone_event_fallback PHONE_EVENT_FLAVOR
 
 BerryRematchPhoneEventSelection:
