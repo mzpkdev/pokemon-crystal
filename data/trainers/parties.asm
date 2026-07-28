@@ -3001,7 +3001,7 @@ FisherGroup:
 	tr_mon 58, SEAKING
 		tr_moves SUPERSONIC, RAIN_DANCE, WATERFALL, HORN_ATTACK
 	tr_mon 62, SEAKING
-		tr_moves MEGAHORN, RAIN_DANCE, WATERFALL, FLAIL
+		tr_moves MEGAHORN, RAIN_DANCE, WATERFALL, REVERSAL
 	tr_mon 59, QWILFISH
 		tr_moves PIN_MISSILE, RAIN_DANCE, SURF, SLUDGE_BOMB
 	tr_mon 61, KINGLER
@@ -3465,7 +3465,7 @@ HikerGroup:
 
 	def_trainer KENNY3, "Kenny"
 	tr_mon 56, SANDSLASH
-		tr_moves EARTHQUAKE, SLASH, FURY_CUTTER, SANDSTORM
+		tr_moves EARTHQUAKE, SLASH, X_SCISSOR, SANDSTORM
 	tr_mon 54, GRAVELER
 		tr_moves EARTHQUAKE, EXPLOSION, DEFENSE_CURL, ROLLOUT
 	tr_mon 59, GOLEM
@@ -3845,7 +3845,7 @@ PokefanMGroup:
 	tr_mon 60, PRIMEAPE
 		tr_moves OUTRAGE, CROSS_CHOP, SWAGGER, SCREECH
 	tr_mon 62, DUGTRIO
-		tr_moves EARTHQUAKE, TRI_ATTACK, FISSURE, SLASH
+		tr_moves EARTHQUAKE, TRI_ATTACK, STONE_EDGE, SLASH
 	end_trainer
 
 	def_trainer JEREMY, "Jeremy"
@@ -3949,7 +3949,7 @@ OfficerFGroup:
 
 	def_trainer JAMIE3, "Jamie"
 	tr_mon 65, FEAROW
-		tr_moves FEINT_ATTACK, SWIFT, BITE, SKY_ATTACK
+		tr_moves FEINT_ATTACK, SWIFT, BITE, BRAVE_BIRD
 	tr_mon 65, SKARMORY
 		tr_moves DRILL_PECK, STEEL_WING, SLASH, AGILITY
 	end_trainer
@@ -4289,7 +4289,7 @@ endc
 
 	def_trainer KRISE5, "Krise"
 	tr_mon 59, VILEPLUME
-		tr_moves GIGA_DRAIN, SLEEP_POWDER, SLUDGE_BOMB, MOONLIGHT
+		tr_moves GIGA_DRAIN, SLEEP_POWDER, SLUDGE_BOMB, FRESH_SNACK
 	tr_mon 62, MAROWAK
 		tr_moves BONEMERANG, DOUBLE_EDGE, IRON_TAIL, CURSE
 	end_trainer
@@ -4512,7 +4512,7 @@ BugManiacGroup:
 	tr_mon 65, BEEDRILL
 		tr_moves PIN_MISSILE, SLUDGE_BOMB, OUTRAGE, FOCUS_ENERGY
 	tr_mon 64, BUTTERFREE
-		tr_moves SLEEP_POWDER, GIGA_DRAIN, PSYCHIC_M, NIGHTMARE
+		tr_moves SLEEP_POWDER, GIGA_DRAIN, PSYCHIC_M, HEX
 	end_trainer
 
 	def_trainer ED, "Ed"
@@ -4533,7 +4533,7 @@ BugManiacGroup:
 
 	def_trainer DOUG3, "Doug"
 	tr_mon 65, BUTTERFREE
-		tr_moves STUN_SPORE, WHIRLWIND, PSYCHIC_M, SAFEGUARD
+		tr_moves STUN_SPORE, ROAR, PSYCHIC_M, SAFEGUARD
 	tr_mon 63, ARIADOS
 		tr_moves SWORDS_DANCE, PIN_MISSILE, SLUDGE_BOMB, NIGHT_SHADE
 	end_trainer
@@ -4905,9 +4905,9 @@ SchoolboyGroup:
 	tr_mon 60, MR__MIME
 		tr_moves PSYCHIC_M, SUBSTITUTE, REFLECT, BATON_PASS
 	tr_mon 65, PARASECT
-		tr_moves GIGA_DRAIN, FURY_CUTTER, SLASH, SPORE
+		tr_moves GIGA_DRAIN, X_SCISSOR, SLASH, SPORE
 	tr_mon 63, POLIWRATH
-		tr_moves SUBMISSION, SURF, HYPNOSIS, BODY_SLAM
+		tr_moves CLOSE_COMBAT, SURF, HYPNOSIS, BODY_SLAM
 	tr_mon 61, DITTO
 		tr_moves TRANSFORM, NO_MOVE, NO_MOVE, NO_MOVE
 	end_trainer
@@ -4944,7 +4944,7 @@ SchoolboyGroup:
 
 	def_trainer TORIN3, "Torin"
 	tr_mon 62, SANDSLASH
-		tr_moves DIG, RAPID_SPIN, SLASH, FURY_CUTTER
+		tr_moves DIG, RAPID_SPIN, SLASH, X_SCISSOR
 	tr_mon 63, GOLBAT
 		tr_moves CRUNCH, CONFUSE_RAY, WING_ATTACK, SLUDGE_BOMB
 	tr_mon 62, VULPIX
@@ -5459,7 +5459,7 @@ GentlemanGroup:
 
 	def_trainer ALFRED4, "Alfred"
 	tr_mon 64, NOCTOWL
-		tr_moves HEADBUTT, HYPNOSIS, DREAM_EATER, SKY_ATTACK
+		tr_moves HEADBUTT, HYPNOSIS, DREAM_EATER, BRAVE_BIRD
 	end_trainer
 
 	def_trainer MILTON, "Milton"
@@ -6764,7 +6764,7 @@ BikerGroup:
 	tr_mon 65, TENTACRUEL
 		tr_moves SLUDGE_BOMB, BARRIER, BUBBLEBEAM, MIRROR_COAT
 	tr_mon 68, HYPNO
-		tr_moves PSYCHIC_M, HYPNOSIS, NIGHTMARE, FIRE_PUNCH
+		tr_moves PSYCHIC_M, HYPNOSIS, HEX, FIRE_PUNCH
 	tr_mon 68, TENTACRUEL
 		tr_moves SLUDGE_BOMB, HYDRO_PUMP, BARRIER, ICY_WIND
 	end_trainer
