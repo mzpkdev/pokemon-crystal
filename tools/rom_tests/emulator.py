@@ -116,11 +116,14 @@ class Emulator:
             return
 
         reference = Image.open(expected).convert("RGB")
+        compared_actual = actual.copy()
+        compared_reference = reference.copy()
         for box in ignore_boxes:
-            actual.paste((0, 0, 0), box)
-            reference.paste((0, 0, 0), box)
-        compared_actual = actual.crop(crop) if crop else actual
-        compared_reference = reference.crop(crop) if crop else reference
+            compared_actual.paste((0, 0, 0), box)
+            compared_reference.paste((0, 0, 0), box)
+        if crop:
+            compared_actual = compared_actual.crop(crop)
+            compared_reference = compared_reference.crop(crop)
         difference = ImageChops.difference(compared_actual, compared_reference)
         if difference.getbbox() is None:
             return

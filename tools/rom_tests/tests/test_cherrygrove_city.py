@@ -23,5 +23,5 @@ def test_new_game_reaches_cherrygrove_city(emulator: Emulator) -> None:
         # Ignore animated edge sprites, the treetop strip, and the player's
         # idle-animation pixels; map/coordinate assertions verify the position.
         crop=(16, 11, 160, 144),
-        ignore_boxes=((64, 80, 88, 112),),
+        ignore_boxes=((64, 48, 88, 80),),
     )
