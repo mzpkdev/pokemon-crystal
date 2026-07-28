@@ -35,10 +35,10 @@ RematchPhoneEventSelectionTables:
 	rematch_phone_event_table WiltonPhoneEventSelection  ; WILTON
 	rematch_phone_event_table ParryPhoneEventSelection   ; PARRY
 	rematch_phone_event_table ErinPhoneEventSelection    ; ERIN
-	rematch_phone_event_table ExtendedPhoneEventSelection ; BRANDON
-	rematch_phone_event_table ExtendedPhoneEventSelection ; WALT
-	rematch_phone_event_table ExtendedPhoneEventSelection ; KRISE
-	rematch_phone_event_table ExtendedPhoneEventSelection ; ALFRED
+	rematch_phone_event_table SourBasicPhoneEventSelection ; BRANDON
+	rematch_phone_event_table SourRarePhoneEventSelection  ; WALT
+	rematch_phone_event_table SourRarePhoneEventSelection  ; KRISE
+	rematch_phone_event_table SourBasicPhoneEventSelection ; ALFRED
 	rematch_phone_event_table BerryRematchPhoneEventSelection ; DOUG
 	rematch_phone_event_table BerryRematchPhoneEventSelection ; ROB
 	rept NUM_REMATCH_CONTACTS - REMATCH_CONTACT_KYLE
@@ -244,6 +244,15 @@ ErinPhoneEventSelection:
 
 ExtendedPhoneEventSelection:
 	phone_event_chance PHONE_EVENT_REMATCH, 1, 2
+	phone_event_fallback PHONE_EVENT_FLAVOR
+
+SourBasicPhoneEventSelection:
+	phone_event_chance PHONE_EVENT_REMATCH, 1, 3
+	phone_event_fallback PHONE_EVENT_FLAVOR
+
+SourRarePhoneEventSelection:
+	phone_event_chance PHONE_EVENT_REMATCH, 1, 3
+	phone_event_chance PHONE_EVENT_RARE_REPORT, 1, 3
 	phone_event_fallback PHONE_EVENT_FLAVOR
 
 BerryRematchPhoneEventSelection:

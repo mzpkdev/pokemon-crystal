@@ -1,0 +1,35 @@
+AlfredPhoneScript1:
+	gettrainername GENTLEMAN, ALFRED, STRING_BUFFER_3
+	setval REMATCH_CONTACT_ALFRED
+	special Special_CheckRematchPending
+	iftruefwd AlfredPhoneReminder
+	farscall PhoneScript_AnswerPhone_Male
+	setval REMATCH_CONTACT_ALFRED
+	special Special_TryClaimRematchScheduleWindow
+	iftruefwd AlfredPhoneOffer
+	farsjump Phone_GenericCall_Male
+
+AlfredPhoneScript2:
+	gettrainername GENTLEMAN, ALFRED, STRING_BUFFER_3
+	farscall PhoneScript_GreetPhone_Male
+	setval REMATCH_CONTACT_ALFRED
+	special Special_CheckRematchPending
+	iftruefwd .Flavor
+	setval REMATCH_CONTACT_ALFRED
+	special Special_CheckRematchScheduleUsed
+	iftruefwd .Flavor
+	setval PHONE_EVENT_CAP_REMATCH | PHONE_EVENT_CAP_FLAVOR
+	special Special_StageRematchPhoneEventCandidates
+	setval REMATCH_CONTACT_ALFRED
+	special Special_SelectRematchContactPhoneEvent
+	ifequalfwd PHONE_EVENT_REMATCH, AlfredPhoneOffer
+.Flavor:
+	farsjump Phone_GenericCall_Male
+AlfredPhoneOffer:
+	setval REMATCH_CONTACT_ALFRED
+	special Special_MarkRematchScheduleUsed
+	setval REMATCH_CONTACT_ALFRED
+	special Special_OfferRematch
+AlfredPhoneReminder:
+	getlandmarkname LIGHTHOUSE, STRING_BUFFER_5
+	farsjump PhoneScript_WantsToBattle_Male

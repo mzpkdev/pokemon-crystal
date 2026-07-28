@@ -31,8 +31,8 @@ RematchPhoneEventCapabilities:
 	rematch_phone_event_capabilities PHONE_EVENT_CAP_REMATCH | PHONE_EVENT_CAP_FLAVOR ; PARRY
 	rematch_phone_event_capabilities PHONE_EVENT_CAP_REMATCH | PHONE_EVENT_CAP_FLAVOR ; ERIN
 	rematch_phone_event_capabilities PHONE_EVENT_CAP_REMATCH | PHONE_EVENT_CAP_FLAVOR ; BRANDON
-	rematch_phone_event_capabilities PHONE_EVENT_CAP_REMATCH | PHONE_EVENT_CAP_FLAVOR ; WALT
-	rematch_phone_event_capabilities PHONE_EVENT_CAP_REMATCH | PHONE_EVENT_CAP_FLAVOR ; KRISE
+	rematch_phone_event_capabilities PHONE_EVENT_CAP_REMATCH | PHONE_EVENT_CAP_RARE_REPORT | PHONE_EVENT_CAP_FLAVOR ; WALT
+	rematch_phone_event_capabilities PHONE_EVENT_CAP_REMATCH | PHONE_EVENT_CAP_RARE_REPORT | PHONE_EVENT_CAP_FLAVOR ; KRISE
 	rematch_phone_event_capabilities PHONE_EVENT_CAP_REMATCH | PHONE_EVENT_CAP_FLAVOR ; ALFRED
 	rematch_phone_event_capabilities PHONE_EVENT_CAP_REMATCH | PHONE_EVENT_CAP_GIFT | PHONE_EVENT_CAP_FLAVOR ; DOUG
 	rematch_phone_event_capabilities PHONE_EVENT_CAP_REMATCH | PHONE_EVENT_CAP_GIFT | PHONE_EVENT_CAP_FLAVOR ; ROB
