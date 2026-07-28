@@ -7,7 +7,7 @@ WaltPhoneScript1:
 	setval REMATCH_CONTACT_WALT
 	special Special_TryClaimRematchScheduleWindow
 	iftruefwd WaltPhoneOffer
-	checkcode VAR_WEEKDAY
+	readvar VAR_WEEKDAY
 	ifequalfwd TUESDAY, .Contest
 	ifequalfwd THURSDAY, .Contest
 	ifequalfwd SATURDAY, .Contest
