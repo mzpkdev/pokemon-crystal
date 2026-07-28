@@ -20,6 +20,17 @@ MACRO phone_event_chance
 	db \1, \1, \2, \3
 ENDM
 
+MACRO phone_event_chance_always
+; event, numerator, denominator: as phone_event_chance, but consume and discard
+; the configured random roll even when the event's capability is disabled.
+	assert _NARG == 3
+	assert \1 > PHONE_EVENT_NONE && \1 < NUM_PHONE_EVENTS
+	assert \2 > 0 && \2 <= \3
+	assert \3 > 0 && \3 <= $ff
+	assert \1 & PHONE_EVENT_CAPABILITY_FLAG_MASK == 0
+	db \1, \1 | PHONE_EVENT_ROLL_WHEN_DISABLED, \2, \3
+ENDM
+
 MACRO phone_event_fallback
 ; A zero numerator and denominator mark the required deterministic terminal entry.
 	assert _NARG == 1

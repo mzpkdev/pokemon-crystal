@@ -7,9 +7,12 @@ SelectPhoneEvent::
 ;   hl = selection table address
 ;
 ; Each four-byte table entry is a PHONE_EVENT_RESULT_* value, the broad
-; PHONE_EVENT_* capability that gates it, then a numerator and denominator.
+; PHONE_EVENT_* capability that gates it (optionally ORed with
+; PHONE_EVENT_ROLL_WHEN_DISABLED), then a numerator and denominator.
 ; Nonzero denominators select when RandomRange(denominator) returns less than
-; numerator. Disabled capabilities are skipped without calling RandomRange.
+; numerator. Disabled capabilities are skipped without calling RandomRange
+; unless PHONE_EVENT_ROLL_WHEN_DISABLED requests that the roll be consumed and
+; discarded. The flag is invalid on a fallback.
 ; A zero numerator and denominator are the deterministic terminal fallback.
 ;
 ; Output:
@@ -69,10 +72,21 @@ SelectPhoneEvent::
 
 .valid_entry
 	pop af
+	push af
+	bit 7, a
+	jr z, .validate_capability
+	ld a, d
 	and a
-	jr z, .invalid
+	jr z, .invalid_saved_cap
+
+.validate_capability
+	pop af
+	push af
+	and ~PHONE_EVENT_CAPABILITY_FLAG_MASK
+	and a
+	jr z, .invalid_saved_cap
 	cp NUM_PHONE_EVENTS
-	jr nc, .invalid
+	jr nc, .invalid_saved_cap
 
 	; Convert the broad PHONE_EVENT_* capability to its corresponding bit.
 	dec a
@@ -90,6 +104,7 @@ SelectPhoneEvent::
 	and c
 	jr z, .disabled
 
+	pop af
 	ld a, d
 	and a
 	jr z, .selected
@@ -106,11 +121,21 @@ SelectPhoneEvent::
 	jr .failed
 
 .disabled
+	pop af
+	bit 7, a
+	jr nz, .roll_disabled
 	; A fallback is terminal even when it is not in the candidate mask.
 	ld a, d
 	and a
-	jr nz, .continue
-	jr .invalid
+	jr z, .invalid
+	jr .continue
+
+.roll_disabled
+	ld a, d
+	push hl
+	call RandomRange
+	pop hl
+	jr .continue
 
 .selected
 	pop de
@@ -126,6 +151,10 @@ SelectPhoneEvent::
 	xor a
 	scf
 	ret
+
+.invalid_saved_cap
+	pop af
+	jr .invalid
 
 SelectRematchContactPhoneEvent::
 ; Select an event using one rematch contact's policy table.
